@@ -71,11 +71,10 @@ return new class extends Migration
 
         Schema::create('producto', function (Blueprint $table) {
             $table->increments('id_prod');
-            $table->unsignedInteger('id_establc');
+            $table->unsignedInteger('id_establc')->nullable();
             $table->string('nombre_prod', 30);
             $table->string('nom_marca', 30);
             $table->string('desc_prod', 60);
-            $table->longText('img_prod')->nullable();
             $table->integer('stock');
             $table->float('valor_prod');
             $table->foreign('id_establc')->references('id_establc')->on('establecimiento');

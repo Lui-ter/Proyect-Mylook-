@@ -13,6 +13,7 @@ return new class extends Migration
     {
         DB::statement('ALTER TABLE categoria ADD COLUMN imagen LONGBLOB');
         DB::statement('ALTER TABLE servicio ADD COLUMN img_serv LONGBLOB');
+        DB::statement('ALTER TABLE producto ADD COLUMN img_prod LONGBLOB');
     }
 
     /**
@@ -22,5 +23,6 @@ return new class extends Migration
     {
         DB::statement('ALTER TABLE categoria DROP COLUMN imagen');
         DB::statement('ALTER TABLE servicio DROP COLUMN img_serv');
+        DB::statement('ALTER TABLE producto DROP COLUMN img_prod');
     }
 };

@@ -16,6 +16,7 @@ Route::post('/login-user', [Validations::class, 'loginUser'])->name('loginUser')
 Route::post('/register-category', [Validations::class, 'handleAddCategory'])->name('registerCategory');
 Route::post('/register-type-service', [Validations::class, 'handleAddServiceType'])->name('registerServiceType');
 Route::post('/register-service', [Validations::class, 'handleAddService'])->name('registerService');
+Route::post('/register-product', [Validations::class, 'handleAddProduct'])->name('registerProduct');
 
 
 /* LOGIN Y REGISTROS DE LOS PRINPALES USUARIOS DE MYLOOK -------------------------------------------- */

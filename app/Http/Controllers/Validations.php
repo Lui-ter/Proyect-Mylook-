@@ -7,6 +7,7 @@ use App\Models\Negocio;
 use App\Models\Categoria;
 use App\Models\TipoServicio;
 use App\Models\Servicio;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class Validations extends Controller
@@ -149,6 +150,35 @@ public function handleAddService(Request $request){
     }else{
         echo "Faltan campos por diligenciar, no se pudo insertar el registro";
     }
+
+}
+
+public function handleAddProduct(Request $request){
+    
+    $nombre = $request->input('nombre');
+    $marca = $request->input('marca');
+    $imagen = file_get_contents($request->file('imagen')->getRealPath());
+    $desc = $request->input('desc');
+    $cantidad = $request->input('cantidad');
+    $valor = $request->input('valor');
+
+    if (!empty($nombre) && !empty($marca) && !empty($imagen) && !empty($desc) && !empty($cantidad) && !empty($valor)) {
+        
+        $product = Producto::create([
+            'nombre_prod' => $nombre,
+            'nom_marca' => $marca,
+            'desc_prod' => $desc,
+            'stock' => $cantidad,
+            'valor_prod' => $valor,
+            'img_prod' => $imagen
+        ]);
+
+        echo "Se insertó el producto correctamente";
+
+    }else{
+        echo "Faltan campos por diligenciar";
+    }
+
 
 }
 
