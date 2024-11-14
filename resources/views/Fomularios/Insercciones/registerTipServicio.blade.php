@@ -9,6 +9,7 @@
 </head>
 <body>
       <!-- sección todo -->
+      
        <section class="formTservicios">
             <h1 class="titulo">TIPO DE SERVICIOS</h1>
             <label for="" class="labels">Seleccionar categoría:</label>

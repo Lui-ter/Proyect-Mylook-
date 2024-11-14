@@ -17,7 +17,7 @@
           <div class="nomEncabezado">
             <h1 class="startSession">Hola Admin</h1>
             <p class="welcomeNegocio">Bienvenido a la familia Barber HD acompañanos a brindar experiencias
-                inolvidables por favor inicia sesion para seguir creciendo la comunidad </p>
+                inolvidables <strong>por favor inicia sesion</strong> para seguir creciendo la comunidad </p>
           </div>
         </header>
 
@@ -27,6 +27,9 @@
             {{-- CONTENEDOR UNICO DE ADMIN  --}}
             <article class="cardUnited">
                 <img src="https://img.freepik.com/fotos-premium/joven-barberia-cortando-cabello_752325-23277.jpg" alt="" class="cardImg">
+                <p class="nomAdminPC">
+                    Alexander Paz
+                </p>
             </article>
         </main>
 

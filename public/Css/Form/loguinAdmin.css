@@ -126,6 +126,98 @@
 
 /* VERSION PC */
 @media (min-width: 1025px) {
+     
+    /* CUERPO DEL ARCHIVO */
+     body{
+        height: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
 
+    /* CONTENEDOR PADRE */
+    .panelAdmin{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+        /* CONTENEDOR ENCABEZADO */
+        .tittleAdmin{
+            height: 20vh;
+            width: 70%;
+            text-align: center;
+            padding-top: 9vh;
+            font-size: 1.8vw;
+
+            /* TEXTO HABILITADO SOLO PARA MOBILE */
+            .startSession{
+                display: none;
+            }
+
+            /* WELCOME TO ADMIN */
+            .welcomeNegocio{
+                color: var(--color-dark);
+                font-weight: bold;
+            }
+        }
+        
+      
+        /* TARJETA UNITED DE ADMIN */
+        .cardUnited{
+            height: 70vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+           
+            
+            /* IMAGEN DE ADMIN */
+            .cardImg{
+                height: 60%;
+                width: 70%;
+                border: 1px solid black;
+                box-shadow: 1em 1em 5em var(--color-dark);
+                animation: float 10s ease-in-out infinite; 
+                transition: transform 0.3s ease-in-out;
+
+                &:hover{
+                    transform: scale(1.2);
+                    transition: 2s;
+                    opacity: .7;
+                    background-color: black;
+                    animation: none;
+                    box-shadow: 2em 2em 6em rgba(0, 0, 0, 0.3); 
+                }
+
+                &:not(:hover){
+                    transform: scale(.8);
+                    opacity: 1;
+                }
+            }
+        }
+
+        /* SELECT ADMIN */
+        .selectAdmin{
+            display: none;
+        }
+    }
+}
+@keyframes float {
+    0% {
+        transform: translateY(-1vh) rotate(0deg); 
+    }
+    25% {
+        transform: translateY(.5vh) rotate(.5deg); 
+    }
+    50% {
+        transform: translateY(-1vh) rotate(0deg);
+    }
+    75% {
+        transform: translateY(.5vh) rotate(-.5deg);
+    }
+    100% {
+        transform: translateY(-1vh) rotate(0deg); 
+    }
 }
 
