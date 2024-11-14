@@ -9,15 +9,14 @@
 </head>
 <body>
       <!-- sección todo -->
-       <section class="formTservicios">
+        <form action="{{ route('registerServiceType') }}" class="formTservicios" method="post">
+            @csrf
             <h1 class="titulo">TIPO DE SERVICIOS</h1>
             <label for="" class="labels">Seleccionar categoría:</label>
             <select name="Categoria" id="Categoria">
-                <option value="1">Maquillaje</option>
-                <option value="2">Barbería</option>
-                <option value="3">Uñas</option>
-                <option value="4">Spa</option>
-                <option value="5">Peluquería</option>
+                @foreach ($categoryData as $category)
+                    <option value="{{ $category['id_categoria'] }}">{{ $category['nom_categoria'] }}</option>
+                @endforeach
             </select>
             <label for="" class="labels">Nombre del servicio:</label>
             <input type="text" name="nombreServicios">
@@ -25,6 +24,6 @@
                 <button type="reset" class="cancelar">CANCELAR</button>
                 <button type="submit" class="guardar">GUARDAR</button>
             </div>
-       </section>
+            </form>
 </body>
 </html>

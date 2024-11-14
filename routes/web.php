@@ -5,12 +5,18 @@ use App\Http\Controllers\viewsController;
 use App\Http\Controllers\Validations;
 
 /* ACTUALIZACION DE VISTAS RESPONSIVE DEL PROYECTO MYLOOK */
-Route::get('/indexbienvenida', [viewsController::class, 'showIndexPrincipal']);
 Route::get('/loginbienvenida', [viewsController::class, 'showLoginPrincipal']);
 
 /* VALIDACIONES DEL LOGIN */
 
 Route::post('/register-user', [Validations::class, 'registerUser'])->name('registerUser');
+Route::post('/login-user', [Validations::class, 'loginUser'])->name('loginUser');
+
+/* VALIDACIONES DE LOS FORMULARIOS */
+Route::post('/register-category', [Validations::class, 'handleAddCategory'])->name('registerCategory');
+Route::post('/register-type-service', [Validations::class, 'handleAddServiceType'])->name('registerServiceType');
+Route::post('/register-service', [Validations::class, 'handleAddService'])->name('registerService');
+
 
 /* LOGIN Y REGISTROS DE LOS PRINPALES USUARIOS DE MYLOOK -------------------------------------------- */
 

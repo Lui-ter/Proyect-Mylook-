@@ -8,6 +8,7 @@ class TipoServicio extends Model
 {
     protected $table = 'tipo_servicio';
     protected $primaryKey = 'id_tiposerv';
+    public $timestamps = false;
 
     protected $fillable = [
         'id_categoria',

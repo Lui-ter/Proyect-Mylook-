@@ -75,9 +75,7 @@ const input2 = document.getElementById('2');
 const input3 = document.getElementById('3');
 const input4 = document.getElementById('4');
 const input5 = document.getElementById('5');
-const input6 = document.getElementById('6');
 const input7 = document.getElementById('7');
-const input8 = document.getElementById('8');
 const elementos = document.querySelectorAll('.tipo_usuario');
 
 // Mostrar el formulario de registro
@@ -107,12 +105,10 @@ botonesTipoUsuario.forEach(boton => {
             input1.required = true;
             input2.required = true;
             input3.required = true;
-            input4.required = true;
             /*--------------------------------  */
+            input4.required = false;
             input5.required = false;
-            input6.required = false;
             input7.required = false;
-            input8.required = false;
             
         
             elementos.forEach((elemento) => {
@@ -127,12 +123,10 @@ botonesTipoUsuario.forEach(boton => {
             input1.required = false;
             input2.required = false;
             input3.required = false;
-            input4.required = false;
             /*--------------------------------  */
+            input4.required = true;
             input5.required = true;
-            input6.required = true;
             input7.required = true;
-            input8.required = true;
             elementos.forEach((elemento) => {
                 elemento.value = tipo; // Asigna el valor a cada elemento
             });

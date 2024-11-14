@@ -159,40 +159,36 @@
                 <form action="{{ route('registerUser') }}" method="POST">
                     @csrf
                     <div class="botones-tipo-usuario">
-                        <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Establecimiento</button>
+                        <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Negocio</button>
                         <button type="button" class="boton-tipo-usuario" data-tipo="2">Usuario</button>
                         <input type="hidden" name="tipo_usuario" class="tipo_usuario">
                     </div>
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input id="1" type="text" name="nitEstablecimiento" placeholder="Ingrese su nit Empresarial..." required />
+                            <input id="1" type="text" name="nitNegocio" placeholder="Ingrese su nit Empresarial..." required />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-user"></i>
-                            <input id="2" type="text" name="nombreEstablecimiento" placeholder="Ingrese el nombre de Establecimiento..." required />
-                        </div>
-                        <div class="input-container">
-                            <i class="fas fa-envelope"></i>
-                            <input id="3" type="email" name="correoEstablecimiento" placeholder="Ingrese el Correo electrónico..." required />
+                            <input id="2" type="text" name="nombreNegocio" placeholder="Ingrese el nombre de negocio..." required />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input id="4" type="password" name="contraseñaEstablecimiento" placeholder="Ingrese la contraseña de Establecimiento..." required />
+                            <input id="3" type="password" name="contrasenaNegocio" placeholder="Ingrese la contraseña del negocio..." required />
                         </div>
                     </div>
                     <div class="campos-formulario campos-profesor" style="display: none;">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input id="5" type="text" name="doc_usuario" placeholder="Ingrese su Documento..." required />
+                            <input id="4" type="text" name="docUsuario" placeholder="Ingrese su Documento..." required />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-user"></i>
-                            <input id="6" type="text" name="nombre_completo" placeholder="Ingrese su Nombre..." required />
+                            <input id="5" type="text" name="nombreCompletoUsuario" placeholder="Ingrese su Nombre..." required />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input id="8" type="password" name="contrasena" placeholder="Ingrese su Contraseña..."required />
+                            <input id="7" type="password" name="contrasenaUsuario" placeholder="Ingrese su Contraseña..."required />
                         </div>
                     </div>
                     <button type="submit" name="accionRegistrar" value="registrar">Registrar</button>
@@ -200,10 +196,11 @@
             </div>
 
             <div class="contenedor-formulario contenedor-inicio-sesion">
-                <form action="../Js/Front/DOM/prueba.php" method="POST">
+                <form action="{{ route('loginUser') }}" method="POST">
+                    @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Usuario</button>
-                        <button type="button" class="boton-tipo-usuario" data-tipo="2">Establecimiento</button>
+                        <button type="button" class="boton-tipo-usuario" data-tipo="2">Negocio</button>
                         <input type="hidden" name="tipo_usuario" class="tipo_usuario">
                     </div>
                     <div class="campos-formulario campos-estudiante">
@@ -220,11 +217,11 @@
                     <div class="campos-formulario campos-profesor" style="display: none;">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input type="text" name="documentoEstablecimiento" placeholder=" Ingrese su nit Empresarial..."  />
+                            <input type="text" name="nitNegocio" placeholder=" Ingrese su nit Empresarial..."  />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="contraseñaEstablecimiento" placeholder="Ingrese su contraseña..."  />
+                            <input type="password" name="contrasenaNegocio" placeholder="Ingrese su contraseña..."  />
                         </div>
                     
                     </div>
@@ -253,7 +250,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- LOGICA JS PARA EL MANEJO DE FORMULARIOS -->
     <script src="{{asset('Js/Formularios/LoginPrincipal/logicLoginPrincipal.js')}}"></script>

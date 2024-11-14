@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,7 +15,7 @@ return new class extends Migration
         Schema::create('usuario', function (Blueprint $table) {
             $table->integer('id_usuario')->primary();
             $table->string('nombre', 60);
-            $table->string('correo', 60)->unique();
+            $table->string('correo', 60)->unique()->nullable();
             $table->string('contrasena', 120);
             $table->string('telefono', 30)->unique()->nullable();
             $table->string('condicion', 100)->nullable();
@@ -23,11 +24,12 @@ return new class extends Migration
 
         Schema::create('negocio', function (Blueprint $table) {
             $table->integer('id_negocio')->primary();
-            $table->integer('id_usuario')->unique();
+            $table->integer('id_usuario')->unique()->nullable();
             $table->string('nombre_negocio', 30);
-            $table->string('desc_negocio', 60);
+            $table->string('desc_negocio', 60)->nullable();
             $table->string('contrasena', 120);
             $table->foreign('id_usuario')->references('id_usuario')->on('usuario')->nullable();
+            $table->timestamps();
         });
 
         Schema::create('categoria', function (Blueprint $table) {
@@ -36,6 +38,7 @@ return new class extends Migration
             $table->string('desc_categoria', 60);
         });
 
+        
         Schema::create('tipo_servicio', function (Blueprint $table) {
             $table->increments('id_tiposerv');
             $table->unsignedInteger('id_categoria');
@@ -48,7 +51,6 @@ return new class extends Migration
             $table->unsignedInteger('id_tiposerv');
             $table->string('nom_servicio', 30);
             $table->string('desc_servicio', 60);
-            $table->longText('img_serv')->nullable();
             $table->float('duracion_serv');
             $table->float('precio_servicio');
             $table->foreign('id_tiposerv')->references('id_tiposerv')->on('tipo_servicio');

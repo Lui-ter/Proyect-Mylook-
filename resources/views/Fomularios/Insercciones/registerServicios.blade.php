@@ -27,17 +27,17 @@
       </section>
       
       <!--Contenedor principal divisor de columnas-->
-      <form class="contenedorForm" method="" action="">
-
+      <form class="contenedorForm" method="post" action="{{ route('registerService') }}" enctype="multipart/form-data">
+  @csrf
       <!--Contenedor de columna numero uno-->
         <section class="columnaUno">
           <div class="infoInput">
             <p class="nombreInput">Tipo de Servicio:</p>
             <select id="tipoServicio" name="tipoServicio">
-              <option value="0">Tipo</option>
-              <option value="1">Uñas</option>
-              <option value="2">Corte de cabello</option>
-              <option value="3">Depilación láser</option>
+              <option disabled selected>Tipo</option>
+            @foreach ($categoryData as $category)
+                    <option value="{{ $category['id_categoria'] }}">{{ $category['nom_categoria'] }}</option>
+            @endforeach
             </select>
           </div>
           <div class="infoInput">

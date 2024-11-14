@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Categoria;
 
 class viewsController extends Controller
 {
@@ -64,16 +65,23 @@ class viewsController extends Controller
 
      /* CRUD SERVICIOS DE MYLOOK */
      function crudServicios(){
-        return view('Fomularios.Insercciones.registerServicios');
+
+        $categoryData = Categoria::all()->toArray();
+
+        return view('Fomularios.Insercciones.registerServicios', compact('categoryData'));
     }
 
      /* CRUD TIPOS SERVICIOS DE MYLOOK */
      function crudTipServicios(){
-        return view('Fomularios.Insercciones.registerTipServicio');
+
+        $categoryData = Categoria::all()->toArray();
+
+        return view('Fomularios.Insercciones.registerTipServicio', compact('categoryData'));
     }
 
       /* CRUD CATEGORIAS DE MYLOOK */
       function crudCategorias(){
+
         return view('Fomularios.Insercciones.registerCategoria');
     }
 

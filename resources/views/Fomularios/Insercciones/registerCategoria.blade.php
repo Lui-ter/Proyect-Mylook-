@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Formulario Categorías</title>
-    <link rel="stylesheet" href="/Css/Insercciones/inserccionCategorias.css">
+    <link rel="stylesheet" href="{{ asset('Css/Insercciones/inserccionCategorias.css') }}"/>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
       rel="stylesheet"
@@ -26,7 +26,8 @@
 
 
       <!-- Formulario -->
-      <form action="" method="get" class="formulario">
+      <form action="{{ route('registerCategory') }}" method="post" class="formulario" enctype="multipart/form-data">
+        @csrf
         <article class="contenedorPadre">
           <div class="colum">
             <label for="" class="nombreCat">Nombre de la categoría:</label
@@ -79,6 +80,8 @@
           </article>
       </div>
     </section>
+
+    
 
   </body>
 </html>
