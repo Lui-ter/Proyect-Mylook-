@@ -25,25 +25,25 @@
 
                 <div class="inputs">
                     <label for="" class="inputLabel">Nombre del producto</label>
-                    <input type="text" class="camposInput">
+                    <input type="text" class="camposInput" name="nombreProductos">
 
                     <label for="" class="inputLabel">Marca del producto</label>
-                    <input type="text" class="camposInput">
+                    <input type="text" class="camposInput" name="marcaProductos">
 
                 <div class="inputImg">
                     <label for="img" class="imgLabel">Seleccionar imagen</label>
-                    <input type="file" class="camposInput imgInput" id="img">
+                    <input type="file" class="camposInput imgInput" class="selectImg" id="img">
                 </div>         
                 
                     <label for="" class="inputLabel">Descripción</label>
-                    <textarea class="camposInput" maxlength="150" style="height: 20%;" placeholder="Escribe aquí..."></textarea>
+                    <textarea class="camposInput" maxlength="150" style="height: 20%;" name="descripcionPorducto" placeholder="Escribe aquí..."></textarea>
                 </div>
 
                 <!-- INPUT NUMBER -->
                 <div class="num">
                         <div class="inputsNum">
                             <label for="" class="inputText">Cantidad</label>
-                            <input type="number" class="inputValor" min="0">
+                            <input type="number" class="inputValor" name="cantPo" min="0">
                         </div>
 
                         <div class="inputsNum">
