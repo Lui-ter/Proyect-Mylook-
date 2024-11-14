@@ -8,6 +8,7 @@ class Servicio extends Model
 {
     protected $table = 'servicio';
     protected $primaryKey = 'id_servicio';
+    public $timestamps = false;
 
     protected $fillable = [
         'id_tiposerv',

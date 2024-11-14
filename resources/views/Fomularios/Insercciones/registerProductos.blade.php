@@ -18,14 +18,33 @@
         </article>
 
         <!-- FORMULARIO -->
+<<<<<<< HEAD
+        <form action="{{ route('registerProduct') }}" method="post" enctype="multipart/form-data" class="formulario" enctype="multipart/form-data">
+        @csrf
+=======
         <form action="" method="get" enctype="multipart/form-data" class="formulario">
 
+>>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
             <!-- CONTENEDOR 1 - INPUTs -->
             <div class="cont1">
 
                 <div class="inputs">
                     <label for="" class="inputLabel">Nombre del producto</label>
-                    <input type="text" class="camposInput" name="nombreProductos">
+<<<<<<< HEAD
+                    <input type="text" class="camposInput" name="nombre">
+
+                    <label for="" class="inputLabel">Marca del producto</label>
+                    <input type="text" class="camposInput" name="marca">
+
+                <div class="inputImg">
+                    <label for="img" class="imgLabel">Seleccionar imagen</label>
+                    <input type="file" class="camposInput imgInput" id="img" name="imagen">
+                </div>         
+                
+                    <label for="" class="inputLabel">Descripción</label>
+                    <textarea class="camposInput" maxlength="150" style="height: 20%;" placeholder="Escribe aquí..." name="desc"></textarea>
+=======
+                    <input type="text" class="camposInput">
 
                     <label for="" class="inputLabel">Marca del producto</label>
                     <input type="text" class="camposInput" name="marcaProductos">
@@ -36,19 +55,28 @@
                 </div>         
                 
                     <label for="" class="inputLabel">Descripción</label>
-                    <textarea class="camposInput" maxlength="150" style="height: 20%;" name="descripcionPorducto" placeholder="Escribe aquí..."></textarea>
+                    <textarea class="camposInput" maxlength="150" style="height: 20%;" placeholder="Escribe aquí..."></textarea>
+>>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
                 </div>
 
                 <!-- INPUT NUMBER -->
                 <div class="num">
                         <div class="inputsNum">
                             <label for="" class="inputText">Cantidad</label>
-                            <input type="number" class="inputValor" name="cantPo" min="0">
+<<<<<<< HEAD
+                            <input type="number" class="inputValor" min="0" name="cantidad">
+=======
+                            <input type="number" class="inputValor" min="0">
+>>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
                         </div>
 
                         <div class="inputsNum">
                             <label for="" class="inputText">Valor</label>
+<<<<<<< HEAD
+                            <input type="number" class="inputValor" min="0" name="valor">
+=======
                             <input type="number" class="inputValor" min="0">
+>>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
                         </div>
                 </div>
                 <!-- BOTONES -->

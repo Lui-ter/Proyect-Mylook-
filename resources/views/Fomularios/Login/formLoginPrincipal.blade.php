@@ -6,7 +6,7 @@
 
     <script src="../Js/pcLogin.js"></script>
     
-    <link rel="stylesheet" href="/Css/Form/formLoginPrincipal.css">
+    <link rel="stylesheet" href="{{asset('Css/Form/formLoginPrincipal.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Login And Register MYLOOK</title>
 </head>
@@ -156,9 +156,10 @@
     <div class="contenedorPc"> <!-- SOLO PARA PC -->
         <div class="contenedor" id="contenedor">
             <div class="contenedor-formulario contenedor-registro">
-                <form action="../Js/Front/DOM/prueba.php" method="POST">
+                <form action="{{ route('registerUser') }}" method="POST">
+                    @csrf
                     <div class="botones-tipo-usuario">
-                        <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Establecimiento</button>
+                        <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Negocio</button>
                         <button type="button" class="boton-tipo-usuario" data-tipo="2">Usuario</button>
                         <input type="hidden" name="tipo_usuario" class="tipo_usuario">
                     </div>
@@ -169,11 +170,11 @@
                         </div>
                         <div class="input-container">
                             <i class="fas fa-user"></i>
-                            <input id="2" type="text" name="nombreNegocio" placeholder="Ingrese el nombre de Establecimiento..." required />
+                            <input id="2" type="text" name="nombreNegocio" placeholder="Ingrese el nombre de negocio..." required />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input id="3" type="password" name="contrasenaNegocio" placeholder="Ingrese la contraseña de Establecimiento..." required />
+                            <input id="3" type="password" name="contrasenaNegocio" placeholder="Ingrese la contraseña del negocio..." required />
                         </div>
                     </div>
                     <div class="campos-formulario campos-profesor" style="display: none;">
@@ -186,10 +187,6 @@
                             <input id="5" type="text" name="nombreCompletoUsuario" placeholder="Ingrese su Nombre..." required />
                         </div>
                         <div class="input-container">
-                            <i class="fas fa-envelope"></i>
-                            <input id="6" type="email" name="correoUsuario" placeholder="Ingrese su Correo electrónico..." required />
-                        </div>
-                        <div class="input-container">
                             <i class="fas fa-lock"></i>
                             <input id="7" type="password" name="contrasenaUsuario" placeholder="Ingrese su Contraseña..."required />
                         </div>
@@ -199,10 +196,11 @@
             </div>
 
             <div class="contenedor-formulario contenedor-inicio-sesion">
-                <form action="../Js/Front/DOM/prueba.php" method="POST">
+                <form action="{{ route('loginUser') }}" method="POST">
+                    @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Usuario</button>
-                        <button type="button" class="boton-tipo-usuario" data-tipo="2">Establecimiento</button>
+                        <button type="button" class="boton-tipo-usuario" data-tipo="2">Negocio</button>
                         <input type="hidden" name="tipo_usuario" class="tipo_usuario">
                     </div>
                     <div class="campos-formulario campos-estudiante">
@@ -254,6 +252,6 @@
     </div>
 
     <!-- LOGICA JS PARA EL MANEJO DE FORMULARIOS -->
-    <script src="/Js/Formularios/LoginPrincipal/logicLoginPrincipal.js"></script>
+    <script src="{{asset('Js/Formularios/LoginPrincipal/logicLoginPrincipal.js')}}"></script>
 </body>
 </html>

@@ -9,16 +9,22 @@
 </head>
 <body>
       <!-- sección todo -->
+<<<<<<< HEAD
+<<<<<<< HEAD
+        <form action="{{ route('registerServiceType') }}" class="formTservicios" method="post">
+            @csrf
+=======
+=======
+>>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
       
        <section class="formTservicios">
+>>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
             <h1 class="titulo">TIPO DE SERVICIOS</h1>
             <label for="" class="labels">Seleccionar categoría:</label>
             <select name="Categoria" id="Categoria">
-                <option value="1">Maquillaje</option>
-                <option value="2">Barbería</option>
-                <option value="3">Uñas</option>
-                <option value="4">Spa</option>
-                <option value="5">Peluquería</option>
+                @foreach ($categoryData as $category)
+                    <option value="{{ $category['id_categoria'] }}">{{ $category['nom_categoria'] }}</option>
+                @endforeach
             </select>
             <label for="" class="labels">Nombre del servicio:</label>
             <input type="text" name="nombreServicios">
@@ -26,6 +32,6 @@
                 <button type="reset" class="cancelar">CANCELAR</button>
                 <button type="submit" class="guardar">GUARDAR</button>
             </div>
-       </section>
+            </form>
 </body>
 </html>
