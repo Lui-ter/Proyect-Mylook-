@@ -132,6 +132,8 @@
         height: 100vw;
         height: 100vh;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
 
     /* CONTENEDOR PADRE */
@@ -161,16 +163,18 @@
             }
         }
         
-      
+        /* CONTENEDOR PADRE */
+        .cardsAdmin{
+            display: flex;
+
+        
         /* TARJETA UNITED DE ADMIN */
         .cardUnited{
             height: 70vh;
-            width: 100%;
+            width: 80%;
             display: flex;
             justify-content: center;
-            align-items: center;
-            flex-direction: column;
-           
+            align-items: center;        
             
             /* IMAGEN DE ADMIN */
             .cardImg{
@@ -186,41 +190,17 @@
                 transition: transform 0.3s ease-in-out;
 
                 &:hover{
-                    transform: scale(1);
+                    transform: scale(1.2);
                     transition: 3s;
-                    opacity: .5;
+                    opacity: .7;
                     background-color: #0000;
-                    
-                    filter: brightness(.5);
+                    filter: brightness(.2);
                     z-index: 10;
                     box-shadow: 1em 1em 1em 1em rgba(0, 0, 0, 0.3); 
                 }
-
-                &:not(:hover){
-                    transform: scale(.3);
-                    opacity: 1; 
-                    background-color: #8B4513;
-                    filter: brightness(0.8);
-            }
         }
-
-        /* INICIAR SESION COMO ADMIN */
-        .btnStart{
-            border: 1px solid black;
-            border-radius: 5%;
-            background-color: white;
-            color: black;
-            padding: .5em 1.5em;
-        }
-
-        /* NOMBRE DEL ADMIN */
-        .nomAdminPC{
-            font-size: 1.5vw;
-            font-style: italic;
-            font-weight: bold;
-            padding-top: 1.5vh;
-        }  
     }
+}
 
         /* SELECT ADMIN */
         .selectAdmin{

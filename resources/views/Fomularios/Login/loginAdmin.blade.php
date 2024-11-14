@@ -27,8 +27,22 @@
             {{-- CONTENEDOR UNICO DE ADMIN  --}}
             <article class="cardUnited">
                 <img src="https://img.freepik.com/fotos-premium/joven-barberia-cortando-cabello_752325-23277.jpg" alt="" class="cardImg">
-                <button type="submit" class="btnStart">INICIAR SESION</button>
-                <p class="nomAdminPC">Alexander Paz</p>
+            </article>
+
+            <article class="cardUnited">
+                <img src="https://img.freepik.com/fotos-premium/joven-barberia-cortando-cabello_752325-23277.jpg" alt="" class="cardImg">
+            </article>
+            
+            <article class="cardUnited">
+                <img src="https://img.freepik.com/fotos-premium/joven-barberia-cortando-cabello_752325-23277.jpg" alt="" class="cardImg">
+            </article>
+
+            <article class="cardUnited">
+                <img src="https://img.freepik.com/fotos-premium/joven-barberia-cortando-cabello_752325-23277.jpg" alt="" class="cardImg">
+            </article>
+
+            <article class="cardUnited">
+                <img src="https://img.freepik.com/fotos-premium/joven-barberia-cortando-cabello_752325-23277.jpg" alt="" class="cardImg">
             </article>
         </main>
 

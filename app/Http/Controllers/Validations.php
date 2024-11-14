@@ -43,6 +43,8 @@ class Validations extends Controller
                 'nombre_negocio' => $nombre,
                 'contrasena' => $passwordHash
             ]);
+
+            return view('Index.indexUsuario');
         }
 
     }
