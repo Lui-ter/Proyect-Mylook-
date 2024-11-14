@@ -10,9 +10,12 @@
 <body>
       <!-- sección todo -->
 <<<<<<< HEAD
+<<<<<<< HEAD
         <form action="{{ route('registerServiceType') }}" class="formTservicios" method="post">
             @csrf
 =======
+=======
+>>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
       
        <section class="formTservicios">
 >>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
