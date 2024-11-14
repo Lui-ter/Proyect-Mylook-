@@ -1,0 +1,335 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+/*COMPUTADOR*/
+@media screen and (min-width: 1025px) {
+  
+  /*Cuerpo de diseño*/
+  body {
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    display: flex;
+    padding: 1%;
+    gap: 5%;
+    height: 90%;
+  }
+
+  /* CONTENEDOR PADRE DEL FORMULARIO CATEGORIAS*/
+  .contenedorPadre {
+    border: 1px solid rgb(143, 142, 142);
+    height: 100%;
+    width: 100%;
+    padding: 2em;
+    border-radius: 1.5vw;
+    box-shadow: 0em 0em 0.5em 0.25em rgba(161, 128, 63, 0.523);
+  }
+}
+
+/*NO ME ACUERDO*/
+.titulo {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 30% auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*TITULO CATEGORIAS*/
+.titulo1 {
+  border-bottom: 1px solid #a68160;
+  width: 100%;
+  text-align: center;
+  color: #a68160;
+  padding-bottom: 2vh;
+  font-size: 2.5vw;
+}
+
+/*Texto de apartado*/
+.texto {
+  text-align: center;
+  width: 100%;
+  margin-top: 2vh;
+  font-size: 1.8vw;
+}
+/*CONTENEDOR CATEGORÍA*/
+.formCategoria {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3em;
+  padding: 0 2em;
+
+}
+.labelImagen{
+  display: flex;
+  background-color: white;
+  border: 1px solid #a68160;
+  padding: 0.6em 0;
+  cursor: pointer;
+  margin: 1em 0;
+  border-radius: 1vw;
+}
+
+.subirImagen{
+  display: none;
+  
+}
+
+
+/* CONTENEDOR PADRE DE TODA LA VISUALIZACIÓN DE CATEGORIAS */
+.contenedorVisualizacion {
+  border: 1px solid rgb(143, 142, 142);
+  width: 100%;
+  border-radius: 1.5vw;
+  box-shadow: 0em 0em 0.5em 0.25em rgba(161, 128, 63, 0.523);
+  padding: 1.5em;
+  margin-top: 4vh;
+}
+/*TITULO PREVISUALIZACIÓN*/
+.titulo2 {
+  color: #a68160;
+  text-align: center;
+}
+/*TITULO MAQUILLAJE*/
+.titulo3 {
+  color: black;
+  text-align: center;
+}
+/*BOTONES*/
+.botones{
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+}
+
+
+
+
+.guardar {
+  justify-content: end;
+  text-align: center;
+  padding: 1em 0;
+  width: 40%;
+  color: white;
+  background-color: #a68160;
+  font-weight: 600;
+  border-radius: 1vw;
+  border-color: #a68160;
+  border: #a68160 1px solid;
+  cursor: pointer;
+}
+.cancelar {
+padding: 1em 0;
+  width: 40%;
+  justify-content: end;
+  text-align: center;
+  color: #a68160;
+  font-weight: 600;
+  border-radius: 1vw;
+  background-color: white;
+  border: #a68160 1px solid;
+  cursor: pointer;
+}
+
+/* TITULOS DE INPUT */
+.colum {
+  .nombreCat {
+    font-size: 1.5vw;
+    color: #a68160;
+    font-weight: 700;
+  }
+  .nombreInput, textarea {
+    margin-bottom: 8%;
+    width: 100%;
+    padding: .5em 0;
+    border: 1px solid rgba(136, 134, 134, 0.653);
+    border-radius: 0.5vw;
+  }
+  textarea{
+    height: 8em;
+  }
+  figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
+  #imagenMaquillaje {
+    width: 100%;
+    max-width: 15em;
+    border-radius: 100%;
+    align-content: center;
+    justify-content: center;
+  }
+  .columnaDos{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    justify-content: space-between;
+  }
+  .infoPrevisual{
+    display: flex;
+    gap: 1em;
+    margin-top: 2vh;
+  }
+}
+
+@media (max-width: 768px) {
+/*Texto de apartado*/
+.texto {
+    text-align: justify;
+    width: 100%;
+    margin-top: 2vh;
+    font-size: 4vw;
+    padding: 0 1em;
+  }
+  
+  .formulario {
+    margin-top: 1vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    display: flex;
+    padding: 1%;
+    height: 90%;
+  }
+
+    .formCategoria {
+        height: 90%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 0 2em;
+      
+      }
+
+      /*TITULO CATEGORIAS*/
+.titulo1 {
+    margin-top: .5em;
+    border-bottom: 1px solid #a68160;
+    width: 100vw;
+    text-align: center;
+    color: #a68160;
+    padding-bottom: 2vh;
+    font-size: 8vw;
+    justify-content: center;
+  }
+
+  /*La descripción y la imagen de la previsualización*/
+  .infoPrevisual {
+    display: grid !important;
+    height: 100%;
+    justify-items: center;
+    text-align: justify;
+}
+
+  /*TITULO PREVISUALIZACIÓN*/
+.titulo2 {
+    color: #a68160;
+    text-align: center;
+  }
+
+    /* CONTENEDOR PADRE DE TODA LA VISUALIZACIÓN DE CATEGORIAS */
+.contenedorVisualizacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 85%;
+    width: 90%;
+    border-radius: 1.5vw;
+    border: 1px solid rgb(143, 142, 142);
+    box-shadow: 0em 0em 0.5em 0.25em rgba(161, 128, 63, 0.523);
+    padding: 1.5em;
+    margin: 4vh 4vw;
+    justify-content: space-between;
+  }
+  .nombreInput, textarea {
+    margin-bottom: 8%;
+    border-radius: 1em !important;
+    width: 100%;
+    padding: .5em 0;
+    border: 1px solid rgba(136, 134, 134, 0.653);
+  }
+  
+  .colum {
+    margin-bottom: 2em;
+    figure{
+        height: 100%;
+    
+    }
+    #imagenMaquillaje {
+        border-radius: 100%;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .nombreCat {
+      font-size: 5vw;
+      color: #a68160;
+      font-weight: 700;
+    }}
+
+  /*BOTONES*/
+.botones{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+.guardar {
+  justify-content: end;
+  text-align: center;
+  padding: 1em 0;
+  color: white;
+  background-color: #a68160;
+  font-weight: 600;
+  border-radius: 1vw;
+  border-color: #a68160;
+  border: #a68160 1px solid;
+  cursor: pointer;
+}
+.cancelar {
+  padding: 1em 0;
+  justify-content: end;
+  text-align: center;
+  color: #a68160;
+  font-weight: 600;
+  border-radius: 1vw;
+  background-color: white;
+  border: #a68160 1px solid;
+  cursor: pointer;
+}  
+.labelImagen{
+  display: flex;
+  border: 1px solid rgba(136, 134, 134, 0.653);
+  background-color: white;
+  padding: 0.6em 0;
+  cursor: pointer;
+  margin: 0 0 1em 0;
+  border-radius: 4vw;
+}
+
+.subirImagen{
+  display: none;
+}
+.texto2{
+  font-size: 4vw;
+  text-align: justify;
+}
+}

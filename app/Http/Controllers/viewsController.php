@@ -6,12 +6,87 @@ use Illuminate\Http\Request;
 
 class viewsController extends Controller
 {
-    public function showIndexPrincipal()
-    {
-        return view('Index.indexBienvenida'); 
+
+    /* VISTA PRINCIPAL DE MYLOOK */
+    function showIndexPrincipal(){
+        return view('Index.indexBienvenida');
     }
 
-    public function showLoginPrincipal(){
-        return view('Fomularios.formLoginPrincipal');
+    /* LOGIN PRINCIPAL DE MYLOOK */
+    function showLoginPrincipal(){
+        return view('Fomularios.Login.formLoginPrincipal');
+    }
+
+     /*INDEX USUARIO DE MYLOOK */
+     function showIndexUsuario(){
+        return view('Index.indexUsuario');
+    }
+
+     /* INDEX AGENDAMIENTO DE MYLOOK */
+     function showIndexAgendamiento(){
+        return view('Index.indexAgenda');
+    }
+
+     /* INDEX PANEL DE INICIO DE SESION ADMIN DE MYLOOK */
+     function showPanelAdmin(){
+        return view('Fomularios.Login.loginAdmin');
+    }
+
+     /* REGISTRO DE ADMIN */
+     function showRegisterAdmin(){
+        return view('Fomularios.Login.registerAdmin');
+    }
+
+     /* INDEX ADMIN DE MYLOOK */
+     function showIndexAdmin(){
+        return view('Index.indexAdmin');
+    }
+
+     /* INDEX STAFF DE MYLOOK */
+     function showIndexStaff(){
+        return view('Index.indexStaff');
+    }
+
+    /* REGISTRAR STAFF DE MYLOOK */
+    function crudStaff(){
+    return view('Fomularios.Login.registerStaff');
+    }
+
+     /* LOGIN STAFF DE MYLOOK */
+     function showLoginStaff(){
+        return view('Fomularios.Login.loginStaff');
+    }
+
+     /* CRUD PRODUCTOS DE MYLOOK */
+     function crudProductos(){
+        return view('Fomularios.Insercciones.registerProductos');
+    }
+
+     /* CRUD SERVICIOS DE MYLOOK */
+     function crudServicios(){
+        return view('Fomularios.Insercciones.registerServicios');
+    }
+
+     /* CRUD TIPOS SERVICIOS DE MYLOOK */
+     function crudTipServicios(){
+        return view('Fomularios.Insercciones.registerTipServicio');
+    }
+
+      /* CRUD CATEGORIAS DE MYLOOK */
+      function crudCategorias(){
+        return view('Fomularios.Insercciones.registerCategoria');
+    }
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+
+      /* COFIGURACION PERFIL USUARIO DE MYLOOK */
+      function configPerfil(){
+        return view('Config.configUsers');
+    }
+
+       /* COFIGURACION SEDE DE MYLOOK */
+       function configStaff(){
+        return view('Config.configSedes');
     }
 }
