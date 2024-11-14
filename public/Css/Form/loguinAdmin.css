@@ -190,14 +190,18 @@
                 transition: transform 0.3s ease-in-out;
 
                 &:hover{
-                    transform: scale(1.2);
+                    height: 65%;
+                    width: 75%;
                     transition: 3s;
                     opacity: .7;
                     background-color: #0000;
                     filter: brightness(.2);
-                    z-index: 10;
                     box-shadow: 1em 1em 1em 1em rgba(0, 0, 0, 0.3); 
+
+                :not(:hover){
+                    animation-play-state:unset;
                 }
+            } 
         }
     }
 }
@@ -213,7 +217,7 @@
         transform: translateY(-1vh) rotate(0deg); 
     }
     25% {
-        transform: translateY(.5vh) rotate(.5deg); 
+        transform: translateY(.5vh) rotate(2deg); 
     }
     50% {
         transform: translateY(-1vh) rotate(0deg);
@@ -222,7 +226,7 @@
         transform: translateY(.5vh) rotate(-.5deg);
     }
     100% {
-        transform: translateY(-1vh) rotate(0deg); 
+        transform: translateY(-1vh) rotate(2deg); 
     }
 }
 
