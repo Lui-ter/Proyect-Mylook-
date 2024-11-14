@@ -13,6 +13,7 @@ class Negocio extends Model
     protected $fillable = [
         'id_usuario',
         'nombre_negocio',
+        'contrasena',
         'desc_negocio'
     ];
 

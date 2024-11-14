@@ -12,6 +12,6 @@ class viewsController extends Controller
     }
 
     public function showLoginPrincipal(){
-        return view('Formularios.formLoginPrincipal');
+        return view('Fomularios.formLoginPrincipal');
     }
 }

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('usuario', function (Blueprint $table) {
             $table->integer('id_usuario')->primary();
-            $table->string('nombre', 30);
-            $table->string('apellido', 30);
+            $table->string('nombre', 60);
             $table->string('correo', 60)->unique();
-            $table->string('contrasena', 30);
-            $table->string('telefono', 30)->unique();
-            $table->string('condicion', 100);
+            $table->string('contrasena', 120);
+            $table->string('telefono', 30)->unique()->nullable();
+            $table->string('condicion', 100)->nullable();
+            $table->timestamps();
         });
 
         Schema::create('negocio', function (Blueprint $table) {
@@ -26,7 +26,8 @@ return new class extends Migration
             $table->integer('id_usuario')->unique();
             $table->string('nombre_negocio', 30);
             $table->string('desc_negocio', 60);
-            $table->foreign('id_usuario')->references('id_usuario')->on('usuario');
+            $table->string('contrasena', 120);
+            $table->foreign('id_usuario')->references('id_usuario')->on('usuario')->nullable();
         });
 
         Schema::create('categoria', function (Blueprint $table) {
@@ -59,6 +60,7 @@ return new class extends Migration
             $table->string('nombre_establc', 30);
             $table->string('desc_establc', 100);
             $table->string('ubicacion', 30);
+            $table->string('contrasena', 120);
             $table->string('correo', 30);
             $table->string('telefono', 30);
             $table->longText('img_establc')->nullable();

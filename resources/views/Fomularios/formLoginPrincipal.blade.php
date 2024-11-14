@@ -6,7 +6,7 @@
 
     <script src="../Js/pcLogin.js"></script>
     
-    <link rel="stylesheet" href="/Css/Form/formLoginPrincipal.css">
+    <link rel="stylesheet" href="{{asset('Css/Form/formLoginPrincipal.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Login And Register MYLOOK</title>
 </head>
@@ -156,7 +156,8 @@
     <div class="contenedorPc"> <!-- SOLO PARA PC -->
         <div class="contenedor" id="contenedor">
             <div class="contenedor-formulario contenedor-registro">
-                <form action="../Js/Front/DOM/prueba.php" method="POST">
+                <form action="{{ route('registerUser') }}" method="POST">
+                    @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Establecimiento</button>
                         <button type="button" class="boton-tipo-usuario" data-tipo="2">Usuario</button>
@@ -188,10 +189,6 @@
                         <div class="input-container">
                             <i class="fas fa-user"></i>
                             <input id="6" type="text" name="nombre_completo" placeholder="Ingrese su Nombre..." required />
-                        </div>
-                        <div class="input-container">
-                            <i class="fas fa-envelope"></i>
-                            <input id="7" type="email" name="correo" placeholder="Ingrese su Correo electrónico..." required />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
@@ -259,6 +256,6 @@
 
 
     <!-- LOGICA JS PARA EL MANEJO DE FORMULARIOS -->
-    <script src="/Js/Admin/Formularios/LoginPrincipal/logicLoginPrincipal.js"></script>
+    <script src="{{asset('Js/Formularios/LoginPrincipal/logicLoginPrincipal.js')}}"></script>
 </body>
 </html>
