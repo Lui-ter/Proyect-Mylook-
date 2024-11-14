@@ -1,0 +1,323 @@
+/* Reset básico y fuentes */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", system-ui, "Segoe UI", "Open Sans",
+      "Helvetica Neue", sans-serif;
+  }
+  
+  /* Estilo principal del contenedor */
+  main {
+    max-width: 1200px;
+    padding: 20px;
+    margin: 0 auto;
+  }
+  
+  /* Título principal */
+  .tituloPrincipal {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Descripción de la página */
+  .paginaDescripcion {
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, 0.671);
+    margin-bottom: 1.2rem;
+  }
+  
+  /* Estructura de columnas */
+  .contenedorForm {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5em;
+  }
+  
+  /* Columna uno - Contenido de formulario izquierda */
+  .columnaUno {
+    display: grid;
+    gap: 2.5em;
+  }
+  
+  .columnaUno .infoInput {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nombreInput {
+    color: #a68160;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  /*estilos para los diferentes inputs*/
+  input,
+  select,
+  textarea {
+    border: 1px solid  #a68160;
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 100%;
+    padding: 0.6rem 0;
+    border-radius: 0.7rem;
+    resize: vertical;
+    overflow-y: auto;
+  }
+  
+  input::placeholder,
+  textarea::placeholder {
+    padding-left: 10px;
+  }
+  
+  textarea {
+    max-width: 100%;
+  }
+  
+  /* Columna dos - Imágenes y Previsualización */
+  .columnaDos {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+  
+  .columnaDosRowDos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  /* Estilo del campo de subida de imagen */
+  .fileUploadLabel {
+    display: flex;
+    border: 1px solid #a68160;
+    padding: 0.6rem 0;
+    font-size: 1.2rem;
+    border-radius: 0.7rem;
+    color: #757575;
+    padding-left: 10px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .fileUploadLabel:hover {
+    background-color: #a68160;
+    color: white;
+    transform: scale(1.05); 
+    border: 1px solid #a68160;
+  
+  }
+  
+  .fileUploadInput {
+    display: none;
+  }
+  
+  /* Previsualización del servicio */
+  
+  .contenedorCard {
+    width: 100%;
+    animation: Entrar 1s forwards;
+    transform: translateY(-20px);
+  }
+  
+  /* cuerpo☻ de carta */
+  .card {
+  border-radius: 1em;
+    display: flex;
+    color: white;
+    width: 100%;
+    transition: transform 0.3s;
+  transform: scale(1);
+  box-shadow: 0em 0em 0.5em 0.25em rgba(161, 128, 63, 0.295);
+  
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .cardImg {
+    border-radius: 1rem 0 0 1rem;
+    width: 12rem;
+    height: 12rem;
+    background-color: rgba(230, 230, 230, 0.589);
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .cardImg img {
+    border-radius: 1rem 0 0 1rem;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .cardText {
+    background-color: #a68160;
+    border-radius: 0 1rem 1rem 0;
+    word-wrap: break-word;
+    max-width: 32rem;
+    width: 100%;
+    padding: 1rem;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: desvanecer 0.6s forwards;
+  }
+  
+  .cardText p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .descripcionPrevisualizacion {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    width: 100%;
+  }
+  
+  .duracionPrecio {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Estilo del boton enviar */
+  .botonSubmit {
+    margin-top: 1.5rem;
+  }
+  /* Estilo del boton guardar*/
+  
+  .guardar {
+    background-color: #a68160;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 2px solid transparent;
+    font-weight: bold;
+  }
+  
+  .guardar:hover {
+    background-color: #ffffff;
+    color: #a68160;
+    border: 2px solid #a68160;
+    transform: translateY(-5px); /* Eleva el botón ligeramente */
+  }
+  
+  /*estilo de la informacion carta previsualización */
+  .tituloPrevisualizacion {
+    font-weight: bold;
+    font-size: 2.2rem;
+    color: #a68160;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .duracionPrecio p,
+  .tituloPrevisualizacion,
+  .descripcionPrevisualizacion {
+    margin-bottom: 0.5rem;
+  }
+  
+  @keyframes Entrar {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes desvanecer {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    
+    /* Estilos para el formulario*/
+    .contenedorForm {
+      grid-template-columns: 1fr; /* En pantallas más pequeñas, las columnas se apilan */
+      padding: 0.6em;
+      gap: 1em;
+    }
+  
+    /* Previsualización del servicio */
+    .tituloPrevisualizacion {
+      font-weight: bold;
+      font-size: 1.7rem;
+      color: #a68160;
+      text-align: center;
+      margin: 2rem 0;
+    }
+  
+    /* Estilo de la duración y precio en la previsualización */
+    .duracionPrecio {
+      display: grid;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    /* Estilos para la tarjeta de previsualización */
+    .card {
+      display: grid;
+    }
+  
+    .cardImg {
+      border-radius: 1rem 1rem 0rem 0rem;
+      width: 100%;
+      height: 24rem;
+    }
+  
+    .cardImg img {
+      border-radius: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .cardText {
+      max-width: 100%;
+      border-radius: 0rem 0rem 1rem 1rem;
+    }
+  
+    /* Estilo para las filas de la columna dos */
+    .columnaDosRowDos {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1124px) {
+    .card {
+      display: grid;
+    }
+  
+    /* Estilos para la tarjeta */
+    .cardImg {
+      border-radius: 1rem 1rem 0rem 0rem;
+      width: 100%;
+      height: 24rem;
+    }
+  
+    .cardImg img {
+      border-radius: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+    .cardText {
+      max-width: 100%;
+      border-radius: 0rem 0rem 1rem 1rem;
+    }
+  }
+  

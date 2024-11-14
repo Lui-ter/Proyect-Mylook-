@@ -43,7 +43,7 @@
                     <h1 class="nomApp">MYLOOK</h1>
                     <p class="descMylook">"Resplandece con estilo. <br>
                     Haz tu cita hoy mismo y dejate envolver por la belleza"</p>
-                    <a href="../../Form/indexBienvenida/Index/loginUnitedBienvenida.html">INICIAR AHORA</a>
+                    <a href="{{url('loginbienvenida')}}">INICIAR AHORA</a>
                 </main>
                 
                 <!-- REDES SOCIALES -->
@@ -56,7 +56,7 @@
 
 
             <!-- ENLACE MOBILE -->
-            <a href="{{route('formLoginPrincipal')}}" class="startSesion">INICIAR AHORA</a>
+            <a href="{{url('loginbienvenida')}}" class="startSesion">INICIAR AHORA</a>
         </main>
 
     <!-- IMAGEN DE PRESENTACION MYLOOK PC -->
@@ -66,8 +66,6 @@
    <!-- SERVICIOS MYLOOK -->
    <section class="secondSection">
 
-
-      
         <!-- COMERCIALIZACION -->
         <articles class="servicesMYLOOK">
             <div class="imgService">
@@ -216,8 +214,8 @@
         </div>
 
    </section>
+   
 
 </body>
 <!-------------------------------------------------------------------->
-
 </html>

@@ -259,6 +259,6 @@
 
 
     <!-- LOGICA JS PARA EL MANEJO DE FORMULARIOS -->
-    <script src="/Js/Admin/Formularios/LoginPrincipal/logicLoginPrincipal.js"></script>
+    <script src="/Js/Formularios/LoginPrincipal/logicLoginPrincipal.js"></script>
 </body>
 </html>
