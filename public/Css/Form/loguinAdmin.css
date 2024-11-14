@@ -13,9 +13,8 @@
     --color-black: black;
 }
 
-
 /* VERSION MOBILE */
-@media (max-width: 673px) {
+@media (magitx-width: 673px) {
 
 
     /* CUERPO DEL ARCHIVO */
@@ -212,6 +211,7 @@
         }
     }
 }
+
 @keyframes float {
     0% {
         transform: translateY(-1vh) rotate(0deg); 
