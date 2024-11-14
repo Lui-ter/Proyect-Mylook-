@@ -4,3 +4,128 @@
     box-sizing: border-box;
 }
 
+/* VARIABLES DE ENTORNO */
+:root {
+    --color-background: #624023;
+    --color-primary: #a68160;
+    --color-dark: #795434;
+    --color-white: white;
+    --color-black: black;
+}
+
+
+/* VERSION MOBILE */
+@media (max-width: 673px) {
+
+
+    /* CUERPO DEL ARCHIVO */
+    body{
+        height: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    /* CONTENEDOR PADRE */
+    .panelAdmin{
+        width: 100vw;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 25vh 55vh 20vh;
+        grid-template-areas: 
+        "Encabezado"
+        "Admins"
+        "SeleccionAdmin";
+        
+
+        /* CONTENEDOR ENCABEZADO */
+        .tittleAdmin{
+            grid-area: Encabezado;
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            padding-top: 6vh;
+
+            /* CONTENEDOR PADRE DEL ENCABEZADO */
+            .nomEncabezado{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center; 
+                height: 100%;
+                width: 100%;
+
+            /* WELCOME ADMIN */
+            .startSession{
+                height: 40%;
+                width: 90%;
+                border-bottom: 1px solid var(--color-primary);
+                display: flex; 
+                justify-content: center;
+                align-items: end;
+                padding-bottom: 2vh; 
+            }
+
+            /* PARRAFO DE INICIAR SESION */
+            .welcomeNegocio{
+                height: 60%;
+                width: 85%;
+                padding-bottom: 3vh;
+                display: flex; 
+                text-align: center;
+                justify-content: center; 
+                align-items: center; 
+            }
+        }
+    }
+       
+        /* CARTA DE ADMIN */
+        .cardsAdmin{
+            grid-area: Admins;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* TARJETA UNITED DE ADMIN */
+            .cardUnited{
+                height: 65%;
+                width: 60%;
+                margin-bottom: 5vh;
+               
+
+                /* IMAGEN DE ADMIN */
+                .cardImg{
+                    height: 100%;
+                    width:  100%;
+                    background-size: cover;
+                    overflow: hidden;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+            }
+        }
+        
+
+        /* SELECT ADMIN */
+        .selectAdmin{
+            grid-area: SeleccionAdmin; 
+            display: flex;
+            justify-content: center;
+            align-items: start;
+
+
+            .nomAdmin{
+                font-weight: bold;
+                color: var(--color-dark);
+                font-size: 4vw;
+                padding-top: 2vh;
+            }
+        }
+    }
+}
+
+/* VERSION PC */
+@media (min-width: 1025px) {
+
+}
+
