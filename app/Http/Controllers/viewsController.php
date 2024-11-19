@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Models\TipoServicio;
 
 class viewsController extends Controller
 {
@@ -66,9 +67,9 @@ class viewsController extends Controller
      /* CRUD SERVICIOS DE MYLOOK */
      function crudServicios(){
 
-        $categoryData = Categoria::all()->toArray();
+        $typeServices = TipoServicio::all()->toArray();
 
-        return view('Fomularios.Insercciones.registerServicios', compact('categoryData'));
+        return view('Fomularios.Insercciones.registerServicios', compact('typeServices'));
     }
 
      /* CRUD TIPOS SERVICIOS DE MYLOOK */

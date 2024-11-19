@@ -35,8 +35,8 @@
             <p class="nombreInput">Tipo de Servicio:</p>
             <select id="tipoServicio" name="tipoServicio">
               <option disabled selected>Tipo</option>
-            @foreach ($categoryData as $category)
-                    <option value="{{ $category['id_categoria'] }}">{{ $category['nom_categoria'] }}</option>
+            @foreach ($typeServices as $service)
+                    <option value="{{ $service['id_tiposerv'] }}">{{ $service['tipo_serv'] }}</option>
             @endforeach
             </select>
           </div>

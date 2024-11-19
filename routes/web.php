@@ -32,7 +32,7 @@ Route::get('/indexagendamiento', [viewsController::class, 'showIndexAgendamiento
 /* INDEX PANEL ADMIN INICIO SESION */
 Route::get('/panelAdmin', [viewsController::class, 'showPanelAdmin']);
 /* REGISTRAR ADMIN */
-Route::get('/registeradmin', [viewsController::class, 'showRegisterAdmin']);
+Route::get('/registeradmin', [viewsController::class, 'showRegisterAdmin'])->name('registeradmin');
 /* INDEX ADMIN */
 Route::get('/indexadmin', [viewsController::class, 'showIndexAdmin']);
 /* INDEX STAFF */
@@ -59,7 +59,7 @@ Route::get('/inserccionstaff', [viewsController::class, 'crudStaff']);
 /* CONFIGURACION DEL PERFIL */
 
 /* CONFIGURACION DEL PERFIL */
-Route::get('/configuracionperfil', [viewsController::class, 'configPerfil']);
+Route::get('/configuracionperfil', [viewsController::class, 'configPerfil'])->name('configPerfil');
 /* REGISTRAR SEDE */
 Route::get('/configuracionsede', [viewsController::class, 'configStaff']);
 

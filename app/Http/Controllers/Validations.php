@@ -25,49 +25,50 @@ class Validations extends Controller
             $nombre = $request->input('nombreCompletoUsuario');
             $password = $request->input('contrasenaUsuario');
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-
+            
             $user = Usuario::create([
                 'id_usuario' => $doc_usuario,
                 'nombre' => $nombre,
                 'contrasena' => $passwordHash
             ]);
+            return redirect()->route('configPerfil');
         }else if ($tipo_usuario == 1) {
-
+            
             $nit_negocio = $request->input('nitNegocio'); 
             $nombre = $request->input('nombreNegocio');
             $password = $request->input('contrasenaNegocio');
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-
+            
             $negocio = Negocio::create([
                 'id_negocio' => $nit_negocio,
                 'nombre_negocio' => $nombre,
                 'contrasena' => $passwordHash
             ]);
-
-            return view('Index.indexUsuario');
+            return redirect()->route('registeradmin');
+            
         }
 
     }
 
     /* LOGIN DE USUARIOS */
-
-public function loginUser(Request $request){
-
+    
+    public function loginUser(Request $request){
+        
     $tipo_usuario = $request->input('tipo_usuario');
 
     if ($tipo_usuario == 1) {
-
+        
         $doc_usuario = $request->input('documentoUsuario');
         $password = $request->input('contraseñaUsuario');
 
         $userData = Usuario::where('id_usuario', $doc_usuario)->first();
         
         if ($doc_usuario == $userData->id_usuario && password_verify($password,$userData->contrasena)) {
-            dd("Login Exitoso");
+            return redirect()->to('/indexusuario');
         }else{
-            dd("Login Fallido");
+            return redirect()->to('/loginbienvenida');
         }
-
+        
     }else if($tipo_usuario == 2){
 
         $nit = $request->input('nitNegocio');
@@ -76,9 +77,9 @@ public function loginUser(Request $request){
         $negocioData = Negocio::where('id_negocio', $nit)->first();
 
         if ($nit == $negocioData->id_negocio && password_verify($password,$negocioData->contrasena)) {
-            dd("Login Exitoso");
+            return redirect()->to('/panelAdmin');
         }else{
-            dd("Login Fallido");
+            return redirect()->to('/loginbienvenida');
         }
     }
 
@@ -154,6 +155,8 @@ public function handleAddService(Request $request){
     }
 
 }
+
+    /* LOGICA DE PRODUCTOS */
 
 public function handleAddProduct(Request $request){
     
