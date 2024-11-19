@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Creación de Servicio</title>
-    <link rel="stylesheet" href="/Css/Insercciones/inserccionServicios.css">
+    <link rel="stylesheet" href="{{ asset('Css/Insercciones/inserccionServicios.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
