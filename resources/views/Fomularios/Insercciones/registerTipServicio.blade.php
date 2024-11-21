@@ -9,19 +9,13 @@
 </head>
 <body>
       <!-- sección todo -->
-<<<<<<< HEAD
-<<<<<<< HEAD
         <form action="{{ route('registerServiceType') }}" class="formTservicios" method="post">
             @csrf
-=======
-=======
->>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
-      
-       <section class="formTservicios">
->>>>>>> ae5c44a1378b5a9395ae342e0563883a972be5ca
-            <h1 class="titulo">TIPO DE SERVICIOS</h1>
+
+                  <h1 class="titulo">TIPO DE SERVICIOS</h1>
             <label for="" class="labels">Seleccionar categoría:</label>
             <select name="Categoria" id="Categoria">
+                <option disabled selected>Seleccione una categoria</option>
                 @foreach ($categoryData as $category)
                     <option value="{{ $category['id_categoria'] }}">{{ $category['nom_categoria'] }}</option>
                 @endforeach

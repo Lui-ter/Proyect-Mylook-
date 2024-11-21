@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Creación de Servicio</title>
-    <link rel="stylesheet" href="/Css/Insercciones/inserccionServicios.css">
+    <link rel="stylesheet" href="{{ asset('Css/Insercciones/inserccionServicios.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -35,8 +35,8 @@
             <p class="nombreInput">Tipo de Servicio:</p>
             <select id="tipoServicio" name="tipoServicio">
               <option disabled selected>Tipo</option>
-            @foreach ($categoryData as $category)
-                    <option value="{{ $category['id_categoria'] }}">{{ $category['nom_categoria'] }}</option>
+            @foreach ($typeServices as $service)
+                    <option value="{{ $service['id_tiposerv'] }}">{{ $service['tipo_serv'] }}</option>
             @endforeach
             </select>
           </div>
