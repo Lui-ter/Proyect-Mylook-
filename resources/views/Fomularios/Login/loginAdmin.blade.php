@@ -51,6 +51,7 @@
             <h2 class="nomAdmin">MGUEL ANGEL ARARAT</h2>
         </article>
 
+        
 
     </section>
 
