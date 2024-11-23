@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\TipoServicio;
+use App\Models\Producto;
+use App\Models\Usuario;
+use App\Models\Staff;
+use App\Models\Establecimiento;
+use App\Models\Negocio;
 
 class viewsController extends Controller
 {
@@ -59,12 +64,12 @@ class viewsController extends Controller
         return view('Fomularios.Login.loginStaff');
     }
 
-     /* CRUD PRODUCTOS DE MYLOOK */
+     /* INSERCION PRODUCTOS DE MYLOOK */
      function crudProductos(){
         return view('Fomularios.Insercciones.registerProductos');
     }
 
-     /* CRUD SERVICIOS DE MYLOOK */
+     /* INSERCION SERVICIOS DE MYLOOK */
      function crudServicios(){
 
         $typeServices = TipoServicio::all()->toArray();
@@ -72,7 +77,7 @@ class viewsController extends Controller
         return view('Fomularios.Insercciones.registerServicios', compact('typeServices'));
     }
 
-     /* CRUD TIPOS SERVICIOS DE MYLOOK */
+     /* INSERCION TIPOS SERVICIOS DE MYLOOK */
      function crudTipServicios(){
 
         $categoryData = Categoria::all()->toArray();
@@ -80,22 +85,65 @@ class viewsController extends Controller
         return view('Fomularios.Insercciones.registerTipServicio', compact('categoryData'));
     }
 
-      /* CRUD CATEGORIAS DE MYLOOK */
+      /* INSERCION CATEGORIAS DE MYLOOK */
       function crudCategorias(){
 
         return view('Fomularios.Insercciones.registerCategoria');
     }
 
+      /* EDICION PRODUCTOS DE MYLOOK */
+      function crudEditProductos(Request $request){
+
+        $id = $request->input('#');
+
+        $producto = Producto::where('id_producto', $id)->first();
+
+        return view('Fomularios.Insercciones.registerCategoria', compact('producto'));
+    }
+
+    /* EDICION SEDE DE MYLOOK */
+    function crudEditEstablecimiento(Request $request){
+
+        $id = $request->input('#');
+
+        $establ = Establecimiento::where('id_establc', $id)->first();
+
+        return view('Fomularios.Insercciones.registerCategoria', compact('establ'));
+    }
+
+    /* EDICION NEGOCIO DE MYLOOK */
+    function crudEditNegocio(Request $request){
+
+        $id = $request->input('#');
+
+        $negocio = Negocio::where('id_negocio', $id)->first();
+
+        return view('Fomularios.Insercciones.registerCategoria', compact('negocio'));
+    }
+
+      
+
     /* -------------------------------------------------------------------------------------------------------------- */
 
 
       /* COFIGURACION PERFIL USUARIO DE MYLOOK */
-      function configPerfil(){
-        return view('Config.configUsers');
+      function configPerfil(Request $request){
+
+        $id = $request->input('#');
+
+        $usuario = Usuario::where('id_producto', $id)->first();
+
+        return view('Config.configUsers', compact('usuario'));
     }
 
        /* COFIGURACION SEDE DE MYLOOK */
-       function configStaff(){
-        return view('Config.configSedes');
+       function configStaff(Request $request){
+
+        $id = $request->input('#');
+
+        $staff = Staff::where('id_staff', $id)->first();
+
+        return view('Config.configSedes', compact('staff'));
+
     }
 }

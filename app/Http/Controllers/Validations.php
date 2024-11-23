@@ -328,7 +328,7 @@ class Validations extends Controller
             $categoria->save();
 
         }
-
+ 
         return redirect('#');
 
     }
