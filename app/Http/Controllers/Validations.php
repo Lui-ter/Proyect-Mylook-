@@ -77,7 +77,7 @@ class Validations extends Controller
         $negocioData = Negocio::where('id_negocio', $nit)->first();
 
         if ($nit == $negocioData->id_negocio && password_verify($password,$negocioData->contrasena)) {
-            return redirect()->to('/panelAdmin');
+            return redirect()->to('/indexAdmin');
         }else{
             return redirect()->to('/loginbienvenida');
         }
