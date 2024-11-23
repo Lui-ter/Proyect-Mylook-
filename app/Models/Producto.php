@@ -8,7 +8,6 @@ class Producto extends Model
 {
     protected $table = 'producto';
     protected $primaryKey = 'id_prod';
-    public $timestamps = false;
 
     protected $fillable = [
         'id_establc',

@@ -253,14 +253,15 @@
                         <section class="contenedorCrud" >
                            
                             <!-- CONTENEDOR DEL ITEM A MOSTRAR -->
+                        @foreach ($productsPreview as $productPreview)
                             <article class="item">
     
                                 <!-- NOMBRE DEL ITEM -->
-                                 <h3 class="nomItem">SHAPPER INALAMBRICA</h3>
+                                 <h3 class="nomItem">{{ $productPreview['nombre_prod'] }}</h3>
 
                                 <!-- CONTENEDOR DE IMAGEN -->
                                 <div class="imgItem">
-                                    <img src="" alt="" class="imgItem">
+                                    <img src="{{ $productPreview['img_prod'] }}" alt="" class="imgItem">
                                 </div>
     
                                 <!-- BOTONES DE EDITAR Y ELIMINAR -->
@@ -269,7 +270,7 @@
                                     <button type="submit" class="editItem" id="elimEliminar">ELIMINAR</button>
                                 </span>
                             </article>
-
+                        @endforeach
                         </section>
                             
     
@@ -403,15 +404,13 @@
             
             <!-- CONTENEDOR DEL PRODUCTO A REFENRENCIAR -->
             <section class="cardItems">
-
+                @foreach ($products as $product)
                 <div class="cardUnited">
                     <article class="itemImg">
-                        <img src="https://www.garnier.cl/-/media/project/loreal/brand-sites/garnier/usa/latam/es/prd-haircare/hair-food-manteca-de-cacao-update/crema-para-peinar/7509552792294_2-compressed.jpg?w=1200&rev=efb5091969904a298491b8a3ed66a0d5&hash=9E673FAE683FE3B6561EFE23F57A2031" alt="" class="img">
+                        <img src="{{ $product['img_prod'] }}" alt="Imagen de Producto" class="img">
                     </article>
-                        <h4 class="nomItem">POMADA PARA RIZOS</h4>
-                        <p class="descripcion">Pomada eficiente para rizos definidos con maltrato 
-                            en las puntas maltratadas especialmente para cabello castaño.
-                            No aplicar con el cabello mojado
+                        <h4 class="nomItem">{{ $product['nombre_prod'] }}</h4>
+                        <p class="descripcion"> {{ $product['desc_prod'] }}
                         </p>
     
                         <div class="btnCrud">
@@ -420,11 +419,12 @@
                         </div>
                     </div>         
                 </div>
+                @endforeach
             </section>
         </section>
 
         <!-- CRUD CATEGORIAS -->
-        <section class="viewCategorias" style="display: none;">
+        <section class="viewCategorias" style="display: none;" >
 
              <!-- VOLVER AL MENU INICIAL -->
              <span class="volver">
@@ -451,11 +451,12 @@
             
             <!-- CONTENEDOR DEL CATEGORIA A REFENRENCIAR -->
             <section class="cardItems">
+                @foreach($categories as $category)
                 <div class="cardUnited">
-                <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
+                <h4 class="nomItem">{{ strtoupper($category['nom_categoria']) }}</h4>
 
                 <article class="itemImg">
-                    <img src="https://lapuissance.com.ar/cdn/shop/articles/FotoN6-1.webp?crop=center&height=1200&v=1696425967&width=1200" alt="" class="img">
+                    <img src="{{ $category['imagen'] }}" alt="Imagen de Categoria" class="img">
                 </article>
      
                     <div class="btnCrud">
@@ -463,6 +464,7 @@
                         <button type="submit" class="btnEdit" id="eliminarItem">Eliminar</button>
                     </div>
                 </div>
+                @endforeach
             </section>
 
         </section>
@@ -489,8 +491,9 @@
                 <div class="searchBar">
                 <select name="service" class="inputSearch">
                     <option value="" disabled selected>Seleccione una categoria</option>
-                    <option value="1">Cuidado del cabello</option>
-                    <option value="2">Facial</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category['id_categoria'] }}">{{ $category['nom_categoria'] }}</option>
+                    @endforeach
                 </select>
             </div>
             </nav>
@@ -500,52 +503,19 @@
             <!-- CONTENEDOR DEL CATEGORIA A REFENRENCIAR -->
             <div class="cardItems">
 
-                <div class="cardUnited">
-                    <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
-                    <article class="itemImg">
-                        <img src="" alt="">
-                    </article>
-                    <div class="btnCrud">
-                        <button type="submit" class="btnEdit"><i class="fas fa-edit"></i></button>
-                        <button type="submit" class="btnEdit" id="eliminarItem"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
 
-                
+                @foreach($typeServices as $typeService)
                 <div class="cardUnited">
-                    <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
+                    <h4 class="nomItem">{{ strtoupper($typeService['tipo_serv']) }}</h4>
                     <article class="itemImg">
                         <img src="" alt="">
                     </article>
                     <div class="btnCrud">
-                        <button type="submit" class="btnEdit"><i class="fas fa-edit"></i></button>
-                        <button type="submit" class="btnEdit" id="eliminarItem"><i class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="btnEdit" value="{{ $typeService['id_tiposerv'] }}"><i class="fas fa-edit"></i></button>
+                        <button type="submit" class="btnEdit" id="eliminarItem" value="{{ $typeService['id_tiposerv'] }}"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
-
-                
-                <div class="cardUnited">
-                    <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
-                    <article class="itemImg">
-                        <img src="" alt="">
-                    </article>
-                    <div class="btnCrud">
-                        <button type="submit" class="btnEdit"><i class="fas fa-edit"></i></button>
-                        <button type="submit" class="btnEdit" id="eliminarItem"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
-
-                
-                <div class="cardUnited">
-                    <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
-                    <article class="itemImg">
-                        <img src="" alt="">
-                    </article>
-                    <div class="btnCrud">
-                        <button type="submit" class="btnEdit"><i class="fas fa-edit"></i></button>
-                        <button type="submit" class="btnEdit" id="eliminarItem"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </section>
 
@@ -569,38 +539,37 @@
                 <div class="searchBar">
                     <select name="service" class="inputSearch">
                         <option value="" disabled selected>Seleccione un tipo de servicio</option>
-                        <option value="1">Cortes</option>
-                        <option value="2">Facial</option>
-                        <option value="3">Pedicure</option>
-                        <option value="4">Cortes Barba</option>
-                        <option value="5">Tratamientos</option>
+                        @foreach($typeServices as $typeService)
+                        <option value="{{ $typeService['id_tiposerv'] }}">{{ $typeService['tipo_serv'] }}</option>
+                        @endforeach
                     </select>
                 </div>
             </nav>
             
             <!-- CONTENEDOR DEL PRODUCTO A REFENRENCIAR -->
             <section class="cardItems">
-                        
+                @foreach($services as $service)    
                     <div class="cardUnited">
                         <article class="itemImg">
-                            <img src="https://e00-expansion.uecdn.es/assets/multimedia/imagenes/2023/12/19/17029858297719.jpg" alt="" class="img">
+                            <img src="{{ $service['img_serv'] }}" alt="Imagen de Servicio" class="img">
                         </article>
         
                         <div class="infoItem">
-                            <h3 class="nomNegocio">Barber Store Plus</h3>
-                            <h2 class="nomItem">CORTE NAPOLEON BENAVIDES</h4>
-                            <p class="precio">$ 25.000 CO</p>
+                            <h3 class="nomNegocio">Warrior Barber Club</h3>
+                            <h2 class="nomItem">{{ $service['nom_servicio'] }}</h4>
+                            <p class="precio">$ {{ $service['precio_servicio'] }} CO</p>
         
                                 <div class="btnCrud">
                                     <button type="submit" class="btnEdit">EDITAR SERVICIO</button>
                                 </div>
         
-                            <p class="descripcion">Este corte es ideal para quienes buscan un estilo atrevido y juvenil, ya que el flequillo ayuda a suavizar las facciones y puede dar un toque de misterio. Además, el flequillo marcado funciona bien en diferentes tipos de cabello, desde lacio hasta ondulado, y puede acompañar cortes en capas, rectos o asimétricos. </p>
-                            <p class="time">35 Minutos</p>
+                            <p class="descripcion">{{ $service['desc_servicio'] }} </p>
+                            <p class="time">{{ $service['duracion_serv'] }} Minutos</p>
     
                         </div>
                     </div>
                 </div>
+                @endforeach
             </section>
         </section>
 

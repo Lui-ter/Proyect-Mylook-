@@ -77,6 +77,7 @@ return new class extends Migration
             $table->string('desc_prod', 60);
             $table->integer('stock');
             $table->float('valor_prod');
+            $table->timestamps();
             $table->foreign('id_establc')->references('id_establc')->on('establecimiento');
         });
 
