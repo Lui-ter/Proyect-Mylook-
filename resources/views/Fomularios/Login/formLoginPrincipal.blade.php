@@ -40,15 +40,15 @@
                 </span>
 
                 <!-- REGISTRAR ESTABLECIMIENTO -->
-                <form action="" method="post" class="registerEstablecimiento" style="display: none;">
+                <form action="" method="post" class="registerEstablecimiento" style="display: none;" onsubmit="handleValidationRegister(event)">
                     <div class="groupInput">
-                        <i class="fas fa-building"><input type="number" class="inputRegister" name="nitEstablecimiento" placeholder="Ingrese nitEmpresarial..."></i></i>
+                        <i class="fas fa-building"><input type="number" class="inputRegister" name="nitNegocio" id="nitNegocio" placeholder="Ingrese nitEmpresarial..."></i></i>
                     </div>
                     <div class="groupInput">
-                        <i class="fas fa-user"><input type="text" class="inputRegister" name="nombreEstablecimiento" placeholder="Ingrese nombre establecimiento..."></i></i>
+                        <i class="fas fa-user"><input type="text" class="inputRegister" name="nombreNegocio" id="nombreNegocio" placeholder="Ingrese nombre establecimiento..."></i></i>
                     </div>
                     <div class="groupInput">
-                    <i class="fas fa-lock"><input type="password" class="inputRegister" name="passwordEstablecimiento" placeholder="Ingrese contraseña..."></i>
+                    <i class="fas fa-lock"><input type="password" class="inputRegister" name="contrasenaNegocio" id="contrasenaNegocio" placeholder="Ingrese contraseña..."></i>
                     </div>
                     <div class="groupInput">
                         <div class="recuerdame">
@@ -67,7 +67,7 @@
                 </form>
 
                 <!-- REGISTRAR USUARIO -->
-                <form action="" method="post" class="registerUsuario">
+                <form action="" method="post" class="registerUsuario" onsubmit="handleValidationRegister(event)">
                     <div class="groupInput">
                         <i class="fas fa-file-alt"><input type="number" class="inputRegister" name="documentoUsuario" placeholder="Ingrese documento..."></i></i>
                     </div>
@@ -102,10 +102,10 @@
                 <!-- INICIAR SESION ESTABLECIMIENTO -->
                 <form action="" method="post" class="StartEstablecimiento" style="display: none;">
                 <div class="groupInput">
-                    <i class="fas fa-building"><input type="number" class="inputStart" name="nitEstablecimiento" placeholder="Ingrese nitEmpresarial..."></i></i>
+                    <i class="fas fa-building"><input type="number" class="inputStart" name="nitNegocio" placeholder="Ingrese nitEmpresarial..."></i></i>
                 </div>
                 <div class="groupInput">
-                <i class="fas fa-lock"><input type="password" class="inputStart" name="passwordEstablecimiento" placeholder="Ingrese contraseña..."></i>
+                <i class="fas fa-lock"><input type="password" class="inputStart" name="nombreNegocio" placeholder="Ingrese contraseña..."></i>
                 </div>
                 <div class="groupInput">
                     <div class="recuerdame">
@@ -156,12 +156,12 @@
     <div class="contenedorPc"> <!-- SOLO PARA PC -->
         <div class="contenedor" id="contenedor">
             <div class="contenedor-formulario contenedor-registro">
-                <form action="{{ route('registerUser') }}" method="POST">
+                <form action="{{ route('registerUser') }}" method="POST" onsubmit="handleValidationRegister(event)">
                     @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Negocio</button>
                         <button type="button" class="boton-tipo-usuario" data-tipo="2">Usuario</button>
-                        <input type="hidden" name="tipo_usuario" class="tipo_usuario">
+                        <input type="hidden" name="tipo_usuario" id="tipo_usuario" class="tipo_usuario">
                     </div>
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
@@ -170,25 +170,25 @@
                         </div>
                         <div class="input-container">
                             <i class="fas fa-user"></i>
-                            <input id="2" type="text" name="nombreNegocio" placeholder="Ingrese el nombre de negocio..." required />
+                            <input id="2" type="text" name="nombreNegocio"  placeholder="Ingrese el nombre de negocio..." required />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input id="3" type="password" name="contrasenaNegocio" placeholder="Ingrese la contraseña del negocio..." required />
+                            <input id="3" type="password" name="contrasenaNegocio"  placeholder="Ingrese la contraseña del negocio..." required />
                         </div>
                     </div>
                     <div class="campos-formulario campos-profesor" style="display: none;">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input id="4" type="text" name="docUsuario" placeholder="Ingrese su Documento..." required />
+                            <input id="4" type="text" name="docUsuario" id="documentoUsuario" placeholder="Ingrese su Documento..." required />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-user"></i>
-                            <input id="5" type="text" name="nombreCompletoUsuario" placeholder="Ingrese su Nombre..." required />
+                            <input id="5" type="text" name="nombreCompletoUsuario" id="nombreUsuario" placeholder="Ingrese su Nombre..." required />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input id="7" type="password" name="contrasenaUsuario" placeholder="Ingrese su Contraseña..."required />
+                            <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario" placeholder="Ingrese su Contraseña..."required />
                         </div>
                     </div>
                     <button type="submit" name="accionRegistrar" value="registrar">Registrar</button>
@@ -210,7 +210,7 @@
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="contraseñaUsuario" placeholder="Ingrese su Contraseña..."  />
+                            <input type="password" name="passwordUsuario" placeholder="Ingrese su Contraseña..."  />
                         </div>
                         <input type="hidden" name="rol" value="estudiante" />
                     </div>
@@ -253,5 +253,6 @@
 
     <!-- LOGICA JS PARA EL MANEJO DE FORMULARIOS -->
     <script src="{{asset('Js/Formularios/LoginPrincipal/logicLoginPrincipal.js')}}"></script>
+    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
 </body>
 </html>
