@@ -1,0 +1,441 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/* VARIABLES DE ENTORNO */
+:root {
+    --color-background: #624023;
+    --color-primary: #c29268;
+    --color-dark: #795434;
+    --color-white: white;
+    --color-black: black;
+}
+
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+        
+        .viewServicios{
+                height: 100vh;
+                width: 100vw;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows:20% 10% 1fr; 
+    
+                /* CONTENEDOR ICONO DE VOLVER */
+                .volver{
+                    border-bottom: 1px solid var(--color-dark);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+    
+                    /* ICONO */
+                    i{
+                        margin-left: 3vw;
+                        padding: 1%;                        
+                        color: var(--color-dark);
+                        background-color: transparent;
+                        border: 1px solid var(--color-dark);
+                        border-radius: 100%;
+                    }
+    
+                    /* NOMBRE DE LA GESTION */
+                    .nomView{
+                        font-size: 1.8vw;
+                        color: var(--color-dark);
+                        padding-right: 6vw;
+                    }
+                }
+    
+                /* CONTENEDOR DE FILTRO DE PRODUCTOS */
+                .filter{
+                    margin-top: 1vh;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+    
+                    /* CONTENEDOR DE MANU DE NAVEGACION */
+                    .option{
+                        display: flex;
+                        margin-left: 3vw;
+                        gap: 2vw;
+                        margin-top: 2vh;
+    
+                        /* BOTONES */
+                        .optionGestion{
+                            height: 6vh;
+                            width: 10vw;
+                            background-color: transparent;
+                            color: var(--color-dark);
+                            border: none;
+                            border: 1px solid var(--color-dark);
+                            border-radius: 6%;
+                            font-size: .8vw;
+                            cursor: pointer;
+                            transition: 1s;
+    
+                            /* BOTON INICIO */
+                            &#btnInicio{
+                                background-color: var(--color-dark);
+                                color: var(--color-white);
+                            }
+
+                            &:hover{
+                                background-color: var(--color-dark);
+                                color: var(--color-white);
+                            }
+                        }
+                    }
+    
+                    .searchBar{
+                        margin-right: 5vw;
+                        display: flex;
+                        gap: .8vw;
+    
+                        /* ICONOS */
+                        i{
+                            color: var(--color-dark);
+                            font-size: 1.7vw;
+                        }
+    
+                        /* INPUT DE BUSQUEDA */
+                        .inputSearch{
+                            height: 4vh;
+                            width: 25vw;
+                            border: none;
+                            border-bottom: 1px solid var(--color-dark);
+                            padding-left: 1vw;
+                            outline: none;
+    
+                            /* PLACEHOLDER */
+                            &::placeholder{
+                                font-style: italic;
+                                font-size: 1.1vw;
+                            }
+                        }
+                    }
+                }
+    
+                /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
+                .cardItems{
+                    display: flex;
+                    margin: 1% 1% 3% 1%;
+                    align-items: center;
+                    flex-direction: column;
+                    gap: 10vh;
+                    overflow: auto;
+                    scrollbar-width: none;
+    
+                    /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
+                   .cardUnited{
+                    height: 90%;
+                    width: 90%;
+                    display: grid;
+                    margin-top: 3vh;
+                    grid-template-columns: 40% 60%;
+    
+                    /* CONTENEDOR DE LA IMAGEN */
+                    .itemImg{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        width: 100%;
+    
+                        /* IMAGEN */
+                        .img{
+                            height: 58vh;
+                            width: 25vw;
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+                    }
+    
+                    .infoItem{
+                        display: flex;
+                        justify-content: left;
+                        align-items: start;
+                        flex-direction: column;
+                        height: 94%;
+                        width: 96%;
+                        margin-left: 1vw;
+                        margin-top: 2.2vh;
+                        color: var(--color-background);
+
+                    /* NOMBRE DEL NEGOCIO QUE LOS OFRECE */
+                    .nomNegocio{
+                        width: 100%;
+                        height: 20%;
+                        padding-top: 8vh;
+                        font-size: 1.5vw;
+                    }
+
+                    /* NOMBRE DEL ITEM */
+                    .nomItem{
+                        width: 100%;
+                        height: 12%;
+                        font-size: 2.3vw;
+                    }
+    
+                    /* DESCRIPCION DEL ITEM */
+                    .descripcion{
+                        margin-top: 4vh;
+                        width: 90%;
+                        font-size: 1vw;
+                    }
+
+                    /* TIEMPO DEL CORTE DURACION */
+                    .time{
+                        width: 90%;
+                        margin-top: 5vh;
+                        font-size: .9vw;
+                        text-align: end;
+                    }
+    
+                    /* PRECIO ITEM */
+                    .precio{
+                        text-align: start;
+                        height: 10%;
+                        font-size: 1vw;
+                    }
+    
+                    /* BTN CRUD DE ITEMS */
+                    .btnCrud{
+                        width: 100%;
+                        height: 15%;
+                        display: flex;
+                        justify-content: left;
+                        align-items: center;
+    
+                            /* BOTONES */
+                            .btnEdit{
+                                cursor: pointer;
+                                background-color: var(--color-background);
+                                border: none;
+                                border-radius: 2%;
+                                color: var(--color-white);
+                                font-size: 1.4vw;
+                                margin-left: 1vw;
+                                font-weight: bold;
+                                height: 80%;
+                                width: 85%;
+                        }
+                    }
+                }
+                }
+            }
+        }
+        
+        .viewProducto{
+            border: 1px solid var(--color-primary);
+            background-color: var(--color-background);
+            height: 65%;
+            width: 55%;
+            border-radius: 1%;
+            display: grid;
+            grid-template-columns: 55% 45%;
+            grid-template-rows: 1fr;
+            overflow: hidden;
+
+            .infoProducto {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center; 
+                padding: 1%;               
+                color: var(--color-white);
+
+            
+                /* Estilo para el contenedor de precio y volver */
+                .precioAndVolver {
+                    margin: 1%;
+                    width: 95%;
+                    height: 10%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+            
+                    i {
+                        color: var(--color-background);
+                        padding: 3.5%;
+                        background-color: var(--color-white);
+                        border-radius: 100%;
+                        margin-left: 1.5vw;
+                    }
+            
+                    .precio {
+                        color: var(--color-white);
+                        font-style: italic;
+                        font-size: 1vw;
+                        margin-right: 2vw;
+                    }
+                }
+            
+                /* Estilo para la sección de la información del producto */
+                .infoProducto {
+                    width: 95%;
+                    height: 20%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center; /* Asegura que el contenido se alinee a la izquierda */
+                    text-align: left;
+                    padding-left: 3vw;
+                    padding-top: 3vh;
+                }
+            
+                .nomEstablecimiento {
+                    text-align: left; 
+                    font-size: 1.05vw;
+                }
+            
+                .nomServicio {
+                    text-align: left; 
+                    font-size: 1.4vw;  
+                
+                }
+
+                 /* Botón de separar producto */
+                 .btnSepararproducto {
+                    border: 1px solid white;
+                    margin: 0% 8% 2% 12%;
+                    border-radius: 5%;
+                    width: 70%;
+                    height: 10%;
+                    font-size: 1.5vw;
+                    margin-top: 1vh;
+                    font-weight: bold;
+                    color: var(--color-background);
+                    background-color: var(--color-white);
+                    text-align: center; 
+                }
+            
+                /* Descripción del producto */
+                .descripProducto {
+                    margin: 3% 4% 0% 2%;
+                    width: 95%;
+                    height: 25%;
+                    text-align: left; 
+                    padding-left: 2vw;
+                    font-size: 1vw;
+                }
+            }
+            
+
+            .imgProducto{
+                margin: 5%;
+
+                .imgUnited{
+                    height: 100%;
+                    width: 100%;
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    border-radius: 2%;
+                }
+            }
+        
+        }
+
+        .carousel {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .carousel-track {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                position: relative;
+              }  
+
+              .card {
+                position: absolute;
+                width: 180px;
+                height: 230px;
+                background-color: white;
+                border-radius: 10px;
+                transition: all 0.5s ease;
+                background-size: cover;
+                background-position: center;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                border: 1px solid var(--color-primary);
+                opacity: .3;
+                pointer-events: none;
+              }
+              
+              .card.visible {
+                opacity: 1;
+                pointer-events: auto;
+              }
+              
+              .card.center {
+                width: 260px;
+                height: 320px;
+                z-index: 3;
+                cursor: pointer;
+              }
+              
+              .card.left {
+                transform: translateX(-220px) scale(0.9);
+                z-index: 1;
+                opacity: 0.8;
+              }
+              
+              .card.right {
+                transform: translateX(220px) scale(0.9);
+                z-index: 1;
+                opacity: 0.8;
+              }
+              
+              .card h3 {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                margin: 0;
+                padding: 5% 20%;
+                background: var(--color-white);
+                color: var(--color-dark);
+                border-radius: 5px;
+                font-size: 0.9rem;
+                white-space: nowrap;
+              }
+          
+              .arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 3vw;
+                height: 7vh;
+                background: var(--color-dark);
+                border: none;
+                border-radius: 50%;
+                color: white;
+                font-size: 1vw;
+                cursor: pointer;
+                z-index: 4;
+              }
+              
+              .arrow-left { left: 20px; }
+              .arrow-right { right: 20px; }
+            }
+        }
+          
+       
+       
+/* -------------------------------------------------------------------- */

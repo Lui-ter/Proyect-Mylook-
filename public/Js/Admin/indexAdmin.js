@@ -1,157 +1,199 @@
-
-/* ---------------------------------------------------------------------- */
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Obtener referencias a las secciones
-    const crudDefault = document.querySelector('.sectionDefaultCrud'); // Sección por defecto
-    const crudProductos = document.querySelector('.crudProductos'); // Sección de productos
-    const crudStaff = document.querySelector('.crudMiembrostaff'); // Sección de staff
-    const crudServicios = document.querySelector('.crudServicios'); // Sección de servicios
-    const crudPresentacion = document.querySelector('.sectionPresentations'); // Presentación del negocio
-    const crudInicio = document.querySelector('.sectionInicio'); // Inicio con imagen del negocio
-    const menuItems = document.querySelectorAll('.navOptions'); // Botones del menú de navegación
-
+document.addEventListener('DOMContentLoaded', function() {
+    // Referencias a las secciones
+    const sectionDefault = document.querySelector('.sectionDefault');
+    const crudStaff = document.querySelector('.crudStaff');
+    const crudProductos = document.querySelector('.crudProductos');
+    const crudCategoria = document.querySelector('.crudCategoria');
+    const crudInicio = document.querySelector('.crudInicio');
+    
+    // Referencias a los botones
+    const btns = document.querySelectorAll('.btnCrud');
+    
+    // Mostrar sección default al inicio
+    showSection('default');
+    
+    // Añadir event listeners a los botones
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remover clase activa de todos los botones
+            btns.forEach(b => b.classList.remove('btnActive'));
+            
+            // Añadir clase activa al botón clickeado
+            this.classList.add('btnActive');
+            
+            // Obtener y mostrar la sección correspondiente
+            const section = this.textContent.toLowerCase();
+            showSection(section);
+        });
+    });
+    
+    // Función para mostrar secciones
+    function showSection(section) {
+        // Ocultar todas las secciones
+        hideAllSections();
+        
+        // Mostrar la sección correspondiente
+        switch(section) {
+            case 'staff':
+                crudStaff.style.display = 'block';
+                break;
+            case 'productos':
+                crudProductos.style.display = 'block';
+                break;
+            case 'servicios':
+                crudCategoria.style.display = 'block';
+                break;
+            case 'inicio':
+                crudInicio.style.display = 'block';
+                break;
+            case 'administradores':
+                // Si tienes una sección de administradores
+                break;
+            case 'default':
+                sectionDefault.style.display = 'block';
+                break;
+        }
+    }
+    
     // Función para ocultar todas las secciones
     function hideAllSections() {
-        // Ocultar todas las secciones si existen
-        if (crudDefault) crudDefault.style.display = 'none';
-        if (crudProductos) crudProductos.style.display = 'none';
-        if (crudStaff) crudStaff.style.display = 'none';
-        if (crudServicios) crudServicios.style.display = 'none';
-        if (crudPresentacion) crudPresentacion.style.display = 'none';
-        if (crudInicio) crudInicio.style.display = 'none';
+        sectionDefault.style.display = 'none';
+        crudStaff.style.display = 'none';
+        crudProductos.style.display = 'none';
+        crudCategoria.style.display = 'none';
+        crudInicio.style.display = 'none';
     }
 
-    // Función para mostrar una sección específica
-    function showSection(section) {
-        hideAllSections(); // Ocultar todas las demás secciones
-        if (section) section.style.display = 'block'; // Mostrar solo la sección especificada
-    }
+    // Código del input file que ya tenías
+    const fileInput = document.getElementById('fileInput');
+    const previewImage = document.getElementById('previewImage');
 
-    // Mostrar la sección por defecto al cargar la página
-    if (crudDefault) {
-        showSection(crudDefault); // Mostrar `sectionDefaultCrud` al inicio
-    }
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                previewImage.style.backgroundImage = `url('${e.target.result}')`;
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    });
+});
 
-    // Añadir listeners a los botones del menú de navegación
-    menuItems.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const sectionId = e.target.id; // Obtener el id del botón clickeado
+document.addEventListener('DOMContentLoaded', function() {
+    // Referencias a todas las secciones
+    const sections = {
+        'administradores': document.querySelector('.sectionAdministrador'),
+        'staff': document.querySelector('.crudStaff'),
+        'productos': document.querySelector('.crudProductos'),
+        'servicios': document.querySelector('.crudCategoria'),
+        'inicio': document.querySelector('.crudInicio'),
+        'default': document.querySelector('.sectionDefault')
+    };
 
-            // Mostrar la sección correspondiente según el botón presionado
-            switch (sectionId) {
-                case 'servicios':
-                    showSection(crudServicios);
-                    break;
-                case 'productos':
-                    showSection(crudProductos);
-                    break;
-                case 'staff':
-                    showSection(crudStaff);
-                    break;
-                case 'inicio':
-                    showSection(crudPresentacion); // Mostrar la presentación (inicio)
-                    break;
-                default:
-                    showSection(crudDefault); // En caso de un botón desconocido, mostrar la sección por defecto
-                    break;
+    // Referencias a los botones
+    const buttons = document.querySelectorAll('.btnCrud');
+
+    // Mostrar sección default al inicio y desactivar todos los botones
+    hideAllSections();
+    sections.default.style.display = 'block';
+
+    // Agregar event listeners a los botones
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const sectionName = this.textContent.toLowerCase();
+            
+            // Desactivar todos los botones primero
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Activar el botón actual
+            this.classList.add('active');
+
+            // Ocultar todas las secciones
+            hideAllSections();
+
+            // Mostrar la sección correspondiente
+            if (sections[sectionName]) {
+                sections[sectionName].style.display = 'block';
             }
         });
     });
-});
 
-// Obtener elementos
-const btnEditimagen = document.getElementById('editarImagen');
-const inputFile = document.getElementById('inputFile');
-const imgToEdit = document.getElementById('imgToEdit');
-
-// Asignar evento al botón para que actúe como input file
-btnEditimagen.addEventListener('click', () => {
-    inputFile.click(); // Simular clic en el input file
-});
-
-// Asignar evento al input file para cambiar la imagen
-inputFile.addEventListener('change', (event) => {
-    const file = event.target.files[0]; // Obtener el archivo seleccionado
-    if (file) {
-        const reader = new FileReader();
-
-        // Leer la imagen como URL y asignarla al src de la imagen
-        reader.onload = (e) => {
-            imgToEdit.src = e.target.result; // Cambiar la imagen mostrada
-        };
-
-        reader.readAsDataURL(file); // Leer el archivo como una URL
+    function hideAllSections() {
+        Object.values(sections).forEach(section => {
+            if (section) section.style.display = 'none';
+        });
     }
+
+    // Mantener el código del input file
+    const fileInput = document.getElementById('fileInput');
+    const previewImage = document.getElementById('previewImage');
+
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.style.backgroundImage = `url('${e.target.result}')`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 });
-// Referencias a las secciones
-const sectionDefault = document.querySelector('.sectionDefaultCrud'); // Sección predeterminada
-const viewProductos = document.querySelector('.viewProductos'); // Vista Productos
-const viewCategorias = document.querySelector('.viewCategorias'); // Vista Categorías
-const viewTipservicios = document.querySelector('.viewTipservicios'); // Vista Tipo Servicios
-const viewServicios = document.querySelector('.viewServicios'); // Vista Servicios
 
-// Botones de navegación "Ver todos"
-const btnViewProductos = document.getElementById('viewAllproductos'); // Botón "Ver todos" de Productos
-const btnViewCategorias = document.getElementById('viewAllcategorias'); // Botón "Ver todos" de Categorías
-const btnViewTipServicios = document.getElementById('viewAlltipservicios'); // Botón "Ver todos" de Tipo Servicios
-const btnViewServicios = document.getElementById('viewAllservicios'); // Botón "Ver todos" de Servicios
 
-// Botones "Volver"
-const btnVolverProductos = document.querySelector('.viewProductos .volver'); // Botón "Volver" en Productos
-const btnVolverCategorias = document.querySelector('.viewCategorias .volver'); // Botón "Volver" en Categorías
-const btnVolverTipServicios = document.querySelector('.viewTipservicios .volver'); // Botón "Volver" en Tipo Servicios
-const btnVolverServicios = document.querySelector('.viewServicios .volver'); // Botón "Volver" en Servicios
 
-// Función para ocultar todas las secciones
-function hideAllSections() {
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        section.style.display = 'none';
+/* LOGICA DEL PANEL DEL ADMIN DE INICIO DE SESION DE LOS ADMINISTRADORES */
+const pista = document.getElementById('pistaCarrusel');
+const tarjetas = document.querySelectorAll('.tarjetaUsuario');
+const tarjetaWidth = tarjetas[0].offsetWidth + 20; // Ancho + margen
+let posicion = 0;
+let animationPaused = false;
+
+// Clonar las tarjetas iniciales para crear el efecto infinito
+function inicializarCarrusel() {
+    // Clonar todas las tarjetas originales
+    const tarjetasOriginales = Array.from(tarjetas);
+    tarjetasOriginales.forEach(tarjeta => {
+        const clon = tarjeta.cloneNode(true);
+        pista.appendChild(clon);
+    });
+
+    // Configurar eventos de hover para todas las tarjetas (originales y clonadas)
+    document.querySelectorAll('.tarjetaUsuario').forEach(tarjeta => {
+        tarjeta.addEventListener('mouseenter', () => {
+            animationPaused = true;
+        });
+        
+        tarjeta.addEventListener('mouseleave', () => {
+            animationPaused = false;
+        });
     });
 }
 
-// Mostrar sección específica
-function showSection(section) {
-    hideAllSections(); // Ocultar todo
-    section.style.display = 'block'; // Mostrar la sección deseada
+function moverCarrusel() {
+    if (animationPaused) {
+        requestAnimationFrame(moverCarrusel);
+        return;
+    }
+
+    posicion -= 0.5; // Velocidad del movimiento
+    const totalWidth = -tarjetaWidth * (tarjetas.length);
+    
+    // Cuando llegamos al final del primer conjunto, reseteamos la posición
+    if (posicion <= totalWidth) {
+        posicion = 0;
+    }
+    
+    pista.style.transform = `translateX(${posicion}px)`;
+    requestAnimationFrame(moverCarrusel);
 }
 
-// Botones "Ver todos"
-btnViewProductos.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection(viewProductos); // Mostrar vista Productos
-});
-
-btnViewCategorias.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection(viewCategorias); // Mostrar vista Categorías
-});
-
-btnViewTipServicios.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection(viewTipservicios); // Mostrar vista Tipos de Servicios
-});
-
-btnViewServicios.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSection(viewServicios); // Mostrar vista Servicios
-});
-
-// Botones "Volver"
-btnVolverProductos.addEventListener('click', () => {
-    showSection(sectionDefault); // Volver a la sección default
-});
-
-btnVolverCategorias.addEventListener('click', () => {
-    showSection(sectionDefault); // Volver a la sección default
-});
-
-btnVolverTipServicios.addEventListener('click', () => {
-    showSection(sectionDefault); // Volver a la sección default
-});
-
-btnVolverServicios.addEventListener('click', () => {
-    showSection(sectionDefault); // Volver a la sección default
-});
+// Inicializar el carrusel
+inicializarCarrusel();
+moverCarrusel();

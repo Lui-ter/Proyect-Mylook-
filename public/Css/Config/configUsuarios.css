@@ -1,0 +1,143 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* VARIABLES DE ENTORNO */
+:root {
+    --color-background: #624023;
+    --color-primary: #a68160;
+    --color-dark: #795434;
+    --color-white: white;
+    --color-black: black;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .contenedorPadre{
+        border: 1px solid var(--color-primary);
+        border-radius: 1%;
+        height: 90%;
+        width: 30%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 35% 1fr;
+
+
+        .containerPerfil{ 
+            width: 95%;
+            height: 10vh;
+            margin-left: .7vw;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            position: relative; 
+
+            .imgPerfil{
+                border: 1px solid var(--color-primary);
+                height: 20vh;
+                width: 9vw;
+                border-radius: 100%;
+                margin-top: 10vh;
+            }   
+
+            .camera-icon {
+                position: absolute;
+                top: 26vh;
+                right: 11vw;
+                background-color: var(--color-primary);
+                color: white;
+                border-radius: 50%;
+                padding: 6px;
+                cursor: pointer;
+                font-size: 2vh;
+            }
+
+            .file-input {
+                display: none;
+            }
+        }
+
+        .formConfig{
+            width: 90%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: left;
+            flex-direction: column;
+            gap: 2vh;
+            padding-top: 5vh;
+            margin-left: 2vw;
+       
+
+            .groupInput{
+                display: flex;
+                justify-content: left;
+                align-items: start;
+                gap: .5vw;
+                
+                .nomLabel{
+                    font-size: 1vw;
+                    text-align: left;
+                }
+
+                .inputForm{
+                    width: 100%;
+                    height: 4.5vh;
+                    padding-left: 1vw;
+                    background-color: transparent;
+                    border: 1px solid var(--color-primary);
+                    border-radius: 3%;
+                    outline: none;
+                }
+
+                #condicionUsuario{
+                    resize: none;
+                    overflow: hidden;
+                    height: 14vh;
+                    padding-top: 1vh;
+                }
+            }
+
+            .datosPersonales{
+                display: flex;
+                gap: 1.5vw;
+                
+
+                .containerPersonal{
+                    display: flex;
+                    flex-direction: column;
+                 
+                }
+            }
+
+            .btnSend{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: .5vw;
+                padding-top: .5vh;
+
+                .btnSave{
+                    padding: 1vh 2vw;
+                    border: 1px solid var(--color-primary);
+                    background-color: transparent;
+                    color: var(--color-dark);
+                    border-radius: 5%;
+                    cursor: pointer;
+                }
+
+                #btnSend{
+                    background-color: var(--color-dark);
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+}
+

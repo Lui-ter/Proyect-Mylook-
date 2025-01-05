@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --backgroundColor-Primary: #a68160;
+    --backgroundColor-Secondary: #be9c74;
+    --backgroundColor-Three: #a15c3c;
+    --backgroundColor-Fourt: #ffffff;
+    --backgroundColor-Five: #0000;
+    --backgroundColor-Six: #795434;
+
+    --colorFont-H: #a15c3c;
+    --colorFont-P: #a68160;
+    --colorFont-White: #ffffff;
+
+    --fontFamily-H: 'Roboto Slab', serif;
+    --fontFamily-P: 'Playfair Display', serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerfatherRegister {
+    display: flex;
+    height: 80%;
+    width: 60%;
+
+    .containerinfoRegister {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        width: 60%;
+        border-radius: 8px;
+        background-color: var(--backgroundColor-Fourt);
+        box-shadow: 5px 2px 17px 6px var(--backgroundColor-Secondary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        #introRegister {
+            background-color: var(--backgroundColor-Three);
+            height: 95%;
+            width: 95%;
+            border-radius: 7px;
+
+            .InfoRigth {
+                background-color: var(--backgroundColor-Fourt);
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+    
+            .solicitud {
+                height: 13.5vh;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+    
+            #imgPerfil {
+                color: var(--colorFont-H);
+                font-size: 15px;
+            }
+    
+            .imagePreview {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 65%;
+                margin-bottom: 5px;
+                height: 300px;
+                margin: 10px auto;
+                background-color: var(--backgroundColor-Fourt);
+                border-radius: 8px;
+                box-shadow: 2px 2px 20px 2px var(--backgroundColor-Secondary);
+                padding: 10px;
+                overflow: hidden;
+            }
+    
+            .imagePreview img {
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+            }
+    
+            .importFile {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-top: 10px;
+            }
+    
+            #imageUpload {
+                display: none;
+            }
+    
+            .upload-btn {
+                background-color: #a68160;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                width: 65%;
+                margin-top: -8px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+    
+            .upload-btn:hover {
+                background-color: #8a6a4d;
+            }
+        }
+    }
+
+    .formstaffRegister {
+        position: relative;
+        backdrop-filter: blur(5px);
+        height: 85%;
+        margin-top: 2.5em;
+        width: 50%; 
+        z-index: 1;
+        box-shadow: 1px 1px 8px 1px var(--backgroundColor-Secondary);
+        border: 1px solid transparent;
+        background-color: var(--backgroundColor-Six);
+
+        .formStaff {
+            margin-top: 1em;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            #titleRegister {
+                padding: 12px;
+                margin: 10px;
+                text-shadow: 1px 1px 2px var(--colorFont-P), 0 0 30px var(--colorFont-H);
+                color: var(--backgroundColor-Fourt);
+                font-family: var(--fontFamily-H);
+                font-size: 20px; 
+            }
+
+            .formContainer {
+                padding: 10px;
+                margin: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                .formGroup {
+                    font-family: var(--fontFamily-P);
+                    margin-bottom: 1em;
+
+                    .inputWithIcon {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 100%;
+                        color: var(--colorFont-White);
+                        margin-right: 20px;
+
+                        i {
+                            padding: 2px;
+                            font-size: 15px;
+                            color: var(--colorFont-White);
+                        }
+
+                        .inputText {
+                            margin-left: 8px;
+                            padding: 5px;
+                            width: 85%;
+                            border: none;
+                            border-bottom: 1px solid var(--colorFont-White);
+                            border-radius: 3px;
+                            font-style: italic;
+                            font-size: 12px;
+                            transition: transform 0.2s ease, outline 0.2s ease;
+                            color: var(--colorFont-White);
+                            background-color: transparent;
+                        }
+
+                        .inputText:focus {
+                            outline: none;
+                        }
+
+                        .inputText:hover {
+                            transform: scale(1.02);
+                        }
+
+                        .inputText::placeholder {
+                            color: var(--backgroundColor-Secondary);
+                        }
+                    }
+                }
+            }
+
+            .btnStartSession {
+                font-family: var(--fontFamily-P);
+                background-color: var(--backgroundColor-Fourt);
+                border: 1px solid var(--colorFont-H);
+                border-radius: 5px;
+                color: var(--colorFont-H);
+                width: 85%;
+                margin-top: 1em;
+                padding: 8px 8px 10px 8px;
+                transition: transform 0.2s ease;
+            }
+
+            .btnStartSession:hover {
+                transform: scale(1.05);
+                transition: 1s;
+                background-color: var(--colorFont-H);
+                color: var(--backgroundColor-Secondary);
+                border: none;
+            }
+        }
+    }
+}

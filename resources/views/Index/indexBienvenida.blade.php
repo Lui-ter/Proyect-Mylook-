@@ -3,219 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('Css/Index/indexBienvenida.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>WELCOME TO MYLOOK</title>
+    <link rel="stylesheet"  href="{{ asset('Css/Index/indexBienvenida.css') }}">
+    <title>Welcome To MyLook</title>
 </head>
-
-<!-- CUERPO DE MI PAGINA -->
 <body>
+    
+    <!-- SECCION DE BIENVENIDA DE MYLOOK -->
+    <section class="sectionBienvenida">
 
-    <!-- INTRODUCCION MYLOOK -->
-   <section class="firstSection">
+        <!-- TEXTO INDTRODUCCION PARA INGRESAR A LA APP DE MYLOOK -->
+        <aside class="txtIntroduccion">
 
-    <!-- MENU DE NAVEGACION -->
-        <header class="barNav">
+            <!-- LOGO DE DESARROLLADORES DE MYLOOK -->
+            <span class="logoDesarrolladores">
+                <i class="fas fa-lightbulb"></i>
+                <h3 class="txtLogo">STA</h3>
+            </span>
 
-            <!-- TITULO DE LA APLICACION MYLOOK -->
-            <h1 class="tittleApp">MYLOOK</h1>
+            <!-- TEXTO INTROUCTORIO DE MYLOOK -->
+            <article class="txtMylook">
 
-            <!-- MENU DE NAVEGACION -->
-             <nav class="menuNav">
-                <i class="fas fa-bars"></i>
-             </nav>
+                <!-- BIENVENIDA A MYLOOK -->
+                <h2 class="welcomeMylook">Bienvenido a</h2>
 
-        </header>
+                <!-- TITULO DE MYLOOK -->
+                <h1 class="titleMylook">MYLOOK</h1>
 
-    <!-- INTRODUCCION AHORA -->
-        <main class="startNow">
+                <!-- SLOGAN DE MYLOOK -->
+                <p class="descriptionMylook">" Resplandece con estilo. <br>
+                                            Haz tu cita hoy mismo y déjate envolver por la belleza ".                        
+                </p>
 
-            <article class="contenedorPc">
-                <!-- LOGO DE LOS DESARROLLADORES -->
-                <div class="logoSta">
-                    <i class="far fa-lightbulb"></i>
-                    <h2 class="nomSta">STA</h2>
-                </div>
+                <a href="../../Form/Login/loginPrincipal.html" class="directLoginRegister">
+                    <button type="submit" class="btnStartLogin">¡Iniciar Ahora!</button>
+                </a>
 
-                <!-- INTRDUCCION A MYLOOK -->
-                <main class="introduccionMylook">
-                    <h3 class="welcomeTo">Bienvenido a</h3>
-                    <h1 class="nomApp">MYLOOK</h1>
-                    <p class="descMylook">"Resplandece con estilo. <br>
-                    Haz tu cita hoy mismo y dejate envolver por la belleza"</p>
-                    <a href="{{url('loginbienvenida')}}">INICIAR AHORA</a>
-                </main>
-                
-                <!-- REDES SOCIALES -->
-                <div class="socialMedia">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-google"></i>
-                    <i class="fab fa-instagram"></i>
-                </div>
             </article>
 
+            <!-- REDES SOCIALES DE MYLOOK -->
+            <span class="socialMedia">
 
-            <!-- ENLACE MOBILE -->
-            <a href="{{url('loginbienvenida')}}" class="startSesion">INICIAR AHORA</a>
-        </main>
+                <!-- ICONO DE FACEBBOK -->
+                <i class="fab fa-facebook-f iconFacebook"></i>
 
-    <!-- IMAGEN DE PRESENTACION MYLOOK PC -->
-        <article class="imgPresentation"></article>
-   </section>
-
-   <!-- SERVICIOS MYLOOK -->
-   <section class="secondSection">
-
-        <!-- COMERCIALIZACION -->
-        <articles class="servicesMYLOOK">
-            <div class="imgService">
-                <img src="https://assets.isu.pub/document-structure/230228130659-9e6f39ab2683408506c501987c38925a/v1/53e6e88664c250f1c0fea4edc7235a33.jpeg" alt="" class="img">
-            </div>
-            <p class="nomService">COMERCIO</p>
-        </articles>
-
-        <!-- AGENDA -->
-        <articles class="servicesMYLOOK">
-            <div class="imgService">
-                <img src="https://d375139ucebi94.cloudfront.net/region2/es/118351/biz_photo/4dbcb4fd1481439e9df1f8ff8cd5ea-santa-malasana-biz-photo-60141f88bce34d748c1e883120c16a-booksy.jpeg?size=640x427" alt="" class="img">
-            </div>
-            <p class="nomService">AGENDA</p>
-        </articles>
-
-        <!-- MARKETING -->
-        <articles class="servicesMYLOOK">
-            <div class="imgService">
-                <img src="https://m.media-amazon.com/images/I/81ma4q3X1vL._AC_UF350,350_QL80_.jpg" alt="" class="img">
-            </div>
-            <p class="nomService">MARKETING</p>
-        </articles>
-
-        <!-- ASESORIA IMAGEN -->
-        <articles class="servicesMYLOOK">
-            <div class="imgService">
-                <img src="https://ccfprosario.com.ar/wp-content/uploads/curso-de-asesor-de-imagen-aprende-a-potenciar-la-belleza.jpg" alt="" class="img">
-            </div>
-            <p class="nomService">ASESORIA</p>
-        </articles>
-        </articles>
-   </section>
-
-   <!-- CERCA DE TI MYLOOK -->
-   <section class="threeSection">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d224280.5227072251!2d-76.67844191061955!3d3.3988912280242536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sBARBERIAS!5e0!3m2!1ses!2sco!4v1731281728541!5m2!1ses!2sco" class="mapCercadeti" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-   </section>
-
-   <!-- RANKING MYLOOK -->
-   <section class="fourtSection">
-
-        <!-- TOP UNO -->
-        <article class="ranking TopUno">
-            <h3 class="nomSection">ESTABLECIMIENTOS DESTACADOS</h3>
-
-            <div class="contenedorSitio">
-                <div class="imgSitio">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxFrdHAn9LCfnu-khU53EXHkOdMcooAtZOYQ&s" class="img" alt="">
-                </div>
-                <p class="nomSitio">BARBER HD</p>
-            </div>
-        </article>
-
-        <!-- TOP DOS -->
-        <article class="ranking Dos">
-            <div class="contenedorSitio">
-            <div class="imgSitio">
-                <img src="https://i.pinimg.com/736x/d3/2d/f9/d32df961b2b4f916630017fd915e307f.jpg" class="img" alt="">
-            </div>
-            <p class="nomSitio">BARBER ZZZ</p>
-        </div>
-        </article>
-
-        <!-- TOP TRES -->
-        <article class="ranking Tres">
-            <div class="contenedorSitio">
-                <div class="imgSitio">
-                    <img src="https://i.pinimg.com/236x/3a/17/e3/3a17e34d0f2019f8f1d45c5158f3a33a.jpg" class="img" alt="">
-                </div>
-                <p class="nomSitio">BARBER START</p>
-            </div>
-        </article>
-
-   </section>
-
-   <!-- FOOTER MYLOOK -->
-   <section class="fiveSection">
-
-       
-    
-        <!-- ATENCION AL CLIENTE -->
-        <div class="infoFooter">
-
-            <!-- TITULO DE ATENCION AL CLIENTE -->
-            <h3 class="atencionCliente">ATENCION AL CLIENTE</h3>
-             
-            <!-- INFORMACION DE MYLOOK Y ALERTAS DE PROMOCIONES U CAMBIOS -->
-            <div class="infoCliente">
-
-                <!-- POILITCAS DE PRIVACIDAD -->
-                <article class="politicPrivacidad">
-                    <a href="http://" class="redirectOptions">Politicas privacidad</a>
-                    <a href="http://" class="redirectOptions">Tratamiento datos</a>
-                    <a href="http://" class="redirectOptions">Contactanos</a>
-                    <a href="http://" class="redirectOptions">Sugerencias</a>
-                </article>
-                
-                <!-- PREGUNTAS FRECUENTES -->
-                <article class="formInfo">
-                    <a href="http://" class="redirectOptions">Patrocinadores</a>
-                    <a href="http://" class="redirectOptions">Mision</a>
-                    <a href="http://" class="redirectOptions">Preguntas frecuentes</a>
-                </article>
-            </div>
-
-            <!-- REDES MYLOOK -->
-            <div class="socialMedia">
+                <!-- ICONO DE INSTAGRAM -->
                 <i class="fab fa-instagram"></i>
-                <i class="fab fa-facebook-f"></i>
-                <i class="fab fa-telegram-plane"></i>
+
+                <!-- ICONO DE WHATSAPP -->
                 <i class="fab fa-whatsapp"></i>
-                <i class="fas fa-times"></i>              
-            </div>
-        </div>
+            </span>
 
-        <!-- LOGO DE DESARROLLO -->
-        <div class="infoFooter" id="bordeado">
+        </aside>
 
-                <!-- LOGO DE DESARROLLO -->
-                <i class="far fa-lightbulb"></i>
-    
-                <!-- NOMBRE DEL LOGO -->
-                <h2 class="logoDesarrollo">STA</h2>
-        </div>
-    
-        <!-- SOBRE NOSOTROS -->
-        <div class="infoFooter">
+        <!-- IMAGEN DE INTRODUCCION DE MYLOOK -->
+        <figure class="imgIntroduccion">
+            <img src="https://img.freepik.com/foto-gratis/vista-lateral-mujer-preparandose-darle-corte-pelo-su-cliente_23-2148353413.jpg" alt="" class="imgBienvenida">
+        </figure>
 
-            <!-- TITULO DE SOBRE NOSOTROS -->
-            <h3 class=" tittleNosotros">SOBRE NOSOTROS</h3>
+    </section>
 
-            <!-- DESCRIPCION DE NOSOTROS -->
-            <p class="descNosotros">La compañia STA esta enfacada en revolucionar el mundo
-                con tecnologia de ultima generacion animando la una revolucion teconologica digna 
-                de lo que es un pais como colombia Unete a nuetra comunidad.
+    <!-- ------------------------------------------------------------------------------------------------------------ -->
+
+    <!-- SECCION DE SERVICIOS DE MYLOOK -->
+    <section class="sectionServicios">
+
+        <!-- TEXTO DE SERVICIOS DE MYLOOK -->
+        <aside class="txtServicios">
+
+            <!-- TITULO DE SERVICIOS DE MYLOOK -->
+            <h2 class="titleServices">¿ QUÉ ENCUENTRAS EN MYLOOK ?</h2>
+
+            <!-- DESCRIPCION DE SERVICIOS DE MYLOOK -->
+            <p class="descriptionServices">Aqui encontraras diferentes tipos de 
+                establecimientos que te brindaran una gran cantidad de servicios
             </p>
-        </div>
 
-        <!-- COPY RI -->
-        <div class="infoFooter">
-            <P class="derechosAutor">
-                &copy;Derechos de autor reservados STA.
-            </p>  
+        </aside>
 
-        </div>
+        <!-- IMAGEN DE SERVICIOS DE MYLOOK -->
+        <figure class="imgServicios">
 
-   </section>
-   
+            <!-- SERVICIO QUE OFRECE MYLOOK -->
+            <article class="itemServices">
+                <figure class="imgService">
+                    <img src="https://peluqueriacruz.com/wp-content/uploads/2024/02/joven-peluqueria-corte-pelo-1024x683.jpg" alt="" class="imgUnitedService">
+                </figure>
+                <span class="txtServices">
+                    <p class="serviceUnited">AGENDAMIENTO</p>
+                </span>
+            </article>
+
+              <!-- SERVICIO QUE OFRECE MYLOOK -->
+              <article class="itemServices">
+                <figure class="imgService">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfto-soz_pTCfPUxXN9cg8MK8E2V11OTBwzFp4emv2evh8O7-go2FdPddGMpeDXXYg4RI&usqp=CAU" alt="" class="imgUnitedService">
+                </figure>
+                <span class="txtServices">
+                    <p class="serviceUnited">COMERCIALIZACIÓN</p>
+                </span>            
+            </article>
+
+              <!-- SERVICIO QUE OFRECE MYLOOK -->
+              <article class="itemServices">
+                <figure class="imgService">
+                    <img src="https://imagenes.elpais.com/resizer/v2/TFJUTKGBI5CTPIE63KKIE2RJN4.png?auth=94f73b6164aa8dc94e27801ff1833c565691539c7429ddf69109733470ad1fe0&width=1960&height=1470&smart=true" alt="" class="imgUnitedService">
+                </figure>
+                <span class="txtServices">
+                    <p class="serviceUnited">MANICURE</p>
+                </span>
+            </article>
+
+              <!-- SERVICIO QUE OFRECE MYLOOK -->
+              <article class="itemServices">
+                <figure class="imgService">
+                    <img src="https://www.auditool.org/images/HO-26-940.jpg" alt="" class="imgUnitedService">
+                </figure>
+                <span class="txtServices">
+                    <p class="serviceUnited">MARKETING</p>
+                </span>
+            </article>
+
+        </figure>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------------------------------------------------ -->
+
+    <!-- SECCION DE MAPAS CERCA DE TI -->
+    <section class="sectionContainerMap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d63720.60039235785!2d-76.54643069551547!3d3.4619162842641145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sbarberias!5e0!3m2!1ses!2sco!4v1735202368021!5m2!1ses!2sco" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>     
+    </section>
+
+    <!-- ------------------------------------------------------------------------------------------------------------ -->
+
+    <!-- SECCION DE ESTABLECIMIENTOS DE MYLOOK -->
+    <section class="sectionEstablecimiento">
+
+        <!-- TEXTO DE ESTABLECIMIENTOS DE MYLOOK -->
+        <aside class="txtEstablecimiento">
+
+            <!-- TITULO DE ESTABLECIMIENTOS DE MYLOOK -->
+            <h2 class="titleEstablecimiento">ESTABLECIMIENTOS DESTACADOS DE LA SEMANA</h2>
+
+        </aside>
+
+        <!-- IMAGEN DE ESTABLECIMIENTOS DE MYLOOK -->
+        <figure class="imgEstablecimiento">
+
+            <!-- ESTABLECIMIENTO QUE OFRECE MYLOOK -->
+            <article class="topEstablecimiento topDos">
+                <figure class="containerTop">
+                    <img src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/348774653/original/1799571194ddb4cc4fce4e5c0af847fd8a27935b/make-outstanding-barber-and-barber-shop-logo-design.jpg" alt="" class="imgTopEtablecimiento">
+                </figure>
+                <span class="nomTopEstablecimiento">
+                    <p class="nomUnitedTop">BARBER PLUS VIP</p>
+                </span>
+            </article>
+
+            <!-- ESTABLECIMIENTO QUE OFRECE MYLOOK -->
+            <article class="topEstablecimiento">
+                <figure class="containerTop">
+                    <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/barbershop-logo-design-template-8e21faf7c4ea8c885887247621683517_screen.jpg?ts=1640535757" alt="" class="imgTopEtablecimiento">
+                </figure>
+                <span class="nomTopEstablecimiento">
+                    <p class="nomUnitedTop">BARBER STAR HD</p>
+                </span>
+            </article>
+
+            <!-- ESTABLECIMIENTO QUE OFRECE MYLOOK -->
+            <article class="topEstablecimiento topTres">
+                <figure class="containerTop">
+                    <img src="https://i.pinimg.com/474x/66/2f/7e/662f7e2e139adf567b55dc8e297d7923.jpg" alt="" class="imgTopEtablecimiento">
+                </figure>
+                <span class="nomTopEstablecimiento">
+                    <p class="nomUnitedTop">BARBER DISNEY XD</p>
+                </span>
+            </article>
+
+        </figure>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------------------------------------------------ -->
+
+    <!-- SECCION FOOTER DE MYLOOK -->
+    <section class="sectionFooter">
+
+        <!-- SECCION DE FOOTER SOBRE NOSOTROS -->
+        <article class="infoFooter infoUno">
+
+            <span class="infoSTA">
+                <h3 class="tittleNosotros">Sobre Nosotros</h3>
+                <p class="descrip">¿ Quienes somos ?</p>
+                <p class="descrip">Contactanos</p>
+                <p class="descrip">Centro de ayuda</p>
+
+                <span class="socialMediaFooter">
+                    <!-- Icono Facebook -->
+                    <i class="fab fa-facebook-f social-icon"></i>
+
+                    <!-- Icono WhatsApp -->
+                    <i class="fab fa-whatsapp social-icon"></i>
+
+                    <!-- Icono YouTube -->
+                    <i class="fab fa-youtube social-icon"></i>
+
+                    <!-- Icono Twitter -->
+                    <i class="fab fa-twitter social-icon"></i>
+
+                    <!-- Icono Instagram -->
+                    <i class="fab fa-instagram social-icon"></i>
+                </span>
+            </span>
+        </article>
+
+        <!-- SECCION DE FOOTER LOGO DE DESARROLLADORES -->
+        <article class="infoFooter">
+
+            <span class="infoSTA infoMedio">
+                <i class="fas fa-lightbulb"></i>
+                <h3 class="tittleDesarrollo">STA</h3>
+            </span>
+        </article>
+
+        <!-- SECCION DE FOOTER SOBRE CONTACTANOS -->
+        <article class="infoFooter infoTres">
+
+            <span class="infoSTA">
+
+                <!-- FORMULARIO DE INSERCCION DE INFORMACION SOBRE ACTUALIZACIONES DE MYLOOK -->
+                <form action="" method="post" class="formPromocion">
+
+                     <!-- Icono Correo -->
+                     <i class="fas fa-envelope"></i>   
+                    <input type="email" name="emailPromocion" id="email" placeholder="Ingresa tu correo..." class="inputPromocion"> 
+                    <button type="submit" class="btnPromocion">Enviar</button>           
+                </form>
+
+                <!-- NOTA QUE EXPLICA QUE HACE EL FORMULARIO DE ARRIBA -->
+                <span class="notaForm">
+                    <p class="nota"><strong>Nota: </strong>La inscripcion del correo sera beneficioso para saber todos los detalles de nuestras futuras actualizaciones
+                    
+                    </p>
+                </span>
+            </span>
+        </article>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------------------------------------------------ -->
 
 </body>
-<!-------------------------------------------------------------------->
 </html>

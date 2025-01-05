@@ -12,11 +12,6 @@ Route::get('/loginbienvenida', [viewsController::class, 'showLoginPrincipal']);
 Route::post('/register-user', [Validations::class, 'registerUser'])->name('registerUser');
 Route::post('/login-user', [Validations::class, 'loginUser'])->name('loginUser');
 
-/* VALIDACIONES DE LOS FORMULARIOS */
-Route::post('/register-category', [Validations::class, 'handleAddCategory'])->name('registerCategory');
-Route::post('/register-type-service', [Validations::class, 'handleAddServiceType'])->name('registerServiceType');
-Route::post('/register-service', [Validations::class, 'handleAddService'])->name('registerService');
-Route::post('/register-product', [Validations::class, 'handleAddProduct'])->name('registerProduct');
 
 
 /* LOGIN Y REGISTROS DE LOS PRINPALES USUARIOS DE MYLOOK -------------------------------------------- */
@@ -72,3 +67,8 @@ Route::get('/configuracionsede', [viewsController::class, 'configStaff']);
 
 
 
+/* VALIDACIONES DE LOS FORMULARIOS */
+Route::post('/register-category', [Validations::class, 'handleAddCategory'])->name('registerCategory');
+Route::post('/register-type-service', [Validations::class, 'handleAddServiceType'])->name('registerServiceType');
+Route::post('/register-service', [Validations::class, 'handleAddService'])->name('registerService');
+Route::post('/register-product', [Validations::class, 'handleAddProduct'])->name('registerProduct');

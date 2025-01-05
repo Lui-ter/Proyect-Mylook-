@@ -5,607 +5,242 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/Css/Index/indexAdmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet"  href="{{ asset('Css/Index/indexAdmin.css') }}">
     <title>MiNegocio - MYLOOK</title>
 </head>
 
 
-<!-- CUERPO DE LA WEB -->
 <body>
-       
-<!-- ----------------------------------------------------- -->
+    
+    <header class="encabezadoAdmin">
+        <h1 class="tittleApp">MYLOOK</h1>
 
-         <!-- MENU DE NAVEGACION -->
-         <div class="navegacion" style="display: none;">
+        <figure class="containerPerfil">
+            <img src="data:image/png;base64,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" alt="" class="imgPerfil">
+        </figure>
+    </header>
 
-            <!-- CONTENEDOR DE VOLVER ATRAS -->
-            <div class="volver">
-                <i class="fas fa-arrow-left"></i> 
+    <aside class="bandejaentradaAdmin">
+        <article class="containerMensajes">
+
+            <div class="tittleItem">
+                <p class="nomEntrada">BANDEJA DE ENTRADA</p>
             </div>
 
-            <!-- CONTENEDOR DE LAS OPCIONES DEL MENU DE NAVEGACION -->
-            <div class="options">
-                <p class="configCuenta">CONFIGURACION PERFIL</p>
-                <p class="configCuenta">FEEDBACK</p>
-                <p class="configCuenta" id="scrollMedio">PRODUCTOS</p>
-                <p class="configCuenta">TIPOS DE PRODUCTOS</p>
-                <p class="configCuenta">CATEGORIAS</p>
-            </div>
-        </div>
+            <div class="mensajesItem">
 
-        <!-- BANDEJA DE ENTRADA MOBILE -->
-        <div class="bandejaEntradaMobile" style="display: none;">
-        
+                <article class="mensajeUnited">
 
-                <!-- ENCABEZADO DE LA BANDEJA DE ENTRADA -->
-                <section class="enacbezadoBandeja">
-        
-                     <!-- CONTENEDOR DE VOLVER ATRAS -->
-                     <div class="volver">
-                        <i class="fas fa-arrow-left"></i> 
-                    </div>
-        
-                    <!-- TITULO DE LA BANDEJA DE ENTRADA -->
-                    <div class="tittleBandeja">
-                        <h1 class="nomTittle">MYLOOK</h1>
-                    </div>
-        
-                    <!-- CONTADOR DE MENSAJES -->
-                    <div class="contadorBandeja">
-                        <i class="fas fa-inbox"></i>
-                    </div>
-        
-                </section>
-        
-                <!-- CHAT DE LA BANDEJA DE ENTRADA -->
-                <div class="chatsBandeja">
-        
-                    <span class="chat">
-                        <img src="" alt="" class="imgPerfil">
+                    <span class="fechaMensaje">
+                        <p class="namFecha">26 JUN</p>
                     </span>
-        
+
+                    <div class="mensaje">
+                        <h4 class="nomCliente">Alejandro Aguilon Buitrago</h4>
+                        <p class="txtMensaje">Solicitud de corte</p>
+                    </div>
+
                     
-                    <span class="chat">
-                        <img src="" alt="" class="imgPerfil">
-                    </span>
-        
-                    <span class="chat">
-                        <img src="" alt="" class="imgPerfil">
-                    </span>
-        
-                </div>
-        
-                <!-- MENSAJES DE LOS USUARIOS -->
-                <article class="messagesBandeja">
-        
-        
-                    <!-- INTERACCION DE MENSAJES -->
-                    <article class="bodyMessage">
-        
-                        <div class="remitenteMessage" id="firstMesagge"></div>
-        
-                        <div class="recibeMessage"></div>
-        
-                        <div class="remitenteMessage"></div>
-        
-        
-                    </article>
-        
-        
-                    <!-- ESCRIBIR MENSAJE -->
-                    <span class="sendMessages">
-        
-                        <div class="readMessage">
-                            <input type="text" class="message" placeholder="Aa">
-                        </div>
-        
-                        <span class="send">
-                            <i class="fas fa-paper-plane"></i>
-                        </span>
-                    </span>
-        
-                </article>  
-        </div>
-    
-        <!-- CALENDARIO MOBILE -->
-        <div class="calendario" style="display: none;">
-            <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=America%2FNew_York" 
-             frameborder="0" class="calendarApi" scrolling="no"></iframe>
-        </div>
-
-<!------------------------------------------------------ -->
-
-    <!-- ESTA ES UNA SECCION DONDE YA SE PUEDEN INTERACTUAR LOS CRUD DE LA BD CON LOS FORM -->
-        
-         <!-- PRIMERA SECCION AL ENTRAR AL INDEX ADMIN-->    
-         <section class="SectionDefault">
-
-            <!-- VERSION PC -->
-            <aside class="bandejaEntrada">
-
-                <!-- CONTENEDOR PADRE DE LA BANDEJA DE MENSAJES DE PC -->
-                <section class="containerFathermessages">
-
-                    <!-- ENCABEZADO DE LA BANDEJA DE ENTRADA -->
-                    <article class="encabezadoMessage"></article>
-
-                    <!-- MENSAJES -->
-                    <div class="messages">
-
-                        <!-- MENSAJES UNITARIOS -->
-                        <article class="unitedMessage">
-
-                            <!-- FECHA -->
-                            <span class="fecha"></span>
-
-                            <!-- MENSAJE -->
-                            <article class="msg"></article>
-
-                            <!-- ICONO -->
-                            <span class="icon"></span>
-                        
-                        </article>
-                        
-                    </div>
-
-                    <!-- VER MAS MENSAJES -->
-                    <span class="verMas"></span>
-
-                </section>
-
-            </aside>
-
-            <nav class="menuNaveacion">
-                <button type="submit" class="navOptions" id="servicios">SERVICIOS</button>
-                <button type="submit" class="navOptions" id="productos">PRODUCTOS</button>
-                <button type="submit" class="navOptions" id="staff">STAFF</button>
-                <button type="submit" class="navOptions" id="inicio">INICIO</button>
-            </nav>
-            <!--------------------------------------------- -->
-    
-            <!-- ENCABEZADO ADMIN -->
-            <header class="encabezadoAdmin">
-    
-                <!-- NOMBRE DE LA APLICACION -->
-                <h1 class="tittleApp">MYLOOK</h1>
-    
-                <!-- INFORMACION DEL ADMIN PARA PC -->
-                <span class="infoAdmin">
-
-                    <div class="infoCuenta">
-                        <h3 class="nomAdmin">Benavides Marlon Ausier</h3>
-                        <a href="" class="confAccount">Configuración</a>
-                        <a href="" class="closeSession" id="close">Cerrar Sesion</a>
-                    </div>
-
-                    <div class="fotoPerfil">
-                        <img src="" alt="" class="foto">
-                    </div>
-
-                
-
-                </span>
+                    <i class="fas fa-envelope"></i>
 
 
-
-                <!-- SOLO PARA PANTALLAS QUE NO SEAN MOBILES -->
-                <span class="navMobile">
-                    <i class="fas fa-calendar"></i>
-                    <i class="fas fa-inbox"></i>
-                    <i class="fas fa-bars"></i>
-                </span>
-                <!-- ---------------------------------------------------- -->
-    
-            </header>
-    
-            <!-- SECCION TUTORIAL PASO A PASO DE COMO INTERACTUAR CON EL INDEX -->
-            <main class="gestionAdmin">
-    
-                <!-- AQUI SE ESCONDES LAS SECCIONES PRINCIPALES DEL CRUD DE MYLOOK -->
-                <section class="crudItemsAdmin">
-    
-                    <!-- SECCION POR DEFECTO AL ENTRAR AL INDEX -->
-                    <section class="sectionDefaultCrud" style="display: none;">
-    
-                    <!-- PRIMERA PARTE DE INTRODUCCION A COMO USAR EL MENU -->
-                    <article class="introGestion">
-
-                        <!-- INTRODUCCION MOBILE -->
-                        <h3 class="pushUno Mobile">Bienvenido a la gestion de establecimento pulse 
-                            <i class="fas fa-bars"></i> para añadir, eliminar o editar 
-                            alguno de los siguientes modulos:
-                        </h3>
-                        <!-- ----------------------------------------------------------------------------- -->
-
-                        <!-- INTRODUCCION A PC -->
-                        <h3 class="pushPC PC">Bienvenido a la gestion de establecimento pulse 
-                            <button type="submit" class="tutorialBtn">BOTÓN</button> para añadir, eliminar o editar 
-                            alguno de los siguientes modulos:
-                        </h3>
-    
-
-                        <!-- LO QUE SE PUEDE GESTIONAR -->
-                        <ul class="passDos">
-                            <li class="tutorial">  Gestionar <strong>productos</strong></li>
-                            <li class="tutorial">  Gestionar <strong>miembros del staff</strong></li>
-                            <li class="tutorial">  Gestionar <strong>categorias</strong></li>
-                            <li class="tutorial">  Gestionar <strong>tipos servicios</strong></li>
-                            <li class="tutorial">  Gestionar <strong>servicios</strong></li>
-                            <li class="tutorial">  Gestionar <strong>horarios</strong></li>
-                            <li class="tutorial">  Gestionar <strong>bandeja de entrada</strong></li>
-                        </ul>
-                    </article>
-    
-                    <span class="important">Nota: Todos los cambios registrados en este apatado seran 
-                        reflejados en las interfaces del usuario.
-                    </span>
-    
-                    </section>
-    
-                    <!-- SECCION PRINCIPAL DE LA GESTION DE PRODUCTOS -->
-                    <section class="crudProductos" style="display: none;">
-
-                        <!-- VER TODOS LOS PRODUCTOS REGISTRADOS -->
-                        <span class="navCrud">
-                        <a href="http://" class="viewAll" id="viewAllproductos">Ver todos</a>
-                        </span>
-    
-                        <section class="contenedorCrud" >
-                           
-                            <!-- CONTENEDOR DEL ITEM A MOSTRAR -->
-                            <article class="item">
-    
-                                <!-- NOMBRE DEL ITEM -->
-                                 <h3 class="nomItem">SHAPPER INALAMBRICA</h3>
-
-                                <!-- CONTENEDOR DE IMAGEN -->
-                                <div class="imgItem">
-                                    <img src="" alt="" class="imgItem">
-                                </div>
-    
-                                <!-- BOTONES DE EDITAR Y ELIMINAR -->
-                                <span class="btns">
-                                    <button type="submit" class="editItem"><a href="http://">EDITAR</a></button>
-                                    <button type="submit" class="editItem" id="elimEliminar">ELIMINAR</button>
-                                </span>
-                            </article>
-
-                        </section>
-                            
-    
-                            <span class="registerItem">¿ Quieres añadir un producto ? <a href="" class="redirect">Registralo Aqui</a> </span>
-                            
-                    </section>
-
-                    <!-- CRUD DE LOS MIEMBROS DEL STAFF DEL ESTABLECIMIENTO -->
-                    <section class="crudMiembrostaff" style="display: none;">
-
-                        
-                        <!-- VER TODOS LOS PRODUCTOS REGISTRADOS -->
-                        <span class="navCrud">
-                            <a href="http://" class="viewAll" id="viewAllstaff">Ver todos</a>
-                        </span>
-
-                        <section class="contenedorCrud" >
-                           
-                            <!-- CONTENEDOR DEL ITEM A MOSTRAR -->
-                            <article class="item">
-
-                                 <!-- NOMBRE DEL ITEM -->
-                                 <h3 class="nomItem">SHAPPER INALAMBRICA</h3>
-
-                                <!-- CONTENEDOR DE IMAGEN -->
-                                <div class="imgItem">
-                                    <img src="" alt="" class="imgItem">
-                                </div>
-    
-                                <!-- BOTONES DE EDITAR Y ELIMINAR -->
-                                <span class="btns">
-                                    <button type="submit" class="editItem"><a href="http://">EDITAR</a></button>
-                                    <button type="submit" class="editItem" id="elimEliminar">ELIMINAR</button>
-                                </span>
-                            </article>
-
-                        </section>
-
-                        <!-- ENLACE A REGISTRAR PERFIL -->
-                        <span class="registerItem">¿ Quieres añadir un Staff ? <a href="" class="redirect">Registralo Aqui</a> </span>
-                        
-                    </section>
-    
-                    <!-- SECCION PRINCIPAL DE LA GESTION DE SERVICIOS -->
-                    <section class="crudServicios" style="display: none;">
-    
-                          <!-- VER TODOS LOS PRODUCTOS REGISTRADOS -->
-                          <span class="navCrud">
-                            <a href="http://" class="viewAll" id="categorias">Ver categorias</a>
-                            <a href="http://" class="viewAll" id="viewAllservicios">Ver todos</a>
-                            </span>
-    
-                        <section class="contenedorCrud" >
-                           
-                            <!-- CONTENEDOR DEL ITEM A MOSTRAR -->
-                            <article class="item">
-    
-                                <!-- NOMBRE DEL ITEM -->
-                                 <h3 class="nomItem">SHAPPER INALAMBRICA</h3>
-
-                                <!-- CONTENEDOR DE IMAGEN -->
-                                <div class="imgItem">
-                                    <img src="" alt="" class="imgItem">
-                                </div>
-    
-                                <!-- BOTONES DE EDITAR Y ELIMINAR -->
-                                <span class="btns">
-                                    <button type="submit" class="editItem" id="viewAlltiposervicio">Tipo Servicio</button>
-                                    <button type="submit" class="editItem" id="elimEliminar">ELIMINAR</button>
-                                </span>
-                            </article>
-
-                        </section>
-                            
-    
-                            <span class="registerItem">¿ Quieres añadir un producto ? <a href="" class="redirect">Registralo Aqui</a> </span>
-                    </section>
-    
-                    <section class="sectionPresentations" style="display: none;">
-                    
-                            <!-- Imagen que se podrá editar -->
-                            <img src="https://images.fresha.com/locations/location-profile-images/588513/2109480/19a8f5b8-0922-47ae-b647-3605142a0d9a.jpg?class=venue-gallery-mobile" alt="" class="imgPresentations" id="imgToEdit">
-                        
-                            <!-- Botón para activar el input file -->
-                            <div class="edit" id="editarImagen">
-                                <h4 class="nomEdit">EDITAR</h4>
-                                <i class="fas fa-edit"></i>
-                            </div>
-                        
-                            <!-- Input file escondido -->
-                            <input type="file" id="inputFile" style="display: none;" accept="image/*">
-
-                    </section>
-
-                </section>
-    
-            </main>
-    
-            <!-- PIE DE PAGINA -->
-            <footer class="piePagina">
-            
-                <span class="derechosAutor">Derechos reservado MYLOOK</span>
-            </footer>
-    
-        </section>
-        <!-- ------------------------------------------------------ -->
-        
-        <!-- CRUD DE PRODUCTOS -->
-        <section class="viewProductos" style="display: none;">
-
-            <!-- VOLVER AL MENU INICIAL -->
-            <span class="volver">
-                <i class="fas fa-arrow-left"></i> 
-                <h3 class="nomView">Gestion Productos</h3>
-            </span>
-
-            <!-- FILTRADO DE PRODUCTOS -->
-            <nav class="filter">
-
-                <div class="option">
-                    <button type="submit" id="btnInicio" class="optionGestion"> TODO</button>
-                    <button type="submit" class="optionGestion">RECIENTES</button>
-                    <button type="submit" class="optionGestion">AGOTADOS</button>
-                </div> 
-
-                <div class="searchBar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" class="inputSearch" placeholder="Buscar producto...">
-                </div>
-            </nav>
-            
-            <!-- CONTENEDOR DEL PRODUCTO A REFENRENCIAR -->
-            <section class="cardItems">
-
-                <div class="cardUnited">
-                    <article class="itemImg">
-                        <img src="https://www.garnier.cl/-/media/project/loreal/brand-sites/garnier/usa/latam/es/prd-haircare/hair-food-manteca-de-cacao-update/crema-para-peinar/7509552792294_2-compressed.jpg?w=1200&rev=efb5091969904a298491b8a3ed66a0d5&hash=9E673FAE683FE3B6561EFE23F57A2031" alt="" class="img">
-                    </article>
-                        <h4 class="nomItem">POMADA PARA RIZOS</h4>
-                        <p class="descripcion">Pomada eficiente para rizos definidos con maltrato 
-                            en las puntas maltratadas especialmente para cabello castaño.
-                            No aplicar con el cabello mojado
-                        </p>
-    
-                        <div class="btnCrud">
-                            <button type="submit" class="btnEdit">Editar</button>
-                            <button type="submit" class="btnEdit" id="eliminarItem">Eliminar</button>
-                        </div>
-                    </div>         
-                </div>
-            </section>
-        </section>
-
-        <!-- CRUD CATEGORIAS -->
-        <section class="viewCategorias" style="display: none;">
-
-             <!-- VOLVER AL MENU INICIAL -->
-             <span class="volver">
-                <i class="fas fa-arrow-left"></i> 
-                <h3 class="nomView">Gestion Categorias</h3>
-            </span>
-
-            <!-- FILTRADO DE PRODUCTOS -->
-            <nav class="filter">
-
-                <div class="option">
-                    <button type="submit" id="btnInicio" class="optionGestion"> TODO</button>
-                    <button type="submit" class="optionGestion">RECIENTES</button>
-                    <button type="submit" class="optionGestion">AGOTADOS</button>
-                </div> 
-
-                <div class="searchBar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" class="inputSearch" placeholder="Buscar producto...">
-                </div>
-            </nav>
-
-          
-            
-            <!-- CONTENEDOR DEL CATEGORIA A REFENRENCIAR -->
-            <section class="cardItems">
-                <div class="cardUnited">
-                <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
-
-                <article class="itemImg">
-                    <img src="https://lapuissance.com.ar/cdn/shop/articles/FotoN6-1.webp?crop=center&height=1200&v=1696425967&width=1200" alt="" class="img">
                 </article>
-     
-                    <div class="btnCrud">
-                        <button type="submit" class="btnEdit">Editar</button>
-                        <button type="submit" class="btnEdit" id="eliminarItem">Eliminar</button>
-                    </div>
-                </div>
-            </section>
+
+            </div>
+
+            <div class="showMas">
+                <h3 class="tittleShow">VER MÁS</h3>
+            </div>
+
+        </article>
+    </aside>
+
+    <nav class="menunavegacionAdmin">
+        <button type="submit" class="btnCrud">Staff</button>
+        <button type="submit" class="btnCrud">Productos</button>
+        <button type="submit" class="btnCrud">Servicios</button>
+        <button type="submit" class="btnCrud">Inicio</button>
+    </nav>
+
+    <main class="contentcrudAdmin">
+
+        <!-- SECCION DEFAULT QUE VE EL USUARIO ADMINISTRADOR CUANDO ENTRA A SU ESTABLECIMIENTOS -->
+        <section class="sectionDefault" style="display: none;">
+
+            <div class="infoDefault">
+                <p class="txtIntroduccion">Bienvenido al interfaz de Administrador, Aqui podras insertar los productos
+                    de tu negocio. Para poder continuar pulsa sobre un <button type="submit" class="btnExample">Botón</button> para poder navegar en las diferentes
+                    insercciones que tenemos para ti.
+                </p>
+            </div>
+            <span class="passAndPass">
+                <ul class="listaCrud">
+                    <li class="optionCrud">Registrar Servicios.</li>
+                    <li class="optionCrud">Regsitrar Categorias.</li>
+                    <li class="optionCrud">Registrar Tipos de servicio.</li>
+                    <li class="optionCrud">Regsitrar Productos.</li>
+                    <li class="optionCrud">Configurar Perfil.</li>
+                </ul>
+            </span>
+            <div class="infoImportant">
+                <p class="txtImportant"><strong>Nota:</strong> Los cambios realizados en este apartado seran actualizados en las demas interfaces de la aplicación.</p>
+            </div>
 
         </section>
 
-        <!-- CRUD TIPOS DE  TIPO SERVICIOS -->
-        <section class="viewTipservicios" style="display: none;">
-           
-             <!-- VOLVER AL MENU INICIAL -->
-             <span class="volver">
-                <i class="fas fa-arrow-left"></i> 
-                <h3 class="nomView">Gestion  Tipo Servicios</h3>
+        <!-- SECCION PARA MODIFICAR LOS MIEMBROS DEL STAFF -->
+        <section class="crudStaff" style="display: none;">
+
+            <span class="rediretViewStaff">
+                <a link href="../../View/Administrador/viewStaff.html" class="tittleRediret">VER TODOS...</a>
             </span>
 
-            <!-- FILTRADO DE TIPOS DE PRODUCTOS -->
-            <nav class="filter">
+            <article class="staffItem">
+                <figure class="staffCard">
+                    <span class="nomStaff">Mauricio Duarte</span>
 
-                <div class="option">
-                    <button type="submit" id="btnInicio" class="optionGestion"> TODO</button>
-                    <button type="submit" class="optionGestion">RECIENTES</button>
-                    <button type="submit" class="optionGestion">RANKING</button>
-                </div> 
+                    <img src="../../Asset/img3.jpeg" alt="" class="imgStaff">
 
+                    <span class="rediretRegister">
+                        <button type="submit" class="btnOption"><a href="../../Form/Register/Staff/regsiterStaff.html">Editar</a></button>
+                        <button type="submit" class="btnOption">Eliminar</button>
+                    </span>
+                </figure>
 
-                <div class="searchBar">
-                <select name="service" class="inputSearch">
-                    <option value="" disabled selected>Seleccione una categoria</option>
-                    <option value="1">Cuidado del cabello</option>
-                    <option value="2">Facial</option>
-                </select>
-            </div>
-            </nav>
+                <figure class="staffCard">
+                    <span class="nomStaff">Arturo Calle</span>
 
-     
-            
-            <!-- CONTENEDOR DEL CATEGORIA A REFENRENCIAR -->
-            <div class="cardItems">
+                    <img src="../../Asset/img2.jpeg" alt="" class="imgStaff">
 
-                <div class="cardUnited">
-                    <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
-                    <article class="itemImg">
-                        <img src="" alt="">
-                    </article>
-                    <div class="btnCrud">
-                        <button type="submit" class="btnEdit"><i class="fas fa-edit"></i></button>
-                        <button type="submit" class="btnEdit" id="eliminarItem"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
+                    <span class="rediretRegister">
+                        <button type="submit" class="btnOption"><a href="../../Form/Register/Staff/regsiterStaff.html">Editar</a></button>
+                        <button type="submit" class="btnOption">Eliminar</button>
+                    </span>
+                </figure>
 
-                
-                <div class="cardUnited">
-                    <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
-                    <article class="itemImg">
-                        <img src="" alt="">
-                    </article>
-                    <div class="btnCrud">
-                        <button type="submit" class="btnEdit"><i class="fas fa-edit"></i></button>
-                        <button type="submit" class="btnEdit" id="eliminarItem"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
+                <figure class="staffCard">
+                    <span class="nomStaff">Alejandro Aguilon</span>
 
-                
-                <div class="cardUnited">
-                    <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
-                    <article class="itemImg">
-                        <img src="" alt="">
-                    </article>
-                    <div class="btnCrud">
-                        <button type="submit" class="btnEdit"><i class="fas fa-edit"></i></button>
-                        <button type="submit" class="btnEdit" id="eliminarItem"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
+                    <img src="../../Asset/img5.jpeg" alt="" class="imgStaff">
 
-                
-                <div class="cardUnited">
-                    <h4 class="nomItem">CUIDADO DE CATEGORIA</h4>
-                    <article class="itemImg">
-                        <img src="" alt="">
-                    </article>
-                    <div class="btnCrud">
-                        <button type="submit" class="btnEdit"><i class="fas fa-edit"></i></button>
-                        <button type="submit" class="btnEdit" id="eliminarItem"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </div>
-            </div>
+                    <span class="rediretRegister">
+                        <button type="submit" class="btnOption"><a href="../../Form/Register/Staff/regsiterStaff.html">Editar</a></button>
+                        <button type="submit" class="btnOption">Eliminar</button>
+                    </span>
+                </figure>
+
+                <figure class="staffCard" id="AñadirStaff">
+                    <a href="../../Form/Register/Staff/regsiterStaff.html" class="rediretStaff">+</a>
+                </figure>
+            </article>
+
         </section>
 
-        <!-- CRUD DE SERVICIOS -->
-        <section class="viewServicios" style="display: none;">
-             <!-- VOLVER AL MENU INICIAL -->
-             <span class="volver">
-                <i class="fas fa-arrow-left"></i> 
-                <h3 class="nomView">Gestion Servicios</h3>
+        <!-- SECCION PARA MODIFICAR LOS PRODUCTOS DE MYLOOK -->
+        <section class="crudProductos" style="display: none;">
+            <span class="rediretViewProductos">
+                <a link href="../../View/Administrador/viewProductos.html" class="tittleRediret">VER TODOS...</a>
             </span>
 
-            <!-- FILTRADO DE PRODUCTOS -->
-            <nav class="filter">
+            <article class="productosItem">
+                <figure class="productoCard">
+                    <img src="https://www.nihlo.com.co/cdn/shop/files/shampoo-anticaspa-400ml-1_1000x.png?v=1712780936" alt="" class="imgProducto">
 
-                <div class="option">
-                    <button type="submit" id="btnInicio" class="optionGestion"> TODO</button>
-                    <button type="submit" class="optionGestion">RECIENTES</button>
-                    <button type="submit" class="optionGestion">RANKING</button>
-                </div> 
+                    <span class="nomProducto">Shampoo AntiCaspa</span>
 
-                <div class="searchBar">
-                    <select name="service" class="inputSearch">
-                        <option value="" disabled selected>Seleccione un tipo de servicio</option>
-                        <option value="1">Cortes</option>
-                        <option value="2">Facial</option>
-                        <option value="3">Pedicure</option>
-                        <option value="4">Cortes Barba</option>
-                        <option value="5">Tratamientos</option>
-                    </select>
-                </div>
-            </nav>
-            
-            <!-- CONTENEDOR DEL PRODUCTO A REFENRENCIAR -->
-            <section class="cardItems">
-                        
-                    <div class="cardUnited">
-                        <article class="itemImg">
-                            <img src="https://e00-expansion.uecdn.es/assets/multimedia/imagenes/2023/12/19/17029858297719.jpg" alt="" class="img">
-                        </article>
-        
-                        <div class="infoItem">
-                            <h3 class="nomNegocio">Barber Store Plus</h3>
-                            <h2 class="nomItem">CORTE NAPOLEON BENAVIDES</h4>
-                            <p class="precio">$ 25.000 CO</p>
-        
-                                <div class="btnCrud">
-                                    <button type="submit" class="btnEdit">EDITAR SERVICIO</button>
-                                </div>
-        
-                            <p class="descripcion">Este corte es ideal para quienes buscan un estilo atrevido y juvenil, ya que el flequillo ayuda a suavizar las facciones y puede dar un toque de misterio. Además, el flequillo marcado funciona bien en diferentes tipos de cabello, desde lacio hasta ondulado, y puede acompañar cortes en capas, rectos o asimétricos. </p>
-                            <p class="time">35 Minutos</p>
-    
-                        </div>
-                    </div>
-                </div>
-            </section>
+                    <p class="descripProducto">Trata y previene la caspa con nuestro productos 100% naturales a base de aceite de gengibre con romero y un poco de ketononazol</p>
+
+                    <span class="rediretRegister">
+                        <button type="submit" class="btnOption"><a href="../../View/Usuario/viewProducto.html">Editar</a></button>
+                        <button type="submit" class="btnOption">Eliminar</button>
+                    </span>
+                </figure>
+
+                <figure class="productoCard">
+                    <img src="https://www.nihlo.com.co/cdn/shop/files/shampoo-anticaspa-400ml-1_1000x.png?v=1712780936" alt="" class="imgProducto">
+
+                    <span class="nomProducto">Shampoo AntiCaspa</span>
+
+                    <p class="descripProducto">Trata y previene la caspa con nuestro productos 100% naturales a base de aceite de gengibre con romero y un poco de ketononazol</p>
+
+                    <span class="rediretRegister">
+                        <button type="submit" class="btnOption"><a href="../../View/Usuario/viewProducto.html">Editar</a></button>
+                        <button type="submit" class="btnOption">Eliminar</button>
+                    </span>
+                </figure>
+
+                <figure class="productoCard">
+                    <img src="https://www.nihlo.com.co/cdn/shop/files/shampoo-anticaspa-400ml-1_1000x.png?v=1712780936" alt="" class="imgProducto">
+
+                    <span class="nomProducto">Shampoo AntiCaspa</span>
+
+                    <p class="descripProducto">Trata y previene la caspa con nuestro productos 100% naturales a base de aceite de gengibre con romero y un poco de ketononazol</p>
+
+                    <span class="rediretRegister">
+                        <button type="submit" class="btnOption"><a href="../../View/Usuario/viewProducto.html">Editar</a></button>
+                        <button type="submit" class="btnOption">Eliminar</button>
+                    </span>
+                </figure>
+
+                <figure class="productoCard" id="AñadirProducto">
+                    <a href="../../Form/Insercciones/registerProducto.html" class="rediretProducto">+</a>
+                </figure>
+            </article>
+
         </section>
 
-<!------------------------------------------------------------ -->
+        <!-- SECCION PARA MODIFICAR LAS CATEGORIAS Y VISUALIZAR EN OTRAS PESTAÑAS LOS SERVICIOS Y LOS TIPOS DE SERVICIO DEL ESTABLECIMIENTO -->
+        <section class="crudCategoria" style="display: none;">
+            <span class="rediretViewProductos">
+                <a link href="../../View/Administrador/viewTipservicio.html" class="tittleRediret">VER TIPOS DE SERVICIO</a>
+                <a link href="../../View/Administrador/viewServicios.html" class="tittleRediret" >VER SERVICIOS</a>
+            </span>
 
-<script src="/Js/Admin/indexAdmin.js"></script>
+            <div class="contianerCategoria">
+
+            <article class="categoriaCard">
+                <figure class="imgCategoria">
+                    <img src="https://i.pinimg.com/236x/a6/2c/5b/a62c5bb095c011a92f243ffe878809f5.jpg" alt="" class="fotoCategoria">
+                </figure>
+
+                <div class="infoCategoria">
+                    <h3 class="nomCategoria">CORTE DE CABELLO</h3>
+                    <p class="descripCategoria">Todo lo relacionado con los cortes de cabello mas innovadores y en tendencia del año.</p>
+                    <a href="../../Form/Insercciones/registerCategorias.html">Editar Categoría</a>
+                </div>
+            </article>
+            
+        </div>
+
+        <span class="rediretCategoria">
+            <p class="nomRediret">¿ Deseas registrar una categoría nueva ?<a href="../../Form/Insercciones/registerCategorias.html">Registrar Aquí</a></p>
+        </span>
+
+        </section>
+
+        <!-- SECCION PARA MODIFICAR LA IMAGEN DE PRESENTACION DEL ESTABLECIMIENTO -->
+        <section class="crudInicio" style="display: none;">
+            <article class="containerImg">
+                <figure class="imgPresentacion" id="previewImage"></figure>
+                <label for="fileInput" class="redirectEditar">
+                    <span class="nomEditar">Editar</span>
+                    <i class="fas fa-arrow-right-from-bracket"></i>
+                </label>
+                <input type="file" id="fileInput"  class="input-file-hidden" accept="image/*">
+            </article>
+        </section>
+
+        <!-- CRUD DE ADMINISTRADORES DE MYLOOK Y SUS ESTABLECIMIENTOS (( ESTA SECCION SOLO SERA VISIBLE PARA EL ADMINISTRADOR LIDER )) -->
+        <section class="sectionAdministrador">
+
+        </section><!-- ---- PEDIENTE DE LOGICA ---- -->
+
+    </main>
+
+
+    <script src="/Js/Admin/indexAdmin.js">
+
+    </script>
 </body>
 </html>

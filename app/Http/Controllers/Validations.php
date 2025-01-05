@@ -77,7 +77,7 @@ class Validations extends Controller
         $negocioData = Negocio::where('id_negocio', $nit)->first();
 
         if ($nit == $negocioData->id_negocio && password_verify($password,$negocioData->contrasena)) {
-            return redirect()->to('/indexAdmin');
+            return redirect()->to('/indexadmin');
         }else{
             return redirect()->to('/loginbienvenida');
         }
@@ -201,6 +201,7 @@ class Validations extends Controller
         ]);
 
         echo "Se insertó el producto correctamente";
+        return redirect('indexadmin');
 
     }else{
         echo "Faltan campos por diligenciar";
@@ -328,7 +329,7 @@ class Validations extends Controller
             $categoria->save();
 
         }
-
+ 
         return redirect('#');
 
     }

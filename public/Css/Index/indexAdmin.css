@@ -1,9 +1,8 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-
 
 /* VARIABLES DE ENTORNO */
 :root {
@@ -14,2237 +13,688 @@
     --color-black: black;
 }
 
-/* MOBILE */
-@media (max-width: 1020px){
+body {
+    display: grid;
+    grid-template-columns: 30% 70%; 
+    grid-template-rows: 25% 10% 65%;
+    grid-template-areas: 
+    "Header Header"
+    "Mensajeria Nav"
+    "Mensajeria Main";
+    height: 100vh;
+    width: 100vw;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
-    /* ESTAS CLASES SE MUESTRAN CUANDO LA VISTA CAMBIE A PC */
-    .menuNaveacion, .bandejaEntrada, .infoAdmin, .pushPC, .sectionPresentations{
-        display: none;
-    }
-    /* ---------------------------------------------------------------------------------- */
+.encabezadoAdmin {
+    grid-area: Header;
+    height: 100%; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    /* SECCION DEFULT AL ENTRAR AL INDEX ADMIN */
-    .SectionDefault{ 
-        height: auto;
-        width: 100vw;
+    .tittleApp {
+        font-size: 4vw;
+        padding-left: 4.5vw;
+        padding-bottom: 5vh;
+        color: var(--color-dark);
+    }      
+
+    .containerPerfil {
+        display: flex;
+        justify-content: right;
+        align-items: start;
+        padding-right: 5vw;
+    
+        .imgPerfil {
+            height: 9vh;
+            width: 4vw;
+            border: 1px solid var(--color-primary);
+            border-radius: 100%;
+        }
+    }    
+}
+
+.bandejaentradaAdmin {
+    grid-area: Mensajeria;
+    height: 100%; 
+    display: flex;
+    justify-content: right;
+    
+
+    .containerMensajes {
+        border: 1px solid var(--color-primary);
+        height: 105%;
+        width: 95%;
+        border-radius: 2%;
+        margin-top: -6vh;
+        z-index: 1;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 20vh 75vh 5vh;
+        grid-template-rows: 15% 71% 1fr;        
 
-        /* ENCABEZADO CON MENU DE NAVEGACION<-MOBILE */
-        .encabezadoAdmin{
-            border-bottom: 1px solid var(--color-white);
-            background-color: var(--color-dark);
-            color: var(--color-white);
+        .tittleItem{
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
-            gap: 5vw;
+            background-color: var(--color-dark);
 
-            /* TITULO MYLOOK */
-            .tittleApp{
-                font-size: 10vw;
-               font-weight: bold;
-            }
 
-            /* MENU DE NAVEGACION MOBILE */
-            .navMobile{
-                font-size: 1.2em;
+            .nomEntrada{
+                padding-bottom: 1vh;
+                font-size: 1.6vw;
+                color: var(--color-white);}
+        }
 
-                /* ICONOS DE NAVEGACION */
-                i{
-                    margin-right: .6em;
+        .mensajesItem{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            gap: 1.5vh;
+            border-radius: 3px;
+            height: 88%;
+            width: 100%;
+            padding-top: 1vh;
+            margin-bottom: 4vh;
+            margin-top: 4vh;
+            overflow-y: scroll;
+            scrollbar-width: none;
+
+            .mensajeUnited{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 12vh;
+                min-height: 12vh;
+                width: 80%;
+                background-color: var(--color-primary);
+                transition: .1s ease-in-out;
+
+                &:hover{
+                    background-color: var(--color-dark);
                     cursor: pointer;
                 }
-            }
-        }
-
-        /* GESTION ADMIN */
-        .gestionAdmin{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5vh;
-            margin-top: 15vh;
-
-            .pushUno{
-                width:95%;
-                text-align: left;
-                padding-bottom: 3vh;
-                padding-left: 5vw;
-            }
-
-            .passDos{
-                padding-left: 17vw ;
-                padding-bottom: 3vh;
-            }
-
-            .important{
-                font-style: italic;   
-                margin-top: 5vh;
-                font-size: 3.8vw;
-            }
-
-            .crudItemsAdmin{
-                height: 90vh;
-                width: 100%;
-
-                .crudProductos, .crudCategorias, .crudTipservicios, .crudServicios, .crudMiembrostaff{
-                    display: flex;
-                    flex-direction: column;
-                    height: 100%;
-                    width: 100%;
-                    overflow: hidden;
-
-                    .navCrud{
-                        height: 20%;
-                        width: 200%;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: end;
-                        padding-left: 8vw;
-
-                        .viewAll{
-                            color: var(--color-dark);
-                        }
-                    }
-
-                    .contenedorCrud{ 
-                       height: 60%;
-                       width: 100%;
-                       display: flex;
-                       justify-content: center;
-                       align-items: center;
-
-                       .item{
-                            border: 1px solid var(--color-dark);
-                            height: 75%;
-                            width: 45%;
-                            border-radius: 5%;
-                            display: grid;
-                            grid-template-columns: 1fr;
-                            grid-template-rows: 15% 70% 10%;
-
-                            .nomItem{
-                               border-block-start: 1px solid var(--color-dark);
-                               padding-top: 1vh;
-                               font-size: 3vw;
-                               text-align: center; 
-                               color: var(--color-dark);
-                            }
-                            
-                            .imgItem{
-                                display: flex;
-                                justify-content: center;
-                                align-items: start;
-
-
-                                .imgItem{
-                                    height: 95%;
-                                    width: 100%;
-                                }
-                            }
-
-        
-                            .btns{
-                                height: 100%;
-                                width: 100%;
-                                display: flex;
-
-                                .editItem{
-                                   width: 50%;
-                                   height: 145%;
-                                   background-color: transparent;
-                                   color: var(--color-dark);
-                                   border: 1px solid var(--color-dark);
                 
 
-
-                                    
-                                    &#elimEliminar{
-                                        background-color: var(--color-dark);
-                                    color: var(--color-white);                                    }
-                                }
-                            }
-                       }    
-                } 
-
-                .registerItem{
-                    font-size: 3.5vw;
-                    display: flex;
-                    justify-content: center;
-
-                    .redirect{
-                        text-decoration: none;
-                        color: var(--color-dark);
-                        font-weight: bold;
-                        margin-left: 2vw;
-                    }                
-            }            
-        }
-    }
-}
-
-        /* FOOTER */
-        .piePagina{
-            background-color: var(--color-dark);
-            border-radius: 35% 35% 0% 0%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        
-            /* MENSAJE DE DERECHOS DE AUTOR */
-            .derechosAutor{
-                color: var(--color-white);
-                font-size: 3.5vw;
-                padding-top: 1vh;
-            }
-        }
-    }
-
-/* --------------------------------------------- */
-    /* OPCIONES VARIAS */
-
-        /* MENU DE NAVEGACION */
-        .navegacion{
-            background-color: var(--color-primary);
-            height: 100vh;
-            width: 100%;
-        
-        
-            /* ICONO DE VOLVER ATRAS */
-            .volver{
-                height: 15vh;
-                padding-top: 3vh;
-                padding-left: 1.5em;
-                color: var(--color-white);
-            
-                /* ICONO */
-                i{
-                    font-size: 3vh;
-                    padding: 3%;
-                    border: 1px solid var(--color-white);
-                    border-radius: 100%;
-                }
-            }
-        
-            /* OPCIONES DEL MENU DE NAVEGACION */
-            .options{ 
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2vh;
-            
-            /* OPCION X OPCION */
-            .configCuenta{
-                font-size: 5vw;
-                color: var(--color-white);
-                font-weight: bold;
-                opacity: .6;
-        
-                /* OPCION DEL MEDIO */
-                &#scrollMedio{
-                    opacity: 1;
-                    font-size: 14vw;
-        
-                    }
-                }
-            }
-        }
-
-        /* BANDEJA DE ENTRADA */       
-        .bandejaEntradaMobile{
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 10vh 15vh 75vh;
-            grid-template-areas: 
-            "Header"
-            "Main"
-            "Article";
-
-            /* ENCABEZADO DE LA BANDEJA DE ENTRADA */
-            .enacbezadoBandeja{
-                border: 1px solid black;
-                grid-area: Header;
-
-                display: grid;
-                grid-template-columns: 1fr 60vw 1fr;
-
-                /* ICONO DE VOLVER AL MENU PRINCIPAL */
-                .volver{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;    
-
-                    i{
-                        padding: 25%;
-                        color: var(--color-dark);
-                        border-radius: 100%;
-                        border: 1px solid var(--color-dark);
-                    }
-                }
-
-                /* TITULO DE LA BANDEJA DE ENTRADA */
-                .tittleBandeja{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    .nomTittle{
-                        color: var(--color-dark);
-                        font-weight: bold;
-                        font-size: 8vw;
-
-                    }
-                }
-
-                /* CONTADOR DE MENSAJES */
-                .contadorBandeja{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    i{
-                        font-size: 3.5vh;
-                        color: var(--color-dark);
-                    }
-                }
-            }
-
-            /* CHATS A REVISAR */
-            .chatsBandeja{
-                border: 1px solid var(--color-dark);
-                grid-area: Main;
-                display: flex;
-                align-items: center;
-                padding-left: 1em;
-                padding-right: 1em;
-                gap: 2vw;
-                width: auto;
-                overflow: scroll;
-
-
-                .chat{
-                    height: 10vh;
-                    width: 22vw;
-                    border-radius: 100%;
-                    border: 1px solid var(--color-dark);
-                    
-
-                    .imgPerfil{
-                        height: 100%;
-                        width: 100%;
-                        border-radius: 100%;
-
-                    }
-
-                    &:hover{
-                        height: 12vh;
-                        width: 27vw;
-
-                    }
-                }
-            }
-
-
-        /* CUERPO DE LOS MENSAJES DE LOS REMITENTES */
-        .messagesBandeja{
-                border: 1px solid var(--color-dark);
-                grid-area: Article;
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 90% 10%;
-
-
-                /* CUERPO DEL MENSAJE */
-                .bodyMessage{
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: start;
-                    padding-top: 4vh;
-                    padding-left: 4vw;
-                    gap: 2vh;
-
-                    /* A QUIEN LE LLEGA EL MANESAJE */
-                    .remitenteMessage{
-                        background-color: var(--color-dark);
-                        height: 20%;
-                        width: 70%;
-                        border-radius: 10% 0% 10% 0%;
-                    }
-
-
-                    /* QUIEN RECIBE EL MENSAJE */
-                    .recibeMessage{
-                        background-color: var(--color-primary);
-                        height: 20%;
-                        width: 70%;
-                        border-radius: 10% 0% 10% 0%;
-                        margin-left: 25vw;
-                    }
-                }
-            
-
-            /* ENVIAR MENSAJES */
-            .sendMessages{
-                display: grid;
-                grid-template-columns: 87% 1fr;
-
-
-                /* MENSAJES */
-                .readMessage{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    
-                    
-                    .message{
-                        width: 90%;
-                        height: 72%;
-                        border: 1px solid var(--color-dark);
-                        border-left: none;
-                        padding-left: 1vw;
-
-                        &::placeholder{
-                            color: var(--color-primary);
-                        }
-
-                    }
-                }
-
-                    /* ICONO DE ENVIAR MENSAJE */
-                    .send{
-                        display: flex;
-                        justify-content: left;
-                        align-items: center;
-                        font-size: 6vw;
-                        padding-left: 1vw;
-                        color: var(--color-dark);
-                    }
-                }
-        }
-        }
-
-        /* CALENDARIO MOBILE */
-        .calendario{
-            height: 100vh;
-            width: 100vw;
-
-            .calendarApi{
-                height: 100vh;
-                width: 100vw;
-            }
-        }
-
-/* ---------------------------------------------- */
-
-    /* VISTA DE TODOS LOS PRODUCTOS */
-    .viewProductos{
-        height: 100vh;
-        width: 100vw;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 15vh 5vh 80vh;
-
-        /* CONTENEDOR DE DEVOLVERSE */
-        .volver{
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            gap: 30vw;
-
-            /* ICONO */
-            i{
-                color: var(--color-dark);
-                padding: 5%;
-                border: 1px solid var(--color-dark);
-                border-radius: 100%;
-            }
-
-            /* NOMBRE DEL MODULO */
-            .nomView{
-                color: var(--color-dark);
-                font-size: 4vw;
-            }
-        }
-
-        /* BARRA DE BUSQUEDA FILTRO */
-        .filter{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 1vw;
-
-            /* BOTONES DE BUSQUEDA RAPIDA */
-            .option{
-                display: flex;
-                width: 30%;
-                padding-left: 2vw;
-
-                /* BOTON INDIVIDUAL */
-                .optionGestion{
-                    background-color: var(--color-white);
-                    border: 1px solid var(--color-dark);
-                    color: var(--color-dark);    
-                    margin-right: 1vw;
-                    font-size: 3vw;
-                    padding: 3%;
-                    border-radius: 10%;
-
-                    &#btnInicio{
-                        background-color: var(--color-dark);
-                        color: var(--color-white);
-                    }
-                }
-            }
-
-            /* BARRA DE BUSQUEDA */
-            .searchBar{
-                padding-left: 25vw;
-
-                /* ICONO DE LUPA DE BUSQUEDA */
-                i{
-                    font-size: 1vh;
-                    padding: 5%;
-                    border-radius: 100%;
-                    color: var(--color-white);
-                    background-color: var(--color-dark);
-                }
-
-                /* INPUT DEL BUCADOR */
-                .inputSearch{
-                    width: 80%;
-                    padding: 1%;
-                    padding-right: 1vw;
-                    padding-left: 1.5vw;
-                    border: none;
-                    outline: none;
-                    border-bottom: 1px solid var(--color-dark);
-
-                    /* PLACEHOLDER DEL INPUT */
-                    &::placeholder{
-                        color: var(--color-dark);
-                        font-style: italic;
-                        font-size: 2.5vw;
-                    }
-                }
-            }
-        }
-
-        /* VISUALIZACION DE PRODUCTOS */
-        .viewsItems{
-            gap: 5vw;
-
-            .cardItems{
-                margin: 10% 0% 0% 5%;
-                border: 1px solid var(--color-dark);
-                height: 35%;
-                width: 40%;
-                padding: 1% 1% 1% 1%;    
-                display: flex;
-                flex-direction: column;
-                align-items: center;      
-                color: var(--color-dark);
-                border-radius: 5%;
-            
-                .itemImg{
-                    width: 100%;
-                    height: 40%;
-                }
-
-                .nomItem{
-                    height: 9%;
-                    width: 100%;
-                    text-align: center;
-                    font-size: 3vw;
-                }
-
-                .descripcion{
-                    height: 25%;
-                    width: 100%;
-                    font-size: 2.3vw;
-                }
-
-                .precioItem{
-                    height: 10%;
-                    width: 100%;
-                    font-size: 3vw;
-                    text-align: end;
-                    padding-bottom: 2vh;
-                }
-
-                .btnCrud{
-                    display: flex;
-                    width: 100%;
-                    height: 15%;
-
-                    .btnEdit{
-                        width: 50%;
-                        background-color: var(--color-white);
-                        color: var(--color-dark);
-                        border: 1px solid var(--color-dark);
-                        border-radius: 3%;
-                        padding: 5%;
-
-                        &#eliminarItem{
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-                }
-            } 
-        }
-    }  
-
-    /* VISTA DE TODOS LAS CATEGORIAS */
-    .viewCategorias{
-
-        height: 100vh;
-        width: 100vw;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 15vh 5vh 80vh;
-
-        /* CONTENEDOR DE DEVOLVERSE */
-        .volver{
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            gap: 30vw;
-
-            /* ICONO */
-            i{
-                color: var(--color-dark);
-                padding: 5%;
-                border: 1px solid var(--color-dark);
-                border-radius: 100%;
-            }
-
-            /* NOMBRE DEL MODULO */
-            .nomView{
-                color: var(--color-dark);
-                font-size: 4vw;
-            }
-        }
-
-        /* BARRA DE BUSQUEDA FILTRO */
-        .filter{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 1vw;
-
-            /* BOTONES DE BUSQUEDA RAPIDA */
-            .option{
-                display: flex;
-                width: 30%;
-                padding-left: 2vw;
-
-                /* BOTON INDIVIDUAL */
-                .optionGestion{
-                    background-color: var(--color-white);
-                    border: 1px solid var(--color-dark);
-                    color: var(--color-dark);    
-                    margin-right: 1vw;
-                    font-size: 3vw;
-                    padding: 3%;
-                    border-radius: 10%;
-
-                    &#btnInicio{
-                        background-color: var(--color-dark);
-                        color: var(--color-white);
-                    }
-                }
-            }
-
-            /* BARRA DE BUSQUEDA */
-            .searchBar{
-                padding-left: 25vw;
-
-                /* ICONO DE LUPA DE BUSQUEDA */
-                i{
-                    font-size: 1vh;
-                    padding: 5%;
-                    border-radius: 100%;
-                    color: var(--color-white);
-                    background-color: var(--color-dark);
-                }
-
-                /* INPUT DEL BUCADOR */
-                .inputSearch{
-                    width: 80%;
-                    padding: 1%;
-                    padding-right: 1vw;
-                    padding-left: 1.5vw;
-                    border: none;
-                    outline: none;
-                    border-bottom: 1px solid var(--color-dark);
-
-                    /* PLACEHOLDER DEL INPUT */
-                    &::placeholder{
-                        color: var(--color-dark);
-                        font-style: italic;
-                        font-size: 2.5vw;
-                    }
-                }
-            }
-        }
-
-        /* VISUALIZACION DE CATEGORIAS */
-        .viewsItems{
-            gap: 5vw;
-
-            .cardItems{
-                margin: 10% 0% 0% 5%;
-                border: 1px solid var(--color-dark);
-                height: 35%;
-                width: 40%;
-                padding: 1% 1% 1% 1%;    
-                display: flex;
-                flex-direction: column;
-                align-items: center;      
-                color: var(--color-dark);
-                border-radius: 5%;
-            
-                .itemImg{
-                    width: 100%;
-                    height: 70%;
-                }
-
-                .nomItem{
-                    height: 10%;
-                    width: 100%;
-                    text-align: center;
-                    font-size: 2.5vw;
-                }
-
-                .btnCrud{
-                    display: flex;
-                    width: 100%;
-                    height: 20%;
-
-                    .btnEdit{
-                        width: 50%;
-                        background-color: var(--color-white);
-                        color: var(--color-dark);
-                        border: 1px solid var(--color-dark);
-                        border-radius: 3%;
-                        padding: 5%;
-
-                        &#eliminarItem{
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-                }
-            } 
-        }
-    }  
-
-    /* VISTA DE TODOS LOS TIPOS DE SERVICIOS */
-    .viewTipservicios{
-        height: 100vh;
-        width: 100vw;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 15vh 5vh 80vh;
-
-        /* CONTENEDOR DE DEVOLVERSE */
-        .volver{
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            gap: 30vw;
-
-            /* ICONO */
-            i{
-                color: var(--color-dark);
-                padding: 5%;
-                border: 1px solid var(--color-dark);
-                border-radius: 100%;
-            }
-
-            /* NOMBRE DEL MODULO */
-            .nomView{
-                color: var(--color-dark);
-                font-size: 4vw;
-            }
-        }
-
-        /* BARRA DE BUSQUEDA FILTRO */
-        .filter{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 1vw;
-
-            /* BOTONES DE BUSQUEDA RAPIDA */
-            .option{
-                display: flex;
-                width: 30%;
-                padding-left: 2vw;
-
-                /* BOTON INDIVIDUAL */
-                .optionGestion{
-                    background-color: var(--color-white);
-                    border: 1px solid var(--color-dark);
-                    color: var(--color-dark);    
-                    margin-right: 1vw;
-                    font-size: 3vw;
-                    padding: 3%;
-                    border-radius: 10%;
-
-                    &#btnInicio{
-                        background-color: var(--color-dark);
-                        color: var(--color-white);
-                    }
-                }
-            }
-
-            /* BARRA DE BUSQUEDA */
-            .searchBar{
-                padding-left: 25vw;
-
-                /* ICONO DE LUPA DE BUSQUEDA */
-                i{
-                    font-size: 1vh;
-                    padding: 5%;
-                    border-radius: 100%;
-                    color: var(--color-white);
-                    background-color: var(--color-dark);
-                }
-
-                /* INPUT DEL BUCADOR */
-                .inputSearch{
-                    width: 80%;
-                    padding: 1%;
-                    padding-right: 1vw;
-                    padding-left: 1.5vw;
-                    border: none;
-                    outline: none;
-                    border-bottom: 1px solid var(--color-dark);
-
-                    /* PLACEHOLDER DEL INPUT */
-                    &::placeholder{
-                        color: var(--color-dark);
-                        font-style: italic;
-                        font-size: 2.5vw;
-                    }
-                }
-            }
-        }
-
-        /* VISUALIZACION DE PRODUCTOS */
-        .viewsItems{
-            gap: 5vw;
-
-            .cardItems{
-                margin: 10% 0% 0% 5%;
-                border: 1px solid var(--color-dark);
-                height: 8%;
-                width: 85%;
-                padding: 1% 1% 1% 1%;    
-                display: flex;
-                align-items: center;     
-                justify-content: center; 
-                color: var(--color-dark);
-                border-radius: 5%;
-
-                .nomItem{
+                .fechaMensaje{
+                    border-right: 1px solid var(--color-white);
                     height: 100%;
-                    width: 60%;
-                    text-align: center;
-                    padding-top: 1.5vh;
-                    font-size: 3vw;
-                }
-
-                .btnCrud{
+                    width: 15%;
                     display: flex;
-                    width: 40%;
-                    height: 100%;
-
-                    .btnEdit{
-                        width: 50%;
-                        background-color: var(--color-white);
-                        color: var(--color-dark);
-                        border: 1px solid var(--color-dark);
-                        border-radius: 3%;
-
-                        &#eliminarItem{
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-                }
-            } 
-        }
-    }  
-
-    /* VISTA DE TODOS LOS SERVICIOS */
-    .viewServicios{
-        height: 100vh;
-        width: 100vw;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 15vh 5vh 80vh;
-
-        /* CONTENEDOR DE DEVOLVERSE */
-        .volver{
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            gap: 30vw;
-
-            /* ICONO */
-            i{
-                color: var(--color-dark);
-                padding: 5%;
-                border: 1px solid var(--color-dark);
-                border-radius: 100%;
-            }
-
-            /* NOMBRE DEL MODULO */
-            .nomView{
-                color: var(--color-dark);
-                font-size: 4vw;
-            }
-        }
-
-        /* BARRA DE BUSQUEDA FILTRO */
-        .filter{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 1vw;
-
-            /* BOTONES DE BUSQUEDA RAPIDA */
-            .option{
-                display: flex;
-                width: 30%;
-                padding-left: 2vw;
-
-                /* BOTON INDIVIDUAL */
-                .optionGestion{
-                    background-color: var(--color-white);
-                    border: 1px solid var(--color-dark);
-                    color: var(--color-dark);    
-                    margin-right: 1vw;
-                    font-size: 3vw;
-                    padding: 3%;
-                    border-radius: 10%;
-
-                    &#btnInicio{
-                        background-color: var(--color-dark);
-                        color: var(--color-white);
-                    }
-                }
-            }
-
-            /* BARRA DE BUSQUEDA */
-            .searchBar{
-                padding-left: 25vw;
-
-                /* ICONO DE LUPA DE BUSQUEDA */
-                i{
-                    font-size: 1vh;
-                    padding: 5%;
-                    border-radius: 100%;
-                    color: var(--color-white);
-                    background-color: var(--color-dark);
-                }
-
-                /* INPUT DEL BUCADOR */
-                .inputSearch{
-                    width: 80%;
-                    padding: 1%;
-                    padding-right: 1vw;
-                    padding-left: 1.5vw;
-                    border: none;
-                    outline: none;
-                    border-bottom: 1px solid var(--color-dark);
-
-                    /* PLACEHOLDER DEL INPUT */
-                    &::placeholder{
-                        color: var(--color-dark);
-                        font-style: italic;
-                        font-size: 2.5vw;
-                    }
-                }
-            }
-        }
-
-        /* VISUALIZACION DE PRODUCTOS */
-        .viewsItems{
-            gap: 5vw;
-
-            .cardItems{
-                margin: 10% 0% 0% 5%;
-                border: 1px solid var(--color-dark);
-                height: 30%;
-                width: 90%;
-                padding: 1% 1% 1% 1%;    
-                display: flex;
-               
-                align-items: center;      
-                color: var(--color-dark);
-                border-radius: 5%;
-            
-                .itemImg{
-                    width: 45%;
-                    height: 40%;
-                }
-
-                .infoItem{
-                    width: 55%;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 4vh;
-
-                
-
-                .nomItem{
-                    height: 9%;
-                    width: 100%;
-                    text-align: left;
-                    font-size: 3vw;
-                }
-
-                .descripcion{
-                    height: 25%;
-                    width: 100%;
-                    font-size: 2.3vw;
-                }
-
-                .precioItem{
-                    height: 10%;
-                    width: 100%;
-                    font-size: 3vw;
-                    text-align: end;
-                    padding-bottom: 2vh;
-                }
-
-                .btnCrud{
-                    display: flex;
-                    width: 95%;
-                    height: 15%;
-
-                    .btnEdit{
-                        width: 50%;
-                        background-color: var(--color-white);
-                        color: var(--color-dark);
-                        border: 1px solid var(--color-dark);
-                        border-radius: 3%;
-                        padding: 5%;
-
-                            &#eliminarItem{
-                                background-color: var(--color-dark);
-                                color: var(--color-white);
-                            }
-                        }
-                    }
-                } 
-            }
-        } 
-    }
-
-/* --------------------------------------------------- */
-
-}
-
-/* PC */
-@media (min-width: 1021px) {
-    
-    
-    /* PANTALLAS MOBILES */
-    .navMobile{
-        display: none;
-    }
-
-    body {
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        
-        /* ESTRUCTURA DEL INDEX ADMIN */
-        .SectionDefault {
-        height: 100vh;
-        width: 100vw;
-        display: grid;
-        grid-template-columns: 30% 70%;
-        grid-template-rows: 20% 10% 55% 15%;
-        grid-template-areas: 
-        "header header"
-        "mensajes nav"
-        "mensajes main"
-        "footer footer";
-
-
-     
-        /* ENCABEZADO FORMATO PC */
-        .encabezadoAdmin{
-            grid-area: header;
-            width: 100vw;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            /* NOMBRE DE LA APLICACION */
-            .tittleApp{
-                padding-left: 6vw;
-                font-size: 3.5vw;
-                color: var(--color-dark);
-                font-weight: bold;
-            }
-
-            /* CONTENEDOR PADRE DE LA INFORMACION DEL ADMIN */
-            .infoAdmin{
-                height: 70%;
-                width: 30%;
-                display: grid;
-                grid-template-columns: 60% 40%;
-                grid-template-rows: 1fr;
-
-                /* CONTENEDOR DE LA FOTO DE PERFIL */
-                .fotoPerfil{
-                    display: flex;
-                    justify-content: left;
-                    align-items: center;
-                    
-                    /* FOTO DE PERFIL */
-                    .foto{
-                        height: 13vh;
-                        width: 8vw;
-                        border: 1px solid var(--color-dark);
-                        border-radius: 100%;
-                        margin-left: 1vw;
-                    }
-                }
-
-                /* INFORMACION DE LA CUENTA */
-                .infoCuenta{
-                    display: flex;
-                    justify-content: right;
-                    align-items: end;
-                    flex-direction: column;
-                    margin-top: 5vh;
-
-                    /* NOMBRE DEL ADMIN QUE ESTA EN SESION */
-                    .nomAdmin{
-                        font-size: 1.5vw;
-                    }
-
-                    /* ENLACE A REDIRECCION */
-                    a{
-                        text-decoration: none;
-                        color: black;
-
-                        /* CERRAR SESION */
-                        &#close{
-                            color: var(--color-dark);
-                        }
-                    }
-                }
-            }
-            
-        }
-
-        /* BANDEJA DE ENTRADA PC */
-        .bandejaEntrada{
-            grid-area: mensajes;
-            display: flex;
-            justify-content: right;
-            align-items: start;
-
-            /* CONTENEDOR PADRE DE LA BANDEJA DE ENTRADA */
-            .containerFathermessages{
-                border: 1px solid black;
-                height: 100%;
-                width: 95%;
-                margin-top: -5vh;
-                z-index: 1;
-                border-radius: 3%;
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 25% 60% 15%;
-
-                /* ENCABEZADO DE LA BANDEJA */
-                .encabezadoMessage{
-                    background-color: var(--color-dark);
-                    border: 1px solid black;
-
-                }
-
-                /* CONTENEDOR DE LOS MENSAJES */
-                .messages{
-                    margin: 5% 6%;
-                    gap: 1vh;
-                    display: flex;
-                    flex-direction: column;
-
-                    /* MENSAJES UNITARIOS */
-                    .unitedMessage{
-                        height: 30%;
-                        width: 100%;
-                        background-color: var(--color-primary);
-                        border: 1px solid black;
-                        display: grid;
-                        grid-template-columns: 15% 65% 20%;
-                    
-                        /* FECHA */
-                        .fecha{
-                            border: 1px solid black;
-
-                        }
-
-                        /* MENSAJE */
-                        .msg{
-                            border: 1px solid black;
-
-                        }
-
-                        /* ICONOS */
-                        .icon{
-                            border: 1px solid black;
-
-                        }
-
-                    }
-
-                }
-
-                /* VER TODOS LOS MENSAJES */
-                .verMas{
-                    background-color: var(--color-dark);
-                    border: 1px solid black;
-
-                }
-            }
-        }
-
-        /* CONTENEDOR DE MENU DE NAVEGACION */
-        .menuNaveacion{
-            grid-area: nav;
-            border: 1px solid black;
-            display: flex;
-            justify-content: right;
-            align-items: center;
-            gap: .1vw;
-            border-top: 1px solid var(--color-dark);
-            border-bottom: 1px solid var(--color-dark);
-
-            /* OPCIONES DE MENU DE NAVEGACION PC */
-            .navOptions{
-                margin-right: 3vw;
-                height: 5vh;
-                width: 11vw;
-                background-color: transparent;
-                color: var(--color-dark);
-                border-radius: 10%;
-                border: none;
-                cursor: pointer;
-                border: 1px solid var(--color-dark);
-
-                /* CUANDO PONGA EL MOUSE */
-                &:hover{
-                    background-color: var(--color-primary);
-                    color: white;
-                }
-            }
-
-            
-        }
-
-        /* CONTENEDOR DEL CRUD PARA LOS REGISTROS */
-        .gestionAdmin{
-            grid-area: main;
-            display: flex;
-            justify-content: right;
-            align-items: start;
-
-            /* CONTENEDOR DONDE CARGAN LAS VISTAS DEL CRUD */
-            .crudItemsAdmin{
-                height: 85%;
-                width: 90%;
-                margin-top: 2vh;
-                margin-right: 1.5vw;
-                display: flex;
-                justify-content: right;
-                align-items: center;
-
-                /* SECCION POR DEFECTO DEL CRUD */
-                .sectionDefaultCrud{
-                    display: flex;
-                    flex-direction: column;
                     justify-content: center;
-                    width: 80%;
-                    height: 100%;
-                    margin-right: 2vw;
-                    gap: 3vh;
-
-                    /* INTRODUCCION A MOBILE */
-                    .pushUno{
-                        display: none;
-                    }
-                    /* --------------------------- */
-
-                    /* INTRODUCCION PC */
-                    .pushPC{
-                        text-align: start;
-
-                        /* BOTON DE INICIO */
-                        .tutorialBtn{
-                            background-color: transparent;
-                            color: var(--color-dark);
-                            border: 1px solid var(--color-dark);
-                            border-radius: 5%;
-                            padding: .7% 2%;
-                            margin: 1%;
-                        }
-                    }
-
-                    /* TUTORIAL */
-                    .passDos{
-                        margin-top: 2vh;
-                        margin-left: 5vw;
-                    }
-
-                    /* TEXTO IMPORTANTE */
-                    .important{
-                        font-size: 1.2vw;
-                    }
-                }
-
-                /* IMAGEN DE PRESENTACION */
-.sectionPresentations {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 95%; /* Ocupa el 95% de la altura disponible */
-    width: 95%; /* Ocupa el 95% del ancho disponible */
-    position: relative;
-    background-color: var(--color-dark); /* Fondo oscuro */
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-/* IMAGEN DE PRESENTACIÓN */
-.imgPresentations {
-    height: 100%;
-    width: 100%;
-    opacity: 0.6; /* Ligera transparencia */
-    object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
-    z-index: 1;
-}
-
-/* CONTENEDOR DEL BOTÓN EDITAR */
-.edit {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    bottom: 10%; /* Posición inferior */
-    right: 5%; /* Posición derecha */
-    color: var(--color-dark);
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
-    z-index: 2;
-}
-
-/* NOMBRE DEL BOTÓN EDITAR */
-.nomEdit {
-    padding: 10px 20px;
-    background-color: var(--color-white); /* Fondo blanco */
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-/* ICONO DEL BOTÓN */
-.edit i {
-    color: var(--color-white);
-    padding: 10px 15px;
-    background-color: var(--color-primary); /* Fondo del icono */
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-
-                /* SECCIONES DE CRUD DE MYLOOK */
-                .crudProductos, .crudCategorias, .crudTipservicios, .crudServicios, .crudMiembrostaff{
-                  width: 100%;
-                  height: 100%;  
-                  display: flex;
-                  flex-direction: column;
-                  justify-content: space-between;
-                  align-items: end;
-
-                  /* MENU DE NAVEGACION DEL CRUD */
-                  .navCrud{
-                    width: 100%;
-                    text-align: end;
-                    margin-top: 1vh;
-                    margin-right: 2.5vw;
-                    color: var(--color-dark);
-                    
-
-                    /* ENLACE A VISUALIZAR TODO */
-                    .viewAll{
-                        color: var(--color-dark);
-                    
-                        /* VER CATEGORIAS */
-                        &#categorias{
-                            margin-right: 50vw;
-                        }
-                    }
-
-                  }
-
-                  /* CONTENEDOR ENCARGADO DEL CRUD */
-                  .contenedorCrud{
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: right;
                     align-items: center;
-                  
-                  /* CONTENEDOR DEL ITEM A MOSTRAR */
-                  .item{
-                    border: 1px solid var(--color-dark);
-                    border-radius: 3%;
-                    width: 20%;
-                    height: 85%;
-                    margin-right: 2vw; 
-                    display: grid;
-                    grid-template-columns: 1fr;
-                    grid-template-rows: 15% 70% 15%;
 
-                    /* NOMBRE DEL ITEM */
-                    .nomItem{
-                        padding-top: 1vh;
-                        font-size: .9vw;
+                    .namFecha{
+                        margin: 20%;
+                        font-size: .8vw;
                         text-align: center;
-                        color: var(--color-dark);
-                    }
-
-                    /* CONTENEDOR PDRE DE LA IMAGEN */
-                    .imgItem{
-                        height: 100%;
-                        width: 100%;
-                        gap: 2vw;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-
-                        /* IMAGEN */
-                        .imgItem{
-                            height: 99%;
-                            width: 99%;
-                        }
-                    }
-                        /* BOTONES CONTENEDORES DE CRUD */
-                        .btns{
-                            height: 95%;
-                            width: 100%;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-
-                        /* BOTONES */
-                        .editItem{
-                            width: 49%;
-                            height: 100%;
-                            background-color: transparent;
-                            color: var(--color-dark);
-                            border: 1px solid var(--color-dark);
-                            border-radius: 3%;
-
-                            /* BOTON ELIMINAR */
-                            &#elimEliminar{
-                                background-color: var(--color-dark);
-                                color: var(--color-white);
-                            }
-                        }
-                    }
+                    }   color: var(--color-white);
                 }
-            }
 
-                  /* SPAN PARA REGISTRAR PRODUCTOS */
-                  .registerItem{
-                    padding-right: 20vw;
-                
-                  }
-
-                  /* REDIRECCION AL FORMULARIO */
-                  .redirect{
-                    color: var(--color-primary);
-                    text-decoration: none;
-                    font-weight: bold;
-                  }
-
-                }     
-            } 
-        }
-
-        /* CONTENEDOR PIE DE PAGINA DE MYLOOK */
-        .piePagina{
-            grid-area: footer;
-            display: flex;
-            justify-content: center;
-            align-items: end;
-
-                /* DERECHOS DE AUTOR MYLOOK */
-                .derechosAutor{
-                    width: 100vw;
-                    height: 60%;
-                    text-align: center;
-                    background-color: var(--color-dark);
-                    padding-top: 4vh;
-                    font-size: 1.5vw;
+                .mensaje{
+                    height: 100%;
+                    width: 70%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: start;
+                    text-align: left;
+                    padding-left: 1vw;
                     color: var(--color-white);
-                    border-radius: 15% 15% 0% 0%;
+
+                    .nomCliente{
+                        font-size: 1vw;
+                    }
+
+                    .txtMensaje{
+                        font-size: .8vw;
+
+                    }
                 }
-            }
-        }
 
-/* ----------------------------------------------------------------------- */
-
-        /* VISTAS DE PRODUCTOS */
-        .viewProductos{
-            height: 100vh;
-            width: 100vw;
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows:20% 10% 1fr; 
-
-            /* CONTENEDOR ICONO DE VOLVER */
-            .volver{
-                border-bottom: 1px solid var(--color-dark);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* ICONO */
                 i{
-                    margin-left: 3vw;
-                    padding: 1%;
-                    color: var(--color-dark);
-                    background-color: transparent;
-                    border: 1px solid var(--color-dark);
-                    border-radius: 100%;
-                }
-
-                /* NOMBRE DE LA GESTION */
-                .nomView{
-                    font-size: 2.5vw;
-                    color: var(--color-dark);
-                    padding-right: 6vw;
-                }
-            }
-
-            /* CONTENEDOR DE FILTRO DE PRODUCTOS */
-            .filter{
-                margin-top: 1vh;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* CONTENEDOR DE MANU DE NAVEGACION */
-                .option{
-                    display: flex;
-                    margin-left: 3vw;
-                    gap: 2vw;
-
-                    /* BOTONES */
-                    .optionGestion{
-                        padding: 3% 5%;
-                        background-color: transparent;
-                        color: var(--color-dark);
-                        border: none;
-                        border: 1px solid var(--color-dark);
-                        border-radius: 10%;
-
-                        /* BOTON INICIO */
-                        &#btnInicio{
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-                }
-
-                .searchBar{
-                    margin-right: 5vw;
-                    display: flex;
-                    gap: .8vw;
-
-                    /* ICONOS */
-                    i{
-                        color: var(--color-dark);
-                        font-size: 1.7vw;
-                    }
-
-                    /* INPUT DE BUSQUEDA */
-                    .inputSearch{
-                        height: 4vh;
-                        width: 25vw;
-                        border: none;
-                        border-bottom: 1px solid var(--color-dark);
-                        padding-left: 1vw;
-                        outline: none;
-
-                        /* PLACEHOLDER */
-                        &::placeholder{
-                            font-style: italic;
-                            font-size: 1.1vw;
-                        }
-                    }
-                }
-            }
-
-            /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-            .cardItems{
-               display: flex; 
-               justify-content: left;
-               align-items: center;
-               width: 100%;
-               height: auto;
-               overflow: auto;
-               gap: .8vw;
-               padding-left: 1vw;
-               flex-wrap: wrap;
-
-                /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-               .cardUnited{
-                flex: 0 0 0 auto; 
-                width: 18%;  
-                height: 80%; 
-                margin: 3% 1% 1% 4%;
-                border: 1px solid var(--color-primary);
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 60% 8% 22% 10%;
-                border-radius: 2%;
-                box-shadow: 1px 1px 15px 1px var(--color-primary);
-
-                /* CONTENEDOR DE LA IMAGEN */
-                .itemImg{
+                    border-left: 1px solid var(--color-white);
+                    height: 100%;
+                    width: 15%;
+                    font-size: 1.5vw;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    height: 90%;
-                    width: 95%;
-                    margin-top: 1vh;
-                    margin-left: .4vw;
-                    background-color: var(--color-dark);
-                    border-radius: 2%;
+                    color: var(--color-white);
+                }
+            }
+        }
 
+        .showMas{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--color-dark);
+            margin: 2% 4% 2% 4%;
+            border-radius: 4px;
+            cursor: pointer; 
+            transition: .3s ease-in-out;
 
-                    /* IMAGEN */
-                   .img{
+            &:hover{
+                background-color: var(--color-background);
+            }
+
+            .tittleShow{
+                color: var(--color-white);
+                font-size: 1vw;
+            }
+        }
+    }
+}
+
+.menunavegacionAdmin {
+    grid-area: Nav;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 3vw;
+
+    .btnCrud {
+        padding: 1% 4%;
+        margin-right: 2%;
+        background-color: transparent;
+        color: var(--color-dark);
+        border: 1px solid var(--color-dark);
+        border-radius: 5px;
+        font-size: 1vw;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+
+        &:hover {
+            background-color: var(--color-dark);
+            color: var(--color-white);
+        }
+    }
+
+    .btnCrud.active {
+        background-color: var(--color-dark);
+        color: var(--color-white);
+    }
+    
+    .btnCrud.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--color-dark);
+    }
+}    
+
+.contentcrudAdmin {
+    grid-area: Main;
+    height: 97%;
+    width: 90%;
+    margin-left: 2.5vw;
+    overflow: hidden;
+
+    
+    .sectionDefault {
+            display: flex;
+            justify-content: start;
+            align-items: end;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            padding-top: 8vh;
+            padding-left: 5vw;
+
+            .infoDefault{
+                height: 20%;
+                width: 95%;
+                display: flex;
+                justify-content: center;
+                align-items: end;
+
+                .txtIntroduccion{
+                    width: 85%;
+                    font-size: 1vw;
+                }
+
+                .btnExample{
+                    padding: .3% 1.5%;
+                    border: 1px solid var(--color-primary);
+                    color: var(--color-primary);
+                    border-radius: 3px;
+                }
+            }
+
+            .passAndPass{
+                height: 40%;
+                width: 95%;
+
+                .listaCrud{
+                    padding-top: 3vh;
+                    padding-left: 10vw;
+                    font-size: 1vw;
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5vh;
+                }
+            }
+
+            .infoImportant{
+                height: 20%;
+                width: 95%;
+                display: flex;
+                justify-content: center;
+                align-items: start;
+
+                .txtImportant{
+                    padding-top: 3vh;
+                    font-size: 1vw;
+                    width: 85%;
+                }
+            }
+    }
+
+    .crudStaff {
+        height: 90%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 20% 80%;
+
+        .rediretViewStaff{
+            display: flex;
+            align-items: end;
+            justify-content: right;
+
+            .tittleRediret{
+                color: var(--color-black);
+                font-size: 1vw;
+                font-weight: bold;
+                text-decoration: none;
+                padding-bottom: 2vh;
+            }
+        }
+
+        .staffItem{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: right;
+            align-items: start;
+            gap: 2vw;
+            flex-direction: row-reverse;
+
+            .staffCard{
+                border: 1px solid var(--color-primary);
+                box-shadow: 1px 1px 5px 1px var(--color-dark);
+                border-radius: 5px;
+                height: 95%;
+                width: 25%;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 15% 1fr 15%;
+
+                .nomStaff{
+                    text-align: center;
+                    padding-top: 2vh;
+                    font-weight: bold;
+                    color: var(--color-background);
+                }
+
+                .imgStaff{
                     height: 100%;
-                    width: 100%;
-                    opacity: 0.7;
-                    border-radius: 5%;
+                    width: 95%;
+                    border-radius: 2px;
+                    background-size: cover;
                     background-position: center;
                     background-repeat: no-repeat;
-                    background-size: contain;
-
-                   }
+                    padding-left: .7vw;
                 }
 
-                /* NOMBRE DEL ITEM */
-                .nomItem{
+                .rediretRegister{
                     text-align: center;
-                    color: var(--color-dark);
-                    font-size: 1.1vw;
-                }
 
-                /* DESCRIPCION DEL ITEM */
-                .descripcion{
-                    width: 90%;
-                    margin-left: .7vw;
-                    text-align: center;
-                    font-size: 1vw;
-                    color: var(--color-dark);
-                }
-
-                /* PRECIO ITEM */
-                .precioItem{
-                    display: none;
-                }
-
-                /* BTN CRUD DE ITEMS */
-                .btnCrud{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: .6vw;
-                    padding-bottom: .8vh;
-
-                        /* BOTONES */
-                        .btnEdit{
-                            cursor: pointer;
-                            height: 70%;
-                            background-color: var(--color-dark);
-                            border: none;
-                            border-radius: 7%;
-                            width: 40%;
-                            color: var(--color-white);
-                        }
-                    }
-               }
-            }
-        }
-
-        .viewCategorias{
-            height: 100vh;
-            width: 100vw;
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows:20% 10% 1fr; 
-
-            /* CONTENEDOR ICONO DE VOLVER */
-            .volver{
-                border-bottom: 1px solid var(--color-dark);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* ICONO */
-                i{
-                    margin-left: 3vw;
-                    padding: 1%;
-                    color: var(--color-dark);
-                    background-color: transparent;
-                    border: 1px solid var(--color-dark);
-                    border-radius: 100%;
-                }
-
-                /* NOMBRE DE LA GESTION */
-                .nomView{
-                    font-size: 2.5vw;
-                    color: var(--color-dark);
-                    padding-right: 6vw;
-                }
-            }
-
-            /* CONTENEDOR DE FILTRO DE PRODUCTOS */
-            .filter{
-                margin-top: 1vh;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* CONTENEDOR DE MANU DE NAVEGACION */
-                .option{
-                    display: flex;
-                    margin-left: 3vw;
-                    gap: 2vw;
-
-                    /* BOTONES */
-                    .optionGestion{
-                        padding: 3% 5%;
-                        background-color: transparent;
-                        color: var(--color-dark);
+                    .btnOption{
+                        background-color: var(--color-dark);
+                        color: var(--color-white);
                         border: none;
-                        border: 1px solid var(--color-dark);
-                        border-radius: 10%;
-
-                        /* BOTON INICIO */
-                        &#btnInicio{
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-                }
-
-                .searchBar{
-                    margin-right: 5vw;
-                    display: flex;
-                    gap: .8vw;
-
-                    /* ICONOS */
-                    i{
-                        color: var(--color-dark);
-                        font-size: 1.7vw;
-                    }
-
-                    /* INPUT DE BUSQUEDA */
-                    .inputSearch{
-                        height: 4vh;
-                        width: 25vw;
-                        border: none;
-                        border-bottom: 1px solid var(--color-dark);
-                        padding-left: 1vw;
-                        outline: none;
-
-                        /* PLACEHOLDER */
-                        &::placeholder{
-                            font-style: italic;
-                            font-size: 1.1vw;
-                        }
-                    }
-                }
-            }
-
-            /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-            .cardItems{
-                display: flex; 
-                justify-content: left;
-                align-items: center;
-                width: 100%;
-                height: auto;
-                overflow: auto;
-                gap: .8vw;
-                padding-left: 1vw;
-                flex-wrap: wrap;
- 
-                 /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-                .cardUnited{
-                 flex: 0 0 0 auto; 
-                 width: 18%;  
-                 height: 80%; 
-                 margin: 3% 1% 1% 4%;
-                 border: 1px solid var(--color-primary);
-                 display: grid;
-                 grid-template-columns: 1fr;
-                 grid-template-rows: 10% 77% 12%;
-                 border-radius: 2%;
-                 box-shadow: 1px 1px 15px 1px var(--color-primary);
- 
-                 /* CONTENEDOR DE LA IMAGEN */
-                 .itemImg{
-                     display: flex;
-                     justify-content: center;
-                     align-items: center;
-                     height: 90%;
-                     width: 95%;
-                     margin-top: 1vh;
-                     margin-left: .4vw;
-                     background-color: var(--color-dark);
-                     border-radius: 2%;
- 
- 
-                     /* IMAGEN */
-                    .img{
-                     height: 100%;
-                     width: 100%;
-                     opacity: 0.7;
-                     border-radius: 5%;
-                     background-position: center;
-                     background-repeat: no-repeat;
-                     background-size: contain;
- 
-                    }
-                 }
- 
-                 /* NOMBRE DEL ITEM */
-                 .nomItem{
-                     text-align: center;
-                     color: var(--color-dark);
-                     font-size: 1.1vw;
-                     padding-top: 2vh;
-                 }
- 
-                 /* DESCRIPCION DEL ITEM */
-                 .descripcion{
-                     width: 90%;
-                     margin-left: .7vw;
-                     text-align: center;
-                     font-size: 1vw;
-                     color: var(--color-dark);
-                 }
- 
-                 /* PRECIO ITEM */
-                 .precioItem{
-                     display: none;
-                 }
- 
-                 /* BTN CRUD DE ITEMS */
-                 .btnCrud{
-                     display: flex;
-                     justify-content: center;
-                     align-items: center;
-                     gap: .6vw;
-                     padding-bottom: .8vh;
- 
-                         /* BOTONES */
-                         .btnEdit{
-                             cursor: pointer;
-                             height: 70%;
-                             background-color: var(--color-dark);
-                             border: none;
-                             border-radius: 7%;
-                             width: 40%;
-                             color: var(--color-white);
-                             }
-                        }
-                    }
-                }    
-        }
-
-        .viewTipservicios{
-            height: 100vh;
-            width: 100vw;
-            display: grid;
-            grid-template-columns: 100vw;
-            grid-template-rows:20% 10% 1fr; 
-
-            /* CONTENEDOR ICONO DE VOLVER */
-            .volver{
-                border-bottom: 1px solid var(--color-dark);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* ICONO */
-                i{
-                    margin-left: 3vw;
-                    padding: 1%;
-                    color: var(--color-dark);
-                    background-color: transparent;
-                    border: 1px solid var(--color-dark);
-                    border-radius: 100%;
-                }
-
-                /* NOMBRE DE LA GESTION */
-                .nomView{
-                    font-size: 2.5vw;
-                    color: var(--color-dark);
-                    padding-right: 6vw;
-                }
-            }
-
-            /* CONTENEDOR DE FILTRO DE PRODUCTOS */
-            .filter{
-                margin-top: 1vh;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* CONTENEDOR DE MANU DE NAVEGACION */
-                .option{
-                    display: flex;
-                    margin-left: 3vw;
-                    gap: 2vw;
-
-                    /* BOTONES */
-                    .optionGestion{
+                        border-radius: 3px;
+                        width: 40%;
+                        height: 60%;
                         cursor: pointer;
-                        padding: 3% 10%;
-                        background-color: transparent;
-                        color: var(--color-dark);
-                        border: none;
-                        border: 1px solid var(--color-dark);
-                        border-radius: 7%;
+                        margin-top: 1.5vh;
+                        font-weight: bold;
 
-                        /* BOTON INICIO */
-                        &#btnInicio{
-                            background-color: var(--color-dark);
+                        a{
+                            text-decoration: none;
                             color: var(--color-white);
-                        }
-                    }
-                }
-
-                .searchBar{
-                    margin-right: 5vw;
-                    display: flex;
-                    gap: .8vw;
-
-                    /* INPUT DE BUSQUEDA */
-                    .inputSearch{
-                        height: 4vh;
-                        width: 25vw;
-                        border: none;
-                        border-bottom: 1px solid var(--color-dark);
-                        padding-left: 1vw;
-                        outline: none;
-
-                        /* PLACEHOLDER */
-                        &::placeholder{
-                            font-style: italic;
-                            font-size: 1.1vw;
                         }
                     }
                 }
             }
 
-             /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */       
-            .cardItems {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
-                    grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-                    gap: 25px; 
-                    width: 100%;
-                    height: auto;
-                    padding: 0;
-                    margin-top: 8vh;
-
-                    overflow: auto;
-                
-                
- 
-              /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-             .cardUnited{
-                margin: 0;
-                width: 90%;  
-                margin-bottom: 5vh;
-                height: 125%;
-                border: 1px solid var(--color-primary);
+            #AñadirStaff{
+                background-color: var(--color-white);
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-                margin-left: 1em;
-                border-radius: 3%;
-                padding: 10px;
-                gap: .2vw;
-                
- 
-              /* NOMBRE DEL ITEM */
-              .nomItem{
-                  text-align: center;
-                  color: var(--color-dark);
-                  font-size: 1vw;
-                  width: 75%;
-              }
- 
- 
-              /* BTN CRUD DE ITEMS */
-              .btnCrud{
-                 width: 25%;
-                 height: 100%;
-                  display: flex;
-                  justify-content: sstart;
-                  align-items: center;
-                  gap: .2vw;
- 
-                      /* BOTONES */
-                      .btnEdit{
-                          cursor: pointer;
-                          height: 110%;
-                          background-color: transparent;
-                          border: none;
-                          border-radius: 7%;
-                          width: 60%;
-                          font-size: 1.5vw;
-                          color: var(--color-dark);
+            }
 
-                            &#eliminarItem{
-                                background-color: var(--color-dark);
-                                color: var(--color-white);
-                                font-size: 1.2vw;
-                            }
-                        }
-                    }
-                }
-            } 
+            
+            .rediretStaff{
+                color: var(--color-dark);
+                font-size: 30vh;
+                text-decoration: none;
+            }
+            
         }
+    }
+
+    .crudProductos {
+        height: 90%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 20% 80%;
+
+        .rediretViewProductos{
+            display: flex;
+            align-items: end;
+            justify-content: right;
+
+            .tittleRediret{
+                color: var(--color-black);
+                font-size: 1vw;
+                font-weight: bold;
+                text-decoration: none;
+                padding-bottom: 2vh;
+            }
+        }
+
         
-        .viewServicios{
-                height: 100vh;
-                width: 100vw;
+        .productosItem{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: right;
+            align-items: start;
+            gap: 2vw;
+            flex-direction: row-reverse;
+
+            .productoCard{
+                border: 1px solid var(--color-primary);
+                box-shadow: 1px 1px 5px 1px var(--color-dark);
+                border-radius: 5px;
+                height: 95%;
+                width: 25%;
                 display: grid;
                 grid-template-columns: 1fr;
-                grid-template-rows:20% 10% 1fr; 
-    
-                /* CONTENEDOR ICONO DE VOLVER */
-                .volver{
-                    border-bottom: 1px solid var(--color-dark);
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-    
-                    /* ICONO */
-                    i{
-                        margin-left: 3vw;
-                        padding: 1%;                        color: var(--color-dark);
-                        background-color: transparent;
-                        border: 1px solid var(--color-dark);
-                        border-radius: 100%;
-                    }
-    
-                    /* NOMBRE DE LA GESTION */
-                    .nomView{
-                        font-size: 2.5vw;
-                        color: var(--color-dark);
-                        padding-right: 6vw;
-                    }
-                }
-    
-                /* CONTENEDOR DE FILTRO DE PRODUCTOS */
-                .filter{
-                    margin-top: 1vh;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-    
-                    /* CONTENEDOR DE MANU DE NAVEGACION */
-                    .option{
-                        display: flex;
-                        margin-left: 3vw;
-                        gap: 2vw;
-    
-                        /* BOTONES */
-                        .optionGestion{
-                            padding: 3% 5%;
-                            background-color: transparent;
-                            color: var(--color-dark);
-                            border: none;
-                            border: 1px solid var(--color-dark);
-                            border-radius: 10%;
-    
-                            /* BOTON INICIO */
-                            &#btnInicio{
-                                background-color: var(--color-dark);
-                                color: var(--color-white);
-                            }
-                        }
-                    }
-    
-                    .searchBar{
-                        margin-right: 5vw;
-                        display: flex;
-                        gap: .8vw;
-    
-                        /* ICONOS */
-                        i{
-                            color: var(--color-dark);
-                            font-size: 1.7vw;
-                        }
-    
-                        /* INPUT DE BUSQUEDA */
-                        .inputSearch{
-                            height: 4vh;
-                            width: 25vw;
-                            border: none;
-                            border-bottom: 1px solid var(--color-dark);
-                            padding-left: 1vw;
-                            outline: none;
-    
-                            /* PLACEHOLDER */
-                            &::placeholder{
-                                font-style: italic;
-                                font-size: 1.1vw;
-                            }
-                        }
-                    }
-                }
-    
-                /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-                .cardItems{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    flex-direction: column;
-                    gap: 15vh;
-                    overflow-x: hidden;
-    
-                    /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-                   .cardUnited{
-                    height: 90%;
-                    width: 68%;
-                    display: grid;
-                    margin-top: 3vh;
-                    padding-bottom: 5vh;
-                    grid-template-columns: 40% 60%;
-    
-                    /* CONTENEDOR DE LA IMAGEN */
-                    .itemImg{
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 100%;
-                        width: 100%;
-    
-                        /* IMAGEN */
-                        .img{
-                            height: 58vh;
-                            width: 25vw;
-                            background-size: cover;
-                            background-position: center;
-                            background-repeat: no-repeat;
-                        }
-                    }
-    
-                    .infoItem{
-                        display: flex;
-                        justify-content: left;
-                        align-items: start;
-                        flex-direction: column;
-                        height: 94%;
-                        width: 96%;
-                        margin-left: 1vw;
-                        margin-top: 2.2vh;
-                        color: var(--color-background);
+                grid-template-rows: 60% 5% 20% 15%;
 
-                    /* NOMBRE DEL NEGOCIO QUE LOS OFRECE */
-                    .nomNegocio{
-                        width: 100%;
-                        height: 20%;
-                        padding-top: 8vh;
-                        font-size: 1.5vw;
-                    }
+                .imgProducto{
+                    height: 100%;
+                    width: 95%;
+                    border-radius: 2px;
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    padding-top: 1.5vh;
+                    padding-left: .7vw;
+                }
 
-                    /* NOMBRE DEL ITEM */
-                    .nomItem{
-                        width: 100%;
-                        height: 12%;
-                        font-size: 2.3vw;
-                    }
-    
-                    /* DESCRIPCION DEL ITEM */
-                    .descripcion{
-                        margin-top: 4vh;
-                        width: 95%;
-                        font-size: 1vw;
-                    }
+                .nomProducto{
+                    text-align: center;
+                    font-weight: bold;
+                    color: var(--color-background);
+                    padding-top: .2vh;
+                }
+                
 
-                    /* TIEMPO DEL CORTE DURACION */
-                    .time{
-                        width: 90%;
-                        margin-top: 5vh;
-                        font-size: .9vw;
-                        text-align: end;
-                    }
-    
-                    /* PRECIO ITEM */
-                    .precio{
-                        text-align: start;
-                        height: 10%;
-                        font-size: 1vw;
-                    }
-    
-                    /* BTN CRUD DE ITEMS */
-                    .btnCrud{
-                        width: 100%;
-                        height: 15%;
-                        display: flex;
-                        justify-content: left;
-                        align-items: center;
-    
-                            /* BOTONES */
-                            .btnEdit{
-                                cursor: pointer;
-                                background-color: var(--color-background);
-                                border: none;
-                                border-radius: 2%;
-                                color: var(--color-white);
-                                font-size: 1.4vw;
-                                margin-left: 1vw;
-                                font-weight: bold;
-                                height: 80%;
-                                width: 85%;
+                .descripProducto{
+                    margin: 0% 5% 5% 5%;
+                    text-align: left;
+                    font-size: .63vw;
+                    padding-top: 2vh;
+                    padding-left: .5vw;
+                    color: var(--color-background);
+                }
+
+                .rediretRegister{
+                    text-align: center;
+
+                    .btnOption{
+                        background-color: var(--color-dark);
+                        color: var(--color-white);
+                        border: none;
+                        border-radius: 3px;
+                        width: 40%;
+                        height: 50%;
+                        cursor: pointer;
+                        margin-top: 1.5vh;
+                        font-weight: bold;
+
+                        a{
+                            text-decoration: none;
+                            color: var(--color-white);
                         }
                     }
-                }
                 }
             }
-        }   
 
-/* -------------------------------------------------------------------- */
+            #AñadirProducto{
+                background-color: var(--color-white);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .rediretProducto{
+                color: var(--color-dark);
+                font-size: 30vh;
+                text-decoration: none;
+            }
+            
+        }
+    }
+
+    .crudCategoria {
+        height: 75%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 15% 75% 5%;
+
+        .rediretViewProductos{
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+
+            .tittleRediret{
+                color: var(--color-black);
+                font-size: 1vw;
+                font-weight: bold;
+                text-decoration: none;
+                padding-bottom: 2vh;
+            }
+        }
+
+        .contianerCategoria{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: .1vw;
+
+        
+            .categoriaCard{
+                width: 5%;
+                display: flex;
+                position: relative;
+                transition: .5s ease-in-out;
+                border: 1px solid var(--color-primary);
+
+                
+            &:hover{
+                width: 35%;
+            }
+
+
+                .imgCategoria{
+                    height: 100%;
+                    width: 100%;
+                    transition: .5s ease-in-out;
+                    background-color: var(--color-dark);
+
+                .fotoCategoria{
+                        height: 100%;
+                        width: 100%;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        opacity: .6;
+                        transition: 1s ease-in-out;
+
+
+                        &:hover{
+                            opacity: .1;
+                        }
+                    }
+                }
+
+                .infoCategoria {
+                    position: absolute; 
+                    top: 25vh;
+                    width: 100%;
+                    height: 100%;
+                    color: white; 
+                    opacity: 0; 
+                    display: flex;
+                    align-items: end;
+                    justify-content: right;
+                    flex-direction: column;
+                    padding-right: 2vw;
+
+                    .nomCategoria{
+                        pointer-events: none;
+                        width: 75%;
+                        font-size: 1vw;
+                        border-bottom: 1px solid var(--color-white);
+                    }
+
+                    .descripCategoria{
+                        pointer-events: none;
+                        font-size: .6vw;
+                        padding-top: .3vw;
+                        width: 75%;
+                    }
+
+                    a{
+                        background-color: var(--color-white);
+                        color: var(--color-dark);
+                        text-decoration: none;
+                        width: 75%;
+                        height: 10%;
+                        text-align: center;
+                        cursor: pointer;
+                        margin-top: .5vw;
+                        opacity: .6;
+                        opacity: 1;
+
+                        &:hover{
+                            opacity: .8;
+                        }
+                    }
+                }
+
+                .imgCategoria:hover + .infoCategoria,
+                .infoCategoria:hover {
+                    transition: .5s ease-in-out;
+                    opacity: 1;
+                    width: 100%;
+                }
+            }
+        }
+
+        .rediretCategoria{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 4vh;
+            
+            .nomRediret{
+                font-size: .8vw;
+
+                a{
+                    color: var(--color-dark);
+                    text-decoration: none;
+                    padding-left: .5vw;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    .crudInicio {
+        position: relative; 
+        height: 95%; width: 100%;
+        background-color: var(--color-dark);
+        border-radius: 3px;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+
+        
+        .containerImg{
+           height: 100%;
+           width: 100%;
+           display: flex;
+
+            .imgPresentacion{
+                position: relative;
+                height: 100%;
+                width: 100%;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                border-radius: 3px;
+                opacity: .6;
+            }
+        }
+
+        .redirectEditar{
+            position: absolute;
+            top: 85%;
+            left: 85%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 2;
+
+            .nomEditar{
+                padding: 10% 40%;
+                background-color: var(--color-white);
+                color: var(--color-dark);
+                padding-right: 2vw;
+                border-radius: 3px;
+            }
+
+            i{
+                padding: 20%;
+                background-color: var(--color-primary);
+                border-radius: 100%;
+                margin-left: -1.5vw;
+                color: var(--color-white);
+                font-size: 1.5vw;
+            }   
+        }
+
+        .input-file-hidden {
+            display: none;
+        }
     }
 }
+

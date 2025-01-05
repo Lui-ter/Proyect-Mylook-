@@ -26,13 +26,13 @@
 
 
       <!-- Formulario -->
-      <form action="{{ route('registerCategory') }}" method="post" class="formulario" enctype="multipart/form-data">
+      <form action="{{ route('registerCategory') }}" method="post" class="formulario" enctype="multipart/form-data" onsubmit="handleValidationCategory(event)">
         @csrf
         <article class="contenedorPadre">
           <div class="colum">
             <label for="" class="nombreCat">Nombre de la categoría:</label
             >
-            <input type="text" name="nombreCategoria" class="nombreInput" />
+            <input type="text" name="nombreCategoria" class="nombreInput" id="nombreCategoria"/>
               <div class="inputImg">
                 <label for="imagen" class="nombreCat labelImagen" >Subir imagen categoría:</label
                   >
@@ -81,7 +81,7 @@
       </div>
     </section>
 
-    
+    <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
 
   </body>
 </html>

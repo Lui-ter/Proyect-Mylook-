@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         Schema::create('negocio', function (Blueprint $table) {
-            $table->integer('id_negocio')->primary();
+            $table->string('id_negocio', 15)->primary();
             $table->integer('id_usuario')->unique()->nullable();
             $table->string('nombre_negocio', 30);
             $table->string('desc_negocio', 60)->nullable();
@@ -58,7 +58,7 @@ return new class extends Migration
 
         Schema::create('establecimiento', function (Blueprint $table) {
             $table->increments('id_establc');
-            $table->integer('id_negocio');
+            $table->string('id_negocio', 15);
             $table->string('nombre_establc', 30);
             $table->string('desc_establc', 100);
             $table->string('ubicacion', 30);
@@ -77,6 +77,7 @@ return new class extends Migration
             $table->string('desc_prod', 60);
             $table->integer('stock');
             $table->float('valor_prod');
+            $table->timestamps();
             $table->foreign('id_establc')->references('id_establc')->on('establecimiento');
         });
 

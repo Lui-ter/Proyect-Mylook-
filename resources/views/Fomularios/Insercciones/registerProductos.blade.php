@@ -89,7 +89,7 @@
 
     </section>
 
-    <script src="producto.js"></script>
+    <script src="/Js/Insercciones/inserccionProductos.js"></script>
     
 </body>
 </html>

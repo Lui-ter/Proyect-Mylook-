@@ -9,7 +9,7 @@
 </head>
 <body>
       <!-- sección todo -->
-        <form action="{{ route('registerServiceType') }}" class="formTservicios" method="post">
+        <form action="{{ route('registerServiceType') }}" class="formTservicios" method="post" onsubmit="handleValidationServiceType(event)">
             @csrf
 
                   <h1 class="titulo">TIPO DE SERVICIOS</h1>
@@ -21,11 +21,14 @@
                 @endforeach
             </select>
             <label for="" class="labels">Nombre del servicio:</label>
-            <input type="text" name="nombreServicios">
+            <input type="text" name="nombreServicios" id="nombreServicios">
             <div class="botones">
                 <button type="reset" class="cancelar">CANCELAR</button>
                 <button type="submit" class="guardar">GUARDAR</button>
             </div>
             </form>
+
+            <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
+
 </body>
 </html>
