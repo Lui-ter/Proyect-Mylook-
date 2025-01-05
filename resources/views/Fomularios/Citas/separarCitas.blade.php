@@ -8,8 +8,8 @@
 </head>
 <body>
     
-    <form action="" class="contenedorPadre">
-
+    <form action="" class="contenedorPadre" method="POST"  enctype="multipart/form-data">
+        @csrf
         <span class="infoEstablecimiento">
 
             <div class="infoPersonal">
@@ -64,7 +64,7 @@
 
         <article class="infoCondicion">
             <label for="" class="txtCondicion">Condición:</label>
-            <textarea name="" id="" class="inputCondicion" placeholder="Tengo una piquiña producto de esa cera que me hecharon..."></textarea>
+            <textarea name="condicionCita" id="" class="inputCondicion" placeholder="Tengo una piquiña producto de esa cera que me hecharon..."></textarea>
         </article>
 
         <span class="btnSend">

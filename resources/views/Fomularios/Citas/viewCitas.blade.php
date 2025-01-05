@@ -63,7 +63,7 @@
 
         <article class="infoCondicion">
             <label for="" class="txtCondicion">Condición:</label>
-            <textarea name="" id="" class="inputCondicion" placeholder="Tengo una piquiña producto de esa cera que me hecharon..."></textarea>
+            <textarea name="condicionUsuario" id="" class="inputCondicion" placeholder="Tengo una piquiña producto de esa cera que me hecharon..."></textarea>
         </article>
 
         <span class="btnSend">

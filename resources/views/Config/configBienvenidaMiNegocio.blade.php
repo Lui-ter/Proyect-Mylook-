@@ -14,12 +14,15 @@
         <aside class="navConfig">
 
             <figure class="imgContainer">
-                <img src="" alt="" class="imgPerfil" id="profileImage">
-                <label for="fileInput" class="changePhotoButton">
-                  <i class="fa fa-camera"></i>
-                </label>
-                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                <form action="" method="POST"  enctype="multipart/form-data">
+                    <img src="" alt="" class="imgPerfil" id="profileImage">
+                    <label for="fileInput" class="changePhotoButton">
+                    <i class="fa fa-camera"></i>
+                    </label>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </form>
               </figure>
+
                         
               <nav class="navOptions">
                 <ul class="listaNav">
@@ -38,7 +41,8 @@
         <article class="optionsConfig">
         
 <!--            FORMUALRIO QUE SE VISUALIZA UNA VEZ SE ENTRA A CONFIGURAR EL INDEX ADMIN -->
-            <form action="" method="POST" class="seccionDefault" id="seccionDefault">
+            <form action="" method="POST" class="seccionDefault" id="seccionDefault"  enctype="multipart/form-data">
+                @csrf
                
                 <section class="defaultIntroduccion">
 
@@ -77,7 +81,8 @@
             </form>
 
 <!--             FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL ADMINISTRADOR -->
-            <form action="" method="POST" class="configPerfil" id="configPerfil"  style="display: none;">
+            <form action="" method="POST" class="configPerfil" id="configPerfil"  style="display: none;"  enctype="multipart/form-data">
+                @csrf
 
                 <label for="" class="nomForm">
                     <h3 class="tittleForm">Configuración del perfil administrador</h3>
@@ -88,34 +93,34 @@
 
                 <article class="datosUnico">
                         <label for="" class="labelInput">Documento</label>
-                        <input type="text" class="inputDocumento" name="nombre" id="nombre">
+                        <input type="text" class="inputDocumento" name="idAdmin">
                 </article>
 
                 <article class="datosPersonales">
                     <div class="groupInputs">
                         <label for="" class="labelInput">Nombre</label>
-                        <input type="text" class="inputNombre" name="nombre" id="nombre">
+                        <input type="text" class="inputNombre" name="nombreAdmin">
                     </div>
 
                     <div class="groupInputs">
                         <label for="" class="labelInput Apellido">Apellido</label>
-                        <input type="text" class="inputApellido" name="nombre" id="nombre">
+                        <input type="text" class="inputApellido" name="apellidoAdmin">
                     </div>
                 </article>
 
                 <article class="datosContact">
                         <label for="" class="labelInput">Correo</label>
-                        <input type="text" class="inputCorreo" name="nombre" id="nombre">
+                        <input type="text" class="inputCorreo" name="correoAdmin">
 
                         <label for="" class="labelInput">Telefono</label>
-                        <input type="text" class="inputTelefono" name="nombre" id="nombre">
+                        <input type="text" class="inputTelefono" name="telefonoAdmin">
                 </article>
 
                 <article class="datoPassword">
                     <label for="" class="labelInput">Contraseña</label>
 
                     <div class="resetPassword">
-                    <input type="text" class="inputPassword" name="nombre" id="nombre">
+                    <input type="text" class="inputPassword" name="contrasenaAdmin">
                     </div>
                 </article>
 
@@ -128,7 +133,8 @@
             </form>     
 
 <!--             FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL ESTABLECIMIENTO -->
-            <form action="" method="POST" class="configEstablecimiento" id="configEstablecimientotyle" style="display: none;">
+            <form action="" method="POST" class="configEstablecimiento" id="configEstablecimientotyle" style="display: none;"  enctype="multipart/form-data">
+                @csrf
 
                 <label for="" class="nomForm">
                     <h3 class="tittleForm">Configuración del establecimiento</h3>
@@ -139,39 +145,39 @@
 
                 <article class="datosNumericos">
                     <label for="" class="labelInputEstablecimiento">Identificacion del negocio</label>
-                    <input type="text" class="inputId" name="nombre" id="nombre">
+                    <input type="text" class="inputId" name="idNegocio">
                 </article>
 
                 <article class="datosShearch">
                     <div class="groupInputs">
                         <label for="" class="labelInputEstablecimiento">Nombre</label>
-                        <input type="text" class="inputNombre" name="nombre" id="nombre">
+                        <input type="text" class="inputNombre" name="nombreEst" id="nombre">
                     </div>
 
                     <div class="groupInputs">
                         <label for="" class="labelInputEstablecimiento">Dirección</label>
-                        <input type="text" class="inputDireccion" name="nombre" id="nombre">
+                        <input type="text" class="inputDireccion" name="direccionEstablecimiento">
                     </div>
                 </article>
 
                 <article class="datosDescriptivos">
 
                     <label for="" class="labelInputEstablecimiento">Descripción</label>
-                    <textarea name="" id="" cols="30" rows="10" class="inputDescripcion"></textarea>
+                    <textarea name="descripcionEstablecimiento" id="" cols="30" rows="10" class="inputDescripcion"></textarea>
 
                 </article>
 
                 <article class="datosTel">
 
                     <label for="" class="labelInputEstablecimiento">Telefono</label>
-                    <input type="text" class="inputTel" name="nombre" id="nombre">
+                    <input type="text" class="inputTel" name="telefonoEstablecimiento">
 
                 </article>
 
                 <article class="datosEmail">
 
                     <label for="" class="labelInputEstablecimiento">Correo</label>
-                    <input type="text" class="inputEmail" name="nombre" id="nombre">
+                    <input type="text" class="inputEmail" name="coreeoEstablecimiento">
 
                 </article>
 
@@ -185,7 +191,8 @@
             </form>
 
 <!--             FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL NEGOCIO ( ESTO SOLO PDRA SER EDITADO SI EL ADMIN LIDER INICIE SESION ) -->
-            <form action="" method="POST" class="configCuenta" id="configCuenta" style="display: none;">
+            <form action="" method="POST" class="configCuenta" id="configCuenta" style="display: none;"  enctype="multipart/form-data">
+                @csrf
 
 
                 <article class="imgsNegocio">
@@ -212,22 +219,22 @@
 
                 <article class="infoNegocio">
                     <label for="" class="labelInputNegocio">Identificacion</label>
-                    <input type="text" class="inputId" name="nombre" id="nombre">
+                    <input type="text" class="inputId" name="idNegocio">
                 </article>
 
                 <article class="infoPublica">
                     <label for="" class="labelInputNegocio">Nombre</label>
-                    <input type="text" class="inputNombre" name="nombre" id="nombre">
+                    <input type="text" class="inputNombre" name="nombreNegocio">
                 </article>
 
                 <article class="infoDesciptiva">
                     <label for="" class="labelInputNegocio">Descripción</label>
-                    <textarea name="" id="" class="inputDescrip"></textarea>
+                    <textarea name="descripcionNegocio" id="" class="inputDescrip"></textarea>
                 </article>
 
                 <article class="infoPrivada">
                     <label for="" class="labelInputNegocio">Administrador Lider</label>
-                    <input type="text" class="inputLider" name="nombre" id="nombre">
+                    <input type="text" class="inputLider" name="nombreAdmin">
                 </article>
 
 
