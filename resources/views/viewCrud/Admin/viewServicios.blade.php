@@ -12,7 +12,9 @@
     <section class="viewServicios">
         <!-- VOLVER AL MENU INICIAL -->
         <span class="volver">
-            <i class="fas fa-arrow-left"></i> 
+            <a href="{{route('admin', ['accion' => 'index'])}}">
+                <i class="fas fa-arrow-left"></i> 
+            </a>    
             <h3 class="nomView">Gestion Servicios</h3>
         </span>
     
@@ -26,9 +28,9 @@
             <div class="searchBar">
                 <select name="service" class="inputSearch">
                     <option value="" disabled selected>Seleccione un tipo de servicio</option>
-                    <option value="1">Tipo Servicio 1</option>
-                    <option value="2">Tipo Servicio 2</option>
-                    <option value="3">Tipo Servicio 3</option>
+                    @foreach($tipoServicio as $tipo)
+                    <option value="{{$tipo['tipo_serv']}}">{{$tipo['tipo_serv']}}</option>
+                    @endforeach
                 </select>
             </div>
         </nav>
@@ -36,27 +38,29 @@
         <!-- CONTENEDOR DEL SERVICIO A REFERENCIAR -->
         <section class="cardItems">
 
+            @foreach($servicios as $servicio)
             <div class="cardUnited">
                 <article class="itemImg">
-                    <img src="https://richardsalon.es/wp-content/uploads/2023/01/Mullet-corte-de-pelo-para-chicos-de-moda-2023.jpg" alt="Imagen de Servicio" class="img">
+                    <img src="{{$servicio['img_serv']}}" alt="Imagen de Servicio" class="img">
                 </article>
-    
                 <div class="infoItem">
-                    <h3 class="nomNegocio">Warrior Barber Club</h3>
-                    <h2 class="nomItem">Mullet Degradado Medio</h2>
-                    <p class="precio">$ 35,000 CO</p>
+                    <h3 class="nomNegocio">ALEJANDRO MALDITA PERRA</h3>
+                    <h2 class="nomItem">{{$servicio['nom_servicio']}}</h2>
+                    <p class="precio">$ {{$servicio['precio_servicio']}} CO</p>
     
                     <div class="btnCrud">
+                    <form action="{{ route('servicios', ['accion' => 'editar']) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="editServicio" value="{{ $servicio['id_servicio'] }}">
                         <button type="submit" class="btnEdit">EDITAR SERVICIO</button>
+                    </form>
                     </div>
     
-                    <p class="descripcion">Tendencia en colombia y en el mundo corte de cabello mullet 
-                         con un degradado medio que simula a la perfeccion y frecura y el buen aura de la persona que lo porta 
-                         que esperar para lucir esa melena de leon
                     </p>
-                    <p class="time">30 Minutos</p>
+                    <p class="time">{{$servicio['duracion_serv']}} Minutos</p>
                 </div>
             </div>
+            @endforeach
 
         </section>
     </section>    

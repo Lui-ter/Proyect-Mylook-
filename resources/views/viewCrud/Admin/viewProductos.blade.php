@@ -12,7 +12,7 @@
     <section class="viewProductos">
         <!-- VOLVER AL MENU INICIAL -->
         <span class="volver">
-            <i class="fas fa-arrow-left"></i> 
+            <a href="{{route('admin')}}"><i class="fas fa-arrow-left"></i></a> 
             <h3 class="nomView">Gestion Productos</h3>
         </span>
     
@@ -31,21 +31,26 @@
         
         <!-- CONTENEDOR DEL PRODUCTO A REFERENCIAR -->
         <section class="cardItems">
-
+            @foreach($productos as $producto)
             <div class="cardUnited">
                 <article class="itemImg">
-                    <img src="https://www.productosdelapeluqueria.es/384-home_default/aceite-barba-ossion.jpg" alt="Imagen de Producto" class="img">
+                    <img src="{{$producto['img_prod']}}" alt="Imagen de Producto" class="img">
                 </article>
-                <h4 class="nomItem">ACEITE BARBÓN</h4>
-                <p class="descripcion">Producto 100% natural con aceite de argan y coco para mejor arreigacion a la piel 
-                    con extracto de sumo de zanahoria que hace que tu barba se vea mas gruesa.
-                </p>
+                <h4 class="nomItem">{{$producto['nombre_prod']}}</h4>
+                <p class="descripcion">{{$producto['desc_prod']}}</p>
                 <div class="btnCrud">
-                    <button type="submit" class="btnEdit">Editar</button>
-                    <button type="submit" class="btnEdit" id="eliminarItem">Eliminar</button>
+                <form action="{{ route('productos', ['accion' => 'editar']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btnEdit" name="editProducto" value="{{ $producto['id_prod'] }}">Editar</button>
+                </form>
+
+                <form action="{{ route('productos', ['accion' => 'eliminar']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btnEdit" name="deleteProducto" value="{{ $producto['id_prod'] }}">Eliminar</button>
+                </form>
                 </div>
             </div>
-
+            @endforeach
         </section>
     </section> 
        

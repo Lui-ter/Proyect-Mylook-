@@ -443,8 +443,6 @@ class Validations extends Controller
             $tipoServicio->destroy();
             
         }
-
-        
         
         return redirect('#');
         

@@ -10,7 +10,7 @@ function handleValidationCategory(event) {
     const descripcionCategoria = document.getElementById("descripcion").value;
     const imagenCategoria = document.getElementById("imagen").files[0];
 
-    const caracteresNombre = /^[a-zA-Z]+$/;
+    const caracteresNombre = /^[a-zA-Z\s]+$/;
     const caracteresDescripcion = /^[a-zA-Z0-9\s]+$/;
     const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
 
@@ -45,7 +45,7 @@ function handleValidationServiceType(event) {
 
     const nombreServicios = document.getElementById("nombreServicios").value;
 
-    const caracteresNombre = /^[a-zA-Z]+$/;
+    const caracteresNombre = /^[a-zA-Z\s]+$/;
 
     if (!nombreServicios) {
         alert("¡El nombre no puede estar vacio!");
@@ -142,7 +142,7 @@ function handleValidationRegister(event) {
 
     const caracteresUsuario = /^[0-9]+$/;
     const caracteresNit = /^[0-9-]+$/;
-    const caracteresPermitidos2 = /^[a-zA-Z0-9]+$/;
+    const caracteresPermitidos2 = /^[a-zA-Z0-9 ]+$/;
     const caracteresPermitidos3 = /^[a-zA-Z0-9\s]+$/;
     const contrasenaValida = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 

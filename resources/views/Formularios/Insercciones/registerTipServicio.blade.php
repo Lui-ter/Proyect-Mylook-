@@ -9,8 +9,13 @@
 </head>
 <body>
       <!-- sección todo -->
-        <form action="{{ route('registerServiceType') }}" class="formTservicios" method="post" onsubmit="handleValidationServiceType(event)">
+        <form action="{{ $modeValidator == 1 
+        ? route('updateServiceType', ['id' => $typeServices['id_tiposerv']]) 
+        : route('registerServiceType') }}"  class="formTservicios" method="post" onsubmit="handleValidationServiceType(event)">
+
             @csrf
+            @method('PUT');
+            
 
                   <h1 class="titulo">TIPO DE SERVICIOS</h1>
             <label for="" class="labels">Seleccionar categoría:</label>
@@ -21,10 +26,10 @@
                 @endforeach
             </select>
             <label for="" class="labels">Nombre del servicio:</label>
-            <input type="text" name="nombreServicios" id="nombreServicios">
+            <input type="text" name="nombreServicios" id="nombreServicios" value="{{$typeServices['tipo_serv'] ?? ''}}">
             <div class="botones">
-                <button type="reset" class="cancelar">CANCELAR</button>
-                <button type="submit" class="guardar">GUARDAR</button>
+                <button type="reset" class="cancelar" onclick="window.history.back();">CANCELAR</button>
+                <button type="submit" class="guardar">{{($modeValidator == 1) ? 'EDITAR':'GUARDAR'}}</button>
             </div>
             </form>
 

@@ -34,15 +34,26 @@
         
         <!-- CONTENEDOR DEL TIPO DE SERVICIO A REFERENCIAR -->
         <div class="cardItems">
-
+            @foreach($tipoServicios as $tipo)
             <div class="cardUnited">
-                <h4 class="nomItem">CUIDADO CAPILAR</h4>
+                <h4 class="nomItem">{{$tipo['tipo_serv']}}</h4>
                 <div class="btnCrud">
-                    <button type="submit" class="btnEdit"><i class="fas fa-edit"></i></button>
-                    <button type="submit" class="btnEdit" id="eliminarItem"><i class="fas fa-trash-alt"></i></button>
+                <form action="{{ route('tipoServicios', ['accion' => 'editar']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btnEdit" value="{{ $tipo['id_tiposerv'] }}" name="editTipoServicio">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </form>
+
+                <form action="{{ route('tipoServicios', ['accion' => 'eliminar']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btnEdit" value="{{ $tipo['id_tiposerv'] }}" name="deleteTipoServicio">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
                 </div>
             </div>
-
+            @endforeach
         </div>
     </section>    
 </body>

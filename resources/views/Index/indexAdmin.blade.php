@@ -7,7 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet"  href="{{ asset('Css/Index/indexAdmin.css') }}">
-    <title>MiNegocio - MYLOOK</title>
+    <title>Mi Negocio | MyLook</title>
 </head>
 
 
@@ -29,7 +29,6 @@
             </div>
 
             <div class="mensajesItem">
-
                 <article class="mensajeUnited">
 
                     <span class="fechaMensaje">
@@ -95,43 +94,27 @@
             <span class="rediretViewStaff">
                 <a link href="../../View/Administrador/viewStaff.html" class="tittleRediret">VER TODOS...</a>
             </span>
-
             <article class="staffItem">
+                @foreach($infoStaff as $item)
                 <figure class="staffCard">
-                    <span class="nomStaff">Mauricio Duarte</span>
+                    <span class="nomStaff">{{$item['usuario']['nombre']}}</span>
 
-                    <img src="../../Asset/img3.jpeg" alt="" class="imgStaff">
+                    <img src="{{$item['img_staff']}}" alt="" class="imgStaff">
 
                     <span class="rediretRegister">
                         <button type="submit" class="btnOption"><a href="../../Form/Register/Staff/regsiterStaff.html">Editar</a></button>
                         <button type="submit" class="btnOption">Eliminar</button>
                     </span>
                 </figure>
-
-                <figure class="staffCard">
-                    <span class="nomStaff">Arturo Calle</span>
-
-                    <img src="../../Asset/img2.jpeg" alt="" class="imgStaff">
-
-                    <span class="rediretRegister">
-                        <button type="submit" class="btnOption"><a href="../../Form/Register/Staff/regsiterStaff.html">Editar</a></button>
-                        <button type="submit" class="btnOption">Eliminar</button>
-                    </span>
-                </figure>
-
-                <figure class="staffCard">
-                    <span class="nomStaff">Alejandro Aguilon</span>
-
-                    <img src="../../Asset/img5.jpeg" alt="" class="imgStaff">
-
-                    <span class="rediretRegister">
-                        <button type="submit" class="btnOption"><a href="../../Form/Register/Staff/regsiterStaff.html">Editar</a></button>
-                        <button type="submit" class="btnOption">Eliminar</button>
-                    </span>
-                </figure>
+                @endforeach
 
                 <figure class="staffCard" id="AñadirStaff">
-                    <a href="../../Form/Register/Staff/regsiterStaff.html" class="rediretStaff">+</a>
+                    <form action="{{ route('staff', ['accion' => 'register']) }}" method="POST">
+                        @csrf
+                        <button type="submit" style="border: none; background: none;">
+                            <a class="rediretStaff">+</a>
+                        </button>
+                    </form>
                 </figure>
             </article>
 
@@ -140,52 +123,28 @@
         <!-- SECCION PARA MODIFICAR LOS PRODUCTOS DE MYLOOK -->
         <section class="crudProductos" style="display: none;">
             <span class="rediretViewProductos">
-                <a link href="../../View/Administrador/viewProductos.html" class="tittleRediret">VER TODOS...</a>
+            <a href="{{ route('productos', ['accion' => 'ver']) }}" class="tittleRediret" ver="true">VER TODOS...</a>
             </span>
 
             <article class="productosItem">
+                @foreach($productsPreview as $product)
                 <figure class="productoCard">
-                    <img src="https://www.nihlo.com.co/cdn/shop/files/shampoo-anticaspa-400ml-1_1000x.png?v=1712780936" alt="" class="imgProducto">
+                    <img src="{{$product['img_prod']}}" alt="" class="imgProducto">
 
-                    <span class="nomProducto">Shampoo AntiCaspa</span>
+                    <span class="nomProducto">{{$product['nombre_prod']}}</span>
 
-                    <p class="descripProducto">Trata y previene la caspa con nuestro productos 100% naturales a base de aceite de gengibre con romero y un poco de ketononazol</p>
+                    <p class="descripProducto">{{$product['desc_prod']}}</p>
 
                     <span class="rediretRegister">
-                        <button type="submit" class="btnOption"><a href="../../View/Usuario/viewProducto.html">Editar</a></button>
-                        <button type="submit" class="btnOption">Eliminar</button>
+                    <form action="{{ route('productos', ['accion' => 'editar']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btnOption" name="editProducto" value="{{ $product['id_prod'] }}">Editar</button>
+                </form>
+<!--                         <button type="submit" class="btnOption" id="eliminarItem" value="{{$product['id_prod']}}" name="deleteProducto">Eliminar</button>
+                    </form>  --> 
                     </span>
                 </figure>
-
-                <figure class="productoCard">
-                    <img src="https://www.nihlo.com.co/cdn/shop/files/shampoo-anticaspa-400ml-1_1000x.png?v=1712780936" alt="" class="imgProducto">
-
-                    <span class="nomProducto">Shampoo AntiCaspa</span>
-
-                    <p class="descripProducto">Trata y previene la caspa con nuestro productos 100% naturales a base de aceite de gengibre con romero y un poco de ketononazol</p>
-
-                    <span class="rediretRegister">
-                        <button type="submit" class="btnOption"><a href="../../View/Usuario/viewProducto.html">Editar</a></button>
-                        <button type="submit" class="btnOption">Eliminar</button>
-                    </span>
-                </figure>
-
-                <figure class="productoCard">
-                    <img src="https://www.nihlo.com.co/cdn/shop/files/shampoo-anticaspa-400ml-1_1000x.png?v=1712780936" alt="" class="imgProducto">
-
-                    <span class="nomProducto">Shampoo AntiCaspa</span>
-
-                    <p class="descripProducto">Trata y previene la caspa con nuestro productos 100% naturales a base de aceite de gengibre con romero y un poco de ketononazol</p>
-
-                    <span class="rediretRegister">
-                        <button type="submit" class="btnOption"><a href="../../View/Usuario/viewProducto.html">Editar</a></button>
-                        <button type="submit" class="btnOption">Eliminar</button>
-                    </span>
-                </figure>
-
-                <figure class="productoCard" id="AñadirProducto">
-                    <a href="../../Form/Insercciones/registerProducto.html" class="rediretProducto">+</a>
-                </figure>
+                @endforeach
             </article>
 
         </section>
@@ -193,28 +152,35 @@
         <!-- SECCION PARA MODIFICAR LAS CATEGORIAS Y VISUALIZAR EN OTRAS PESTAÑAS LOS SERVICIOS Y LOS TIPOS DE SERVICIO DEL ESTABLECIMIENTO -->
         <section class="crudCategoria" style="display: none;">
             <span class="rediretViewProductos">
-                <a link href="../../View/Administrador/viewTipservicio.html" class="tittleRediret">VER TIPOS DE SERVICIO</a>
-                <a link href="../../View/Administrador/viewServicios.html" class="tittleRediret" >VER SERVICIOS</a>
+                <a link href="{{ route('tipoServicios', ['accion' => 'ver']) }}" class="tittleRediret">VER TIPOS DE SERVICIO</a>
+                <a link href="{{route('servicios')}}" class="tittleRediret" >VER SERVICIOS</a>
             </span>
 
             <div class="contianerCategoria">
 
+                @foreach($categorias as $categoria)
             <article class="categoriaCard">
                 <figure class="imgCategoria">
-                    <img src="https://i.pinimg.com/236x/a6/2c/5b/a62c5bb095c011a92f243ffe878809f5.jpg" alt="" class="fotoCategoria">
+                    <img src="{{$categoria['imagen']}}" alt="" class="fotoCategoria">
                 </figure>
 
                 <div class="infoCategoria">
-                    <h3 class="nomCategoria">CORTE DE CABELLO</h3>
-                    <p class="descripCategoria">Todo lo relacionado con los cortes de cabello mas innovadores y en tendencia del año.</p>
-                    <a href="../../Form/Insercciones/registerCategorias.html">Editar Categoría</a>
+                    <h3 class="nomCategoria">{{$categoria['nom_categoria']}}</h3>
+                    <p class="descripCategoria">{{$categoria['desc_categoria']}}</p>
+                    <form action="{{ route('categorias', ['accion' => 'editar']) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btnOption" name="editCategoria" value="{{ $categoria['id_categoria'] }}">
+                            Editar Categoría
+                        </button>
+                    </form>
                 </div>
             </article>
+            @endforeach
             
         </div>
 
         <span class="rediretCategoria">
-            <p class="nomRediret">¿ Deseas registrar una categoría nueva ?<a href="../../Form/Insercciones/registerCategorias.html">Registrar Aquí</a></p>
+            <p class="nomRediret">¿ Deseas registrar una categoría nueva ?<a href="{{ route('categorias', ['accion' => 'nuevo']) }}">Registrar Aquí</a></p>
         </span>
 
         </section>

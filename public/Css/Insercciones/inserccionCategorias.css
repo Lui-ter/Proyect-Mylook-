@@ -240,6 +240,8 @@ padding: 1em 0;
     text-align: justify;
 }
 
+
+
   /*TITULO PREVISUALIZACIÓN*/
 .titulo2 {
     color: #a68160;
@@ -328,8 +330,18 @@ padding: 1em 0;
 .subirImagen{
   display: none;
 }
-.texto2{
-  font-size: 4vw;
-  text-align: justify;
+
+#vistaDesc {
+  white-space: pre-wrap; /* Respetar los saltos de línea */
+  word-wrap: break-word; /* Ajustar palabras largas */
+  overflow-wrap: break-word; /* Compatibilidad adicional */
+  max-width: 100%; /* Evitar que el texto desborde */
+  height: auto; /* Asegurar que crezca dinámicamente */
+  overflow: hidden; /* Opcional: si no deseas scroll */
+  text-align: justify; /* Justificar el texto */
+  margin-top: 1em;
 }
+
+
+
 }

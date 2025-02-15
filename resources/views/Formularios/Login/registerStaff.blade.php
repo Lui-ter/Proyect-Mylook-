@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../Styles/Staff/regsiterStaff.css">
+    <link rel="stylesheet" href="{{ asset('Css/Form/registerStaff.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
     <title>Register Staff - MiNegocio</title>
@@ -12,7 +12,8 @@
 <body>
     <section class="containerfatherRegister">
         <article class="formstaffRegister">
-            <form action="../php/registerStaff.php" method="POST" class="formStaff">
+            <form action="{{ route('registerStaff') }}" method="POST" class="formStaff">
+                @csrf
                 <h2 id="titleRegister">R E G I S T R A R</h2>
                 <div class="formContainer">
                     <div class="formGroup">

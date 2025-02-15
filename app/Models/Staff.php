@@ -8,6 +8,7 @@ class Staff extends Model
 {
     protected $table = 'staff';
     protected $primaryKey = 'id_staff';
+    public $timestamps = false;
 
     protected $fillable = [
         'id_usuario',
@@ -18,9 +19,10 @@ class Staff extends Model
     ];
 
     public function usuario()
-    {
-        return $this->belongsTo(Usuario::class, 'id_usuario');
-    }
+{
+    return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
+}
+
 
     public function establecimiento()
     {

@@ -8,7 +8,7 @@
     
     <link rel="stylesheet" href="{{asset('Css/Form/formLoginPrincipal.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>Login And Register MYLOOK</title>
+    <title>Inicio de sesión | MyLook</title>
 </head>
 <body>
 

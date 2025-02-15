@@ -34,3 +34,4 @@ function moveRight() {
 
 // Initial setup
 updateVisibility();
+

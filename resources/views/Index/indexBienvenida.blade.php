@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet"  href="{{ asset('Css/Index/indexBienvenida.css') }}">
-    <title>Welcome To MyLook</title>
+    <title>MyLook</title>
 </head>
 <body>
     
@@ -35,7 +35,7 @@
                                             Haz tu cita hoy mismo y déjate envolver por la belleza ".                        
                 </p>
 
-                <a href="../../Form/Login/loginPrincipal.html" class="directLoginRegister">
+                <a href="{{ route('login') }}" class="directLoginRegister">
                     <button type="submit" class="btnStartLogin">¡Iniciar Ahora!</button>
                 </a>
 

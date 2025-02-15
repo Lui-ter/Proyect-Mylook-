@@ -14,25 +14,27 @@
 
     <!-- sección todo -->
     <article class="titulo">
-      <h1 class="titulo1">CREACIÓN DE CATEGORíAS</h1>
+      <h1 class="titulo1">{{($modeValidator == 1) ? 'EDICIÓN DE CATEGORIAS':'CREACIÓN DE CATEGORIAS'}}</h1>
       <p class="texto">
-        En este apartado podrás crear las categorías que se encontrarán
-        disponibles en tu establecimiento
+      {{ ($modeValidator == 1) ? 'En este apartado podrás editar las categorías existentes en tu establecimiento.' : 'En este apartado podrás crear las categorías que se encontrarán disponibles en tu establecimiento.' }}
       </p>
     </article>
 
     <!-- contenedor del formulario -->
     <section class="formCategoria">
 
-
       <!-- Formulario -->
-      <form action="{{ route('registerCategory') }}" method="post" class="formulario" enctype="multipart/form-data" onsubmit="handleValidationCategory(event)">
+      <form action="{{ $modeValidator == 1 
+        ? route('updateCategory', ['id' => $categoria['id_categoria']]) 
+        : route('registerCategory') }}"   method="post" class="formulario" enctype="multipart/form-data" onsubmit="handleValidationCategory(event)">
         @csrf
+        @method($modeValidator == 1 ? 'PUT' : 'POST')
+
         <article class="contenedorPadre">
           <div class="colum">
             <label for="" class="nombreCat">Nombre de la categoría:</label
             >
-            <input type="text" name="nombreCategoria" class="nombreInput" id="nombreCategoria"/>
+            <input type="text" name="nombreCategoria" class="nombreInput" id="nombreCategoria" value="{{$categoria['nom_categoria'] ?? ''}}"/>
               <div class="inputImg">
                 <label for="imagen" class="nombreCat labelImagen" >Subir imagen categoría:</label
                   >
@@ -42,7 +44,7 @@
 
             <label for="" class="nombreCat">Descripción de la categoría:</label
             >
-            <textarea name="descripcionCategoria" id="descripcion"></textarea>
+            <textarea name="descripcionCategoria" id="descripcion">{{$categoria['desc_categoria'] ?? ''}}</textarea>
            
           </div>
         </div>
@@ -50,8 +52,8 @@
 
         <!-- BOTONES DE GUARDAR Y CANCELAR -->
         <div class="botones">
-         <button type="reset" class="cancelar">CANCELAR</button>
-         <button type="submit" class="guardar">GUARDAR</button>
+         <a href="{{route('admin')}}" class="cancelar">CANCELAR</a>
+         <button type="submit" class="guardar" name="{{($modeValidator == 1) ? 'updateButton':''}}">{{($modeValidator == 1) ? 'EDITAR':'GUARDAR' }}</button>
       </div>
         </article>
       </form>
@@ -67,7 +69,7 @@
                     <figure>
                         <img
                           id="imagenMaquillaje"
-                          src="maquillaje.jpg"
+                          src=""
                           alt="La imagen no cargo"
                         />
                         

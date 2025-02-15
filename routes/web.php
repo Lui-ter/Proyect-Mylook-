@@ -2,73 +2,68 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\viewsController;
+use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TiposServiciosController;
+use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\ServiciosController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\NegociosController;
+use App\Http\Controllers\EstablecimientosController;
+use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Validations;
 
-/* ACTUALIZACION DE VISTAS RESPONSIVE DEL PROYECTO MYLOOK */
-Route::get('/loginbienvenida', [viewsController::class, 'showLoginPrincipal']);
-
-/* VALIDACIONES DEL LOGIN */
-
-Route::post('/register-user', [Validations::class, 'registerUser'])->name('registerUser');
-Route::post('/login-user', [Validations::class, 'loginUser'])->name('loginUser');
-
-
-
-/* LOGIN Y REGISTROS DE LOS PRINPALES USUARIOS DE MYLOOK -------------------------------------------- */
+/* --------------------------------------------------------------------------------------- */
 
 /* PAGINA PRINCIPAL DE MYLOOK */
-Route::get('/welcometomylook', [viewsController::class, 'showIndexPrincipal']);
-/* LOGIN PRINCIPAL DE MYLOOK USUARIOS Y ESTABLECEMIENTO */
-Route::get('/loginbienvenida', [viewsController::class, 'showLoginPrincipal']);
-/* INDEX USUARIO */
-Route::get('/indexusuario', [viewsController::class, 'showIndexUsuario']);
-/* INDEX AGENDAMIENTO */
-Route::get('/indexagendamiento', [viewsController::class, 'showIndexAgendamiento']);
-/* INDEX PANEL ADMIN INICIO SESION */
-Route::get('/panelAdmin', [viewsController::class, 'showPanelAdmin']);
-/* REGISTRAR ADMIN */
-Route::get('/registeradmin', [viewsController::class, 'showRegisterAdmin'])->name('registeradmin');
-/* INDEX ADMIN */
-Route::get('/indexadmin', [viewsController::class, 'showIndexAdmin']);
-/* INDEX STAFF */
-Route::get('/indexstaff', [viewsController::class, 'showIndexStaff']);
-/* LOGUIAR STAFF */
-Route::get('/loguinstaff', [viewsController::class, 'showLoginStaff']);
-/* ---------------------------------------------------------------------------------------------------- */
+Route::get('/', [LoginController::class, 'showLandingPage'])->name('landing');
+/* CRUD DE PRODUCTOS */
+Route::match(['get', 'post'], '/productos/{accion?}', [ProductosController::class, 'crudProductos'])->name('productos');
+/* CRUD DE SERVICIOS */
+Route::match(['get', 'post'], '/servicios/{accion?}', [ServiciosController::class, 'crudServicios'])->name('servicios');
+/* CRUD DE TIPO DE SERVICIOS */
+Route::match(['get', 'post'], '/tipoServicios/{accion?}', [TiposServiciosController::class, 'crudTipoServicios'])->name('tipoServicios');
+/* CRUD DE CATEGORIAS */
+Route::match(['get', 'post'], '/categorias/{accion?}', [CategoriasController::class, 'crudCategorias'])->name('categorias');
+/* CRUD DE STAFF */
+Route::match(['get', 'post'], '/staff/{accion?}', [StaffController::class, 'crudStaff'])->name('staff');
+/* CRUD DE ESTABLECIMIENTOS */
+Route::match(['get', 'post'], '/establecimientos/{accion?}', [EstablecimientosController::class, 'crudEstablecimientos'])->name('establecimientos');
+/* CRUD DE NEGOCIOS */
+Route::match(['get', 'post'], '/negocio/{accion?}', [NegociosController::class, 'crudNegocios'])->name('negocio');
+/* CRUD DE USUARIOS */
+Route::match(['get', 'post'], '/usuarios/{accion?}', [UsuariosController::class, 'crudUsuarios'])->name('usuarios');
+/* CRUD DE ADMIN */
+Route::match(['get', 'post'], '/admin/{accion?}', [AdminController::class, 'crudAdmin'])->name('admin');
+/* LOGIN GENERAL */
+Route::get('/login', [LoginController::class, 'showLoginPrincipal'])->name('login');
 
-/* INSERCCIONES DE GESTION DE ESTABLECIMIENTO MYLOOK */
+/* --------------------------------------------------------------------------------------- */
 
-/* PRODUCTOS */
-Route::get('/inserccionproductos', [viewsController::class, 'crudProductos']);
-/* SERVICIOS */
-Route::get('/inserccionservicios', [viewsController::class, 'crudServicios']);
-/* TIPOS DE SERVICIOS */
-Route::get('/insercciontipservicios', [viewsController::class, 'crudTipServicios']);
-/* CATEGORIAS */
-Route::get('/inserccioncategoria', [viewsController::class, 'crudCategorias']);
-/* STAFF */
-Route::get('/inserccionstaff', [viewsController::class, 'crudStaff']);
+/* RUTAS POST - INSERCIONES */
+Route::post('/register-category', [CategoriasController::class, 'handleAddCategory'])->name('registerCategory');
+Route::post('/register-type-service', [TiposServiciosController::class, 'handleAddServiceType'])->name('registerServiceType');
+Route::post('/register-service', [ServiciosController::class, 'handleAddService'])->name('registerService');
+Route::post('/register-product', [ProductosController::class, 'handleAddProduct'])->name('registerProduct');
+Route::post('/register-user', [LoginController::class, 'registerUser'])->name('registerUser');
+Route::post('/register-staff', [StaffController::class, 'handleAddStaff'])->name('registerStaff');
 
-/* --------------------------------------------------------------------------------------------------------- */
+/* RUTAS POST - VALIDACIONES */
+Route::post('/login-user', [LoginController::class, 'loginUser'])->name('loginUser');
 
-/* CONFIGURACION DEL PERFIL */
+/* RUTAS PUT - UPDATES */
+Route::put('/update-category/{id}', [CategoriasController::class, 'handleUpdateCategory'])->name('updateCategory');
+Route::put('/update-type-service/{id}', [TiposServiciosController::class, 'handleUpdateServiceType'])->name('updateServiceType');
+Route::put('/update-service/{id}', [ServiciosController::class, 'handleUpdateService'])->name('updateService');
+Route::put('/update-product/{id}', [ProductosController::class, 'handleUpdateProduct'])->name('updateProduct');
 
-/* CONFIGURACION DEL PERFIL */
-Route::get('/configuracionperfil', [viewsController::class, 'configPerfil'])->name('configPerfil');
-/* REGISTRAR SEDE */
-Route::get('/configuracionsede', [viewsController::class, 'configStaff']);
-
-/* --------------------------------------------------------------------------------------------------------- */
-
-
-
-
-
-
+/* RUTAS DELETE - DELETE */
+Route::delete('/delete-category', [CategoriasController::class, 'handleDeleteCategory'])->name('deleteCategory');
+Route::delete('/delete-type-service', [TiposServiciosController::class, 'handleDeleteServiceType'])->name('deleteServiceType');
+Route::delete('/delete-service', [ServiciosController::class, 'handleDeleteService'])->name('deleteService');
+Route::delete('/delete-product', [ProductosController::class, 'handleDeleteProduct'])->name('deleteProduct');
 
 
-/* VALIDACIONES DE LOS FORMULARIOS */
-Route::post('/register-category', [Validations::class, 'handleAddCategory'])->name('registerCategory');
-Route::post('/register-type-service', [Validations::class, 'handleAddServiceType'])->name('registerServiceType');
-Route::post('/register-service', [Validations::class, 'handleAddService'])->name('registerService');
-Route::post('/register-product', [Validations::class, 'handleAddProduct'])->name('registerProduct');
+
+/* --------------------------------------------------------------------------------------- */

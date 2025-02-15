@@ -127,7 +127,7 @@
 
                 <article class="btnCrud">
                     <div class="groupBtn">
-                        <button type="submit" class="btnCrud">Cancelar</button>
+                        <button type="submit" class="btnCrud" onclick="window.history.back();">Cancelar</button>
                         <button type="submit" class="btnCrud btnSave">Guardar</button>
                     </div>
                 </article>
