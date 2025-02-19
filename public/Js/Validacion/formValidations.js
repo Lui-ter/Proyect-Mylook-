@@ -206,3 +206,61 @@ function handleValidationRegister(event) {
         }
     }
 }
+/* FORMULARIO DE LOGIN DE USUARIO Y NEGOCIO  */
+function handleValidationLogin(event){
+    event.preventDefault();
+
+    const tipo_usuario = document.getElementById("tipo_usuario").value;
+
+    const caracteresUsuario = /^[0-9]+$/;
+    const caracteresNit = /^[0-9-]+$/;
+    const contrasenaValida = /^(?=.[a-z])(?=.[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+    if (tipo_usuario == 2) {
+        const nitNegocio = document.getElementById("10").value;
+        const contrasenaNegocio = document.getElementById("11").value;
+
+        //VALIDACION CAMPOS DE ESTABLECIMIENTO DE LOGIN
+
+        if (!nitNegocio || !contrasenaNegocio) {
+            alert("¡Faltan campos por llenar en el negocio!");
+            console.log(nitNegocio, contrasenaNegocio);
+        } else {
+            if (!caracteresNit.test(nitNegocio)) {
+                alert("¡El nit del negocio solo debe contener numeros!");
+                return false;
+            } else if (!contrasenaValida.test(contrasenaNegocio)) {
+                alert(
+                    "La contraseña del negocio debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
+                );
+                return false;
+            } else {
+                event.target.submit();
+                return true;
+            }
+        }
+    } else {
+        const documentoUsuario = document.getElementById("8").value;
+        const passwordUsuario = document.getElementById("9").value;
+
+        // VALIDACION CAMPOS DE USUARIO DE LOGIN
+
+        if (!documentoUsuario || !passwordUsuario) {
+            alert("¡Faltan campos por llenar en el usuario!");
+            return false;
+        } else {
+            if (!caracteresUsuario.test(documentoUsuario)) {
+                alert("¡El documento del usuario solo debe contener números!");
+                return false;
+            } else if (!contrasenaValida.test(passwordUsuario)) {
+                alert(
+                    "La contraseña del usuario debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
+                );
+                return false;
+            } else {
+                event.target.submit();
+                return true;
+            }
+        }
+    }
+    }
