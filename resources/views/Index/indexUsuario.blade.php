@@ -66,7 +66,7 @@
                     <img src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/348774653/original/1799571194ddb4cc4fce4e5c0af847fd8a27935b/make-outstanding-barber-and-barber-shop-logo-design.jpg" alt="" class="imgTopEtablecimiento">
                 </figure>
                 <span class="nomTopEstablecimiento">
-                    <p class="nomUnitedTop">BARBER PLUS VIP</p>
+                    <p class="nomUnitedTop">{{$mejoresEstablecimientos['0']['nombre_establc']}}</p>
                 </span>
             </article>
 
@@ -76,7 +76,7 @@
                     <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/barbershop-logo-design-template-8e21faf7c4ea8c885887247621683517_screen.jpg?ts=1640535757" alt="" class="imgTopEtablecimiento">
                 </figure>
                 <span class="nomTopEstablecimiento">
-                    <p class="nomUnitedTop">BARBER STAR HD</p>
+                    <p class="nomUnitedTop">{{$mejoresEstablecimientos['0']['nombre_establc']}}</p>
                 </span>
             </article>
 
@@ -86,7 +86,7 @@
                     <img src="https://i.pinimg.com/474x/66/2f/7e/662f7e2e139adf567b55dc8e297d7923.jpg" alt="" class="imgTopEtablecimiento">
                 </figure>
                 <span class="nomTopEstablecimiento">
-                    <p class="nomUnitedTop">BARBER DISNEY XD</p>
+                    <p class="nomUnitedTop">{{$mejoresEstablecimientos['0']['nombre_establc']}}</p>
                 </span>
             </article>
 
@@ -122,9 +122,8 @@
 
                     <aside class="infoBasica">
 
-                        <h2 class="nomEstablecimiento">NOMBRE ESTABLECIMIENTO</h2>
-                        <P class="sloganEstablecimiento">Priorizamos tu comodidad y calidad de tu corte con manos expertas y profesionales 
-                            en la belleza deja que tu estilo hable por ti.
+                        <h2 class="nomEstablecimiento">{{$mejoresEstablecimientos['0']['nombre_establc']}}</h2>
+                        <P class="sloganEstablecimiento">{{$mejoresEstablecimientos['0']['desc_establc']}}
                         </P>
                     </aside>
 
@@ -147,7 +146,7 @@
                     </div>
 
                 </span>
-                <button type="submit" class="btnAgenda">AGENDAR</button>
+                <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}">AGENDAR</button>
             </article>
 
                <!-- ESTABLECIMIENTOS REGISTRADO EN MYLOOK -->
@@ -157,9 +156,8 @@
 
                     <aside class="infoBasica">
 
-                        <h2 class="nomEstablecimiento">NOMBRE ESTABLECIMIENTO</h2>
-                        <P class="sloganEstablecimiento">Priorizamos tu comodidad y calidad de tu corte con manos expertas y profesionales 
-                            en la belleza deja que tu estilo hable por ti.
+                        <h2 class="nomEstablecimiento">{{$mejoresEstablecimientos['0']['nombre_establc']}}</h2>
+                        <P class="sloganEstablecimiento">{{$mejoresEstablecimientos['0']['desc_establc']}}
                         </P>
                     </aside>
 
@@ -182,7 +180,7 @@
                     </div>
 
                 </span>
-                <button type="submit" class="btnAgenda">AGENDAR</button>
+                <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}">AGENDAR</button>
             </article>
 
                <!-- ESTABLECIMIENTOS REGISTRADO EN MYLOOK -->
@@ -192,9 +190,8 @@
 
                     <aside class="infoBasica">
 
-                        <h2 class="nomEstablecimiento">NOMBRE ESTABLECIMIENTO</h2>
-                        <P class="sloganEstablecimiento">Priorizamos tu comodidad y calidad de tu corte con manos expertas y profesionales 
-                            en la belleza deja que tu estilo hable por ti.
+                        <h2 class="nomEstablecimiento">{{$mejoresEstablecimientos['0']['nombre_establc']}}</h2>
+                        <P class="sloganEstablecimiento">{{$mejoresEstablecimientos['0']['desc_establc']}}
                         </P>
                     </aside>
 
@@ -217,7 +214,7 @@
                     </div>
 
                 </span>
-                <button type="submit" class="btnAgenda">AGENDAR</button>
+                <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}">AGENDAR</button>
             </article>
 
                <!-- ESTABLECIMIENTOS REGISTRADO EN MYLOOK -->
@@ -227,9 +224,8 @@
 
                     <aside class="infoBasica">
 
-                        <h2 class="nomEstablecimiento">NOMBRE ESTABLECIMIENTO</h2>
-                        <P class="sloganEstablecimiento">Priorizamos tu comodidad y calidad de tu corte con manos expertas y profesionales 
-                            en la belleza deja que tu estilo hable por ti.
+                        <h2 class="nomEstablecimiento">{{$mejoresEstablecimientos['0']['nombre_establc']}}</h2>
+                        <P class="sloganEstablecimiento">{{$mejoresEstablecimientos['0']['desc_establc']}}
                         </P>
                     </aside>
 
@@ -252,7 +248,7 @@
                     </div>
 
                 </span>
-                <button type="submit" class="btnAgenda">AGENDAR</button>
+                <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}">AGENDAR</button>
             </article>
             
          
