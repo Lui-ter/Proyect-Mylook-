@@ -196,7 +196,7 @@
             </div>
 
             <div class="contenedor-formulario contenedor-inicio-sesion">
-                <form action="{{ route('loginUser') }}" method="POST">
+                <form action="{{ route('loginUser') }}" method="POST" onsubmit="handleValidationLogin(event)">
                     @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Usuario</button>
@@ -227,6 +227,7 @@
                     </div>
                     <a href="#" class="olvidaste-contraseña">¿Olvidaste tu contraseña?</a>
                     <button type="submit" name="accionIniciarSesion" value="iniciar_sesion">Iniciar Sesión</button>
+                    
                 </form>
             </div>
             <div class="contenedor-superposicion">
