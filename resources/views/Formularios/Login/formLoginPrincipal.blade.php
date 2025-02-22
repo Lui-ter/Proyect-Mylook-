@@ -207,23 +207,23 @@
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input type="text" name="documentoUsuario" id="documentoUsuario" placeholder="Ingrese su Documento..."  />
+                            <input type="text" name="documentoUsuario" id="8" placeholder="Ingrese su Documento..."  />
                         </div>
                         <div class="input-container">
                         
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="passwordUsuario"  id="passwordUsuario"  placeholder="Ingrese su Contraseña..."  />
+                            <input type="password" name="passwordUsuario" id="9" placeholder="Ingrese su Contraseña..."  />
                         </div>
                         <input type="hidden" name="rol" value="estudiante" />
                     </div>
                     <div class="campos-formulario campos-profesor" style="display: none;">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input type="text" name="nitNegocio" placeholder=" Ingrese su nit Empresarial..."  />
+                            <input type="text" name="nitNegocio" id="10" placeholder=" Ingrese su nit Empresarial..."  />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="contrasenaNegocio" placeholder="Ingrese su contraseña..."  />
+                            <input type="password" name="contrasenaNegocio" id="10" placeholder="Ingrese su contraseña..."  />
                         </div>
                     
                         

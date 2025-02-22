@@ -144,52 +144,26 @@ function handleValidationRegister(event) {
         const passwordUsuario = document.getElementById("7").value.trim();
 
         if (!documentoUsuario || !nombreUsuario || !passwordUsuario) {
-            showError("¡Faltan campos por llenar en el usuario!");
-            return;
+            alert("¡Faltan campos por llenar en el usuario!");
+            return false;
+        } else {
+            if (!caracteresUsuario.test(documentoUsuario)) {
+                alert("¡El documento del usuario solo debe contener números!");
+                return false;
+            } else if (!caracteresPermitidos2.test(nombreUsuario)) {
+                alert(
+                    "¡El nombre de usuario solo puede contener caracteres alfanuméricos!"
+                );
+                return false;
+            } else if (!contrasenaValida.test(passwordUsuario)) {
+                alert(
+                    "La contraseña del usuario debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
+                );
+                return false;
+            } else {
+                event.target.submit();
+                return true;
+            }
         }
-
-        if (!regexNombre.test(nombreUsuario)) {
-            showError("¡El nombre del usuario solo puede contener letras y espacios!");
-            return;
-        }
-
-        if (!regexPassword.test(passwordUsuario)) {
-            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
-            return;
-        }
-    } 
-        
-    event.target.submit();
-}
-
-
-
-/* FORMULARIO DE INICIO DE SESIÓN */
-function handleValidationLogin(event) {
-    event.preventDefault();
-
-    const tipo_usuario = document.querySelector(".tipo_usuario").value;
-
-    if (tipo_usuario == "1") {
-        const documentoUsuario = document.querySelector("input[name='documentoUsuario']").value.trim();
-        const passwordUsuario = document.querySelector("input[name='passwordUsuario']").value.trim();
-
-        if (!documentoUsuario || !passwordUsuario) {
-            showError("¡Faltan campos por llenar en el usuario!");
-            return;
-        }
-    } else if (tipo_usuario == "2") {
-        const nitNegocio = document.querySelector("input[name='nitNegocio']").value.trim();
-        const contrasenaNegocio = document.querySelector("input[name='contrasenaNegocio']").value.trim();
-
-        if (!nitNegocio || !contrasenaNegocio) {
-            showError("¡Faltan campos por llenar en el negocio!");
-            return;
-        }
-    } else {
-        showError("¡Seleccione un tipo de usuario!");
-        return;
     }
-
-    event.target.submit();
 }
