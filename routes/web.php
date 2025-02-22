@@ -48,6 +48,9 @@ Route::post('/register-service', [ServiciosController::class, 'handleAddService'
 Route::post('/register-product', [ProductosController::class, 'handleAddProduct'])->name('registerProduct');
 Route::post('/register-user', [LoginController::class, 'registerUser'])->name('registerUser');
 Route::post('/register-staff', [StaffController::class, 'handleAddStaff'])->name('registerStaff');
+Route::post('/register-useradmin', [UsuariosController::class, 'handleAddUser'])->name('registerUserAdmin');
+Route::post('/register-establecimiento', [EstablecimientosController::class, 'handleAddEstablecimiento'])->name('registerEstablecimiento');
+Route::post('/register-negocio', [NegociosController::class, 'handleAddNegocio'])->name('registerNegocio');
 
 /* RUTAS POST - VALIDACIONES */
 Route::post('/login-user', [LoginController::class, 'loginUser'])->name('loginUser');
@@ -57,7 +60,7 @@ Route::put('/update-category/{id}', [CategoriasController::class, 'handleUpdateC
 Route::put('/update-type-service/{id}', [TiposServiciosController::class, 'handleUpdateServiceType'])->name('updateServiceType');
 Route::put('/update-service/{id}', [ServiciosController::class, 'handleUpdateService'])->name('updateService');
 Route::put('/update-product/{id}', [ProductosController::class, 'handleUpdateProduct'])->name('updateProduct');
-Route::put('/update-users/{id}', [UsuariosController::class, 'handleUpdateUsers'])->name('updateUsers');
+
 
 /* RUTAS DELETE - DELETE */
 Route::delete('/delete-category', [CategoriasController::class, 'handleDeleteCategory'])->name('deleteCategory');
