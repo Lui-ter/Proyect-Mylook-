@@ -191,12 +191,13 @@
                             <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario" placeholder="Ingrese su Contraseña..."required />
                         </div>
                     </div>
+                    <div id="errorMessage" style="display: none; color: red; font-weight: bold;"></div>
                     <button type="submit" name="accionRegistrar" value="registrar">Registrar</button>
                 </form>
             </div>
 
             <div class="contenedor-formulario contenedor-inicio-sesion">
-                <form action="{{ route('loginUser') }}" method="POST">
+                <form action="{{ route('loginUser') }}" method="POST" onsubmit="handleValidationLogin(event)">
                     @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Usuario</button>
@@ -223,8 +224,9 @@
                             <i class="fas fa-lock"></i>
                             <input type="password" name="contrasenaNegocio" placeholder="Ingrese su contraseña..."  />
                         </div>
-                    
+
                     </div>
+                    <div id="errorMessage" style="display: none; color: red; font-weight: bold;"></div>
                     <a href="#" class="olvidaste-contraseña">¿Olvidaste tu contraseña?</a>
                     <button type="submit" name="accionIniciarSesion" value="iniciar_sesion">Iniciar Sesión</button>
                 </form>
