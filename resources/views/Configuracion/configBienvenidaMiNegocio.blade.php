@@ -8,7 +8,7 @@
     <title>Configuración MiNegocio - MYLOOK</title>
 </head>
 <body>
-    
+
     <section class="configAdmi">
 
         <aside class="navConfig">
@@ -23,14 +23,14 @@
                 </form>
               </figure>
 
-                        
+
               <nav class="navOptions">
                 <ul class="listaNav">
                     <button type="button" class="optionNav" data-target=".configPerfil">Configurar Perfil</button>
                     <button type="button" class="optionNav" data-target=".configEstablecimiento">Configurar Establecimiento</button>
                     <button type="button" class="optionNav" data-target=".configCuenta">Configurar Cuenta</button>
                 </ul>
-            </nav>            
+            </nav>
 
             <span class="nomApp">
                 <h1 class="tittle">MYLOOK</h1>
@@ -39,17 +39,17 @@
         </aside>
 
         <article class="optionsConfig">
-        
-<!--            FORMUALRIO QUE SE VISUALIZA UNA VEZ SE ENTRA A CONFIGURAR EL INDEX ADMIN -->
+
+<!-- FORMUALRIO QUE SE VISUALIZA UNA VEZ SE ENTRA A CONFIGURAR EL INDEX ADMIN -->
             <form action="" method="POST" class="seccionDefault" id="seccionDefault"  enctype="multipart/form-data">
                 @csrf
-               
+
                 <section class="defaultIntroduccion">
 
                 <article class="introduccionConfig">
                     <span class="tittleIntroduccion">
                         <h2 class="nomConfig">Configuración de MiNegocio</h2>
-                        <p class="descripConfig">En este apartado podras ilustar tu negocio 
+                        <p class="descripConfig">En este apartado podras ilustar tu negocio
                             y comercializar tus productos para entrar a la familia MyLook.
                         </p>
                     </span>
@@ -80,20 +80,20 @@
 
             </form>
 
-<!--             FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL ADMINISTRADOR -->
-            <form action="" method="POST" class="configPerfil" id="configPerfil"  style="display: none;"  enctype="multipart/form-data">
+<!-- FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL ADMINISTRADOR -->
+            <form action="{{ route('registerUserAdmin') }}" method="POST" class="configPerfil" id="configPerfil"  style="display: none;"  enctype="multipart/form-data">
                 @csrf
 
                 <label for="" class="nomForm">
                     <h3 class="tittleForm">Configuración del perfil administrador</h3>
-                    <p class="descripConfig">Bienvenido al panel de Configuración del administrador donde 
+                    <p class="descripConfig">Bienvenido al panel de Configuración del administrador donde
                         podras cambiar tus datos personales cuando desees y estar actalizado.
                     </p>
                 </label>
 
                 <article class="datosUnico">
                         <label for="" class="labelInput">Documento</label>
-                        <input type="text" class="inputDocumento" name="idAdmin">
+                        <input type="number" class="inputDocumento" name="idAdmin">
                 </article>
 
                 <article class="datosPersonales">
@@ -113,7 +113,7 @@
                         <input type="text" class="inputCorreo" name="correoAdmin">
 
                         <label for="" class="labelInput">Telefono</label>
-                        <input type="text" class="inputTelefono" name="telefonoAdmin">
+                        <input type="number" class="inputTelefono" name="telefonoAdmin">
                 </article>
 
                 <article class="datoPassword">
@@ -129,23 +129,25 @@
                         <button type="submit" class="btnCrud btnSave">Continuar</button>
                     </div>
                 </article>
-             
-            </form>     
 
-<!--             FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL ESTABLECIMIENTO -->
-            <form action="" method="POST" class="configEstablecimiento" id="configEstablecimientotyle" style="display: none;"  enctype="multipart/form-data">
+            </form>
+
+<!-- FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL ESTABLECIMIENTO -->
+            <form action="{{ route('registerEstablecimiento') }}" method="POST" class="configEstablecimiento" id="configEstablecimientotyle" style="display: none;"  enctype="multipart/form-data">
                 @csrf
 
                 <label for="" class="nomForm">
                     <h3 class="tittleForm">Configuración del establecimiento</h3>
-                    <p class="descripConfig">Bienvenido al panel de Configuración del establecimiento donde 
+                    <p class="descripConfig">Bienvenido al panel de Configuración del establecimiento donde
                         podras cambiar los datos personales de la sede cuando desees y estar actalizado.
                     </p>
                 </label>
 
+                <input type="hidden" name="idNegocio" value="{{ session('id_negocio') }}">  <!-- Aqui se guarda el id_negocio -->
+
                 <article class="datosNumericos">
                     <label for="" class="labelInputEstablecimiento">Identificacion del negocio</label>
-                    <input type="text" class="inputId" name="idNegocio">
+                    <input type="number" class="inputId" name="idEstablc">
                 </article>
 
                 <article class="datosShearch">
@@ -177,10 +179,9 @@
                 <article class="datosEmail">
 
                     <label for="" class="labelInputEstablecimiento">Correo</label>
-                    <input type="text" class="inputEmail" name="coreeoEstablecimiento">
+                    <input type="text" class="inputEmail" name="correoEstablecimiento">
 
                 </article>
-
 
                 <article class="btnCrud">
                     <div class="groupBtn">
@@ -190,10 +191,9 @@
 
             </form>
 
-<!--             FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL NEGOCIO ( ESTO SOLO PDRA SER EDITADO SI EL ADMIN LIDER INICIE SESION ) -->
-            <form action="" method="POST" class="configCuenta" id="configCuenta" style="display: none;"  enctype="multipart/form-data">
+<!-- FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL NEGOCIO ( ESTO SOLO PDRA SER EDITADO SI EL ADMIN LIDER INICIE SESION ) -->
+            <form action="{{ route('registerNegocio') }}" method="POST" class="configCuenta" id="configCuenta" style="display: none;"  enctype="multipart/form-data">
                 @csrf
-
 
                 <article class="imgsNegocio">
 
@@ -219,7 +219,7 @@
 
                 <article class="infoNegocio">
                     <label for="" class="labelInputNegocio">Identificacion</label>
-                    <input type="text" class="inputId" name="idNegocio">
+                    <input type="number" class="inputId" name="idNegocio">
                 </article>
 
                 <article class="infoPublica">
@@ -227,17 +227,16 @@
                     <input type="text" class="inputNombre" name="nombreNegocio">
                 </article>
 
-                <article class="infoDesciptiva">
-                    <label for="" class="labelInputNegocio">Descripción</label>
-                    <textarea name="descripcionNegocio" id="" class="inputDescrip"></textarea>
+                <article class="infoPublica">
+                    <label for="" class="labelInputNegocio">Contrasena</label>
+                    <input type="password" name="contrasenaNegocio" id="" class="inputNombre"></input>
                 </article>
 
                 <article class="infoPrivada">
                     <label for="" class="labelInputNegocio">Administrador Lider</label>
-                    <input type="text" class="inputLider" name="nombreAdmin">
+                    <input type="text" class="inputLider" name="nombreAdmin" value="{{ session('nombreAdmin') }} {{ session('apellidoAdmin') }}" readonly> <!-- Aqui se muestra el nombre y el apellido del registro que se hizo en el perfil administrador sin poder editar -->
+                    <input type="hidden" name="id_usuario" value="{{ session('id_usuario') }}"> <!-- Aqui se guarda el id_usuario -->
                 </article>
-
-
 
                 <article class="btnCrud">
                     <div class="groupBtn">
@@ -246,7 +245,7 @@
                 </article>
 
             </form>
-            
+
         </article>
 
     </section>

@@ -1,25 +1,8 @@
-/* FUNCIÓN PARA MANEJO DE MENSAJES DE ERROR */
-function showError(message) {
-    const errorDiv = document.getElementById("errorMessage");
-    if (!errorDiv) return;
-
-    errorDiv.textContent = message;
-    errorDiv.style.display = "block";
-
-    setTimeout(() => {
-        errorDiv.style.display = "none";
-    }, 3000);
-}
-
-/* Expresiones regulares para validar caracteres */
-const regexNombre = /^[a-zA-Z\s]+$/;  // Solo letras y espacios
-const regexDescripcion = /^[a-zA-Z0-9\s.,!?-]+$/; // Letras, números y algunos caracteres especiales
-const regexNumerico = /^[0-9]+$/;  // Solo números
-const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;    // Contraseñas seguras
-const regexNit = /^[0-9-]{10,}$/; 
-const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
+/* JAVASCRIPT ENCARGADO DE VALIDAR LOS INPUTS EN TODOS LOS FORMULARIOS RELACIONADOS AL CRUD */
+/* ---------------------------------------------------------------------------------------- */
 
 /* FORMULARIO DE INSERCIÓN DE CATEGORIA */
+
 function handleValidationCategory(event) {
     event.preventDefault();
 
@@ -28,48 +11,53 @@ function handleValidationCategory(event) {
     const imagenCategoria = document.getElementById("imagen").files[0];
 
     if (!nombreCategoria || !descripcionCategoria || !imagenCategoria) {
-        showError("¡Faltan campos por llenar!");
-        return;
-    }
+        alert("¡Faltan campos por llenar!");
+    } else {
+        if (!caracteresNombre.test(nombreCategoria)) {
+            alert("¡El nombre de la categoria solo puede contener letras!");
 
-    if (!regexNombre.test(nombreCategoria)) {
-        showError("¡El nombre de la categoría solo puede contener letras y espacios!");
-        return;
-    }
+            return false;
+        } else if (!caracteresDescripcion.test(descripcionCategoria)) {
+            alert(
+                "¡La descripción de la categoria solo puede contener caracteres alfanumericos!"
+            );
 
-    if (!regexDescripcion.test(descripcionCategoria)) {
-        showError("¡La descripción solo puede contener letras, números y signos básicos!");
-        return;
+            return false;
+        } else if (!tiposImgPermitidos.includes(imagenCategoria.type)) {
+            alert("Solo se permiten archivos de imagen (JPEG, PNG, JPG, GIF).");
+            imagenCategoria.value = "";
+            return false;
+        } else {
+            event.target.submit();
+            return true;
+        }
     }
-
-    if (!tiposImgPermitidos.includes(imagenCategoria.type)) {
-        showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
-        return;
-    }
-
-    event.target.submit();
 }
 
 /* FORMULARIO DE INSERCIÓN DE TIPO DE SERVICIO */
+
 function handleValidationServiceType(event) {
     event.preventDefault();
 
     const nombreServicios = document.getElementById("nombreServicios").value.trim();
 
     if (!nombreServicios) {
-        showError("¡El nombre no puede estar vacío!");
-        return;
+        alert("¡El nombre no puede estar vacio!");
+    } else {
+        if (!caracteresNombre.test(nombreServicios)) {
+            alert(
+                "¡El nombre del tipo de servicio solo puede contener letras!"
+            );
+            return false;
+        } else {
+            event.target.submit();
+            return true;
+        }
     }
-
-    if (!regexNombre.test(nombreServicios)) {
-        showError("¡El nombre del servicio solo puede contener letras y espacios!");
-        return;
-    }
-
-    event.target.submit();
 }
 
 /* FORMULARIO DE INSERCIÓN DE PRODUCTOS */
+
 function handleValidationProduct(event) {
     event.preventDefault();
 
@@ -81,31 +69,58 @@ function handleValidationProduct(event) {
     const precio = document.getElementById("valor").value.trim();
 
     if (!nombre || !marca || !imagen || !desc || !cantidad || !precio) {
-        showError("¡Faltan campos por llenar!");
-        return;
+        alert("¡Faltan campos por llenar!");
+    } else {
+        if (!caracteresPermitidos1.test(nombre)) {
+            alert("¡El nombre del producto solamente puede contener letras!");
+            return false;
+        } else if (!!caracteresPermitidos2.test(desc)) {
+            alert(
+                "¡La descripción del producto solamente puede contener caracteres alfanumericos!"
+            );
+            return false;
+        } else if (!tiposImgPermitidos.includes(imagen)) {
+            alert("Solo se permiten archivos de imagen (JPEG, PNG, JPG, GIF).");
+            return false;
+        } else {
+            event.target.submit();
+            return true;
+        }
     }
+}
 
-    if (!regexNombre.test(nombre) || !regexNombre.test(marca)) {
-        showError("¡El nombre y la marca solo pueden contener letras y espacios!");
-        return;
+/* FORMULARIO DE INSERCIÓN DE SERVICIOS */
+
+function handleValidationService(event) {
+    event.preventDefault();
+
+    const nombre = document.getElementById("nombreServicio").value;
+    const desc = document.getElementById("descripcionServicio").value;
+    const imagen = document.getElementById("imagenServicio").files[0];
+
+    const caracteresPermitidos1 = /^[a-zA-Z]+$/;
+    const caracteresPermitidos2 = /^[a-zA-Z0-9]+$/;
+    const tiposImgPermitidos = ["image/jpeg", "image/png"];
+
+    if (!nombre || !desc || !imagen) {
+        alert("¡Faltan campos por llenar!");
+    } else {
+        if (!caracteresPermitidos1.test(nombre)) {
+            alert("¡El nombre del servicio solamente puede contener letras!");
+            return false;
+        } else if (caracteresPermitidos2.test(desc)) {
+            alert(
+                "¡La descripción del servicio solo puede contener texto, no caracteres alfanuméricos!"
+            );
+            return false;
+        } else if (!tiposImgPermitidos.includes(imagen.type)) {
+            alert("Solo se permiten archivos de imagen (JPEG, PNG).");
+            return false;
+        } else {
+            event.target.submit();
+            return true;
+        }
     }
-
-    if (!regexDescripcion.test(desc)) {
-        showError("¡La descripción solo puede contener letras, números y signos básicos!");
-        return;
-    }
-
-    if (!regexNumerico.test(cantidad) || !regexNumerico.test(precio)) {
-        showError("¡La cantidad y el precio deben ser valores numéricos!");
-        return;
-    }
-
-    if (!tiposImgPermitidos.includes(imagen.type)) {
-        showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
-        return;
-    }
-
-    event.target.submit();
 }
 
 /* FORMULARIO DE REGISTRO */
@@ -120,23 +135,26 @@ function handleValidationRegister(event) {
         const contrasenaNegocio = document.getElementById("3").value.trim();
 
         if (!nitNegocio || !nombreNegocio || !contrasenaNegocio) {
-            showError("¡Faltan campos por llenar en el negocio!");
-            return;
-        }
-
-        if (!regexNit.test(nitNegocio)) {
-            showError("¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!");
-            return;
-        }
-
-        if (!regexNombre.test(nombreNegocio)) {
-            showError("¡El nombre del negocio solo puede contener letras y espacios!");
-            return;
-        }
-
-        if (!regexPassword.test(contrasenaNegocio)) {
-            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
-            return;
+            alert("¡Faltan campos por llenar en el negocio!");
+            console.log(nitNegocio, nombreNegocio, contrasenaNegocio);
+        } else {
+            if (!caracteresNit.test(nitNegocio)) {
+                alert("¡El nit del negocio solo debe contener numeros!");
+                return false;
+            } else if (!caracteresPermitidos2.test(nombreNegocio)) {
+                alert(
+                    "¡El negocio solo puede contener caracteres alfanumericos!"
+                );
+                return false;
+            } else if (!contrasenaValida.test(contrasenaNegocio)) {
+                alert(
+                    "La contraseña del usuario debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
+                );
+                return false;
+            } else {
+                event.target.submit();
+                return true;
+            }
         }
     } else {
         const documentoUsuario = document.getElementById("4").value.trim();

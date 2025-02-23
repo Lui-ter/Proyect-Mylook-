@@ -30,15 +30,26 @@ Route::match(['get', 'post'], '/categorias/{accion?}', [CategoriasController::cl
 Route::match(['get', 'post'], '/staff/{accion?}', [StaffController::class, 'crudStaff'])->name('staff');
 /* CRUD DE ESTABLECIMIENTOS */
 Route::match(['get', 'post'], '/establecimientos/{accion?}', [EstablecimientosController::class, 'crudEstablecimientos'])->name('establecimientos');
+
+
 /* CRUD DE NEGOCIOS */
-Route::match(['get', 'post'], '/negocio/{accion?}', [NegociosController::class, 'crudNegocios'])->name('negocio');
+Route::middleware(['ValidateSession:usuario'])->group(function(){
+    Route::match(['get', 'post'], '/negocio/{accion?}', [NegociosController::class, 'crudNegocios'])->name('negocio');
+});
 /* CRUD DE USUARIOS */
-Route::match(['get', 'post'], '/usuarios/{accion?}', [UsuariosController::class, 'crudUsuarios'])->name('usuarios');
+Route::middleware(['ValidateSession:usuario'])->group(function(){
+    Route::match(['get', 'post'], '/usuarios/{accion?}', [UsuariosController::class, 'crudUsuarios'])->name('usuarios');
+});
+
+
 /* CRUD DE ADMIN */
 Route::match(['get', 'post'], '/admin/{accion?}', [AdminController::class, 'crudAdmin'])->name('admin');
 /* LOGIN GENERAL */
-Route::get('/login', [LoginController::class, 'showLoginPrincipal'])->name('login');
 
+
+Route::get('/login', [LoginController::class, 'showLoginPrincipal'])->name('login');
+/* RUTAS POST - VALIDACIONES */
+Route::post('/login-user', [LoginController::class, 'loginUser'])->name('loginUser');
 /* --------------------------------------------------------------------------------------- */
 
 /* RUTAS POST - INSERCIONES */
@@ -48,15 +59,18 @@ Route::post('/register-service', [ServiciosController::class, 'handleAddService'
 Route::post('/register-product', [ProductosController::class, 'handleAddProduct'])->name('registerProduct');
 Route::post('/register-user', [LoginController::class, 'registerUser'])->name('registerUser');
 Route::post('/register-staff', [StaffController::class, 'handleAddStaff'])->name('registerStaff');
+Route::post('/register-useradmin', [UsuariosController::class, 'handleAddUser'])->name('registerUserAdmin');
+Route::post('/register-establecimiento', [EstablecimientosController::class, 'handleAddEstablecimiento'])->name('registerEstablecimiento');
+Route::post('/register-negocio', [NegociosController::class, 'handleAddNegocio'])->name('registerNegocio');
 
-/* RUTAS POST - VALIDACIONES */
-Route::post('/login-user', [LoginController::class, 'loginUser'])->name('loginUser');
+
 
 /* RUTAS PUT - UPDATES */
 Route::put('/update-category/{id}', [CategoriasController::class, 'handleUpdateCategory'])->name('updateCategory');
 Route::put('/update-type-service/{id}', [TiposServiciosController::class, 'handleUpdateServiceType'])->name('updateServiceType');
 Route::put('/update-service/{id}', [ServiciosController::class, 'handleUpdateService'])->name('updateService');
 Route::put('/update-product/{id}', [ProductosController::class, 'handleUpdateProduct'])->name('updateProduct');
+
 
 /* RUTAS DELETE - DELETE */
 Route::delete('/delete-category', [CategoriasController::class, 'handleDeleteCategory'])->name('deleteCategory');

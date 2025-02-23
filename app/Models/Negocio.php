@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Negocio extends Model
+class Negocio extends Authenticatable
 {
     protected $table = 'negocio';
     public $incrementing = false; // No auto-increment
+    public $timestamps = false;
+
 
     protected $fillable = [
         'id_negocio',
