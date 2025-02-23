@@ -68,12 +68,12 @@ class LoginController extends Controller
         if ($tipo_usuario == 1) {
             
             $doc_usuario = $request->input('documentoUsuario');
-            $password = $request->input('contraseñaUsuario');
+            $password = $request->input('passwordUsuario');
     
             $userData = Usuario::where('id_usuario', $doc_usuario)->first();
             
             if ($doc_usuario == $userData->id_usuario && password_verify($password,$userData->contrasena)) {
-                return redirect()->to('/usuario');
+                return redirect()->to('/usuarios');
             }else{
                 return redirect()->to('/login');
             }

@@ -24,7 +24,7 @@ class UsuariosController extends Controller
         if ($accion === 'index') {
             $mejoresEstablecimientos = Establecimiento::orderByDesc('valoracion_final')
             ->take(7)
-            ->get(['nombre_establc', 'img_establc'])
+            ->get(['id_establc','nombre_establc', 'img_establc','desc_establc'])
             ->toArray();
             return view($indexUsuarioView, compact('mejoresEstablecimientos')); 
         }elseif($accion === 'agendar'){
