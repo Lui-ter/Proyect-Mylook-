@@ -196,7 +196,7 @@
             </div>
 
             <div class="contenedor-formulario contenedor-inicio-sesion">
-                <form action="{{ route('loginUser') }}" method="POST" onsubmit="handleValidationLogin(event)">
+                <form action="{{ route('loginUser') }}" method="POST">
                     @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Usuario</button>
@@ -212,17 +212,21 @@
                         
                             <i class="fas fa-lock"></i>
                             <input type="password" name="passwordUsuario" placeholder="Ingrese su Contraseña..."  />
+                            
+=======
+                            <input type="password" name="passwordUsuario" id="9" placeholder="Ingrese su Contraseña..."  />
+>>>>>>> 54739fb07a8b8769fa468b2e89471c4168a82b88
                         </div>
                         <input type="hidden" name="rol" value="estudiante" />
                     </div>
                     <div class="campos-formulario campos-profesor" style="display: none;">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input type="text" name="nitNegocio" id="10" placeholder=" Ingrese su nit Empresarial..."  />
+                            <input type="text" name="nitNegocio" placeholder=" Ingrese su nit Empresarial..."  />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="contrasenaNegocio" id="10" placeholder="Ingrese su contraseña..."  />
+                            <input type="password" name="contrasenaNegocio" placeholder="Ingrese su contraseña..."  />
                         </div>
                     
                     </div>

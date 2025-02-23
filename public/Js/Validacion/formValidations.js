@@ -6,9 +6,13 @@
 function handleValidationCategory(event) {
     event.preventDefault();
 
-    const nombreCategoria = document.getElementById("nombreCategoria").value.trim();
-    const descripcionCategoria = document.getElementById("descripcion").value.trim();
+    const nombreCategoria = document.getElementById("nombreCategoria").value;
+    const descripcionCategoria = document.getElementById("descripcion").value;
     const imagenCategoria = document.getElementById("imagen").files[0];
+
+    const caracteresNombre = /^[a-zA-Z\s]+$/;
+    const caracteresDescripcion = /^[a-zA-Z0-9\s]+$/;
+    const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
 
     if (!nombreCategoria || !descripcionCategoria || !imagenCategoria) {
         alert("¡Faltan campos por llenar!");
@@ -39,7 +43,9 @@ function handleValidationCategory(event) {
 function handleValidationServiceType(event) {
     event.preventDefault();
 
-    const nombreServicios = document.getElementById("nombreServicios").value.trim();
+    const nombreServicios = document.getElementById("nombreServicios").value;
+
+    const caracteresNombre = /^[a-zA-Z\s]+$/;
 
     if (!nombreServicios) {
         alert("¡El nombre no puede estar vacio!");
@@ -61,12 +67,16 @@ function handleValidationServiceType(event) {
 function handleValidationProduct(event) {
     event.preventDefault();
 
-    const nombre = document.getElementById("nombre").value.trim();
-    const marca = document.getElementById("marca").value.trim();
+    const nombre = document.getElementById("nombre").value;
+    const marca = document.getElementById("marca").value;
     const imagen = document.getElementById("imagen").files[0];
-    const desc = document.getElementById("desc").value.trim();
-    const cantidad = document.getElementById("cantidad").value.trim();
-    const precio = document.getElementById("valor").value.trim();
+    const desc = document.getElementById("desc").value;
+    const cantidad = document.getElementById("cantidad").value;
+    const precio = document.getElementById("valor").value;
+
+    const caracteresPermitidos1 = /^[a-zA-Z]+$/;
+    const caracteresPermitidos2 = /^[a-zA-Z0-9]+$/;
+    const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
 
     if (!nombre || !marca || !imagen || !desc || !cantidad || !precio) {
         alert("¡Faltan campos por llenar!");
@@ -123,20 +133,53 @@ function handleValidationService(event) {
     }
 }
 
-/* FORMULARIO DE REGISTRO */
+/* FORMULARIO PARA REGISTRAR NEGOCIO Y USUARIO */
+
 function handleValidationRegister(event) {
     event.preventDefault();
 
     const tipo_usuario = document.getElementById("tipo_usuario").value;
 
-    if (tipo_usuario == "1") {
-        const nitNegocio = document.getElementById("1").value.trim();
-        const nombreNegocio = document.getElementById("2").value.trim();
-        const contrasenaNegocio = document.getElementById("3").value.trim();
+    const caracteresUsuario = /^[0-9]+$/;
+    const caracteresNit = /^[0-9-]+$/;
+    const caracteresPermitidos2 = /^[a-zA-Z0-9 ]+$/;
+    const caracteresPermitidos3 = /^[a-zA-Z0-9\s]+$/;
+    const contrasenaValida = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+    if (tipo_usuario == 1) {
+        const nitNegocio = document.getElementById("1").value;
+        const nombreNegocio = document.getElementById("2").value;
+        const contrasenaNegocio = document.getElementById("3").value;
+
+        //VALIDACION CAMPOS DE NEGOCIO
 
         if (!nitNegocio || !nombreNegocio || !contrasenaNegocio) {
-            alert("¡Faltan campos por llenar en el negocio!");
-            console.log(nitNegocio, nombreNegocio, contrasenaNegocio);
+            showError("¡Faltan campos por llenar en el negocio!");
+            return;
+        }
+
+        if (!regexNit.test(nitNegocio)) {
+            showError("¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!");
+            return;
+        }
+
+        if (!regexNombre.test(nombreNegocio)) {
+            showError("¡El nombre del negocio solo puede contener letras y espacios!");
+            return;
+        }
+
+        if (!regexPassword.test(contrasenaNegocio)) {
+            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+            return;
+        }
+    } else {
+        const documentoUsuario = document.getElementById("4").value.trim();
+        const nombreUsuario = document.getElementById("5").value.trim();
+        const passwordUsuario = document.getElementById("7").value.trim();
+
+        if (!documentoUsuario || !nombreUsuario || !passwordUsuario) {
+            alert("¡Faltan campos por llenar en el usuario!");
+            return false;
         } else {
             if (!caracteresNit.test(nitNegocio)) {
                 alert("¡El nit del negocio solo debe contener numeros!");

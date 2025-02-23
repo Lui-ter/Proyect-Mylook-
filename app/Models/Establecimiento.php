@@ -8,8 +8,6 @@ class Establecimiento extends Model
 {
     protected $table = 'establecimiento';
     protected $primaryKey = 'id_establc';
-    public $timestamps = false;
-
 
     protected $fillable = [
         'id_negocio',

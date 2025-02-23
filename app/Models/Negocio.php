@@ -8,8 +8,6 @@ class Negocio extends Authenticatable
 {
     protected $table = 'negocio';
     public $incrementing = false; // No auto-increment
-    public $timestamps = false;
-
 
     protected $fillable = [
         'id_negocio',
