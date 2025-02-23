@@ -65,47 +65,69 @@ class LoginController extends Controller
 
 /* LOGIN DE USUARIOS */
     
-    public function loginUser(Request $request){
+public function loginUser(Request $request){
         
-        $tipo_usuario = $request->input('tipo_usuario');
+    $tipo_usuario = $request->input('tipo_usuario');
+
+if ($tipo_usuario == 1) {
+    $doc_usuario = $request->input('documentoUsuario');
+    $password = trim($request->input('passwordUsuario')); // trim evita los espacios
     
-        if ($tipo_usuario == 1) {
-            
-            $doc_usuario = $request->input('documentoUsuario');
-            $password = $request->input('passwordUsuario');
-    
-            $userData = Usuario::where('id_usuario', $doc_usuario)->first();
-            
-            if ($doc_usuario == $userData->id_usuario && password_verify($password,$userData->contrasena)) {
-                return redirect()->to('/usuarios');
+    $userData = Usuario::where('id_usuario', $doc_usuario)->first();
+
+    if ($userData) { 
+        if (Hash::check($password, $userData->contrasena)) {
+            // limpiar cualquier sesion anterir
+            Auth::guard('usuario')->logout();
+            Auth::guard('usuario')->login($userData);
+            session()->regenerate();
+            session([
+                'usuario_id' => $userData->id_usuario,
+                'usuario_tipo' => 'usuario'
+            ]);
+
+            Log::info('Login exitoso:', [
+                'usuario_id' => $userData->id_usuario,
+                'auth_check' => Auth::guard('usuario')->check(),
+                'session_id' => session()->getId(),
+                'user_data' => Auth::guard('usuario')->user()
+            ]);
+            //dd(session()->all());
+            if(Auth::guard('usuario')->check()){
+                return redirect()->to('/usuarios/index');
             }else{
-                return redirect()->to('/login');
+                dd("Error: el usuario no esta autenticado despues del login");
             }
+
         } else {
-            dd("Error al no encontrar usuario");
+            // Error al no coincidir las contraseñas
+            dd("Error con la contreaseña");
         }
-         
-        if($tipo_usuario == 2){
-    
-            $nit = $request->input('nitNegocio');
-            $password = $request->input('contrasenaNegocio');
-            
-            $negocioData = Negocio::where('id_negocio', $nit)->first();
-            if($negocioData){
-                if(Hash::check($password, $negocioData->contrasena)){
-                    Auth::guard('negocio')->login($negocioData);
-                    if(Auth::guard('negocio')->check()){
-                        //Usuario autenticado y session iniciada
-                        return redirect()->to('/negocio/config');
-                    }else{
-                        dd("Error: el usuario no esta autenticado despues del login");
-                    }
+    } else {
+        dd("Error al no encontrar usuario");
+    }
+     
+    }else if($tipo_usuario == 2){
+
+        $nit = $request->input('nitNegocio');
+        $password = $request->input('contrasenaNegocio');
+        
+        $negocioData = Negocio::where('id_negocio', $nit)->first();
+        if($negocioData){
+            if(Hash::check($password, $negocioData->contrasena)){
+                Auth::guard('negocio')->login($negocioData);
+                if(Auth::guard('negocio')->check()){
+                    //Usuario autenticado y session iniciada
+                    return redirect()->to('/negocio/config');
                 }else{
-                    dd("Error con la contreaseña");
+                    dd("Error: el usuario no esta autenticado despues del login");
                 }
+            }else{
+                dd("Error con la contreaseña");
             }
         }
-    
     }
+
+}
 
 }
