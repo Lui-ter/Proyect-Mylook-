@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\GlobalVariables;
-use Illuminate\Support\Facades\Hash;
-Use App\Models\Establecimiento;
-use App\Models\Usuario;
-use Illuminate\Contracts\Session\Session;
 
 class UsuariosController extends Controller
 {
@@ -25,8 +21,7 @@ class UsuariosController extends Controller
         $configUsersView = GlobalVariables::$configUsersView;
 
         if ($accion === 'index') {
-            $mejoresEstablecimientos = Establecimiento::orderByDesc('valoracion_final')->take(7)->get(['nombre_establc', 'img_establc','desc_establc', 'id_establc'])->toArray();
-            return view($indexUsuarioView, compact('mejoresEstablecimientos'));
+            return view($indexUsuarioView);
         }elseif($accion === 'agendar'){
             return view($agendamientoView);
         }elseif($accion === 'config'){

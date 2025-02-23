@@ -154,28 +154,33 @@ function handleValidationRegister(event) {
         //VALIDACION CAMPOS DE NEGOCIO
 
         if (!nitNegocio || !nombreNegocio || !contrasenaNegocio) {
-            showError("¡Faltan campos por llenar en el negocio!");
-            return;
-        }
-
-        if (!regexNit.test(nitNegocio)) {
-            showError("¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!");
-            return;
-        }
-
-        if (!regexNombre.test(nombreNegocio)) {
-            showError("¡El nombre del negocio solo puede contener letras y espacios!");
-            return;
-        }
-
-        if (!regexPassword.test(contrasenaNegocio)) {
-            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
-            return;
+            alert("¡Faltan campos por llenar en el negocio!");
+            console.log(nitNegocio, nombreNegocio, contrasenaNegocio);
+        } else {
+            if (!caracteresNit.test(nitNegocio)) {
+                alert("¡El nit del negocio solo debe contener numeros!");
+                return false;
+            } else if (!caracteresPermitidos2.test(nombreNegocio)) {
+                alert(
+                    "¡El negocio solo puede contener caracteres alfanumericos!"
+                );
+                return false;
+            } else if (!contrasenaValida.test(contrasenaNegocio)) {
+                alert(
+                    "La contraseña del usuario debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
+                );
+                return false;
+            } else {
+                event.target.submit();
+                return true;
+            }
         }
     } else {
-        const documentoUsuario = document.getElementById("4").value.trim();
-        const nombreUsuario = document.getElementById("5").value.trim();
-        const passwordUsuario = document.getElementById("7").value.trim();
+        const documentoUsuario = document.getElementById("4").value;
+        const nombreUsuario = document.getElementById("5").value;
+        const passwordUsuario = document.getElementById("7").value;
+
+        // VALIDACION CAMPOS DE USUARIO
 
         if (!documentoUsuario || !nombreUsuario || !passwordUsuario) {
             alert("¡Faltan campos por llenar en el usuario!");

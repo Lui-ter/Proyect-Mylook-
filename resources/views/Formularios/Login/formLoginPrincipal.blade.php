@@ -213,9 +213,6 @@
                             <i class="fas fa-lock"></i>
                             <input type="password" name="passwordUsuario" placeholder="Ingrese su Contraseña..."  />
                             
-=======
-                            <input type="password" name="passwordUsuario" id="9" placeholder="Ingrese su Contraseña..."  />
->>>>>>> 54739fb07a8b8769fa468b2e89471c4168a82b88
                         </div>
                         <input type="hidden" name="rol" value="estudiante" />
                     </div>
