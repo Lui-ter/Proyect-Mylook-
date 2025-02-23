@@ -147,15 +147,15 @@ function handleValidationRegister(event) {
             alert("¡Faltan campos por llenar en el usuario!");
             return false;
         } else {
-            if (!caracteresUsuario.test(documentoUsuario)) {
+            if (!regexNumerico.test(documentoUsuario)) {
                 alert("¡El documento del usuario solo debe contener números!");
                 return false;
-            } else if (!caracteresPermitidos2.test(nombreUsuario)) {
+            } else if (!regexNombre.test(nombreUsuario)) {
                 alert(
                     "¡El nombre de usuario solo puede contener caracteres alfanuméricos!"
                 );
                 return false;
-            } else if (!contrasenaValida.test(passwordUsuario)) {
+            } else if (!regexPassword.test(passwordUsuario)) {
                 alert(
                     "La contraseña del usuario debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
                 );

@@ -43,7 +43,7 @@ class LoginController extends Controller
                 'nombre' => $nombre,
                 'contrasena' => $hashPassword
             ]);
-            return redirect()->route('usuarios', ['accion' => 'config']);
+            return redirect()->route('login');
         }else if ($tipo_usuario == 1) {
             
             $nit_negocio = $request->input('nitNegocio'); 
@@ -57,7 +57,7 @@ class LoginController extends Controller
                 'nombre_negocio' => $nombre,
                 'contrasena' => $hashPassword
             ]);
-            return redirect()->route('negocio', ['accion' => 'config']);
+            return redirect()->route('login');
             
         }
 
