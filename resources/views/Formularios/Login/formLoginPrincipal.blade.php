@@ -191,12 +191,13 @@
                             <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario" placeholder="Ingrese su Contraseña..."required />
                         </div>
                     </div>
+                    <div id="errorMessage" style="display: none; color: red; font-weight: bold;"></div>
                     <button type="submit" name="accionRegistrar" value="registrar">Registrar</button>
                 </form>
             </div>
 
             <div class="contenedor-formulario contenedor-inicio-sesion">
-                <form action="{{ route('loginUser') }}" method="POST">
+                <form action="{{ route('loginUser') }}" method="POST" onsubmit="handleValidationLogin(event)">
                     @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Usuario</button>
@@ -206,27 +207,32 @@
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input type="text" name="documentoUsuario" placeholder="Ingrese su Documento..."  />
+                            <input type="text" name="documentoUsuario" id="8" placeholder="Ingrese su Documento..."  />
                         </div>
                         <div class="input-container">
                         
                             <i class="fas fa-lock"></i>
+<<<<<<< HEAD
                             <input type="password" name="passwordUsuario" placeholder="Ingrese su Contraseña..."  />
                             
+=======
+                            <input type="password" name="passwordUsuario" id="9" placeholder="Ingrese su Contraseña..."  />
+>>>>>>> 54739fb07a8b8769fa468b2e89471c4168a82b88
                         </div>
                         <input type="hidden" name="rol" value="estudiante" />
                     </div>
                     <div class="campos-formulario campos-profesor" style="display: none;">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input type="text" name="nitNegocio" placeholder=" Ingrese su nit Empresarial..."  />
+                            <input type="text" name="nitNegocio" id="10" placeholder=" Ingrese su nit Empresarial..."  />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="contrasenaNegocio" placeholder="Ingrese su contraseña..."  />
+                            <input type="password" name="contrasenaNegocio" id="10" placeholder="Ingrese su contraseña..."  />
                         </div>
-                    
+
                     </div>
+                    <div id="errorMessage" style="display: none; color: red; font-weight: bold;"></div>
                     <a href="#" class="olvidaste-contraseña">¿Olvidaste tu contraseña?</a>
                     <button type="submit" name="accionIniciarSesion" value="iniciar_sesion">Iniciar Sesión</button>
                 </form>

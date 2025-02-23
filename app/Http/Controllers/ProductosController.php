@@ -32,7 +32,7 @@ class ProductosController extends Controller
                 ]);
         
                 echo "Se insertó el producto correctamente";
-                return redirect('indexadmin');
+                return redirect()->route('admin', ['accion' => 'index']);
         
             }else{
                 echo "Faltan campos por diligenciar";
