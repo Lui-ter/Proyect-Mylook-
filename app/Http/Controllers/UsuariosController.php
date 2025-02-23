@@ -22,7 +22,10 @@ class UsuariosController extends Controller
         $configUsersView = GlobalVariables::$configUsersView;
 
         if ($accion === 'index') {
-            $mejoresEstablecimientos = Establecimiento::orderByDesc('valoracion_final')->take(7)->get(['nombre_establc', 'img_establc','desc_establc', 'id_establc'])->toArray();
+            $mejoresEstablecimientos = Establecimiento::orderByDesc('valoracion_final')
+            ->take(7)
+            ->get(['id_establc','nombre_establc', 'img_establc','desc_establc'])
+            ->toArray();
             return view($indexUsuarioView, compact('mejoresEstablecimientos')); 
         }elseif($accion === 'agendar'){
             return view($agendamientoView);

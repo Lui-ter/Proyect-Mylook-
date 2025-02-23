@@ -191,6 +191,7 @@
                             <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario" placeholder="Ingrese su Contraseña..."required />
                         </div>
                     </div>
+                    <div id="errorMessage" style="display: none; color: red; font-weight: bold;"></div>
                     <button type="submit" name="accionRegistrar" value="registrar">Registrar</button>
                 </form>
             </div>
@@ -206,13 +207,12 @@
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input type="text" name="documentoUsuario" placeholder="Ingrese su Documento..."  />
+                            <input type="text" name="documentoUsuario" id="documentoUsuario" placeholder="Ingrese su Documento..."  />
                         </div>
                         <div class="input-container">
                         
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="passwordUsuario" placeholder="Ingrese su Contraseña..."  />
-                            
+                            <input type="password" name="passwordUsuario"  id="passwordUsuario"  placeholder="Ingrese su Contraseña..."  />
                         </div>
                         <input type="hidden" name="rol" value="estudiante" />
                     </div>
@@ -226,7 +226,10 @@
                             <input type="password" name="contrasenaNegocio" placeholder="Ingrese su contraseña..."  />
                         </div>
                     
+                        
+                        
                     </div>
+                    <div id="errorMessage" style="display: none; color: red; font-weight: bold;"></div>
                     <a href="#" class="olvidaste-contraseña">¿Olvidaste tu contraseña?</a>
                     <button type="submit" name="accionIniciarSesion" value="iniciar_sesion">Iniciar Sesión</button>
                     
