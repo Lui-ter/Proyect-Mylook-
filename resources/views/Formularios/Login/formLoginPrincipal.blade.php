@@ -209,8 +209,10 @@
                             <input type="text" name="documentoUsuario" placeholder="Ingrese su Documento..."  />
                         </div>
                         <div class="input-container">
+                        
                             <i class="fas fa-lock"></i>
                             <input type="password" name="passwordUsuario" placeholder="Ingrese su Contraseña..."  />
+                            
                         </div>
                         <input type="hidden" name="rol" value="estudiante" />
                     </div>

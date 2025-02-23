@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Usuario extends Model
+
+class Usuario extends Authenticatable
 {
     protected $table = 'usuario';
+    protected $primaryKey = 'id_usuario';
     public $incrementing = false;
 
     protected $fillable = [
@@ -18,4 +20,8 @@ class Usuario extends Model
         'telefono',
         'condicion'
     ];
+    public function getAuthPassword()
+    {
+        return $this->contrasena;
+    }
 }
