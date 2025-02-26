@@ -7,6 +7,9 @@ use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Hash;
 Use App\Models\Establecimiento;
 use App\Models\Usuario;
+use App\Models\Producto;
+use App\Models\Categoria;
+use App\Models\Valoracion;
 use Illuminate\Contracts\Session\Session;
 
 class UsuariosController extends Controller
@@ -28,11 +31,43 @@ class UsuariosController extends Controller
             $mejoresEstablecimientos = Establecimiento::orderByDesc('valoracion_final')->take(7)->get(['nombre_establc', 'img_establc','desc_establc', 'id_establc'])->toArray();
             return view($indexUsuarioView, compact('mejoresEstablecimientos'));
         }elseif($accion === 'agendar'){
-            return view($agendamientoView);
+            $id = $request->input('id_establecimiento');
+            $establecimiento = Establecimiento::where('id_establc', $id)->first()->toArray(); 
+            $productos = Producto::where('id_establc', $id)->get()->toArray();
+            $categorias = Categoria::where('id_establc', $id)->get()->toArray();
+            $valoraciones = Valoracion::with(['cita' => function ($query) use ($id) {
+                $query->where('id_establc', $id)  
+                      ->with('usuario'); 
+            }])->get()->toArray();  
+            
+            foreach ($productos as &$producto) {
+                if (isset($producto['img_prod'])) {
+                    $producto['img_prod'] = 'data:image/png;base64,' . base64_encode($producto['img_prod']);
+                }
+            }
+            foreach ($categorias as &$categoria) {
+                if (isset($categoria['imagen'])) {
+                    $categoria['imagen'] = 'data:image/png;base64,' . base64_encode($categoria['imagen']);
+                }
+            }
+            foreach ($valoraciones as &$valoracion) {
+                if (isset($valoracion['cita']['usuario']['imagen'])) {
+                    $imagenPath = public_path($valoracion['cita']['usuario']['imagen']); 
+            
+                    if (file_exists($imagenPath)) {
+                        $valoracion['cita']['usuario']['imagen_base64'] = 'data:image/png;base64,' . base64_encode(file_get_contents($imagenPath));
+                    } else {
+                        $valoracion['cita']['usuario']['imagen_base64'] = null; 
+                    }
+                }
+            }
+            
+            return view($agendamientoView, compact('establecimiento', 'productos', 'categorias', 'valoraciones')); 
         }elseif($accion === 'config'){
-            $id = session('id_usuario');
+            $id = session('usuario_id');
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
-            return view($configUsersView, compact(('usuario')));
+            return view($configUsersView, compact(('usuario'))); 
+            dd($id);
         }else{
             return redirect()->route('usuarios', ['accion' => 'index']);
         }
@@ -78,21 +113,20 @@ class UsuariosController extends Controller
 
         $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
 
-        $usuario->nombre_usuario = $request->input('nombreUsuario') . ' ' . $request->input('apellidoUsuario');
+        $usuario->nombre = $request->input('nombreUsuario');
+        $usuario->apellido = $request->input('apellidoUsuario');
         $usuario->correo = $request->input('correoUsuario');
-        $usuario->documento = $request->input('documentoUsuario');
-        $usuario->telegono = $request->input('telefonoUsuario');
+        $usuario->id_usuario = $request->input('documentoUsuario');
+        $usuario->telefono = $request->input('telefonoUsuario');
         $usuario->condicion = $request->input('condicionUsuario');
 
-        if ($request->hasFile('imagen') && $request->file('imagen')->isValid()) {
-            $usuario->img_prod = file_get_contents($request->file('imagen')->getRealPath());
+        if ($request->hasFile('fileInput') && $request->file('fileInput')->isValid()) {
+            $usuario->img_usuario = file_get_contents($request->file('fileInput')->getRealPath());
         }
 
         $usuario->save();
 
-        return redirect()->route('usuario', ['accion' => 'index']);
-
-
+        return redirect()->route('usuarios', ['accion' => 'index']);
 }
 
 }

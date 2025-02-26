@@ -26,7 +26,7 @@
                     </label>
 
                     <!-- Input de archivo oculto -->
-                    <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="updateProfileImage(event)">
+                    <input type="file" name="fileInput" id="fileInput" class="file-input" accept="image/*" onchange="updateProfileImage(event)" src="{{$usuario->img_usuario ? $usuario->img_usuario:''}}">
                 </form>
             </figure>
         </div>
@@ -36,31 +36,31 @@
             @method('PUT')
             <div class="groupInput datosNumericos">
                 <label for="" class="nomLabel">Documento</label>
-                <input type="text" name="documentoUsuario" id="documentoUsuario" class="inputForm" placeholder="123456789"  value="{{ old('documentoUsuario', $usuario->documento) }}">
+                <input type="text" name="documentoUsuario" id="documentoUsuario" class="inputForm" placeholder="123456789"  value="{{ $usuario->id_usuario }}">
             </div>
 
             <div class="datosPersonales">
                 <div class="groupInput containerPersonal">
                     <label for="" class="nomLabel">Nombre</label>
-                    <input type="text" name="nombreUsuario" id="nombreUsuario" class="inputForm" placeholder="Alejandro">
+                    <input type="text" name="nombreUsuario" id="nombreUsuario" class="inputForm" placeholder="Alejandro" value="{{ $usuario->nombre}}">
                 </div>
 
                 <div class="groupInput containerPersonal">
                     <label for="" class="nomLabel">Apellido</label>
-                    <input type="text" name="apellidoUsuario" id="nombre" class="inputForm" placeholder="Aguilon Buitrago">
+                    <input type="text" name="apellidoUsuario" id="nombre" class="inputForm" placeholder="Aguilon Buitrago" value="{{ $usuario->apellido}}">
                 </div>
             </div>
             <div class="groupInput datosContactos">
                 <label for="" class="nomLabel">Telefono</label>
-                <input type="text" name="telefonoUsuario" id="nombre" class="inputForm" placeholder="+57 444-444-4444">
+                <input type="text" name="telefonoUsuario" id="nombre" class="inputForm" placeholder="+57 444-444-4444" value="{{ $usuario->telefono}}">
             </div>
             <div class="groupInput datosEmail">
                 <label for="" class="nomLabel">Correo</label>
-                <input type="text" name="correoUsuario" id="nombre" class="inputForm" placeholder="aaguilon@misena.edu.co">
+                <input type="text" name="correoUsuario" id="nombre" class="inputForm" placeholder="aaguilon@misena.edu.co" value="{{ $usuario->correo}}">
             </div>
             <div class="groupInput condicionUser">
                 <label for="" class="nomLabel">Condicion</label>
-                <textarea name="condicionUsuario" id="condicionUsuario" class="inputForm" placeholder="Tengo una alergia producto a los quimicos que contienen los tintes..."></textarea>
+                <textarea name="condicionUsuario" id="condicionUsuario" class="inputForm" placeholder="Tengo una alergia producto a los quimicos que contienen los tintes...">{{ $usuario->condicion}}</textarea>
             </div>
 
             <div class="btnSend">

@@ -214,7 +214,11 @@
                     </div>
 
                 </span>
-                <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}">AGENDAR</button>
+                <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                    @csrf
+                    <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}" name="id_establecimiento">AGENDAR</button>
+                </form>
+
             </article>
 
                <!-- ESTABLECIMIENTOS REGISTRADO EN MYLOOK -->

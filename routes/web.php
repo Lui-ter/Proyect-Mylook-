@@ -70,6 +70,7 @@ Route::put('/update-category/{id}', [CategoriasController::class, 'handleUpdateC
 Route::put('/update-type-service/{id}', [TiposServiciosController::class, 'handleUpdateServiceType'])->name('updateServiceType');
 Route::put('/update-service/{id}', [ServiciosController::class, 'handleUpdateService'])->name('updateService');
 Route::put('/update-product/{id}', [ProductosController::class, 'handleUpdateProduct'])->name('updateProduct');
+Route::put('/update-user/{id}', [UsuariosController::class, 'handleUpdateUsers'])->name('updateUsers');
 
 
 /* RUTAS DELETE - DELETE */

@@ -25,7 +25,6 @@ class StaffController extends Controller
     $staff = Staff::create([
     'documento_staff' => $documentoStaff,
     'nombre_completo' => $nombreCompletoStaff,
-    'telefono' => $telefonoStaff,
     'direccion' => $direccionStaff,
     'contrasena' => $contrasenaStaff,
     ]);

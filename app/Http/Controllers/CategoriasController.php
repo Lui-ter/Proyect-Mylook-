@@ -38,8 +38,6 @@ class CategoriasController extends Controller
     {
         try {
 
-            dd($request->all());
-
             $categoria = Categoria::where('id_categoria', $id)->firstOrFail();
     
 
