@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Hash;
@@ -68,6 +68,12 @@ class UsuariosController extends Controller
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
             return view($configUsersView, compact(('usuario'))); 
             dd($id);
+        }elseif($accion === 'logout'){ 
+                Auth::guard('usuario')->logout(); 
+                $request->session()->invalidate(); 
+                $request->session()->regenerateToken(); 
+                $indexView = GlobalVariables::$indexView; 
+                return view($indexView);    
         }else{
             return redirect()->route('usuarios', ['accion' => 'index']);
         }

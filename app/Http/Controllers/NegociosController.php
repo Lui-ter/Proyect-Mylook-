@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Negocio;
 use App\Models\Usuario;
 use App\Helpers\GlobalVariables;
@@ -87,6 +88,12 @@ class NegociosController extends Controller{
 
         if($accion === 'config'){
             return view($configNegocio);
+        }elseif($accion === 'logout'){ 
+            Auth::guard('usuario')->logout(); 
+            $request->session()->invalidate(); 
+            $request->session()->regenerateToken(); 
+            $indexView = GlobalVariables::$indexView; 
+            return view($indexView);    
         }else{
             return redirect()->route('admin');
         }

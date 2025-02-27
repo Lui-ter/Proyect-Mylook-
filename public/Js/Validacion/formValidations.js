@@ -138,6 +138,8 @@ function handleValidationRegister(event) {
             showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
             return;
         }
+        event.target.submit();
+                return true;
     } else {
         const documentoUsuario = document.getElementById("4").value.trim();
         const nombreUsuario = document.getElementById("5").value.trim();

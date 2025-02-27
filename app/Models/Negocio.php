@@ -2,11 +2,12 @@
 
 namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Model;
+
 
 class Negocio extends Authenticatable
 {
     protected $table = 'negocio';
+    protected $primaryKey = 'id_negocio';
     public $incrementing = false; // No auto-increment
     public $timestamps = false;
 
@@ -22,5 +23,9 @@ class Negocio extends Authenticatable
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'id_usuario');
+    }
+    public function getAuthPassword()
+    {
+        return $this->contrasena;
     }
 }

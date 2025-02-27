@@ -25,19 +25,39 @@ class SessionsMiddleware
         //Este middleware solo procura validar si ha iniciado sessión alguien x 
         if(session()->has('usuario_id')){
            if(Auth::guard('usuario')->check()){
-              
-               return $next($request);
+            //Protege si intenta acceder a otra ruta con el token
+            
+              if($request->is('usuarios/*')){
+                return $next($request);
+              }else{
+                return redirect()->route('landing');
+              }
+               
            }
         }
-        if(session()->has('negocio')){
+        Log::info('Verificando sesión en middleware:', [
+            'has_session' => session()->has('id_negocio'),
+            'session_id' => session()->getId(),
+            'usuario_auth' => Auth::guard('negocio')->check(),
+            'session_data' => session()->all(),
+            'auth_user' => Auth::guard('negocio')->user(),
+            'method' => $request->method(),
+            'url' => $request->url()
+        ]);
+        if(session()->has('id_negocio')){
             if(Auth::guard('negocio')->check()){
-                dd('Middleware: Usuario logueado');
-                return $next($request);
+                if($request->is('negocio/*')){
+                    return $next($request);
+                }else{
+                    return redirect()->route('landing');
+                  }
+                
             }
         }
-        
-        dd('Middleware: Usuario no logueado');
-        session()->flush(); //limpia cualquier session si fallo el login
+           
+        session()->flush();
         return redirect()->route('login');
+        
+        
     }
 }

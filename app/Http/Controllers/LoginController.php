@@ -81,6 +81,7 @@ if ($tipo_usuario == 1) {
             Auth::guard('usuario')->logout();
             Auth::guard('usuario')->login($userData);
             session()->regenerate();
+            $request->session()->regenerateToken();
             session([
                 'usuario_id' => $userData->id_usuario,
                 'usuario_tipo' => 'usuario'
@@ -110,21 +111,42 @@ if ($tipo_usuario == 1) {
     }else if($tipo_usuario == 2){
 
         $nit = $request->input('nitNegocio');
-        $password = $request->input('contrasenaNegocio');
+        $password = trim($request->input('contrasenaNegocio'));
         
         $negocioData = Negocio::where('id_negocio', $nit)->first();
+
         if($negocioData){
             if(Hash::check($password, $negocioData->contrasena)){
+
+                Auth::guard('negocio')->logout();
                 Auth::guard('negocio')->login($negocioData);
+                session()->regenerate();
+                $request->session()->regenerateToken();
+
+                session([
+                    'id_negocio' => $negocioData->id_negocio,
+                    'usuario_tipo' => 'negocio'
+                ]);
+
+                log::info('login exitoso',[
+                    'id_negocio' => $negocioData->id_negocio,
+                    'auth_check' => Auth::guard('negocio')->check(),
+                    'session_id' => session()->getId(),
+                    'user_data' => Auth::guard('negocio')->user(),
+                    'session_data' => session()->all()
+                ]);
+                //dd(session()->all());
                 if(Auth::guard('negocio')->check()){
-                    //Usuario autenticado y session iniciada
                     return redirect()->to('/negocio/config');
                 }else{
                     dd("Error: el usuario no esta autenticado despues del login");
+
                 }
             }else{
                 dd("Error con la contreaseña");
             }
+        }else{
+            dd("Error al no encontrar al negocio");
         }
     }
 
