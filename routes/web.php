@@ -71,6 +71,7 @@ Route::put('/update-type-service/{id}', [TiposServiciosController::class, 'handl
 Route::put('/update-service/{id}', [ServiciosController::class, 'handleUpdateService'])->name('updateService');
 Route::put('/update-product/{id}', [ProductosController::class, 'handleUpdateProduct'])->name('updateProduct');
 Route::put('/update-user/{id}', [UsuariosController::class, 'handleUpdateUsers'])->name('updateUsers');
+Route::put('/update-negocio/{id}', [NegociosController::class, 'handleUpdateNegocio'])->name('updateNegocio');
 
 
 /* RUTAS DELETE - DELETE */

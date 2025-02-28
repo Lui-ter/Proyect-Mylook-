@@ -192,8 +192,9 @@
             </form>
 
 <!-- FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL NEGOCIO ( ESTO SOLO PDRA SER EDITADO SI EL ADMIN LIDER INICIE SESION ) -->
-            <form action="{{ route('registerNegocio') }}" method="POST" class="configCuenta" id="configCuenta" style="display: none;"  enctype="multipart/form-data">
+            <form action="{{ route('updateNegocio',['id'=>$negocioData['id_negocio']]) }}" method="POST" class="configCuenta" id="configCuenta" style="display: none;"  enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
 
                 <article class="imgsNegocio">
 
@@ -219,17 +220,17 @@
 
                 <article class="infoNegocio">
                     <label for="" class="labelInputNegocio">Identificacion</label>
-                    <input type="number" class="inputId" name="idNegocio">
+                    <input type="number" class="inputId" name="idNegocio" value="{{ $negocioData['id_negocio'] }}" readonly>
                 </article>
 
                 <article class="infoPublica">
                     <label for="" class="labelInputNegocio">Nombre</label>
-                    <input type="text" class="inputNombre" name="nombreNegocio">
+                    <input type="text" class="inputNombre" name="nombreNegocio" value="{{ $negocioData['nombre_negocio'] }}" readonly>
                 </article>
 
-                <article class="infoPublica">
-                    <label for="" class="labelInputNegocio">Contrasena</label>
-                    <input type="password" name="contrasenaNegocio" id="" class="inputNombre"></input>
+                <article class="infoDesciptiva">
+                    <label for="" class="labelInputNegocio">Descripcion</label>
+                    <textarea name="descripcionNegocio" id="" cols="30" rows="10" class="inputDescrip"></textarea>
                 </article>
 
                 <article class="infoPrivada">

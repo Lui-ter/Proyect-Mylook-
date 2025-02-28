@@ -137,7 +137,7 @@ if ($tipo_usuario == 1) {
                 ]);
                 //dd(session()->all());
                 if(Auth::guard('negocio')->check()){
-                    return redirect()->to('/negocio/config');
+                    return view('Configuracion/configBienvenidaMiNegocio', compact('negocioData'));
                 }else{
                     dd("Error: el usuario no esta autenticado despues del login");
 

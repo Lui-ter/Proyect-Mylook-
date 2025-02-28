@@ -23,7 +23,7 @@ class EstablecimientosController extends Controller{
             'correoEstablecimiento' => 'nullable|email|unique:establecimiento,correo'
         ]);
 
-        // Aqui se crea un nuevo un nuevo registro de establecimiento en la tabla 
+        // Aqui se crea un nuevo un nuevo registro de establecimiento en la tabla
         Establecimiento::create([
             'id_establc' => $request->idEstablc,
             'id_negocio' => $request->idNegocio,
@@ -34,10 +34,10 @@ class EstablecimientosController extends Controller{
             'correo' => $request->correoEstablecimiento
         ]);
 
-        // Se elimina de la sesion el dato que estaba cargado en el formulario de negocio   
+        // Se elimina de la sesion el dato que estaba cargado en el formulario de negocio
             session()->forget(['id_negocio']);
 
-        return redirect()->route('negocio', ['accion' => 'config']);
+        return redirect()->route('admin', ['accion' => 'index']);
     }
 
 

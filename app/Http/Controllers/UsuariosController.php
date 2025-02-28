@@ -10,6 +10,7 @@ use App\Models\Usuario;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Valoracion;
+use App\Models\Negocio;
 use Illuminate\Contracts\Session\Session;
 
 class UsuariosController extends Controller
@@ -32,14 +33,14 @@ class UsuariosController extends Controller
             return view($indexUsuarioView, compact('mejoresEstablecimientos'));
         }elseif($accion === 'agendar'){
             $id = $request->input('id_establecimiento');
-            $establecimiento = Establecimiento::where('id_establc', $id)->first()->toArray(); 
+            $establecimiento = Establecimiento::where('id_establc', $id)->first()->toArray();
             $productos = Producto::where('id_establc', $id)->get()->toArray();
             $categorias = Categoria::where('id_establc', $id)->get()->toArray();
             $valoraciones = Valoracion::with(['cita' => function ($query) use ($id) {
-                $query->where('id_establc', $id)  
-                      ->with('usuario'); 
-            }])->get()->toArray();  
-            
+                $query->where('id_establc', $id)
+                      ->with('usuario');
+            }])->get()->toArray();
+
             foreach ($productos as &$producto) {
                 if (isset($producto['img_prod'])) {
                     $producto['img_prod'] = 'data:image/png;base64,' . base64_encode($producto['img_prod']);
@@ -52,35 +53,35 @@ class UsuariosController extends Controller
             }
             foreach ($valoraciones as &$valoracion) {
                 if (isset($valoracion['cita']['usuario']['imagen'])) {
-                    $imagenPath = public_path($valoracion['cita']['usuario']['imagen']); 
-            
+                    $imagenPath = public_path($valoracion['cita']['usuario']['imagen']);
+
                     if (file_exists($imagenPath)) {
                         $valoracion['cita']['usuario']['imagen_base64'] = 'data:image/png;base64,' . base64_encode(file_get_contents($imagenPath));
                     } else {
-                        $valoracion['cita']['usuario']['imagen_base64'] = null; 
+                        $valoracion['cita']['usuario']['imagen_base64'] = null;
                     }
                 }
             }
-            
-            return view($agendamientoView, compact('establecimiento', 'productos', 'categorias', 'valoraciones')); 
+
+            return view($agendamientoView, compact('establecimiento', 'productos', 'categorias', 'valoraciones'));
         }elseif($accion === 'config'){
             $id = session('usuario_id');
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
-            return view($configUsersView, compact(('usuario'))); 
+            return view($configUsersView, compact(('usuario')));
             dd($id);
-        }elseif($accion === 'logout'){ 
-                Auth::guard('usuario')->logout(); 
-                $request->session()->invalidate(); 
-                $request->session()->regenerateToken(); 
-                $indexView = GlobalVariables::$indexView; 
-                return view($indexView);    
+        }elseif($accion === 'logout'){
+                Auth::guard('usuario')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                $indexView = GlobalVariables::$indexView;
+                return view($indexView);
         }else{
             return redirect()->route('usuarios', ['accion' => 'index']);
         }
 
     }
 
-/*  INSERCION DE UN USUARIO ADMIN (Falta especificar el rol, en las migraciones no esta unida la tabla rol con usuario)   */    
+/*  INSERCION DE UN USUARIO ADMIN (Falta especificar el rol, en las migraciones no esta unida la tabla rol con usuario)   */
 
     public function handleAddUser(Request $request){
 
@@ -97,23 +98,29 @@ class UsuariosController extends Controller
         // Aqui se crea un nuevo usuario en la tabla falta especificar que es con el rol de administrador
         $usuario = Usuario::create([
             'id_usuario' => $request->idAdmin,
-            'nombre' => $request->nombreAdmin . ' ' . $request->apellidoAdmin, // En la tabla solo hay un campo para el nombre, entonces aqui se une junto con el apellido que provienen de los inputs del formulario
+            'nombre' => $request->nombreAdmin,
+            'apellido' => $request->apellidoAdmin, 
             'correo' => $request->correoAdmin,
             'telefono' => $request->telefonoAdmin,
             'contrasena' => Hash::make($request->contrasenaAdmin),
         ]);
 
+
+        $idNegocio = session('id_negocio');
+        $negocioData = Negocio::find($idNegocio);
+
         // Aqui se guarda los siguientes datos del formulario perfil administrador para poder usarlo en en el formulario de negocio, como es la misma vista entonces se guarda en una sesión
         session([
             'id_usuario' => $usuario->id_usuario,
             'nombreAdmin' => $usuario->nombre,
-            'apellidoAdmin' => $usuario->apellido
+            'apellidoAdmin' => $usuario->apellido,
+            'negocioData' => $negocioData
         ]);
-        
-        return redirect()->route('negocio', ['accion' => 'config']);
+        return view('Configuracion/configBienvenidaMiNegocio',compact('negocioData'));
+
     }
 
-    
+
     public function handleUpdateUsers(Request $request, $id){
 
 
