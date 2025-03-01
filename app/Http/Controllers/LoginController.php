@@ -86,13 +86,14 @@ if ($tipo_usuario == 1) {
                 'usuario_id' => $userData->id_usuario,
                 'usuario_tipo' => 'usuario'
             ]);
-
+            /* Depuracion de los auth y guards
             Log::info('Login exitoso:', [
                 'usuario_id' => $userData->id_usuario,
                 'auth_check' => Auth::guard('usuario')->check(),
                 'session_id' => session()->getId(),
                 'user_data' => Auth::guard('usuario')->user()
             ]);
+            */
             //dd(session()->all());
             if(Auth::guard('usuario')->check()){
                 return redirect()->to('/usuarios/index');
@@ -115,7 +116,7 @@ if ($tipo_usuario == 1) {
         
         $negocioData = Negocio::where('id_negocio', $nit)->first();
 
-        if($negocioData){
+        if(isset($negocioData->id_usuario)){
             if(Hash::check($password, $negocioData->contrasena)){
 
                 Auth::guard('negocio')->logout();
@@ -127,7 +128,7 @@ if ($tipo_usuario == 1) {
                     'id_negocio' => $negocioData->id_negocio,
                     'usuario_tipo' => 'negocio'
                 ]);
-
+                /*
                 log::info('login exitoso',[
                     'id_negocio' => $negocioData->id_negocio,
                     'auth_check' => Auth::guard('negocio')->check(),
@@ -135,9 +136,10 @@ if ($tipo_usuario == 1) {
                     'user_data' => Auth::guard('negocio')->user(),
                     'session_data' => session()->all()
                 ]);
+                */
                 //dd(session()->all());
                 if(Auth::guard('negocio')->check()){
-                    return view('Configuracion/configBienvenidaMiNegocio', compact('negocioData'));
+                    return redirect()->to('negocio/index');
                 }else{
                     dd("Error: el usuario no esta autenticado despues del login");
 
@@ -146,10 +148,27 @@ if ($tipo_usuario == 1) {
                 dd("Error con la contreaseña");
             }
         }else{
-            dd("Error al no encontrar al negocio");
+            //Si el negocio no ha configurado config negocio, debera por primera vez agregarlos
+            Hash::check($password, $negocioData->contrasena);
+            Auth::guard('negocio')->logout();
+            Auth::guard('negocio')->login($negocioData);
+            session()->regenerate();
+            $request->session()->regenerateToken();
+
+            session([
+                'id_negocio' => $negocioData->id_negocio,
+                'usuario_tipo' => 'negocio'
+            ]);
+            if(Auth::guard('negocio')->check()){
+                return view('Configuracion/configBienvenidaMiNegocio', compact('negocioData'));
+            }else{
+                dd("Error: el usuario no esta autenticado despues del login");
+            }
         }
     }
 
+
 }
+
 
 }
