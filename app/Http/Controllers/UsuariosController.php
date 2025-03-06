@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Hash;
-Use App\Models\Establecimiento;
+use App\Models\Establecimiento;
 use App\Models\Usuario;
 use App\Models\Producto;
 use App\Models\Categoria;
@@ -18,28 +18,32 @@ class UsuariosController extends Controller
 
     /*INDEX USUARIO DE MYLOOK */
 
-     function showIndexUsuario(){
+    function showIndexUsuario()
+    {
         return view('Index.indexUsuario');
     }
 
-    public function crudUsuarios(Request $request, $accion = null){
+    public function crudUsuarios(Request $request, $accion = null)
+    {
 
         $indexUsuarioView = GlobalVariables::$indexUsuarioView;
         $agendamientoView = GlobalVariables::$agendamientoView;
         $configUsersView = GlobalVariables::$configUsersView;
 
         if ($accion === 'index') {
-            $mejoresEstablecimientos = Establecimiento::orderByDesc('valoracion_final')->take(7)->get(['nombre_establc', 'img_establc','desc_establc', 'id_establc'])->toArray();
+            $mejoresEstablecimientos = Establecimiento::orderByDesc('valoracion_final')->take(7)->get(['nombre_establc', 'img_establc', 'desc_establc', 'id_establc'])->toArray();
             return view($indexUsuarioView, compact('mejoresEstablecimientos'));
-        }elseif($accion === 'agendar'){
+        } elseif ($accion === 'agendar') {
             $id = $request->input('id_establecimiento');
             $establecimiento = Establecimiento::where('id_establc', $id)->first()->toArray();
             $productos = Producto::where('id_establc', $id)->get()->toArray();
             $categorias = Categoria::where('id_establc', $id)->get()->toArray();
-            $valoraciones = Valoracion::with(['cita' => function ($query) use ($id) {
-                $query->where('id_establc', $id)
-                      ->with('usuario');
-            }])->get()->toArray();
+            $valoraciones = Valoracion::with([
+                'cita' => function ($query) use ($id) {
+                    $query->where('id_establc', $id)
+                        ->with('usuario');
+                }
+            ])->get()->toArray();
 
             foreach ($productos as &$producto) {
                 if (isset($producto['img_prod'])) {
@@ -64,26 +68,27 @@ class UsuariosController extends Controller
             }
 
             return view($agendamientoView, compact('establecimiento', 'productos', 'categorias', 'valoraciones'));
-        }elseif($accion === 'config'){
+        } elseif ($accion === 'config') {
             $id = session('usuario_id');
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
             return view($configUsersView, compact(('usuario')));
             dd($id);
-        }elseif($accion === 'logout'){
-                Auth::guard('usuario')->logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-                $indexView = GlobalVariables::$indexView;
-                return view($indexView);
-        }else{
+        } elseif ($accion === 'logout') {
+            Auth::guard('usuario')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            $indexView = GlobalVariables::$indexView;
+            return view($indexView);
+        } else {
             return redirect()->route('usuarios', ['accion' => 'index']);
         }
 
     }
 
-/*  INSERCION DE UN USUARIO ADMIN (Falta especificar el rol, en las migraciones no esta unida la tabla rol con usuario)   */
+    /*  INSERCION DE UN USUARIO ADMIN (Falta especificar el rol, en las migraciones no esta unida la tabla rol con usuario)   */
 
-    public function handleAddUser(Request $request){
+    public function handleAddUser(Request $request)
+    {
 
         // Aqui se validan los datos que provienen del formulario de perfil administrador
         $request->validate([
@@ -99,7 +104,7 @@ class UsuariosController extends Controller
         $usuario = Usuario::create([
             'id_usuario' => $request->idAdmin,
             'nombre' => $request->nombreAdmin,
-            'apellido' => $request->apellidoAdmin, 
+            'apellido' => $request->apellidoAdmin,
             'correo' => $request->correoAdmin,
             'telefono' => $request->telefonoAdmin,
             'contrasena' => Hash::make($request->contrasenaAdmin),
@@ -116,12 +121,16 @@ class UsuariosController extends Controller
             'apellidoAdmin' => $usuario->apellido,
             'negocioData' => $negocioData
         ]);
-        return view('Configuracion/configBienvenidaMiNegocio',compact('negocioData'));
-
+        return response()->json([
+            'nombreAdmin' => $usuario->nombre,
+            'apellidoAdmin' => $usuario->apellido,
+            'id_usuario' => $usuario->id_usuario
+        ]);
     }
 
 
-    public function handleUpdateUsers(Request $request, $id){
+    public function handleUpdateUsers(Request $request, $id)
+    {
 
 
         $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
@@ -140,6 +149,6 @@ class UsuariosController extends Controller
         $usuario->save();
 
         return redirect()->route('usuarios', ['accion' => 'index']);
-}
+    }
 
 }
