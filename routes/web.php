@@ -44,10 +44,10 @@ Route::middleware(['ValidateSession:usuario'])->group(function(){
 
 /* CRUD DE ADMIN */
 Route::match(['get', 'post'], '/admin/{accion?}', [AdminController::class, 'crudAdmin'])->name('admin');
+
 /* LOGIN GENERAL */
-
-
 Route::get('/login', [LoginController::class, 'showLoginPrincipal'])->name('login');
+
 /* RUTAS POST - VALIDACIONES */
 Route::post('/login-user', [LoginController::class, 'loginUser'])->name('loginUser');
 /* --------------------------------------------------------------------------------------- */

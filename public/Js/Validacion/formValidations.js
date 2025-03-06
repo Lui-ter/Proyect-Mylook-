@@ -169,3 +169,58 @@ function handleValidationRegister(event) {
         }
     }
 }
+
+/* FUNCIÓN PARA VALIDAR FORMULARIO DE CONFIGURACION DE USUARIO */
+function handleValidationConfigUser(event) {
+    event.preventDefault();
+
+    const documentoUsuario = document.getElementById("documentoUsuario").value.trim();
+    const nombreUsuario = document.getElementById("nombreUsuario").value.trim();
+    const apellidoUsuario = document.getElementById("nombre").value.trim();
+    const telefonoUsuario = document.getElementById("nombre").value.trim();
+    const correoUsuario = document.getElementById("nombre").value.trim();
+    const condicionUsuario = document.getElementById("condicionUsuario").value.trim();
+
+    const regexNumerico = /^[0-9]+$/;
+    const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    const regexTelefono = /^[+0-9\s-]+$/;
+    const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const regexDescripcion = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s,.;!?-]+$/;
+
+    if (!documentoUsuario || !nombreUsuario || !apellidoUsuario || !telefonoUsuario || !correoUsuario || !condicionUsuario) {
+        showError("¡Faltan campos por llenar!");
+        return;
+    }
+
+    if (!regexNumerico.test(documentoUsuario)) {
+        showError("¡El documento del usuario solo debe contener números!");
+        return;
+    }
+
+    if (!regexNombre.test(nombreUsuario)) {
+        showError("¡El nombre del usuario solo puede contener letras y espacios!");
+        return;
+    }
+
+    if (!regexNombre.test(apellidoUsuario)) {
+        showError("¡El apellido del usuario solo puede contener letras y espacios!");
+        return;
+    }
+
+    if (!regexTelefono.test(telefonoUsuario)) {
+        showError("¡El teléfono solo puede contener números, espacios y guiones!");
+        return;
+    }
+
+    if (!regexCorreo.test(correoUsuario)) {
+        showError("¡El correo electrónico no tiene un formato válido!");
+        return;
+    }
+
+    if (!regexDescripcion.test(condicionUsuario)) {
+        showError("¡La condición solo puede contener letras, números y signos básicos!");
+        return;
+    }
+
+    event.target.submit();
+}

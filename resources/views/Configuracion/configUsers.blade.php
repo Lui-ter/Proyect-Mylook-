@@ -31,7 +31,7 @@
             </figure>
         </div>
 
-        <form action="{{ route('updateUsers', ['id' => $usuario->id_usuario]) }}" method="POST" class="formConfig" enctype="multipart/form-data">
+        <form action="{{ route('updateUsers', ['id' => $usuario->id_usuario]) }}" method="POST" onsubmit="handleValidationConfigUser(event)" class="formConfig" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="groupInput datosNumericos">
