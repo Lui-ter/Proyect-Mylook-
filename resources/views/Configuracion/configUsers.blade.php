@@ -47,16 +47,16 @@
 
                 <div class="groupInput containerPersonal">
                     <label for="" class="nomLabel">Apellido</label>
-                    <input type="text" name="apellidoUsuario" id="nombre" class="inputForm" placeholder="Aguilon Buitrago" value="{{ $usuario->apellido}}">
+                    <input type="text" name="apellidoUsuario" id="apellidoUsuario" class="inputForm" placeholder="Aguilon Buitrago" value="{{ $usuario->apellido}}">
                 </div>
             </div>
             <div class="groupInput datosContactos">
                 <label for="" class="nomLabel">Telefono</label>
-                <input type="text" name="telefonoUsuario" id="nombre" class="inputForm" placeholder="+57 444-444-4444" value="{{ $usuario->telefono}}">
+                <input type="text" name="telefonoUsuario" id="telefonoUsuario" class="inputForm" placeholder="+57 444-444-4444" value="{{ $usuario->telefono}}">
             </div>
             <div class="groupInput datosEmail">
                 <label for="" class="nomLabel">Correo</label>
-                <input type="text" name="correoUsuario" id="nombre" class="inputForm" placeholder="aaguilon@misena.edu.co" value="{{ $usuario->correo}}">
+                <input type="text" name="correoUsuario" id="correoUsuario" class="inputForm" placeholder="aaguilon@misena.edu.co" value="{{ $usuario->correo}}">
             </div>
             <div class="groupInput condicionUser">
                 <label for="" class="nomLabel">Condicion</label>
@@ -71,6 +71,7 @@
     </section>
 
     <script src="/Js/Usuarios/configUsuario.js"></script>
+    <script src="/Js/Validacion/formValidations.js"></script>
 
 </body>
 

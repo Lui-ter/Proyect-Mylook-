@@ -1,79 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  href="{{ asset('Css/Citas/viewCitas.css') }}">
-    <title>Solicitud de citas - MiNegocio</title>
+    <link rel="stylesheet" href="{{ asset('Css/Citas/viewCitas.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Visualizacion de citas</title>
 </head>
+
 <body>
-    
-    <form action="" class="contenedorPadre">
+    <main>
+        <div class="contenedorPrincipal">
+            <header class="encabezado">
+                <div class="tituloSeccion">
+                    <h1>VISUALIZACION DE CITAS</h1>
+                    <p>Visualiza tus citas de forma clara y organizada, consulta los detalles fácilmente en un solo
+                        lugar.
+                    </p>
+                </div>
+                <div class="barraBusqueda">
+                    <div class="campoBusqueda">
+                        <input type="date" id="fechaFiltro">
+                    </div>
+                </div>
+            </header>
 
-        <span class="infoEstablecimiento">
+            <div class="contenedorTabla">
+                <table class="tablaCitas" id="tablaCitas">
+                    <thead>
+                        <tr>
+                            <th>ID CITA</th>
+                            <th>ID USUARIO</th>
+                            <th>ID ESTABLECIMIENTO</th>
+                            <th>FECHA</th>
+                            <th>HORA</th>
+                            <th>DURACION</th>
+                            <th>ESTADO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoCitas">
+                        <tr id="mensajeNoCitas" style="display: none;">
+                            <td colspan="7" style="text-align: center; font-weight: bold; color: red;">
+                                No se encontraron citas para esta fecha.
+                            </td>
+                        </tr>
 
-            <div class="infoPersonal">
-                <h2 class="nomEstablecimiento">Alejandro Aguilon Buitrago</h2>
-                <p class="fechaCita"><strong>Miercoles</strong> 23 Junio 2024  20:30PM</p>
+                        <tr>
+                            <td data-label="ID CITA">1</td>
+                            <td data-label="ID USUARIO">1</td>
+                            <td data-label="ID ESTABLECIMIENTO">1</td>
+                            <td data-label="FECHA">22-02-2025</td>
+                            <td data-label="HORA">09:00</td>
+                            <td data-label="DURACIÓN">60 min</td>
+                            <td data-label="ESTADO" class="estadoRealizada">REALIZADA</td>
+                        </tr>
+
+                        <tr>
+                            <td data-label="ID CITA">2</td>
+                            <td data-label="ID USUARIO">2</td>
+                            <td data-label="ID ESTABLECIMIENTO">2</td>
+                            <td data-label="FECHA">23-02-2025</td>
+                            <td data-label="HORA">10:30</td>
+                            <td data-label="DURACIÓN">45 min</td>
+                            <td data-label="ESTADO" class="estadoPendiente">PENDIENTE</td>
+                        </tr>
+
+                        <tr>
+                            <td data-label="ID CITA">3</td>
+                            <td data-label="ID USUARIO">3</td>
+                            <td data-label="ID ESTABLECIMIENTO">3</td>
+                            <td data-label="FECHA">24-02-2025</td>
+                            <td data-label="HORA">14:00</td>
+                            <td data-label="DURACIÓN">30 min</td>
+                            <td data-label="ESTADO" class="estadoRealizada">REALIZADA</td>
+                        </tr>
+
+                        <tr>
+                            <td data-label="ID CITA">4</td>
+                            <td data-label="ID USUARIO">4</td>
+                            <td data-label="ID ESTABLECIMIENTO">4</td>
+                            <td data-label="FECHA">25-02-2025</td>
+                            <td data-label="HORA">16:15</td>
+                            <td data-label="DURACIÓN">60 min</td>
+                            <td data-label="ESTADO" class="estadoPendiente">PENDIENTE</td>
+                        </tr>
+
+                        <tr>
+                            <td data-label="ID CITA">5</td>
+                            <td data-label="ID USUARIO">5</td>
+                            <td data-label="ID ESTABLECIMIENTO">5</td>
+                            <td data-label="FECHA">26-02-2025</td>
+                            <td data-label="HORA">11:45</td>
+                            <td data-label="DURACIÓN">90 min</td>
+                            <td data-label="ESTADO" class="estadoRealizada">REALIZADA</td>
+                        </tr>
+
+                        <tr>
+                            <td data-label="ID CITA">6</td>
+                            <td data-label="ID USUARIO">6</td>
+                            <td data-label="ID ESTABLECIMIENTO">6</td>
+                            <td data-label="FECHA">27-02-2025</td>
+                            <td data-label="HORA">09:00</td>
+                            <td data-label="DURACIÓN">60 min</td>
+                            <td data-label="ESTADO" class="estadoPendiente">PENDIENTE</td>
+                        </tr>
+
+                        <tr>
+                            <td data-label="ID CITA">7</td>
+                            <td data-label="ID USUARIO">7</td>
+                            <td data-label="ID ESTABLECIMIENTO">7</td>
+                            <td data-label="FECHA">28-02-2025</td>
+                            <td data-label="HORA">13:30</td>
+                            <td data-label="DURACIÓN">75 min</td>
+                            <td data-label="ESTADO" class="estadoPendiente">PENDIENTE</td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
-
-            <figure class="logoEstablecimiento">
-                <img src="../../Asset/img3.jpeg" alt="" class="logoImg">
-            </figure>
-        </span>
-
-        <article class="infoServicios">
-            <p class="nomSeleccion">Los servicios que ha separado:</p>
-
-            <figure class="contenedorSeleccion">
-                <article class="seleccionUnited">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhua_6Y09r7S2St6y6TK2xznI5HHh4MwbrZw&s" alt="" class="imgSeleccion">
-                </article>
-                <article class="seleccionUnited">
-                    <img src="https://miriam.mx/assets/img/_1200x630_crop_center-center_82_none/Depilaci%C3%B3n-de-ceja-para-hombres.jpg?mtime=1695688258" alt="" class="imgSeleccion">
-                </article>
-
-                <!-- ESTE ARTICULO SOLO ES PARA LA FUNCIONALIDAD DE AGREGAR OTRO PRODUCTO -->
-                <article class="seleccionUnited">
-                    <p class="btnAñadir">+</p>
-                </article>
-            </figure>
-        </article>
-
-        <article class="infoPorductos">
-            <p class="nomSeleccion">Los productos que ha separado:</p>
-
-            <figure class="contenedorSeleccion">
-                <article class="seleccionUnited">
-                    <img src="https://acdn.mitiendanube.com/stores/001/047/177/products/111-03a9fe3f5a727ef4cc16738747099243-480-0.png" alt="" class="imgSeleccion">
-                </article>
-
-                <!-- ESTE ARTICULO SOLO ES PARA LA FUNCIONALIDAD DE AGREGAR OTRO PRODUCTO -->
-                <article class="seleccionUnited">
-                    <p class="btnAñadir">+</p>
-                </article>
-            </figure>
-        </article>
-
-        <article class="infoSeleccion">
-            <span class="alertSeleccion">
-                <p class="alert">2 Servicios 1 Producto</p>
-            </span>
-        </article>
-
-        <article class="infoCondicion">
-            <label for="" class="txtCondicion">Condición:</label>
-            <textarea name="condicionUsuario" id="" class="inputCondicion" placeholder="Tengo una piquiña producto de esa cera que me hecharon..."></textarea>
-        </article>
-
-        <span class="btnSend">
-            <button type="submit" class="btnAgendar Agendar">Aceptar Solicitud</button>
-            <button type="submit" class="btnAgendar">Cancelar Cita</button>
-        </span>
-
-    </form>
-
-    
+            <script src="/Js/citas/visualizacionCitas.js"></script>
 
 </body>
+</main>
+</body>
+
 </html>

@@ -174,51 +174,54 @@ function handleValidationRegister(event) {
 function handleValidationConfigUser(event) {
     event.preventDefault();
 
-    const documentoUsuario = document.getElementById("documentoUsuario").value.trim();
-    const nombreUsuario = document.getElementById("nombreUsuario").value.trim();
-    const apellidoUsuario = document.getElementById("nombre").value.trim();
-    const telefonoUsuario = document.getElementById("nombre").value.trim();
-    const correoUsuario = document.getElementById("nombre").value.trim();
-    const condicionUsuario = document.getElementById("condicionUsuario").value.trim();
+    const documentoUsuario = document.getElementById("documentoUsuario")?.value.trim();
+    const nombreUsuario = document.getElementById("nombreUsuario")?.value.trim();
+    const apellidoUsuario = document.getElementById("apellidoUsuario")?.value.trim();
+    const telefonoUsuario = document.getElementById("telefonoUsuario")?.value.trim();
+    const correoUsuario = document.getElementById("correoUsuario")?.value.trim();
 
     const regexNumerico = /^[0-9]+$/;
     const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-    const regexTelefono = /^[+0-9\s-]+$/;
-    const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const regexDescripcion = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s,.;!?-]+$/;
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!documentoUsuario || !nombreUsuario || !apellidoUsuario || !telefonoUsuario || !correoUsuario || !condicionUsuario) {
-        showError("¡Faltan campos por llenar!");
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    // CONTENEDOR MANEJO DE ERRORES
+    const form = document.querySelector(".formConfig");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.style.cssText = "background-color: #ffcccc; color: #d60000; padding: 10px; margin: 10px 0; border-radius: 5px; text-align: center; font-weight: bold;";
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+    }
+
+    if (!documentoUsuario || !nombreUsuario || !apellidoUsuario || !telefonoUsuario || !correoUsuario) {
+        showError("Todos los campos son obligatorios.");
         return;
     }
 
     if (!regexNumerico.test(documentoUsuario)) {
-        showError("¡El documento del usuario solo debe contener números!");
+        showError("El documento debe contener solo números.");
         return;
     }
 
-    if (!regexNombre.test(nombreUsuario)) {
-        showError("¡El nombre del usuario solo puede contener letras y espacios!");
+    if (!regexNombre.test(nombreUsuario) || !regexNombre.test(apellidoUsuario)) {
+        showError("El nombre y el apellido solo pueden contener letras.");
         return;
     }
 
-    if (!regexNombre.test(apellidoUsuario)) {
-        showError("¡El apellido del usuario solo puede contener letras y espacios!");
-        return;
-    }
-
-    if (!regexTelefono.test(telefonoUsuario)) {
-        showError("¡El teléfono solo puede contener números, espacios y guiones!");
+    if (!regexNumerico.test(telefonoUsuario) || telefonoUsuario.length < 7) {
+        showError("El teléfono debe contener solo números y tener al menos 7 dígitos.");
         return;
     }
 
     if (!regexCorreo.test(correoUsuario)) {
-        showError("¡El correo electrónico no tiene un formato válido!");
-        return;
-    }
-
-    if (!regexDescripcion.test(condicionUsuario)) {
-        showError("¡La condición solo puede contener letras, números y signos básicos!");
+        showError("El correo electrónico no tiene un formato válido.");
         return;
     }
 
