@@ -226,4 +226,5 @@ function handleValidationConfigUser(event) {
     }
 
     event.target.submit();
+    
 }
