@@ -1,0 +1,257 @@
+/* Variables de css*/
+:root {
+    --color-primary: #a68160;
+    --color-secondary: #f2f2f2;
+    --color-white: white;
+    --color-black: black;
+}
+
+
+header {
+    display: flex;
+    width: 100%;
+    max-width: 100vw;
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1em;
+    gap: 2em;
+    z-index: 22;
+
+    & .contenedor-logo h2 {
+        font-size: clamp(2em, 4vw, 4rem);
+    }
+
+    & .navegacion {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: .7em;
+
+        /* icono lupa */
+        & .fa-magnifying-glass {
+            color: var(--color-primary);
+            font-size: 1.5em;
+        }
+
+        & .fa-solid {
+            font-size: 1.3em;
+
+        }
+
+        & #contenedor-perfil {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+
+            & .menu-desplegable {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background: var(--color-secondary);
+                box-shadow: 0 .2em .4em var(--color-primary);
+                border-radius: .3em;
+                overflow: hidden;
+                min-width: 15em;
+                font-size: .8em;
+                list-style: none;
+                padding: 0;
+                z-index: 20;
+            }
+
+            /* trabaja en conjunto con el javascript para que al hacer click se muestre en pantalla el menu */
+            & .contenedor-perfil.activo .menu-desplegable {
+                display: grid;
+            }
+
+            /* trabaja en conjunto con el javascript para que al hacer hover se muestre en pantalla el menu */
+            & .contenedor-perfil:hover .menu-desplegable {
+                display: grid;
+            }
+
+            & .menu-desplegable li {
+                border-bottom: 1px solid #ddd;
+            }
+
+            & .menu-desplegable li:last-child {
+                border-bottom: none;
+            }
+
+            & .menu-desplegable a {
+                display: grid;
+                padding: .7em;
+                text-decoration: none;
+                color: black;
+                transition: background 0.2s;
+            }
+
+            & .menu-desplegable a:hover {
+                background: var(--color-primary);
+                color: var(--color-white);
+            }
+        }
+    }
+
+    & .boton-buscar {
+        background: none;
+        border: none;
+        font-size: 1.3em;
+        cursor: pointer;
+    }
+
+    /*Ocultamos las opciones de búsqueda inicialmente */
+    & .opciones-busqueda {
+        display: none;
+        position: absolute;
+        top: 15px;
+        right: 6.5%;
+        transform: translateX(-50%);
+        background: white;
+        padding: .7em;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: .5em;
+        width: 200px;
+        gap: 1em;
+        text-align: center;
+
+        & .contenedor-input-busqueda {
+            display: flex;
+            align-items: center;
+            gap: .5em;
+            padding: .5em;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+        }
+
+        & .input-busqueda {
+            flex: 1;
+            padding: .5em;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            background: transparent;
+        }
+
+        & .input-busqueda {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out, transform 0.2s ease;
+            font-size: 1em;
+        }
+
+    }
+
+    /* Mostrar input y categorías cuando se hace hover en la lupa */
+    & .contenedor-busqueda:hover .opciones-busqueda {
+        display: grid;
+    }
+
+    & .input-busqueda {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #a68160;
+        border-radius: 5px;
+        display: grid;
+    }
+
+    & .boton-categorias {
+        background: #a68160;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+    }
+
+    & .submenu-categorias {
+        display: none;
+        list-style: none;
+        background: white;
+        border-radius: .4em;
+        margin-top: 5px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+        & button {
+            background: none;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            text-align: left;
+        }
+
+        & button:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white)
+        }
+    }
+
+    & .boton-categorias:hover+.submenu-categorias {
+        display: grid;
+    }
+
+    & .boton-buscar {
+        background: var(--color-secondary);
+        border: none;
+        font-size: 1.3em;
+        cursor: pointer;
+        color: white;
+        transition: 0.3s;
+    }
+
+    & .imagen-perfil {
+        width: clamp(2rem, 6vw, 4rem);
+        height: clamp(2rem, 6vw, 4rem);
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid var(--color-primary);
+    }
+
+    & a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        color: var(--color-primary);
+        font-weight: 500;
+        font-size: 1.5em;
+    }
+}
+
+
+@media (max-width: 750px) {
+    header {
+
+        & .navegacion {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: .7em;
+
+            & .fa-magnifying-glass {
+                color: var(--color-primary);
+                font-size: .9em;
+            }
+
+            & .fa-solid {
+                font-size: .9em;
+            }
+        }
+
+        & .boton-buscar {
+            background: none;
+            border: none;
+            font-size: 1.3em;
+            cursor: pointer;
+        }
+    }
+}

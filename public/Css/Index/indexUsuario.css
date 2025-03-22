@@ -1,515 +1,979 @@
-*{
-    padding: 0;
+* {
     margin: 0;
-    box-sizing: border-bosx;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI";
 }
 
-/* VARIABLES DE ENTORNO */
+html {
+    html {
+        /* animacion suave en las animaciones */
+        scroll-behavior: smooth;
+    }
+}
+
+/* Variables de css*/
 :root {
-    --color-background: #624023;
     --color-primary: #a68160;
-    --color-dark: #795434;
+    --color-secondary: #f2f2f2;
     --color-white: white;
     --color-black: black;
 }
 
-body{
+body {
+    overflow-x: hidden;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
 
-    /* SECCION PUBLICITARIA DE LOS ESTABLECIMIENTOS */ 
-    .sectionPublicidad{
-        border: 1px solid black;
-        height: 100vh;
+    main {
         display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 15% 85%;
+        max-width: 100vw;
 
-        .menuUsuario{
-            border: 1px solid black;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 35vw;
+        /* seccion de el carrusel */
+        & .contenedor-carrusel {
+            max-width: 100vw;
+            position: relative;
+            height: 37.5em;
+            overflow: hidden;
 
-            .nomApp{
-                color: var(--color-dark);
-                font-size: 3vw;
-                font-weight: bold;
-                margin-left: 2vw;
-            }
-
-            .menuNav{
-                margin-right: 2vw;
-
-                li{
-                    display: flex;
-                    gap: 2vw;
-
-                    .optionNav{
-                        height: 6vh;
-                        width: 8vw;
-                        border-radius: 5%;
-                        border: 1px solid var(--color-primary);
-                        background-color: transparent;
-                        color: var(--color-primary);
-                        font-weight: bold;
-                        font-size: 1.75vh;
-                    }
-
-                    .btnInicio{
-                        background-color: var(--color-dark);
-                        color: var(--color-white);
-                    }
-
-                    .imgPerfil{
-                        position: relative;
-                        border: 1px solid var(--color-primary);
-                        border-radius: 100%;
-                        height: 7vh;
-                        width: 3.5vw;
-                        margin-top: -.8vh;
-                    }
-                }
-            }
-        }
-
-        .imgEstablecimientos{
-            display: flex;
-            background-color: var(--color-black);
-
-            .imgPublicitaria{
-                position: relative;
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-                background-repeat: no-repeat;
-                opacity: .4;
-            }
-
-            
-            .infoimgPublicitarias{
+            /* contenedor de las imagenes del carrusel */
+            & .carrusel {
+                padding: 4em 0;
+                display: flex;
                 position: absolute;
-                top: 87%; 
-                left: 0;
-                z-index: 1; 
-                height: 10vh;
-                width: 100%;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                gap: 30vw;
-            }
-
-            .redirectFormAgendamiento{
-                display: flex;
                 justify-content: center;
                 align-items: center;
-                gap: .5vw;
+                transition: transform 0.5s ease-in-out;
 
-            
-                .redirectTittle{
-                    background-color: var(--color-white);
-                    padding: 15% 45%;
-                    color: var(--color-primary);
-                }
-
-                i{
+                /* carta de cada elemento del carrusel */
+                & .elemento-carrusel {
                     position: relative;
-                    margin-left: -1.5vw;
-                    border-radius: 100%;
-                    padding: 25%;
-                    color: var(--color-white);
-                    background-color: var(--color-dark);
-                    font-size: 4vh;
-
-                }
-            }
-
-            .nomSitio{
-                color: var(--color-white);
-                margin-left: -4vw;
-                font-size: 6vh;
-            }
-
-        }
-    }
-
-    /* SECCION DE ESTABLECIMIENTOS DE MYLOOK */
-    .sectionEstablecimiento{
-            height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 20% 80%;
-
-            /* TEXTO INTRODUCTORIO DEL ESTABLECIMIENTO */
-            .txtEstablecimiento{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                /* TITULO DE INTRODUCCION DE ESTABLECIMIENTOS */
-                .titleEstablecimiento{
-                    font-size: 1.3vw;
-                }
-            }
-
-            /* CONTENEDOR DEL TOP DE ESTABLECIMIENTOS A MOSTRAR */
-            .imgEstablecimiento{
-                display: flex;
-                justify-content: center;
-                align-items: start;
-                gap: 3vw;
-                margin: 2% 2% 2% 2%;
-                
-                /* CONTENEDOR QUE ALMACENA TODA LA INFORMARCION DEL ESTABLECIMIENTO PERTENECIENTE EN EL TOP */
-                .topEstablecimiento{
-                    border: 1px solid var(--color-primary);
-                    height: 60%;
-                    width: 18%;
-                    display: grid;
-                    grid-template-columns: 1fr;
-                    grid-template-rows: 75% 25%;
-                    overflow: hidden;
-                    border-radius: 3%;
-
-                    .containerTop{
-                        border: 1px solid black;
-
-                        .imgTopEtablecimiento{
-                            height: 100%;
-                            width: 100%;
-                            background-size: cover;
-                            background-position: center;
-                        }
-                    }
-
-                    .nomTopEstablecimiento{
-                        background-color: var(--color-dark);
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        color: var(--color-white);
-
-                        .nomUnitedTop{
-                            font-size: 2.7vh;
-                            margin: 1% 2% 1% 2%;
-
-                        }
-                    }
-                }
-
-                /* TOP DOS Y TRES VAN MAS ABAJO DE LA LINEA NATURAL DEL UNO */
-                .topDos, .topTres{
-                    margin-top: 5vh;
-                }
-            }
-    }
-
-    /* SECCION DEL MAPA CERCA DE TI */
-    .sectionMap{
-        height: 100vh;
-        background-color: var(--color-dark);
-
-        /* MAPA DEL LOS CERCANOS DE TI */
-        iframe{
-            opacity: 0.6;
-        }
-    }
-
-    /* SECCION DE ESTABLECIMIENTOS REGISTRADOS DEL SISTEMA */
-    .sectionEstablecimientos{
-        height: 100vh;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 20% 80%;
-
-        /* CONTENEDOR DE TITULO Y BARRA DE BUSQUEDA DE LOS ESTABLECIMIENTOS */
-        .tittleEstablecimientos{
-            display: flex;
-            justify-content: space-around;
-            align-items: center; 
-            gap: 30vw;
-            margin-bottom: 3vh;
-            
-            /* TITULO DE LA SECCION */
-            .tittle{
-                color: var(--color-black);        
-            } 
-
-            /* BARRA DE BUSQUEDA */
-            .barShearch{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: .5vw;
-
-                /* ICONO DE LA BARRA DE BUSQUEDA */
-                i{
-                    background-color: var(--color-dark);
-                    padding: 3%;
-                    font-size: 2vh;
-                    color: var(--color-white);
-                    border-radius: 100%;
-                }
-
-                /* INPUT DE LA BUSUQEDA */
-                .inputSearch{    
-                    background-color: transparent;
-                    border: none;
-                    border-bottom: 1px solid var(--color-dark);
-                    color: var(--color-black);
-                    padding-left: .2vw;
-                    height: 3vh;
-                    width: 17vw;
-                    outline: none;
-                    font-size: .8vw;
-
-                    /* TEXTO DE LO QUE ESTA ADENTRO DE LA CAJA DEL INPUT */
-                    &::placeholder{
-                        font-style: italic;
-                        font-size: .8vw;
-                    }
-                }
-            }
-        }
-
-        /* CONTENEDOR DE ESTABLECIMIENTOS MOSTRADOS EN PANTALLA */
-        .containerEstablecimiento{
-            margin: 0% 3% 2% 3%;
-            overflow: auto;
-            flex-wrap: wrap;
-            display: flex;
-            justify-content: left;
-            align-items: start;
-            gap: 5vw;
-            padding-left: 3%;
-
-            .establecimientosUnited{
-                border: 1px solid var(--color-primary);
-                height: 70%;
-                width: 20%;
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 50% 40% 10%;
-                border-radius: 2%;
-                overflow: hidden;
-                box-shadow: 1px 1px 5px 1px var(--color-primary);
-
-                .allEstablecimiento{
-                    height: 100%;
-                    width: 100%;
-                    background-position: center;
+                    width: 55vw;
+                    height: 28em;
                     background-size: cover;
-                    background-repeat: no-repeat;
-                }
+                    background-position: center;
+                    color: var(--color-white);
+                    border-radius: 0.7em;
+                    overflow: hidden;
+                    transition: all 0.5s ease;
+                    transform: scale(0.85);
+                    opacity: 0.7;
+                    display: flex;
+                    align-items: end;
+                    justify-content: center;
+                    box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.2);
 
-                .infoEstablecimiento{
-                    display: grid;
-                    grid-template-columns: 52% 1fr;
-                    grid-template-rows: 1fr;
-                    margin: 4% 1% 4% 1%;
+                    & .contenido-elemento {
+                        background: linear-gradient(180deg,
+                                transparent,
+                                rgba(0, 0, 0, 0.4) 10%,
+                                rgba(0, 0, 0, 0.8) 30%,
+                                black 50%);
+                        position: relative;
+                        z-index: 2;
+                        display: grid;
+                        grid-template-columns: 4fr 1fr;
+                        gap: 1em;
+                        align-items: center;
+                        justify-content: space-between;
+                        text-align: center;
+                        padding: 1.1em;
+                        width: 100%;
 
-                    .infoBasica{
-                        border-right: 1px solid var(--color-primary);
-                        padding-top: 2vh;
-                        padding-left: .3vw;
+                        & .imagen-perfil {
+                            border-radius: 100%;
+                            height: 10em;
+                            width: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            overflow: hidden;
+                            object-fit: cover;
+                            background-color: var(--color-white);
+                            height: 8em;
+                            width: 8em;
 
-                        .nomEstablecimiento{
-                            font-size: .57vw;
-                            margin-bottom: 1vh;
-                            color: var(--color-dark);
+                            & img {
+                                height: 10em;
+                                width: 10em;
+                                object-fit: contain;
+                            }
                         }
 
-                        .sloganEstablecimiento{
-                            font-size: .7vw;
-                            width: 93%;
-                            color: var(--color-primary);
+                        & .informacion-establecimiento {
+                            width: 100%;
+                            display: grid;
+                            text-align: left;
+
+                            & .titulo-establecimiento {
+                                font-size: 1.5em;
+                                margin-bottom: 0.8em;
+                                text-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.5);
+                            }
+
+                            & .descripcion-establecimiento {
+                                font-size: 0.8em;
+                                margin-bottom: 0.9em;
+                                line-height: 1.4;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                            }
+
+                            & .boton-agendar {
+                                display: flex;
+                                align-items: center;
+                                background: var(--color-white);
+                                width: 9em;
+                                height: 3em;
+                                border: none;
+                                border-radius: 3.5em;
+                                font-size: 1.2em;
+                                font-weight: bold;
+                                color: var(--color-primary);
+                                cursor: pointer;
+                                box-shadow: 0.1em 1.5em 0.2em rgba(0, 0, 0, 0.2);
+                                outline: none;
+                                transition: 0.3s;
+
+                                & .icono {
+                                    width: 3.5em;
+                                    height: 3.5em;
+                                    background: var(--color-primary);
+                                    border-radius: 50%;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    margin-right: 0.8em;
+
+                                    & img {
+                                        width: 60%;
+                                        height: 60%;
+                                    }
+                                }
+                            }
                         }
-                    }   
-                }
-
-                .infoEspecialidades{
-                    display: grid;
-                    grid-template-columns: 1fr;
-                    grid-template-rows: 1fr 60% 20%;
-                    padding-left: 8%;
-
-                    .especialidadesEstablecimiento{
-                        padding-top: 2vh;
-                        font-size: .58vw;
-                        margin-bottom: 1vh;
-                        color: var(--color-dark);
                     }
 
-                    .especialidadEstablecimiento{
+                    & .contenido-elemento {
+                        background: linear-gradient(180deg,
+                                transparent,
+                                rgba(0, 0, 0, 0.4) 10%,
+                                rgba(0, 0, 0, 0.8) 30%,
+                                black 50%);
+                        position: relative;
+                        z-index: 2;
+                        display: grid;
+                        grid-template-columns: 4fr 1fr;
+                        gap: 1em;
+                        align-items: center;
+                        justify-content: space-between;
+                        text-align: center;
+                        padding: 1.2em;
+
+                        & .imagen-perfil {
+                            border-radius: 100%;
+                            height: 10em;
+                            width: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            overflow: hidden;
+                            object-fit: cover;
+                            background-color: var(--color-white);
+                            height: 8em;
+                            width: 8em;
+
+                            & img {
+                                height: 10em;
+                                width: 10em;
+                                object-fit: contain;
+                            }
+                        }
+
+                        & .informacion-establecimiento {
+                            width: 100%;
+                            display: grid;
+                            text-align: left;
+
+                            & .titulo-establecimiento {
+                                font-size: 1.5em;
+                                margin-bottom: .8em;
+                                text-shadow: 0.125em 0.125em 0.25em rgba(0, 0, 0, 0.5);
+                            }
+
+                            & .descripcion-establecimiento {
+                                font-size: 0.8em;
+                                margin-bottom: 0.9375em;
+                                line-height: 1.4;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                            }
+
+                            & .boton-agendar {
+                                display: flex;
+                                align-items: center;
+                                background: var(--color-white);
+                                width: 9em;
+                                height: 2.1em;
+                                border: none;
+                                border-radius: 3.125em;
+                                font-size: 1.25em;
+                                font-weight: bold;
+                                color: var(--color-primary);
+                                cursor: pointer;
+                                box-shadow: 0.125em 0.25em 0.375em rgba(0, 0, 0, 0.2);
+                                outline: none;
+                                transition: 0.3s;
+
+                                & .icono {
+                                    width: 50px;
+                                    height: 50px;
+                                    background: var(--color-primary);
+                                    border-radius: 50%;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    margin-right: .4em;
+
+                                    & img {
+                                        width: 60%;
+                                        height: 60%;
+                                    }
+                                }
+                            }
+
+                            & .boton-agendar:hover {
+                                background: var(--color-primary);
+                                color: var(--color-white);
+                            }
+
+                        }
+                    }
+
+                    & .imagen-perfil {
+                        height: 8em;
+                        width: 8em;
+                    }
+
+                    & .etiquet-categoria {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        background: rgb(0, 0, 0);
+                        background: linear-gradient(90deg,
+                                rgba(0, 0, 0, 0) 4%,
+                                rgba(0, 0, 0, 0.3477766106442577) 10%,
+                                rgba(0, 0, 0, 1) 20%,
+                                rgba(0, 0, 0, 1) 39%);
+                        padding: 0.2em 2.5em;
+                        font-weight: bold;
+                        z-index: 2;
+                        font-size: 1.1em;
+                    }
+                }
+            }
+
+            /*inicio clases para ejecutar animaciones y cambios en el carrusel */
+            & .elemento-carrusel::before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1;
+            }
+
+            & .elemento-carrusel.activo {
+                transform: scale(1.1);
+                opacity: 1;
+                z-index: 10;
+                box-shadow: 0 0.625em 1.875em rgba(0, 0, 0, 0.3);
+            }
+
+            & .elemento-carrusel.activo .imagen-perfil {
+                height: 10em;
+                width: 10em;
+            }
+
+            & .elemento-carrusel.activo .titulo-establecimiento {
+                font-size: 2em;
+            }
+
+            & .elemento-carrusel.activo .descripcion-establecimiento {
+                font-size: 0.9em;
+                /* line-clamp: 4; este sirve para que haya un maximo de 4 renglones en el conteneodr */
+            }
+
+            /*fin clases para ejecutar animaciones y cambios en el carrusel */
+
+            & .boton-navegacion {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 50px;
+                height: 50px;
+                background-color: var(--color-primary);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                font-size: 1.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                z-index: 20;
+                transition: background-color 0.3s;
+            }
+
+            & .boton-navegacion:hover {
+                background-color: var(--color-primary);
+            }
+
+            & .boton-anterior {
+                left: 20px;
+            }
+
+            & .boton-siguiente {
+                right: 20px;
+            }
+
+            /*fin botones de el carrusel */
+        }
+
+        & .establecimientos-recomendados {
+            max-width: 100vw;
+            padding: 3em;
+            gap: 2em;
+            display: grid;
+            justify-content: center;
+
+            & .titulo-seccion {
+                text-align: center;
+                font-size: 1.7em;
+            }
+
+            & .contenedor-establecimientos {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 3em;
+                justify-content: center;
+
+                & .carta-establecimiento {
+                    flex: 1;
+                    border: 2px solid var(--color-primary);
+                    border-radius: 0.8em;
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                    color: var(--color-black);
+                    position: relative;
+                    justify-content: space-between;
+                    height: 100%;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+
+                    & img {
+                        width: 100%;
+                        height: 14em;
+                        object-fit: cover;
+                        margin-bottom: -0.5em;
+                    }
+
+                    & .contenedor-informacion {
                         display: flex;
                         flex-direction: column;
-                        font-size: .8vw;
-                        color: var(--color-primary);
-                    }
+                        flex-grow: 1;
+                        padding: 0.5em 0.5em 0 0.5em;
+                        border-top: 2px solid var(--color-primary);
+                        background-color: var(--color-white);
 
-                    .startValoracion{
-                        font-size: .9vw;
-                        margin-top: -3vh;
-                        color: var(--color-primary);
-                        cursor: pointer;
+                        /* Hace que la información crezca ocupando el espacio disponible */
+                        & .informacion {
+                            display: grid;
+                            flex-grow: 1;
+                            grid-template-columns: 1fr 1fr;
+                            align-items: center;
+                            background-color: var(--color-white);
+
+                            & .nombre-descripcion {
+                                height: 100%;
+                                font-weight: bold;
+                                font-size: 0.9em;
+                                position: relative;
+                                overflow: hidden;
+                                /* Oculta el contenido extra */
+                                max-width: 8em;
+                                max-height: 10em;
+
+                                & h2 {
+                                    max-width: 100%;
+                                    overflow-wrap: break-word;
+                                    word-break: break-word;
+                                    white-space: normal;
+                                    position: relative;
+                                    font-weight: bold;
+                                    -webkit-line-clamp: 2;
+                                    display: -webkit-box;
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden;
+                                    transition: opacity 0.3s ease-in-out;
+
+                                }
+
+                                & p {
+                                    position: relative;
+                                    font-weight: normal;
+                                    font-size: 1em;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 4;
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden;
+                                    transition: opacity 0.3s ease-in-out;
+                                }
+                            }
+
+                            & .servicios {
+                                height: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: space-between;
+                                padding-left: 1em;
+                                border-left: 2px solid #a67c52;
+                                font-size: 1em;
+
+                                & ul {
+                                    position: relative;
+                                    font-weight: normal;
+                                    font-size: 0.9em;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 4;
+                                    /* Máximo 4 líneas */
+                                    -webkit-box-orient: vertical;
+                                    overflow: hidden;
+                                    transition: opacity 0.3s ease-in-out;
+
+                                    list-style: none;
+                                    padding: 0;
+                                    margin: 0;
+
+                                    & li {
+                                        font-size: 1em;
+                                    }
+                                }
+
+                                & .puntuacion {
+                                    margin-top: auto;
+                                    /* Empuja la puntuación al fondo */
+                                    font-size: 1.7em;
+                                    color: var(--color-primary);
+                                }
+                            }
+                        }
+
+                        & .contenedor-boton-agendar {
+                            margin-top: auto;
+                            /* Empuja el botón al fondo */
+
+                            text-align: center;
+                            padding: 0.5em;
+
+                            & .boton-agendar {
+                                background-color: var(--color-primary);
+                                color: var(--color-white);
+                                padding: 0.2em 1em;
+                                border: 1px solid var(--color-primary);
+                                border-radius: 5px;
+                                font-size: 1em;
+                                font-weight: bold;
+                                cursor: pointer;
+                            }
+
+                            & .boton-agendar:hover {
+                                background-color: var(--color-secondary);
+                                color: var(--color-primary);
+
+                            }
+                        }
+
+
                     }
                 }
 
-                .btnAgenda{
-                    margin: 0% 20% 1% 20%;
-                    font-size: .8vw;
-                    border: none;
-                    color: var(--color-white);
-                    background-color: var(--color-dark);
-                    border-radius: 5%;
-                    margin-bottom: 1vh;
+                & .carta-establecimiento:hover {
+                    transform: scale(1.05);
+                    cursor: pointer;
+                }
+            }
+        }
+
+        & .establecimientos-destacados {
+            padding: 5em 3em;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 2em;
+            max-width: 100vw;
+
+            & .titulo-seccion {
+                text-align: center;
+                font-size: 1.7em;
+            }
+
+            & .contenedor-imagenes-destacado {
+                /* Contenedor de tarjetas */
+                grid-template-columns: 1fr 1fr 1fr;
+                /* 3 columnas */
+                display: grid;
+                padding-top: 3em;
+                gap: 2em;
+                justify-content: center;
+                align-items: flex-end;
+            }
+
+            & .card-destacado {
+                /* Tarjeta */
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 80% 20%;
+                width: 20em;
+                height: 300px;
+                border-radius: 0.7em;
+                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+                position: relative;
+                background: var(--color-white);
+                border: 2px solid var(--color-primary);
+            }
+
+            & .card-destacado:nth-child(2) {
+                transform: translateY(-45px);
+                /* Sube la tarjeta del medio */
+            }
+
+            & .card-destacado img.destacado-imagen {
+                /* Imagen dentro de la tarjeta */
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* Ajusta la imagen */
+                display: block;
+                /* Elimina espacio extra */
+                border-radius: 0.7em 0.7em 0 0;
+            }
+
+            & .nombre-posicion {
+                /* Texto dentro de la tarjeta */
+                background: var(--color-primary);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0.5em 0;
+                gap: 0.5em;
+                border-radius: 0 0 0.4em 0.4em;
+            }
+
+            & .nombre-posicion h4 {
+                /* Nombre del establecimiento */
+                margin: 0;
+                font-size: 1.4em;
+                font-weight: bold;
+                color: var(--color-secondary);
+                -webkit-line-clamp: 1;
+                position: relative;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+
+
+            }
+
+            & .nombre-posicion img {
+                /* Icono de posición */
+                width: 2em;
+                height: auto;
+            }
+
+            /* Efecto al pasar el mouse */
+            & .card-destacado:hover {
+                transform: scale(1.05) translateY(-5px);
+                box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+            }
+        }
+    }
+}
+
+/* Ajustes para tablets grandes y portatiles */
+@media (max-width: 1224px) {
+    main {
+        gap: 0em;
+
+
+        & .contenedor-carrusel {
+            & .carrusel {
+                padding: 3em 0;
+            }
+        }
+
+        & .establecimientos-recomendados {
+            & .contenedor-establecimientos {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 3em;
+                align-items: center;
+                justify-content: center;
+
+                & .carta-establecimiento {
+                    max-width: 19em;
+                }
+
+                & .servicios {
+                    & .puntuacion {
+                        font-size: 1.5em;
+                    }
+                }
+            }
+
+            & .contenedor-boton-agendar {
+                margin-top: auto;
+                /* Empuja el botón al fondo */
+
+                text-align: center;
+                padding: 0.5em;
+            }
+
+            & .boton-agendar {
+                padding: 0.2em 1em;
+                border-radius: 5px;
+                font-size: 1em;
+
+            }
+        }
+
+        & .establecimientos-destacados {
+            gap: 2em;
+            padding: 2em 3em;
+
+            & .titulo-seccion {
+                font-size: 1.7em;
+            }
+
+            & .card-destacado {
+                /* Ocupan todo el ancho disponible */
+                max-width: 18em;
+
+                /* Mantiene tamaño */
+                height: 300px;
+            }
+
+            & .contenedor-imagenes-destacado {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 columnas */
+                grid-template-rows: auto auto;
+                /* Dos filas automáticas */
+                padding-top: 3em;
+                gap: 2em;
+                justify-content: center;
+
+                & .card-destacado {
+                    width: 21em;
+                    height: 300px;
+                }
+            }
+
+            & .card-destacado:nth-child(2) {
+                grid-column: span 2;
+                /* Ocupa las 2 columnas */
+                grid-row: 1;
+                /* Se mantiene en la primera fila */
+                justify-self: center;
+                /* Centrar horizontalmente */
+                align-self: center;
+                /* Centrar verticalmente */
+                transform: translateY(0px);
+                /* Vuelve a la posición original */
+            }
+
+            & .card-destacado:nth-child(1) {
+                grid-column: 1;
+                /* Primera columna */
+                grid-row: 2;
+                /* Segunda fila */
+                justify-self: flex-end;
+                /* derecha */
+            }
+
+            & .card-destacado:nth-child(3) {
+                grid-column: 2;
+                /* Segunda columna */
+                grid-row: 2;
+                /* Segunda fila */
+                justify-self: flex-start;
+                /* izquierda */
+            }
+        }
+
+    }
+}
+
+/* Ajustes para móviles medianos y tablets pequeñas */
+@media (max-width: 750px) {
+    main {
+        gap: 0em;
+    }
+
+    & .contenedor-carrusel {
+        & .carrusel {
+            padding: 3em 0;
+
+            & .elemento-carrusel {
+                & .contenido-elemento {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    padding: 1.1em;
+                    grid-template-areas:
+                        "imagen"
+                        "texto";
+
+                    & .imagen-perfil {
+                        grid-area: imagen;
+                        height: 9em;
+                        height: 8em;
+                        width: 8em;
+
+                        & img {
+                            grid-area: texto;
+                            height: 8em;
+                            width: 8em;
+                        }
+                    }
+                }
+
+                & .imagen-perfil {
+                    height: 8em;
+                    width: 8em;
                 }
             }
         }
     }
 
-    /* SECCION DE FOOTER DE MYLOOK */
-    .sectionFooter{
-        background-color: var(--color-dark);
-        height: 25vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: var(--color-white);
-
-        /* CONTENEDOR QUE SEPARA LA INFORMACION DE LAS DIFERENTES SECCIONES DEL FOOTER */
-        .infoFooter{
+    & .establecimientos-recomendados {
+        & .contenedor-establecimientos {
             display: flex;
-            flex: 1;
-            height: 80%;
+            flex-direction: column;
+            gap: 3em;
 
-            /* CONTENEDOR DE INFORMACION DE TODO EL FOOTER DE MYLOOK */
-            .infoSTA{
-                margin: 0% 2% 2% 2%;
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: left;
-                align-items: start;
-                padding-left: 4vw;
+            & .carta-establecimiento {
+                max-width: 18em;
 
-                /* TITULO SOBRE NOSOTROS */
-                .tittleNosotros{
-                    margin-bottom: 1vh;
-                    font-size: 4vh;
-                }
-            
-                /* DESCRIPCION DE LAS OPCIONES DEL FOOTER */
-                .descrip{
-                    font-size: .8vw;
-                    cursor: pointer;
-                    margin-bottom: .5vh;
-                }
-
-                /* REDES SOCIALES DE LOS DESARROLLADORES */
-                .socialMediaFooter{
+                & .contenedor-informacion {
                     display: flex;
-                    gap: 3vw;  
-                    margin-top: 1.5vh; 
-                    cursor: pointer;
-                }
-            }
+                    flex-direction: column;
+                    flex-grow: 1;
 
-            /* CONTENEDOR MEDIO DEL FOOTER */
-            .infoMedio{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 2vh;
+                    & .informacion {
+                        display: grid;
+                        flex-grow: 1;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 0.7em;
 
-                /* ICONO DE LOS DESAROLLADORES */
-                i{
-                    font-size: 8.5vh;
-                }
+                        & .nombre-descripcion {
+                            font-size: 0.9em;
 
-                /* TITULO DE LOS DESARROLLADORES DEL NOMBRE DE SU COMPAÑIA */
-                .tittleDesarrollo{
-                    font-size: 3vh;
-                }
-            }
+                            & h2 {
+                                -webkit-line-clamp: 2;
+                            }
 
-            /* CONTENEDOR TRES DEL FOOTER SOBRE LAS PRMOMOCIONES */
-            .infoTres{
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 75% 25%;
+                            & p {
+                                font-size: 1em;
+                                -webkit-line-clamp: 3;
+                            }
+                        }
 
-            }
-            
-            /* CONTENEDOR DEL FOMULARIO DE LAS PROMOCIONES */
-            .formPromocion{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding-top: 4vh;
+                        & .servicios {
+                            & ul {
+                                -webkit-line-clamp: 3;
 
-                /* ICONO DEL CORREO */
-                i{
-                    font-size: 2.5vh;
-                    position: absolute;
-                    margin-right: 20vw;
-                }
+                                & li {
+                                    font-size: 1em;
+                                }
+                            }
 
-                /* CAJA DE TEXTO DEL CORREO */
-                .inputPromocion{
-                    border: none;
-                    background-color: transparent;
-                    border-bottom: 1px solid var(--color-white);
-                    height: 150%;
-                    width: 15vw;
-                    color: var(--color-white);
-                    padding-left: 2.2vw;
-                    outline: none;
-
-                    /* CONTENIDO DE LA CAJA */
-                    &::placeholder{
-                        color: var(--color-white);
-                        font-size: 1.9vh;
+                            & .puntuacion {
+                                font-size: 1.4em;
+                            }
+                        }
                     }
                 }
-
-                /* BOTON PARA ENVIAR CORREO A MYLOOK */
-                .btnPromocion{
-                    background-color: transparent;
-                    border: 1px solid var(--color-white);
-                    color: var(--color-white);
-                    height: 130%;
-                    width: 4vw;
-                    border-radius: 2%;
-                    cursor: pointer;
-                    transition: 1s;
-                    margin-left: 1vw;
-                }
             }
+        }
+    }
 
-            /* NOTA IMPORTANTE DE CORREO DE PROMOCIONES */
-            .notaForm{
-                width: 90%;
-                padding-top: 3vh;  
+    & .establecimientos-destacados {
+        gap: 2em;
+        padding: 2em 3em;
 
-                /* TEXTO DE LA NOTA */
-                .nota{
-                    font-size: .8vw;
+        & .titulo-seccion {
+            font-size: 1.7em;
+        }
+
+        & .contenedor-imagenes-destacado {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 3em;
+            gap: 2em;
+        }
+
+        & .card-destacado {
+            max-width: 18em;
+            height: 300px;
+        }
+
+        & .card-destacado:nth-child(1) {
+            order: 2;
+            /* El primer hijo pasa a ser el segundo */
+        }
+
+        & .card-destacado:nth-child(2) {
+            transform: translateY(0px);
+            /* Sube la tarjeta del medio */
+            order: 1;
+        }
+
+        & .card-destacado:nth-child(3) {
+            order: 3;
+            /* El primer hijo pasa a ser el segundo */
+        }
+
+        & .card-destacado:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0em .4em 1em rgba(0, 0, 0, 0.3);
+        }
+    }
+
+}
+
+/* Ajustes para móviles pequeños */
+@media (max-width: 480px) {
+    main {
+        display: grid;
+        gap: 1em;
+
+        & .contenedor-carrusel {
+            & .carrusel {
+                padding: 2.5em 0em 0em 0em;
+
+                & .elemento-carrusel {
+                    width: 100%;
+
+                    & .contenido-elemento {
+                        padding: 1em;
+
+                        & .imagen-perfil {
+                            height: 7em;
+                            width: 7em;
+
+                            & img {
+                                height: 7em;
+                                width: 7em;
+                            }
+                        }
+                    }
+
+                    & .imagen-perfil {
+                        height: 8em;
+                        width: 8em;
+                    }
                 }
             }
         }
 
-        /* INFO UNO CONTIENE LA INFO DE TERMINOS Y CONDICIONES */
-        .infoUno{ 
-            border-right: 1px solid var(--color-white);
+        & .establecimientos-recomendados {
+            padding: 1em;
+
+            & .titulo-seccion {
+                font-size: 1.4em;
+            }
+
+            & .contenedor-establecimientos {
+                gap: 2em;
+
+                & .carta-establecimiento {
+                    max-width: 16em;
+
+                    & .contenedor-informacion {
+
+                        /* Hace que la información crezca ocupando el espacio disponible */
+                        & .informacion {
+                            & .nombre-descripcion {
+                                font-size: 0.9em;
+
+                                & h2 {
+                                    font-size: 1.2em;
+                                }
+
+                                & p {
+                                    font-size: 0.9em;
+                                    -webkit-line-clamp: 3;
+                                }
+                            }
+
+                            & .servicios {
+                                & h3 {
+                                    font-size: 1.2em;
+                                }
+
+                                & ul {
+                                    -webkit-line-clamp: 3;
+
+                                    & li {
+                                        font-size: 0.9em;
+                                    }
+                                }
+
+                                & .puntuacion {
+                                    margin-top: auto;
+                                    font-size: 1.3em;
+                                    color: var(--color-primary);
+                                }
+                            }
+                        }
+
+                        & .contenedor-boton-agendar {
+                            margin-top: auto;
+                            text-align: center;
+                            padding: 0.5em;
+                        }
+
+                        & .boton-agendar {
+                            padding: 0.2em 1em;
+                            border: none;
+                            border-radius: .3em;
+                            font-size: 1em;
+                        }
+                    }
+                }
+            }
         }
 
-        /* INFORMACION QUE CONTIENE LA INFO DEL FORMULARIO DE PROMOCIONES */
-        .infoTres{
-            border-left: 1px solid var(--color-white);
+        & .establecimientos-destacados {
+            & .titulo-seccion {
+                font-size: 1.4em;
+            }
+
+            & .contenedor-imagenes-destacado {
+                padding-top: 0em;
+            }
+
+            & .card-destacado {
+                max-width: 16em;
+                height: 250px;
+            }
         }
     }
 }

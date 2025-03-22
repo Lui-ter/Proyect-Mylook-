@@ -1,332 +1,387 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet"  href="{{ asset('Css/Index/indexUsuario.css') }}">
-    <title>Servicios a Tu Alcance: Barberías y Más</title>
+    <link rel="stylesheet" href="{{ asset('Css/Index/indexUsuario.css') }}">
+    <title>Usuario bienvenida</title>
 </head>
+
 <body>
-    
+    {{-- importamos el componente header --}}
+    <x-header tipo="usuario" />
 
-    <!-- SECCION DE IMAGEN DE PUBLICIDAD DE ESTABLECIMIENTOS -->
-    <section class="sectionPublicidad">
+    <main>
+        {{-- seccion dedicada a el carrusel --}}
+        <section class="contenedor-carrusel">
+        {{-- contenedor dedicado a el contenido de carrusel --}}
+            <div class="carrusel">
+                {{-- elementos de el carrusel --}}
+                <article class="elemento-carrusel activo"
+                    style="background-image: url('https://img.freepik.com/foto-gratis/sillas-vintage-peluqueria_155003-10150.jpg?t=st=1741447697~exp=1741451297~hmac=01d30b991787161b9275570c9079ef23f665daf1e5feb8ccd7e2139910268521&w=1060');">
+                    <span class="etiquet-categoria">BARBERÍA</span>
+                    <div class="contenido-elemento">
+                        <div class="informacion-establecimiento">
+                            <h2 class="titulo-establecimiento">
+                                {{ $mejoresEstablecimientos['0']['nombre_establc'] }}
+                            </h2>
+                            <p class="descripcion-establecimiento">
+                                {{ $mejoresEstablecimientos['0']['desc_establc'] }}
+                            </p>
+                            <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                @csrf
+                                <button class="boton-agendar">
+                                    <div class="icono">
+                                        <img width="100" height="100"
+                                            src="https://img.icons8.com/ios-filled/100/FFFFFF/event-accepted-tentatively.png"
+                                            alt="event-accepted-tentatively" />
+                                    </div>
+                                    <span>AGENDAR</span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="imagen-perfil">
+                            <img src="https://d1yjjnpx0p53s8.cloudfront.net/logotipo-imperio-barberia-vector1.png"
+                                alt="Logo Imperio Barber" />
+                        </div>
+                    </div>
+                </article>
 
-        <!-- MENU DE NAVEGACION DEL USUARIO CON RESPECTO A SU INDEX -->
-        <nav class="menuUsuario">
+                <article class="elemento-carrusel"
+                    style="
+              background-image: url('https://img.freepik.com/foto-gratis/dormitorio-lujo-iluminado-lampara-electrica-moderna-generada-ia_188544-28185.jpg?t=st=1741447790~exp=1741451390~hmac=2eb7e310de63b49725389716fd4417e4020247b2ccd332e2e81854e805b3b360&w=1380');
+            ">
+                    <span class="etiquet-categoria">SPA</span>
+                    <div class="contenido-elemento">
+                        <div class="informacion-establecimiento">
+                            <h2 class="titulo-establecimiento">
+                                {{ $mejoresEstablecimientos['0']['nombre_establc'] }}
+                            </h2>
+                            <p class="descripcion-establecimiento">
+                                {{ $mejoresEstablecimientos['0']['desc_establc'] }}
+                            </p>
+                            <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                @csrf
+                                <button class="boton-agendar">
+                                    <div class="icono">
+                                        <img width="100" height="100"
+                                            src="https://img.icons8.com/ios-filled/100/FFFFFF/event-accepted-tentatively.png"
+                                            alt="event-accepted-tentatively" />
+                                    </div>
+                                    <span>AGENDAR</span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="imagen-perfil">
+                            <img src="https://images-platform.99static.com//LvpAAksYSeeAr56uOhIFeQi3aMk=/306x0:1095x789/fit-in/590x590/projects-files/18/1828/182859/eb7ab1b9-dd87-fa5a-50f0-7258213d7335.png"
+                                alt="Logo Imperio Barber" />
+                        </div>
+                    </div>
+                </article>
 
-            <h1 class="nomApp">MYLOOK</h1>
-
-            <ul class="menuNav">
-                <li>
-                    <button type="submit" class="optionNav btnInicio">Inicio</button>
-                    <button type="submit" class="optionNav">Ranking</button>
-                    <button type="submit" class="optionNav">Ubicaciones</button>
-                    <button type="submit" class="optionNav">Sitios</button>
-                    <img src="" alt="" class="imgPerfil">
-
-                </li>
-            </ul>
-        </nav>
-
-        <!--CONTENEDOR IMAGEN DE PUBLICIDAD DE ESTABLECIMIENTOS -->
-        <figure class="imgEstablecimientos">
-            <img src="https://st2.depositphotos.com/1001094/8449/i/450/depositphotos_84497136-stock-photo-barber-shop-in-amsterdam.jpg" alt="" class="imgPublicitaria">
-
-            <div class="infoimgPublicitarias">
-                <h2 class="nomSitio">BARBERIA IMPERIO BARBER</h2>
-
-                <span class="redirectFormAgendamiento">
-                    <p class="redirectTittle">Agendar</p>
-                    <i class="fas fa-sign-out-alt"></i>
-                </span>
+                <article class="elemento-carrusel"
+                    style="
+              background: url('https://img.freepik.com/foto-gratis/productos-maquillaje-espacio-copia_23-2148598505.jpg?t=st=1741448694~exp=1741452294~hmac=ab30b85005bc1184b3c21535d49f7c2d3e790ea54f0940bc1f097bb32d3ea733&w=1380');
+            ">
+                    <span class="etiquet-categoria">BARBERÍA</span>
+                    <div class="contenido-elemento">
+                        <div class="informacion-establecimiento">
+                            <h2 class="titulo-establecimiento">
+                                {{ $mejoresEstablecimientos['0']['nombre_establc'] }}
+                            </h2>
+                            <p class="descripcion-establecimiento">
+                                {{ $mejoresEstablecimientos['0']['desc_establc'] }}
+                            </p>
+                            <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                @csrf
+                                <button class="boton-agendar">
+                                    <div class="icono">
+                                        <img width="100" height="100"
+                                            src="https://img.icons8.com/ios-filled/100/FFFFFF/event-accepted-tentatively.png"
+                                            alt="event-accepted-tentatively" />
+                                    </div>
+                                    <span>AGENDAR</span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="imagen-perfil">
+                            <img src="https://cdn.create.vista.com/downloads/dcdd47d4-f1f8-4dc0-83c8-1b3ff3a23a46_1024.jpeg"
+                                alt="Logo Imperio Barber" />
+                        </div>
+                    </div>
+                </article>
             </div>
-        </figure>
+            {{-- boton de la izquierda que para ir a el elemento anterior --}}
+            <button class="boton-navegacion boton-anterior">
+                <i class="fa-solid fa-caret-left"></i>
+            </button>
+            {{-- boton de la derechaque para ir a el elemento siguiente --}}
+            <button class="boton-navegacion boton-siguiente">
+                <i class="fa-solid fa-caret-right"></i>
+            </button>
+        </section>
 
-    </section>
+        {{-- seccion dedicada a los establecimientos recomendados --}}
+        <section class="establecimientos-recomendados">
+            <h2 class="titulo-seccion">ESTABLECIMIENTOS RECOMENDADOS</h2>
+            <div class="contenedor-establecimientos">
+                {{-- elementos de cada establecimiento --}}
+                <article class="carta-establecimiento">
+                    <img src="https://cdn.create.vista.com/downloads/dcdd47d4-f1f8-4dc0-83c8-1b3ff3a23a46_1024.jpeg"
+                        alt="Imagen del establecimiento" />
 
-     <!-- SECCION DE ESTABLECIMIENTOS DE MYLOOK -->
-     <section class="sectionEstablecimiento">
+                    <div class="contenedor-informacion">
+                        <div class="informacion">
+                            <div class="nombre-descripcion">
+                                <h2>{{ $mejoresEstablecimientos['0']['nombre_establc'] }}</h2>
+                                <p>{{ $mejoresEstablecimientos['0']['desc_establc'] }}</p>
+                            </div>
+                            <div class="servicios">
+                                <h3>SERVICIOS</h3>
+                                <ul>
+                                    <li>Sombras</li>
+                                    <li>Makeups</li>
+                                    <li>SkinCare</li>
+                                    <li>Peinados</li>
+                                </ul>
+                                <div class="puntuacion">★★★★★</div>
+                            </div>
+                        </div>
 
-        <!-- TEXTO DE ESTABLECIMIENTOS DE MYLOOK -->
-        <aside class="txtEstablecimiento">
+                        <div class="contenedor-boton-agendar">
+                            <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                @csrf
+                                <button class="boton-agendar"
+                                    value="{{ $mejoresEstablecimientos['0']['id_establc'] }}">
+                                    AGENDAR
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
 
-            <!-- TITULO DE ESTABLECIMIENTOS DE MYLOOK -->
-            <h2 class="titleEstablecimiento">ESTABLECIMIENTOS DESTACADOS DE LA SEMANA</h2>
+                <article class="carta-establecimiento">
+                    <img src="https://d1yjjnpx0p53s8.cloudfront.net/logotipo-imperio-barberia-vector1.png"
+                        alt="Imagen del establecimiento" />
 
-        </aside>
+                    <div class="contenedor-informacion">
+                        <div class="informacion">
+                            <div class="nombre-descripcion">
+                                <h2>{{ $mejoresEstablecimientos['1']['nombre_establc'] }}</h2>
+                                <p>{{ $mejoresEstablecimientos['1']['desc_establc'] }}</p>
+                            </div>
+                            <div class="servicios">
+                                <h3>SERVICIOS</h3>
+                                <ul>
+                                    <li>Degradados</li>
+                                    <li>Dibujos</li>
+                                    <li>Barba</li>
+                                    <li>Cejas</li>
+                                </ul>
+                                <div class="puntuacion">★★★★★</div>
+                            </div>
+                        </div>
 
-        <!-- IMAGEN DE ESTABLECIMIENTOS DE MYLOOK -->
-        <figure class="imgEstablecimiento">
+                        <div class="contenedor-boton-agendar">
+                            <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                @csrf
+                                <button class="boton-agendar"
+                                    value="{{ $mejoresEstablecimientos['1']['id_establc'] }}">
+                                    AGENDAR
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
 
-            <!-- ESTABLECIMIENTO QUE OFRECE MYLOOK -->
-            <article class="topEstablecimiento topDos">
-                <figure class="containerTop">
-                    <img src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/348774653/original/1799571194ddb4cc4fce4e5c0af847fd8a27935b/make-outstanding-barber-and-barber-shop-logo-design.jpg" alt="" class="imgTopEtablecimiento">
-                </figure>
-                <span class="nomTopEstablecimiento">
-                    <p class="nomUnitedTop">{{$mejoresEstablecimientos['0']['nombre_establc']}}</p>
-                </span>
-            </article>
+                <article class="carta-establecimiento">
+                    <img src="https://images-platform.99static.com//LvpAAksYSeeAr56uOhIFeQi3aMk=/306x0:1095x789/fit-in/590x590/projects-files/18/1828/182859/eb7ab1b9-dd87-fa5a-50f0-7258213d7335.png"
+                        alt="Imagen del establecimiento" />
 
-            <!-- ESTABLECIMIENTO QUE OFRECE MYLOOK -->
-            <article class="topEstablecimiento">
-                <figure class="containerTop">
-                    <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/barbershop-logo-design-template-8e21faf7c4ea8c885887247621683517_screen.jpg?ts=1640535757" alt="" class="imgTopEtablecimiento">
-                </figure>
-                <span class="nomTopEstablecimiento">
-                    <p class="nomUnitedTop">{{$mejoresEstablecimientos['0']['nombre_establc']}}</p>
-                </span>
-            </article>
+                    <div class="contenedor-informacion">
+                        <div class="informacion">
+                            <div class="nombre-descripcion">
+                                <h2>{{ $mejoresEstablecimientos['0']['nombre_establc'] }}</h2>
+                                <p>{{ $mejoresEstablecimientos['0']['desc_establc'] }}</p>
+                            </div>
+                            <div class="servicios">
+                                <div class="especialidades">
+                                    <h3>SERVICIOS</h3>
+                                    <ul>
+                                        <li>Masajes</li>
+                                        <li>tratamientos</li>
+                                        <li>lavados</li>
+                                    </ul>
+                                </div>
+                                <div class="puntuacion">★★★★★</div>
+                            </div>
+                        </div>
 
-            <!-- ESTABLECIMIENTO QUE OFRECE MYLOOK -->
-            <article class="topEstablecimiento topTres">
-                <figure class="containerTop">
-                    <img src="https://i.pinimg.com/474x/66/2f/7e/662f7e2e139adf567b55dc8e297d7923.jpg" alt="" class="imgTopEtablecimiento">
-                </figure>
-                <span class="nomTopEstablecimiento">
-                    <p class="nomUnitedTop">{{$mejoresEstablecimientos['0']['nombre_establc']}}</p>
-                </span>
-            </article>
+                        <div class="contenedor-boton-agendar">
+                            <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                @csrf
+                                <button class="boton-agendar"
+                                    value="{{ $mejoresEstablecimientos['0']['id_establc'] }}">
+                                    AGENDAR
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
 
-        </figure>
+                <article class="carta-establecimiento">
+                    <img src="https://cdn.create.vista.com/downloads/dcdd47d4-f1f8-4dc0-83c8-1b3ff3a23a46_1024.jpeg"
+                        alt="Imagen del establecimiento" />
 
-    </section>
+                    <div class="contenedor-informacion">
+                        <div class="informacion">
+                            <div class="nombre-descripcion">
+                                <h2>{{ $mejoresEstablecimientos['0']['nombre_establc'] }}</h2>
+                                <p>{{ $mejoresEstablecimientos['0']['desc_establc'] }}</p>
+                            </div>
+                            <div class="servicios">
+                                <h3>SERVICIOS</h3>
+                                <ul>
+                                    <li>Sombras</li>
+                                    <li>Makeups</li>
+                                    <li>SkinCare</li>
+                                    <li>Peinados</li>
+                                </ul>
+                                <div class="puntuacion">★★★★★</div>
+                            </div>
+                        </div>
 
-    <!-- SECCION DE MAPA CERCA DE TI DE LOS ESTABLECIMIENTOS REGISTRADOS -->
-     <section class="sectionMap">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d63720.60039235785!2d-76.54643069551547!3d3.4619162842641145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sbarberias!5e0!3m2!1ses!2sco!4v1735202368021!5m2!1ses!2sco" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>     
-     </section>
+                        <div class="contenedor-boton-agendar">
+                            <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                @csrf
+                                <button class="boton-agendar"
+                                    value="{{ $mejoresEstablecimientos['0']['id_establc'] }}">
+                                    AGENDAR
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
 
-    <!-- SECCION DE ESTABLECMIMIENTOS REGISTRADOS EN EL SISTEMA -->
-     <section class="sectionEstablecimientos">
+                <article class="carta-establecimiento">
+                    <img src="https://d1yjjnpx0p53s8.cloudfront.net/logotipo-imperio-barberia-vector1.png"
+                        alt="Imagen del establecimiento" />
 
-        <span class="tittleEstablecimientos">
+                    <div class="contenedor-informacion">
+                        <div class="informacion">
+                            <div class="nombre-descripcion">
+                                <h2>{{ $mejoresEstablecimientos['1']['nombre_establc'] }}</h2>
+                                <p>{{ $mejoresEstablecimientos['1']['desc_establc'] }}</p>
+                            </div>
+                            <div class="servicios">
+                                <h3>SERVICIOS</h3>
+                                <ul>
+                                    <li>Degradados</li>
+                                    <li>Dibujos</li>
+                                    <li>Barba</li>
+                                    <li>Cejas</li>
+                                </ul>
+                                <div class="puntuacion">★★★★★</div>
+                            </div>
+                        </div>
 
-            <h3 class="tittle">ESTABLECIMIENTOS RECOMENDADOS</h3>
+                        <div class="contenedor-boton-agendar">
+                            <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                @csrf
+                                <button class="boton-agendar"
+                                    value="{{ $mejoresEstablecimientos['1']['id_establc'] }}">
+                                    AGENDAR
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
 
-            <div class="barShearch">
-                <i class="fas fa-search"></i>
-                <input type="text" name="search" id="search" placeholder="Buscar establecimiento..." class="inputSearch">
+                <article class="carta-establecimiento">
+                    <img src="https://images-platform.99static.com//LvpAAksYSeeAr56uOhIFeQi3aMk=/306x0:1095x789/fit-in/590x590/projects-files/18/1828/182859/eb7ab1b9-dd87-fa5a-50f0-7258213d7335.png"
+                        alt="Imagen del establecimiento" />
+
+                    <div class="contenedor-informacion">
+                        <div class="informacion">
+                            <div class="nombre-descripcion">
+                                <h2>{{ $mejoresEstablecimientos['0']['nombre_establc'] }}</h2>
+                                <p>{{ $mejoresEstablecimientos['0']['desc_establc'] }}</p>
+                            </div>
+                            <div class="servicios">
+                                <div class="especialidades">
+                                    <h3>SERVICIOS</h3>
+                                    <ul>
+                                        <li>Masajes</li>
+                                        <li>tratamientos</li>
+                                        <li>lavados</li>
+                                    </ul>
+                                </div>
+                                <div class="puntuacion">★★★★★</div>
+                            </div>
+                        </div>
+
+                        <div class="contenedor-boton-agendar">
+                            <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                @csrf
+                                <button class="boton-agendar"
+                                    value="{{ $mejoresEstablecimientos['0']['id_establc'] }}">
+                                    AGENDAR
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
             </div>
-        </span>
+        </section>
 
-        <!-- CONTENEDOR PADRE DE LOS ESTABLECIMIENTOS A MOSTRAR EN MYLOOK -->
-        <figure class="containerEstablecimiento">
 
-            <!-- ESTABLECIMIENTOS REGISTRADO EN MYLOOK -->
-            <article class="establecimientosUnited">
-                <img src="" alt="" class="allEstablecimiento">
-                <span class="infoEstablecimiento">
+        <!-- Sección dedicada a los mejores establecimientos de la semana -->
+        <section class="establecimientos-destacados" id="top">
 
-                    <aside class="infoBasica">
+            <h3 class="titulo-seccion">ESTABLECIMIENTOS DESTACADOS</h3>
 
-                        <h2 class="nomEstablecimiento">{{$mejoresEstablecimientos['0']['nombre_establc']}}</h2>
-                        <P class="sloganEstablecimiento">{{$mejoresEstablecimientos['0']['desc_establc']}}
-                        </P>
-                    </aside>
+            <div class="contenedor-imagenes-destacado">
+                <!-- Contenedor que agrupa las tarjetas de los establecimientos destacados -->
 
-                    <div class="infoEspecialidades">
-                        <h3 class="especialidadesEstablecimiento">ESPECIALIDADES</h3>
-
-                        <span class="especialidadEstablecimiento">
-                            <P class="infoEspacialidad">Cortes</P>
-                            <P class="infoEspacialidad">Manicure</P>
-                            <P class="infoEspacialidad">Spa</P>
-                        </span>
-
-                        <figure class="startValoracion">
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                        </figure>
+                <!-- Tarjeta del establecimiento "top 2" -->
+                <div class="card-destacado">
+                    <img src="https://vanidosasalamoda.cl/cdn/shop/files/Diseno_sin_titulo-4.png?height=628&pad_color=ffffff&v=1679602912&width=1200"
+                        alt="top 2" class="destacado-imagen" />
+                    <div class="nombre-posicion">
+                        <h4>{{ $mejoresEstablecimientos['1']['nombre_establc'] }}</h4>
+                        <img src="https://img.icons8.com/wired/64/FFFFFF/2-circle.png" alt="Puesto número 2" />
                     </div>
+                </div>
 
-                </span>
-                <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}">AGENDAR</button>
-            </article>
-
-               <!-- ESTABLECIMIENTOS REGISTRADO EN MYLOOK -->
-               <article class="establecimientosUnited">
-                <img src="" alt="" class="allEstablecimiento">
-                <span class="infoEstablecimiento">
-
-                    <aside class="infoBasica">
-
-                        <h2 class="nomEstablecimiento">{{$mejoresEstablecimientos['0']['nombre_establc']}}</h2>
-                        <P class="sloganEstablecimiento">{{$mejoresEstablecimientos['0']['desc_establc']}}
-                        </P>
-                    </aside>
-
-                    <div class="infoEspecialidades">
-                        <h3 class="especialidadesEstablecimiento">ESPECIALIDADES</h3>
-
-                        <span class="especialidadEstablecimiento">
-                            <P class="infoEspacialidad">Cortes</P>
-                            <P class="infoEspacialidad">Manicure</P>
-                            <P class="infoEspacialidad">Spa</P>
-                        </span>
-
-                        <figure class="startValoracion">
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                        </figure>
+                <!-- Tarjeta del establecimiento top 1-->
+                <div class="card-destacado">
+                    <img src="https://d1yjjnpx0p53s8.cloudfront.net/logotipo-imperio-barberia-vector1.png"
+                        alt="top 1" class="destacado-imagen" />
+                    <div class="nombre-posicion">
+                        <h4>{{ $mejoresEstablecimientos['0']['nombre_establc'] }}</h4>
+                        <img src="https://img.icons8.com/wired/64/FFFFFF/1-circle.png" alt="Puesto número 1" />
                     </div>
+                </div>
 
-                </span>
-                <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}">AGENDAR</button>
-            </article>
-
-               <!-- ESTABLECIMIENTOS REGISTRADO EN MYLOOK -->
-               <article class="establecimientosUnited">
-                <img src="" alt="" class="allEstablecimiento">
-                <span class="infoEstablecimiento">
-
-                    <aside class="infoBasica">
-
-                        <h2 class="nomEstablecimiento">{{$mejoresEstablecimientos['0']['nombre_establc']}}</h2>
-                        <P class="sloganEstablecimiento">{{$mejoresEstablecimientos['0']['desc_establc']}}
-                        </P>
-                    </aside>
-
-                    <div class="infoEspecialidades">
-                        <h3 class="especialidadesEstablecimiento">ESPECIALIDADES</h3>
-
-                        <span class="especialidadEstablecimiento">
-                            <P class="infoEspacialidad">Cortes</P>
-                            <P class="infoEspacialidad">Manicure</P>
-                            <P class="infoEspacialidad">Spa</P>
-                        </span>
-
-                        <figure class="startValoracion">
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                        </figure>
+                <!-- Tarjeta del establecimiento top 3 -->
+                <div class="card-destacado">
+                    <img src="https://img.freepik.com/vector-premium/plantilla-vectorial-diseno-logotipo-marca-real-lujo_441059-968.jpg?semt=ais_hybrid"
+                        alt="top 3" class="destacado-imagen" />
+                    <div class="nombre-posicion">
+                        <h4>{{ $mejoresEstablecimientos['0']['nombre_establc'] }}</h4>
+                        <img src="https://img.icons8.com/wired/64/FFFFFF/3-circle--v1.png" alt="Puesto número 3" />
                     </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-                </span>
-                <form action="{{ url('/usuarios/agendar') }}" method="GET">
-                    @csrf
-                    <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}" name="id_establecimiento">AGENDAR</button>
-                </form>
+    {{-- importamos el componente del footer --}}
+    <x-footer />
 
-            </article>
-
-               <!-- ESTABLECIMIENTOS REGISTRADO EN MYLOOK -->
-               <article class="establecimientosUnited">
-                <img src="" alt="" class="allEstablecimiento">
-                <span class="infoEstablecimiento">
-
-                    <aside class="infoBasica">
-
-                        <h2 class="nomEstablecimiento">{{$mejoresEstablecimientos['0']['nombre_establc']}}</h2>
-                        <P class="sloganEstablecimiento">{{$mejoresEstablecimientos['0']['desc_establc']}}
-                        </P>
-                    </aside>
-
-                    <div class="infoEspecialidades">
-                        <h3 class="especialidadesEstablecimiento">ESPECIALIDADES</h3>
-
-                        <span class="especialidadEstablecimiento">
-                            <P class="infoEspacialidad">Cortes</P>
-                            <P class="infoEspacialidad">Manicure</P>
-                            <P class="infoEspacialidad">Spa</P>
-                        </span>
-
-                        <figure class="startValoracion">
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                            <i class="far fa-star"></i> <!-- Estrella vacía -->
-                        </figure>
-                    </div>
-
-                </span>
-                <button type="submit" class="btnAgenda" value="{{$mejoresEstablecimientos['0']['id_establc']}}">AGENDAR</button>
-            </article>
-            
-         
- 
-        </figure>
-
-     </section>
-
-    <!-- SECCION FOOTER DE MYLOOK -->
-    <section class="sectionFooter">
-
-        <!-- SECCION DE FOOTER SOBRE NOSOTROS -->
-        <article class="infoFooter infoUno">
-
-            <span class="infoSTA">
-                <h3 class="tittleNosotros">Sobre Nosotros</h3>
-                <p class="descrip">¿ Quienes somos ?</p>
-                <p class="descrip">Contactanos</p>
-                <p class="descrip">Centro de ayuda</p>
-
-                <span class="socialMediaFooter">
-                    <!-- Icono Facebook -->
-                    <i class="fab fa-facebook-f social-icon"></i>
-
-                    <!-- Icono WhatsApp -->
-                    <i class="fab fa-whatsapp social-icon"></i>
-
-                    <!-- Icono YouTube -->
-                    <i class="fab fa-youtube social-icon"></i>
-
-                    <!-- Icono Twitter -->
-                    <i class="fab fa-twitter social-icon"></i>
-
-                    <!-- Icono Instagram -->
-                    <i class="fab fa-instagram social-icon"></i>
-                </span>
-            </span>
-        </article>
-
-        <!-- SECCION DE FOOTER LOGO DE DESARROLLADORES -->
-        <article class="infoFooter">
-
-            <span class="infoSTA infoMedio">
-                <i class="fas fa-lightbulb"></i>
-                <h3 class="tittleDesarrollo">STA</h3>
-            </span>
-        </article>
-
-        <!-- SECCION DE FOOTER SOBRE CONTACTANOS -->
-        <article class="infoFooter infoTres">
-
-            <span class="infoSTA">
-
-                <!-- FORMULARIO DE INSERCCION DE INFORMACION SOBRE ACTUALIZACIONES DE MYLOOK -->
-                <form action="" method="post" class="formPromocion">
-
-                     <!-- Icono Correo -->
-                     <i class="fas fa-envelope"></i>   
-                    <input type="email" name="emailPromocion" id="email" placeholder="Ingresa tu correo..." class="inputPromocion"> 
-                    <button type="submit" class="btnPromocion">Enviar</button>           
-                </form>
-
-                <!-- NOTA QUE EXPLICA QUE HACE EL FORMULARIO DE ARRIBA -->
-                <span class="notaForm">
-                    <p class="nota"><strong>Nota: </strong>La inscripcion del correo sera beneficioso para saber todos los detalles de nuestras futuras actualizaciones
-                    
-                    </p>
-                </span>
-            </span>
-        </article>
-
-    </section>
-
-    <!-- ------------------------------------------------------------------------------------------------------------ -->
-
+    <script src="/Js/index/indexUsuario.js"></script>
 </body>
+
 </html>
