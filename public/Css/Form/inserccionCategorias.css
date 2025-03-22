@@ -1,0 +1,268 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  padding: 20px;
+}
+main{
+  padding:1em 5em;
+}
+.titulo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.titulo1 {
+  font-size: 2rem;
+  color: #a68160;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.texto {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #333;
+}
+
+.formularioCategoria {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+}
+/* .formulario{
+  height:;
+} */
+.contenedorPadre {
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.nombreCategoria {
+  font-size: 1rem;
+  color: #a68160;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 1em;
+}
+
+
+.nombreInput, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  background-color: #f2f2f2;
+  border: none;
+  outline: none;
+}
+
+.nombreInput + textarea:focus {
+  border: 1px solid #a68160;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.labelImagen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+}
+
+.subirImagen {
+  display: none;
+}
+
+.botones {
+  display: flex;
+  justify-content: space-between;
+}
+
+.guardar, .cancelar {
+  padding: 10px 15px;
+  width: 48%;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+.guardar {
+  background-color: #a68160;
+  color: white;
+  border: none;
+}
+
+.cancelar {
+  background-color: white;
+  color: #a68160;
+  border: 1px solid #a68160;
+}
+
+
+.contenedorVisualizacion {
+  background: #a68160;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 35em;
+  text-align: center;
+  height: 85%;
+  overflow-wrap: break-word;
+}
+
+.titulo2 {
+  font-size: 1.5rem;
+  color: #a68160;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.titulo3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#imagenCategoria {
+  width: 10em;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5%;
+  margin: 10px auto;
+  display: block;
+}
+
+.texto2 {
+  font-size: 1rem;
+  color: #ffffff;
+  text-align: justify;
+  margin-top: 5%;
+  word-wrap: break-word;
+}
+
+ @media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  main {
+    padding: 1em;
+  }
+
+  .titulo1 {
+    font-size: 1.5rem;
+  }
+
+  .texto {
+    font-size: 1rem;
+  }
+
+  .formularioCategoria {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .nombreCategoria {
+    font-size: 0.9rem;
+  }
+
+  .nombreInput, textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  textarea {
+    height: 80px;
+    max-width: 100%;
+    width: 100%;
+    overflow-y: auto;
+    resize: vertical;
+    word-wrap: break-word;
+  }
+
+  
+  .labelImagen {
+    padding: 8px;
+  }
+
+  .botones {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .guardar, .cancelar {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .contenedorVisualizacion {
+    padding: 15px;
+    height: 85%;
+    width: 100%;
+    max-width: 26em;
+    overflow: auto;
+    box-sizing: border-box;
+    word-wrap: break-word;
+  }
+
+  .titulo2 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .titulo3 {
+    font-size: 1rem;
+  }
+
+  #imagenCategoria {
+    width: 8em;
+    height: 6em;
+    display: block;
+    margin: 0 auto 10px auto;
+  }
+
+  .texto2 {
+    word-wrap: break-word;
+    font-size: 0.9rem;
+    margin-top: 3%;
+    overflow-wrap: break-word;
+    max-width: 90%;
+  }
+
+ }
