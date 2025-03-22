@@ -4,97 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('Css/Insercciones/inserccionProductos.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <title>{{$modeValidator == 1 ? 'Editar Producto | Nombre Establecimiento':'Agregar Producto - MyLook'}}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>{{ isset($producto) ? 'Editar Producto | MyLook' : 'Agregar Producto - MyLook' }}</title>
 </head>
 <body>
-
-    <!-- SECCION DE TODO -->
-    <section class="formProductos">
-
-        <!-- ENCABEZADO -->
-        <article class="encabezado">
-            <h2 class="tittle">INFORMACION DE PRODUCTOS</h2>
-        </article>
+    <main>
 
         <!-- FORMULARIO -->
-        <form action="{{ $modeValidator == 1 
-        ? route('updateProduct', ['id' => $producto['id_prod']]) 
-        : route('registerProduct') }}" method="post" enctype="multipart/form-data" class="formulario">
-        @csrf
-        @method($modeValidator == 1 ? 'PUT' : 'POST')
-            <!-- CONTENEDOR 1 - INPUTs -->
-            <div class="cont1">
+        <form action="{{ isset($producto) ? route('updateProduct', ['id' => $producto->id]) : route('registerProduct') }}" 
+              method="POST" enctype="multipart/form-data" class="formulario-productos">
+            @csrf
+            @if(isset($producto))
+                @method('PUT')
+            @endif
 
-                <div class="inputs">
-                    <label for="" class="inputLabel">Nombre del producto</label>
-                    <input type="text" class="camposInput" name="nombre" value="{{$producto['nombre_prod'] ?? ''}}">
+            <!-- CONTENEDOR PREVISUALIZACIÓN -->
+            <div class="contenedor-carta">
 
-                    <label for="" class="inputLabel">Marca del producto</label>
-                    <input type="text" class="camposInput" name="marca" value="{{$producto['nom_marca'] ?? ''}}">
-
-                <div class="inputImg">
-                    <label for="img" class="imgLabel">Seleccionar imagen</label>
-                    <input type="file" class="camposInput imgInput" id="img" name="imagen">
-                </div>         
-                
-                    <label for="" class="inputLabel">Descripción</label>
-                    <textarea class="camposInput" maxlength="150" style="height: 20%;"  name="desc" value="{{$producto['desc_prod'] ?? ''}}"></textarea>
+                <!-- CONTENEDOR DE LA IMAGEN -->
+                <div class="imagen-carta">
+                    <img id="imagenVisualizacion" src="{{ $producto->imagen ?? '' }}">
                 </div>
 
-                <!-- INPUT NUMBER -->
-                <div class="num">
-                        <div class="inputsNum">
-                            <label for="" class="inputText">Cantidad</label>
-                            <input type="number" class="inputValor" min="0" name="cantidad" value="{{$producto['stock'] ?? ''}}">
+                <!-- CONTENEDOR DETALLES -->
+                <div class="detalles-carta">
+                    <h4 id="previewNombre" class="nombre-vista">{{ $producto->nombre ?? 'NOMBRE' }}</h4>
+                    <p id="previewDescripcion" class="descripcion-vista">{{ $producto->descripcion ?? 'Descripción...' }}</p>
+                    <div class="componentes">
+                        <div class="componentes-titulos">
+                            <p class="titulo-detalles">MARCA</p>
+                            <p class="titulo-detalles">CANTIDAD</p>
+                            <p class="titulo-detalles">VALOR</p>
                         </div>
-
-                        <div class="inputsNum">
-                            <label for="" class="inputText">Valor</label>
-                            <input type="number" class="inputValor" min="0" name="valor" value="{{$producto['valor_prod'] ?? ''}}">
+                        <div class="componentes-titulos">
+                            <p class="elementos">{{ $producto->marca ?? '' }}</p>
+                            <p class="elementos">{{ $producto->cantidad ?? '' }}</p>
+                            <p class="elementos">{{ $producto->valor ?? '' }}</p>
                         </div>
-            
-                </div>
-                <!-- BOTONES -->
-                <span class="botones">
-                    <label for="" class="texto">Completa todos los campos</label>
-                    <button type="button" class="btn" id="cancelar" onclick="window.history.back();">CANCELAR</button>
-                    <button type="submit" class="btn" id="guardar">GUARDAR</button>
-                </span>
-            </div>
-
-            </div>
-
-            <!-- CONTENEDOR 2 - VISUALIZACION -->
-            <div class="cont2">
-
-                <h2 class="vista">VISUALIZACION</h2>
-
-                <!-- CONTENEDOR - TARJETA -->
-                <div class="tarjeta">
-                    <div class="imagen">
-                        <img id="vistaImg" src="{{$producto['img_prod'] ?? ''}}"
-                        style="border-radius: 10px;
-                        border: 1px solid #a68160;
-                        justify-content: center;
-                        object-fit: contain;
-                        width: 100%;
-                        height: 30vh;"> 
-                    </div>
-
-                    <!-- CONTENEDOR - DETALLES -->
-                    <div class="detalles">
-                        <h4 id="vistaNombre">Nombre</h4>
-                        <p id="vistaDesc">Descripción: </p>
                     </div>
                 </div>
             </div>
 
+            <!-- CONTENEDOR DE INSERCIÓN DE INFORMACIÓN -->
+            <div class="contenedor-informacion">
+
+                <!-- TITULO -->
+                <h2 class="titulo">INFORMACION DE PRODUCTOS</h2>
+
+                <!-- DESCRIPCIÓN BREVE SOBRE LA FUNCIÓN DEL FORMULARIO -->
+                <p class="introduccion">En este apartado podrás ingresar la información de todos tus productos</p>
+
+                <!-- CONTENEDOR DE CADA INPUT -->
+                <div class="contenedor-input">
+
+                    <!-- TITULO DE CADA INPUT -->
+                    <p class="texto-input">NOMBRE DEL PRODUCTO</p>
+
+                    <!-- INPUT NOMBRE -->
+                    <input type="text" name="nombre" class="insercion-input" id="nombreProducto" maxlength="20" value="{{ $producto->nombre ?? '' }}">
+                </div>
+
+                <!-- CONTENEDOR DOBLE COLUMNA (MARCA - IMAGEN - CANTIDAD - VALOR) -->
+                <div class="doble-columna">
+
+                    <!-- CONTENEDOR DE CADA INPUT -->
+                    <div class="contenedor-input">
+
+                        <!-- TITULO DE CADA INPUT -->
+                        <p class="texto-input">MARCA DEL PRODUCTO</p>
+
+                        <!-- INPUT MARCA -->
+                        <input type="text" name="marca" class="insercion-input" id="marcaProducto" maxlength="15" value="{{ $producto->marca ?? '' }}">
+                    </div>
+
+                    <!-- CONTENEDOR PARA INSERCION DE IMAGEN -->
+                    <div class="contenedor-foto">
+
+                        <!-- TITULO PARA IMAGEN -->
+                        <label for="insercion-imagen" class="foto-input">
+
+                            <!-- ICONO DE CAMARA -->
+                            <i class="bi bi-camera icono"></i>
+
+                            <!-- TEXTO -->
+                            <span class="texto-input imagen-input">SELECCIONA LA IMAGEN</span>
+                        </label>
+
+                        <!-- INPUT PARA LA SELECCION DE FOTO -->
+                        <input type="file" name="imagen" class="input-foto" id="insercion-imagen" accept="image/*">
+                    </div>
+
+                    <!-- CONTENEDOR DE CADA INPUT -->
+                    <div class="contenedor-input">
+
+                        <!-- TITULO DE CADA INPUT -->
+                        <p class="texto-input">CANTIDAD DEL PRODUCTO</p>
+
+                        <!-- INPUT CANTIDAD -->
+                        <input type="number" name="cantidad" class="insercion-input" id="cantidadProducto" min="0" max="100" value="{{ $producto->cantidad ?? '' }}">
+                    </div>
+
+                    <!-- CONTENEDOR DE CADA INPUT -->
+                    <div class="contenedor-input">
+
+                        <!-- TITULO DE CADA INPUT -->
+                        <p class="texto-input">VALOR DEL PRODUCTO</p>
+
+                        <!-- INPUT VALOR -->
+                        <input type="number" name="valor" class="insercion-input" id="valorProducto" min="0" max="100" value="{{ $producto->valor ?? '' }}">
+                    </div>
+                </div>
+
+                <!-- CONTENEDOR DE CADA INPUT -->
+                <div class="contenedor-input">
+
+                    <!-- TITULO DE CADA INPUT -->
+                    <p class="texto-input">DESCRIPCIÓN DEL PRODUCTO</p>
+
+                    <!-- TEXTAREA PARA DESCRIPCION -->
+                    <textarea name="descripcion" class="insercion-input" id="descripcionProducto" maxlength="100">{{ $producto->descripcion ?? '' }}</textarea>
+                </div>
+
+
+                <!-- CONTENEDOR PARA BOTONES -->
+                <div class="contenedor-botones">
+
+                    <!-- BOTON CANCELAR -->
+                    <button type="button" class="botones" id="botonCancelar" onclick="window.history.back();">CANCELAR</button>
+
+                    <!-- BOTON GUARDAR -->
+                    <button type="submit" class="botones" id="botonGuardar">GUARDAR</button>
+                </div>
+            </div>
         </form>
-
-    </section>
-
-    <script src="/Js/Insercciones/inserccionProductos.js"></script>
-    
+    </main>
+    <script src="{{ asset('Js/Insercciones/inserccionProductos.js') }}"></script>
 </body>
 </html>

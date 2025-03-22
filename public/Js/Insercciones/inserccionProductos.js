@@ -1,34 +1,41 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     /* INPUTS DEL FORMULARIO */
     const formElements = {
-        nombreProd: document.querySelector('.camposInput[type="text"]:nth-of-type(1)'),
-        imgProd: document.querySelector('.imgInput'),
-        descProducto: document.querySelector('.camposInput[placeholder="Escribe aquí..."]'),
-        formulario: document.querySelector('.formulario')
+        nombreProd: document.getElementById('nombreProducto'),
+        marcaProd: document.getElementById('marcaProducto'),
+        cantidadProd: document.getElementById('cantidadProducto'),
+        valorProd: document.getElementById('valorProducto'),
+        imgProd: document.getElementById('insercion-imagen'),
+        descProducto: document.getElementById('descripcionProducto'),
     };
 
     /* ELEMENTOS QUE SE VAN A MOSTRAR */
     const previewElements = {
-        nombreProd: document.getElementById('vistaNombre'),
-        descProducto: document.getElementById('vistaDesc'),
-        imgPreview: document.getElementById('vistaImg')
+        nombreProd: document.getElementById('previewNombre'),
+        descProducto: document.getElementById('previewDescripcion'),
+        imgPreview: document.getElementById('imagenVisualizacion'),
+        marcaProd: document.querySelector('.componentes-titulos .elementos:nth-of-type(1)'),
+        cantidadProd: document.querySelector('.componentes-titulos .elementos:nth-of-type(2)'),
+        valorProd: document.querySelector('.componentes-titulos .elementos:nth-of-type(3)')
     };
 
     /* ACTUALIZA LA VISTA */
     function actualizarVistaPrevia() {
-        previewElements.nombreProd.textContent = formElements.nombreProd.value || 'Nombre del Producto';
-        previewElements.descProducto.textContent = formElements.descProducto.value || 'Descripción: ';
+        previewElements.nombreProd.textContent = formElements.nombreProd.value || 'NOMBRE';
+        previewElements.descProducto.textContent = formElements.descProducto.value || 'Descripción...';
+        previewElements.marcaProd.textContent = formElements.marcaProd.value || '-';
+        previewElements.cantidadProd.textContent = formElements.cantidadProd.value || '-';
+        previewElements.valorProd.textContent = formElements.valorProd.value || '-';
     }
 
-    /* INPUTS DE TEXTO Y DESCRIPCIÓN */
-    [formElements.nombreProd, formElements.descProducto].forEach(element => {
+    /* ACTUALIZAR TEXTO Y DESCRIPCIÓN */
+    [formElements.nombreProd, formElements.descProducto, formElements.marcaProd, formElements.cantidadProd, formElements.valorProd].forEach(element => {
         if (element) {
             element.addEventListener('input', actualizarVistaPrevia);
         }
     });
 
-    /* VISTA PARA LA IMAGEN */
+    /* ACTUALIZAR VISTA DE LA IMAGEN */
     formElements.imgProd.addEventListener('change', function () {
         const file = formElements.imgProd.files[0];
         if (file) {
