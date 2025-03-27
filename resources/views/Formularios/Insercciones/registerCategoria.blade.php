@@ -24,7 +24,7 @@
       <article class="contenedorPadre">
         <div class="columna">
           <label for="nombreCategoria" class="nombreCategoria">Nombre de la categoría:</label>
-          <input type="text" name="nombreCategoria" class="nombreInput" id="nombreCategoria" value="{{ $categoria['nombreCategoria'] ?? '' }}"/>
+          <input type="text" name="nombreCategoria" class="nombreInput" id="nombreCategoria" maxlength="50" value="{{ $categoria['nombreCategoria'] ?? '' }}"/>
           
           <div class="inputImagen">
             <label for="imagen" class="nombreCategoria labelImagen">Subir imagen categoría:</label>
@@ -32,7 +32,7 @@
           </div>
           
           <label for="descripcion" class="nombreCategoria">Descripción de la categoría:</label>
-          <textarea name="descripcionCategoria" id="descripcion">{{$categoria['descripcionCategoria']??''}}</textarea>
+          <textarea name="descripcionCategoria" id="descripcion" maxlength="300">{{$categoria['descripcionCategoria']??''}}</textarea>
         </div>
       <!-- BOTONES DE GUARDAR Y CANCELAR (HAY ALGO POR PREGUNTAR) -->
        <div class="botones">
@@ -51,14 +51,14 @@
               <img id="imagenCategoria" src="" alt="Imagen de la categoría" style="display: none;" />
             </figure>
             <h3 class="titulo3" id="vistaNombre"></h3>
-            <p class="texto2" id="vistaDesc"></p>
+            <p class="texto2" id="vistaDescripcion"></p>
           </section>
         </div>
       </article>
     </div>
   </section>
 </main>
-    <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
+    <script src="{{ asset('Js/Formularios/PrevisualizacionCategoria.js') }}"></script>
 
   </body>
 </html>
