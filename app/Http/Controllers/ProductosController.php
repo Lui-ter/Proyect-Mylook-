@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Helpers\GlobalVariables;
+use App\Models\Establecimiento;
 
 class ProductosController extends Controller
 {
@@ -12,17 +13,24 @@ class ProductosController extends Controller
     /* LOGICA DE PRODUCTOS */
 
         public function handleAddProduct(Request $request){
-        
+            
             $nombre = $request->input('nombre');
+            $idEstablecimiento = $request->input('idEstablecimiento');
             $marca = $request->input('marca');
-            $imagen = file_get_contents($request->file('imagen')->getRealPath());
-            $desc = $request->input('desc');
+            
+            // Varible que recibe la imagen
+            $file = $request->file('imagen');
+
+            $imagen = file_get_contents($file->getRealPath()); // Convierte en binario la imagen
+            $desc = $request->input('descripcion'); 
             $cantidad = $request->input('cantidad');
             $valor = $request->input('valor');
-        
-            if (!empty($nombre) && !empty($marca) && !empty($imagen) && !empty($desc) && !empty($cantidad) && !empty($valor)) {
+
+            // Se valida si las variables se estan recibiendo para la insercción
+            if (!empty($nombre) && !empty($idEstablecimiento) && !empty($marca) && !empty($imagen) && !empty($desc) && !empty($cantidad) && !empty($valor)) {
                 
                 $product = Producto::create([
+                    'id_establc' => $idEstablecimiento,
                     'nombre_prod' => $nombre,
                     'nom_marca' => $marca,
                     'desc_prod' => $desc,
@@ -90,9 +98,11 @@ class ProductosController extends Controller
         $viewProductos = GlobalVariables::$viewProductos;
 
         if ($accion === 'editar' && $request->has('editProducto')) {
-
+            // Se recibe el id del producto
             $id = $request->input('editProducto');
+            //Encuentra el producto con su id
             $producto = Producto::where('id_prod', $id)->first();
+            // transforma la blob de la imagen para mostrarla en la vista
             $producto['img_prod'] = 'data:image/png;base64,' . base64_encode($producto['img_prod']);
             $modeValidator = 1;
             return view($viewCrudProductos, compact('producto','modeValidator'));
@@ -105,7 +115,12 @@ class ProductosController extends Controller
 
         } elseif ($accion === 'nuevo') {
             $modeValidator = 2;
-            return view($viewCrudProductos, compact('modeValidator'));
+            
+             //Se obtiene el id_negocio de la sessión
+             $idNegocio = session('id_negocio');
+             //para luego con el modelo obtenemos id_establecimiento para productos
+             $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->value('id_establc');
+             return view($viewCrudProductos, compact('idEstablecimiento'));
 
         } elseif ($accion === 'ver') {
 

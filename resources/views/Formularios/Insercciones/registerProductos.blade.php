@@ -12,7 +12,7 @@
     <main>
 
         <!-- FORMULARIO -->
-        <form action="{{ isset($producto) ? route('updateProduct', ['id' => $producto->id]) : route('registerProduct') }}" 
+        <form action="{{ isset($producto) ? route('updateProduct', ['id' => $producto->id_prod]) : route('registerProduct') }}" 
               method="POST" enctype="multipart/form-data" class="formulario-productos">
             @csrf
             @if(isset($producto))
@@ -24,13 +24,13 @@
 
                 <!-- CONTENEDOR DE LA IMAGEN -->
                 <div class="imagen-carta">
-                    <img id="imagenVisualizacion" src="{{ $producto->imagen ?? '' }}">
+                    <img id="imagenVisualizacion" src="{{ $producto->img_prod ?? '' }}">
                 </div>
 
                 <!-- CONTENEDOR DETALLES -->
                 <div class="detalles-carta">
-                    <h4 id="previewNombre" class="nombre-vista">{{ $producto->nombre ?? 'NOMBRE' }}</h4>
-                    <p id="previewDescripcion" class="descripcion-vista">{{ $producto->descripcion ?? 'Descripción...' }}</p>
+                    <h4 id="previewNombre" class="nombre-vista">{{ $producto->nombre_prod ?? 'NOMBRE' }}</h4>
+                    <p id="previewDescripcion" class="descripcion-vista">{{ $producto->desc_prod ?? 'Descripción...' }}</p>
                     <div class="componentes">
                         <div class="componentes-titulos">
                             <p class="titulo-detalles">MARCA</p>
@@ -38,9 +38,9 @@
                             <p class="titulo-detalles">VALOR</p>
                         </div>
                         <div class="componentes-titulos">
-                            <p class="elementos">{{ $producto->marca ?? '' }}</p>
-                            <p class="elementos">{{ $producto->cantidad ?? '' }}</p>
-                            <p class="elementos">{{ $producto->valor ?? '' }}</p>
+                            <p class="elementos">{{ $producto->nom_marca ?? '' }}</p>
+                            <p class="elementos">{{ $producto->stock ?? '' }}</p>
+                            <p class="elementos">{{ $producto->valor_prod ?? '' }}</p>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,12 @@
                     <p class="texto-input">NOMBRE DEL PRODUCTO</p>
 
                     <!-- INPUT NOMBRE -->
-                    <input type="text" name="nombre" class="insercion-input" id="nombreProducto" maxlength="20" value="{{ $producto->nombre ?? '' }}">
+                    <input type="text" name="nombre" class="insercion-input" id="nombreProducto" maxlength="20" value="{{ $producto->nombre_prod ?? '' }}">
+                    
+                    <!-- INPUT ID_ESTABLECIMIENTO OCULTO PARA EL INSERT -->
+                    @if(!isset($producto))
+                    <input type="hidden" name="idEstablecimiento" id="idEstablecimiento" value="{{$idEstablecimiento}} ?? ' ' ">
+                    @endif
                 </div>
 
                 <!-- CONTENEDOR DOBLE COLUMNA (MARCA - IMAGEN - CANTIDAD - VALOR) -->
@@ -75,7 +80,7 @@
                         <p class="texto-input">MARCA DEL PRODUCTO</p>
 
                         <!-- INPUT MARCA -->
-                        <input type="text" name="marca" class="insercion-input" id="marcaProducto" maxlength="15" value="{{ $producto->marca ?? '' }}">
+                        <input type="text" name="marca" class="insercion-input" id="marcaProducto" maxlength="15" value="{{ $producto->nom_marca ?? '' }}">
                     </div>
 
                     <!-- CONTENEDOR PARA INSERCION DE IMAGEN -->
@@ -102,7 +107,7 @@
                         <p class="texto-input">CANTIDAD DEL PRODUCTO</p>
 
                         <!-- INPUT CANTIDAD -->
-                        <input type="number" name="cantidad" class="insercion-input" id="cantidadProducto" min="0" max="100" value="{{ $producto->cantidad ?? '' }}">
+                        <input type="number" name="cantidad" class="insercion-input" id="cantidadProducto" min="0" max="100" value="{{ $producto->stock ?? '' }}">
                     </div>
 
                     <!-- CONTENEDOR DE CADA INPUT -->
@@ -112,7 +117,7 @@
                         <p class="texto-input">VALOR DEL PRODUCTO</p>
 
                         <!-- INPUT VALOR -->
-                        <input type="number" name="valor" class="insercion-input" id="valorProducto" min="0" max="100" value="{{ $producto->valor ?? '' }}">
+                        <input type="number" name="valor" class="insercion-input" id="valorProducto" min="0" max="100" value="{{ $producto->valor_prod ?? '' }}">
                     </div>
                 </div>
 
@@ -123,7 +128,7 @@
                     <p class="texto-input">DESCRIPCIÓN DEL PRODUCTO</p>
 
                     <!-- TEXTAREA PARA DESCRIPCION -->
-                    <textarea name="descripcion" class="insercion-input" id="descripcionProducto" maxlength="100">{{ $producto->descripcion ?? '' }}</textarea>
+                    <textarea name="descripcion" class="insercion-input" id="descripcionProducto" maxlength="100">{{ $producto->desc_prod ?? '' }}</textarea>
                 </div>
 
 

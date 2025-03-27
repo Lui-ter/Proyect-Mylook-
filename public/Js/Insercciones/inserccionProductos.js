@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /* INPUTS DEL FORMULARIO */
     const formElements = {
         nombreProd: document.getElementById('nombreProducto'),
+        idEstablecimiento: document.getElementById('idEstablecimiento'),
         marcaProd: document.getElementById('marcaProducto'),
         cantidadProd: document.getElementById('cantidadProducto'),
         valorProd: document.getElementById('valorProducto'),
