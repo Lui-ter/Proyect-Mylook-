@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const imagenInput = document.getElementById("imagen");
     
     const vistaNombre = document.getElementById("vistaNombre");
-    const vistaDesc = document.getElementById("vistaDesc");
+    const vistaDescripcion = document.getElementById("vistaDescripcion");
     const vistaImagen = document.getElementById("imagenCategoria");
   
     nombreInput.addEventListener("input", () => {
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   
     descripcionInput.addEventListener("input", () => {
-      vistaDesc.textContent = descripcionInput.value.trim();
+      vistaDescripcion.textContent = descripcionInput.value.trim();
     });
   
     imagenInput.addEventListener("change", (event) => {
