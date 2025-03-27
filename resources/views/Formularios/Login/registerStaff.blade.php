@@ -149,6 +149,6 @@
             </section>
         </form>
     </main>
-    <script src="script.js"></script>
+    <script src="/Js/Staff/registerStaff.js"></script>
 </body>
 </html>
