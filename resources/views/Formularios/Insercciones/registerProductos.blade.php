@@ -66,7 +66,8 @@
                     
                     <!-- INPUT ID_ESTABLECIMIENTO OCULTO PARA EL INSERT -->
                     @if(!isset($producto))
-                    <input type="hidden" name="idEstablecimiento" id="idEstablecimiento" value="{{$idEstablecimiento}} ?? ' ' ">
+                    <!-- Este input estará presente solo en la creación -->
+                    <input type="hidden" name="idEstablecimiento" id="idEstablecimiento" value="{{$idEstablecimiento ?? ''}}">
                     @endif
                 </div>
 

@@ -136,12 +136,16 @@
                     <p class="descripProducto">{{$product['desc_prod']}}</p>
 
                     <span class="rediretRegister">
+                    <!-- Boton para editar un producto -->
                     <form action="{{ route('productos', ['accion' => 'editar']) }}" method="POST">
                     @csrf
                     <button type="submit" class="btnOption" name="editProducto" value="{{ $product['id_prod'] }}">Editar</button>
-                </form>
-<!--                         <button type="submit" class="btnOption" id="eliminarItem" value="{{$product['id_prod']}}" name="deleteProducto">Eliminar</button>
-                    </form>  --> 
+                    </form>
+                    <!-- Boton para borrar un producto -->
+                    <form action="{{ route('productos', ['accion' => 'eliminar']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btnOption" name="deleteProducto" id="eliminarItem" value="{{$product['id_prod']}}">Eliminar</button>
+                    </form>  
                     </span>
                 </figure>
                 @endforeach

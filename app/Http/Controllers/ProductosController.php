@@ -57,7 +57,7 @@ class ProductosController extends Controller
 
                 $producto->nombre_prod = $request->input('nombre');
                 $producto->nom_marca = $request->input('marca');
-                $producto->desc_prod = $request->input('desc');
+                $producto->desc_prod = $request->input('descripcion');
                 $producto->stock = $request->input('cantidad');
                 $producto->valor_prod = $request->input('valor');
 
@@ -108,8 +108,9 @@ class ProductosController extends Controller
             return view($viewCrudProductos, compact('producto','modeValidator'));
 
         } elseif ($accion === 'eliminar' && $request->has('deleteProducto')) {
-
+            // Se recibe el id del producto
             $id = $request->input('deleteProducto');
+            
             Producto::where('id_prod', $id)->delete();
             return redirect()->back()->with('success', 'Operación completada exitosamente.');
 
