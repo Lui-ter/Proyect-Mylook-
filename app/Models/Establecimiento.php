@@ -12,13 +12,13 @@ class Establecimiento extends Model
 
 
     protected $fillable = [
+        'id_establc',
         'id_negocio',
         'nombre_establc',
         'desc_establc',
         'ubicacion',
         'correo',
-        'telefono',
-        'img_establc'
+        'telefono'
     ];
 
     public function negocio()
