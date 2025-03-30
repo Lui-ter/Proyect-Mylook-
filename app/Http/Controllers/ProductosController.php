@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Helpers\GlobalVariables;
 use App\Models\Establecimiento;
+use Illuminate\Support\Facades\Auth;
 
 class ProductosController extends Controller
 {
@@ -118,7 +119,7 @@ class ProductosController extends Controller
             $modeValidator = 2;
             
              //Se obtiene el id_negocio de la sessión
-             $idNegocio = session('id_negocio');
+             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
              //para luego con el modelo obtenemos id_establecimiento para productos
              $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->value('id_establc');
              return view($viewCrudProductos, compact('idEstablecimiento'));
