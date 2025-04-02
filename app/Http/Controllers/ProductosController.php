@@ -125,8 +125,10 @@ class ProductosController extends Controller
              return view($viewCrudProductos, compact('idEstablecimiento'));
 
         } elseif ($accion === 'ver') {
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->value('id_establc');
+            $productos = Producto::where('id_establc', $idEstablecimiento)->get()->toArray();
 
-            $productos = Producto::all()->toArray();
             
             foreach ($productos as &$producto) {
                 if (isset($producto['img_prod'])) {

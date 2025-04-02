@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Models\Establecimiento;
 use App\Models\Producto;
 use App\Models\Staff;
 use App\Helpers\GlobalVariables;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -25,8 +27,14 @@ class AdminController extends Controller
         if($accion === 'index'){
             $categorias = Categoria::all()->toArray();
             
-            $productsPreview = Producto::latest()->take(3)->get()->toArray();
-            
+            //Seccion de productos en el administrador
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
+            $productsPreview = Producto::whereIn('id_establc', $establecimiento)
+                           ->latest()
+                           ->take(3)
+                           ->get();
+
             $infoStaff = Staff::with('usuario', 'rol')->get()->toArray();
 
 
