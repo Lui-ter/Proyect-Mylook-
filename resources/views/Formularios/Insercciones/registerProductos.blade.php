@@ -49,24 +49,14 @@
             <!-- CONTENEDOR DE INSERCIÓN DE INFORMACIÓN -->
             <div class="contenedor-informacion">
 
-                <!-- TITULO -->
                 <h2 class="titulo">INFORMACION DE PRODUCTOS</h2>
-
-                <!-- DESCRIPCIÓN BREVE SOBRE LA FUNCIÓN DEL FORMULARIO -->
                 <p class="introduccion">En este apartado podrás ingresar la información de todos tus productos</p>
 
-                <!-- CONTENEDOR DE CADA INPUT -->
                 <div class="contenedor-input">
 
-                    <!-- TITULO DE CADA INPUT -->
                     <p class="texto-input">NOMBRE DEL PRODUCTO</p>
-
-                    <!-- INPUT NOMBRE -->
                     <input type="text" name="nombre" class="insercion-input" id="nombreProducto" maxlength="20" value="{{ $producto->nombre_prod ?? '' }}">
-                    
-                    <!-- INPUT ID_ESTABLECIMIENTO OCULTO PARA EL INSERT -->
                     @if(!isset($producto))
-                    <!-- Este input estará presente solo en la creación -->
                     <input type="hidden" name="idEstablecimiento" id="idEstablecimiento" value="{{$idEstablecimiento ?? ''}}">
                     @endif
                 </div>
@@ -74,72 +64,41 @@
                 <!-- CONTENEDOR DOBLE COLUMNA (MARCA - IMAGEN - CANTIDAD - VALOR) -->
                 <div class="doble-columna">
 
-                    <!-- CONTENEDOR DE CADA INPUT -->
                     <div class="contenedor-input">
-
-                        <!-- TITULO DE CADA INPUT -->
                         <p class="texto-input">MARCA DEL PRODUCTO</p>
-
-                        <!-- INPUT MARCA -->
                         <input type="text" name="marca" class="insercion-input" id="marcaProducto" maxlength="15" value="{{ $producto->nom_marca ?? '' }}">
                     </div>
 
                     <!-- CONTENEDOR PARA INSERCION DE IMAGEN -->
                     <div class="contenedor-foto">
 
-                        <!-- TITULO PARA IMAGEN -->
                         <label for="insercion-imagen" class="foto-input">
-
-                            <!-- ICONO DE CAMARA -->
                             <i class="bi bi-camera icono"></i>
-
-                            <!-- TEXTO -->
                             <span class="texto-input imagen-input">SELECCIONA LA IMAGEN</span>
                         </label>
-
-                        <!-- INPUT PARA LA SELECCION DE FOTO -->
                         <input type="file" name="imagen" class="input-foto" id="insercion-imagen" accept="image/*">
                     </div>
 
-                    <!-- CONTENEDOR DE CADA INPUT -->
                     <div class="contenedor-input">
-
-                        <!-- TITULO DE CADA INPUT -->
                         <p class="texto-input">CANTIDAD DEL PRODUCTO</p>
-
-                        <!-- INPUT CANTIDAD -->
                         <input type="number" name="cantidad" class="insercion-input" id="cantidadProducto" min="0" max="100" value="{{ $producto->stock ?? '' }}">
                     </div>
 
-                    <!-- CONTENEDOR DE CADA INPUT -->
                     <div class="contenedor-input">
-
-                        <!-- TITULO DE CADA INPUT -->
                         <p class="texto-input">VALOR DEL PRODUCTO</p>
-
-                        <!-- INPUT VALOR -->
                         <input type="number" name="valor" class="insercion-input" id="valorProducto" min="0" max="100" value="{{ $producto->valor_prod ?? '' }}">
                     </div>
                 </div>
 
-                <!-- CONTENEDOR DE CADA INPUT -->
                 <div class="contenedor-input">
-
-                    <!-- TITULO DE CADA INPUT -->
                     <p class="texto-input">DESCRIPCIÓN DEL PRODUCTO</p>
-
-                    <!-- TEXTAREA PARA DESCRIPCION -->
                     <textarea name="descripcion" class="insercion-input" id="descripcionProducto" maxlength="100">{{ $producto->desc_prod ?? '' }}</textarea>
                 </div>
 
 
                 <!-- CONTENEDOR PARA BOTONES -->
                 <div class="contenedor-botones">
-
-                    <!-- BOTON CANCELAR -->
                     <button type="button" class="botones" id="botonCancelar" onclick="window.history.back();">CANCELAR</button>
-
-                    <!-- BOTON GUARDAR -->
                     <button type="submit" class="botones" id="botonGuardar">GUARDAR</button>
                 </div>
             </div>
