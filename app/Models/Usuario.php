@@ -18,6 +18,7 @@ class Usuario extends Authenticatable
         'correo',
         'contrasena',
         'telefono',
+        'img_usuario',
         'condicion'
     ];
     public function getAuthPassword()

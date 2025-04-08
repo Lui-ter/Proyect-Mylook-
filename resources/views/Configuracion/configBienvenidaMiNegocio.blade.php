@@ -13,7 +13,7 @@
     {{-- inputs ocultos para manejar la sesion en formularios  --}}
     <input type="hidden" id="sessionNombreAdmin" value="{{ session('nombreAdmin') }}">
     <input type="hidden" id="sessionApellidoAdmin" value="{{ session('apellidoAdmin') }}">
-    
+
     <aside class="navegacion">
         <!-- Ícono de salir representado en formato SVG en línea -->
         <img src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2224%22%20height=%2224%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22white%22%20stroke-width=%222%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20stroke=%22none%22%20d=%22M0%200h24v24H0z%22%20fill=%22none%22/%3E%3Cpath%20d=%22M10%208v-2a2%202%200%200%201%202%20-2h7a2%202%200%200%201%202%202v12a2%202%200%200%201%20-2%202h-7a2%202%200%200%201%20-2%20-2v-2%22/%3E%3Cpath%20d=%22M15%2012h-12l3%20-3%22/%3E%3Cpath%20d=%22M6%2015l-3%20-3%22/%3E%3C/svg%3E"
@@ -151,7 +151,7 @@
 
                     <div class="informacionInput">
                         <p class="nombreInput">CONTRASEÑA</p>
-                        <input type="text" class="inputPassword" name="contrasenaAdmin" placeholder="Ingrese su contraseña">
+                        <input type="password" class="inputPassword" name="contrasenaAdmin" placeholder="Ingrese su contraseña">
                     </div>
                 </section>
 
@@ -162,7 +162,7 @@
 
             <!--FORMULARIO PARA CREAR O ACTUALIZAR EL NEGOCIO -->
             <form action="{{ route('updateNegocio', ['id' => $negocioData['id_negocio']]) }}" method="POST"
-                class="configuracionNegocio formulario" id="form2" style="display: none;">
+                class="configuracionNegocio formulario" id="form2" style="display: none;" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -171,14 +171,14 @@
                 <div class="contenedorImagen">
 
                     <!-- Input de imagen de fondo -->
-                    <input type="file" id="inputImagenFondo" class="inputFile" accept="image/*">
+                    <input type="file" name="img_portada" id="inputImagenFondo" class="inputFile" accept="image/*">
                     <img id="imagenFondo" class="imagenFondo"
                         src="https://img.freepik.com/foto-gratis/sillas-vintage-peluqueria_155003-10150.jpg?t=st=1741058411~exp=1741062011~hmac=83e715b06e39d3689c7b29fdaa0eaceb0c4f6c1521f4b0fab3e020e84583ad27&w=1060"
                         alt="Imagen de fondo">
 
                     <!-- Input para el logo (imagen superpuesta) -->
                     <div class="logoNegocio">
-                        <input type="file" id="inputLogo" class="inputFile" accept="image/*">
+                        <input type="file" name="img_logo" id="inputLogo" class="inputFile" accept="image/*">
                         <img id="logo"
                             src="https://d1yjjnpx0p53s8.cloudfront.net/logotipo-imperio-barberia-vector1.png"
                             alt="Logo del negocio">
@@ -224,7 +224,7 @@
 
             <!--FORMULARIO PARA REGISTRAR ESTABLECIMIENTOS -->
             <form action="{{ route('registerEstablecimiento') }}" method="POST" style="display: none;"
-                class="configuracionEstablecimiento formulario" id="form3" enctype="multipart/form-data">
+                class="configuracionEstablecimiento formulario" id="form3">
                 @csrf
                 <h2 class="tituloPrincipal">CONFIGURACIÓN ESTABLECIMIENTO</h2>
 

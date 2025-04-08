@@ -9,8 +9,6 @@ class Establecimiento extends Model
     protected $table = 'establecimiento';
     protected $primaryKey = 'id_establc';
     public $timestamps = false;
-
-
     protected $fillable = [
         'id_establc',
         'id_negocio',
@@ -21,8 +19,7 @@ class Establecimiento extends Model
         'telefono'
     ];
 
-    public function negocio()
-    {
-        return $this->belongsTo(Negocio::class, 'id_negocio');
+    public function negocio(){
+        return $this->belongsTo(Negocio::class, 'id_negocio', 'id_negocio');
     }
 }

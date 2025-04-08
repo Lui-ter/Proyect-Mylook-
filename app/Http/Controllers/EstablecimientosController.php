@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Establecimiento;
+use App\Models\Negocio;
+use App\Models\Staff;
 use App\Helpers\GlobalVariables;
 
 class EstablecimientosController extends Controller{
@@ -34,14 +36,26 @@ class EstablecimientosController extends Controller{
             'correo' => $request->correoEstablecimiento
         ]);
 
+        // Aqui a travez del id_negocio que viene del formulario, hago una consulta para encontrar el usuario registrado a ese negocio
+        $Negocio = Negocio::find($request->idNegocio);
+        $id_usuario = $Negocio->id_usuario;
+
+        // Aqui creo el registro en la tabla staff relacionando el usuario anteriormente registrado, establecimiento, negocio y el rol de administrador
+        Staff::create([
+            'id_usuario' => $id_usuario,
+            'id_establc' => $request->idEstablc,
+            'id_negocio' => $request->idNegocio,
+            'id_rol' => 1
+        ]);
+
         // Se elimina de la sesion el dato que estaba cargado en el formulario de negocio
-            session()->forget(['id_negocio']);
+        session()->forget(['id_negocio']);
 
         return redirect()->route('admin', ['accion' => 'index']);
     }
 
 
-    /* ACTUALIZACIÓN DE ESTABLECIMIENTO */
+/* ACTUALIZACIÓN DE ESTABLECIMIENTO */
 
     public function handleUpdateHeadQuarter(Request $request, $id){
 
@@ -69,7 +83,7 @@ class EstablecimientosController extends Controller{
             return redirect()->back()->with('completado', 'Establecimiento actualizado correctamente.');
         }
 
-    /* ELIMINACION DE ESTABLECIMIENTO */
+/* ELIMINACION DE ESTABLECIMIENTO */
 
     public function handleDeleteHeadQuarter(Request $request, $id){
 
@@ -79,7 +93,7 @@ class EstablecimientosController extends Controller{
 
         if ($establecimiento) {
 
-            $establecimiento->destroy();
+            $establecimiento->delete();
 
         }
 

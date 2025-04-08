@@ -17,15 +17,16 @@ class Negocio extends Authenticatable
         'id_usuario',
         'nombre_negocio',
         'contrasena',
-        'desc_negocio'
+        'desc_negocio',
+        'img_perfil',
+        'img_portada'
     ];
 
-    public function usuario()
-    {
-        return $this->belongsTo(Usuario::class, 'id_usuario');
+    public function usuario(){
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
     }
-    public function getAuthPassword()
-    {
+
+    public function getAuthPassword(){
         return $this->contrasena;
     }
 }

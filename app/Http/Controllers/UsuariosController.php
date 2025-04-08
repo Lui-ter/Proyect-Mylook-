@@ -97,8 +97,16 @@ class UsuariosController extends Controller
             'apellidoAdmin' => 'required|string|max:30',
             'correoAdmin' => 'nullable|email|unique:usuario,correo',
             'telefonoAdmin' => 'nullable|string|max:30',
-            'contrasenaAdmin' => 'required|string'
+            'contrasenaAdmin' => 'required|string',
+            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
         ]);
+
+            // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
+            $img_usuario = null;
+            if($request->hasFile('imagenPerfil')){
+                $img = $request->file('imagenPerfil');
+                $img_usuario = file_get_contents($img->getRealPath());
+            };
 
         // Aqui se crea un nuevo usuario en la tabla falta especificar que es con el rol de administrador
         $usuario = Usuario::create([
@@ -108,6 +116,7 @@ class UsuariosController extends Controller
             'correo' => $request->correoAdmin,
             'telefono' => $request->telefonoAdmin,
             'contrasena' => Hash::make($request->contrasenaAdmin),
+            'img_usuario' => $img_usuario
         ]);
 
 

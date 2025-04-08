@@ -12,7 +12,7 @@
 
 
 <body>
-    
+
     <header class="encabezadoAdmin">
         <h1 class="tittleApp">MYLOOK</h1>
 
@@ -40,7 +40,7 @@
                         <p class="txtMensaje">Solicitud de corte</p>
                     </div>
 
-                    
+
                     <i class="fas fa-envelope"></i>
 
 
@@ -97,9 +97,9 @@
             <article class="staffItem">
                 @foreach($infoStaff as $item)
                 <figure class="staffCard">
-                    <span class="nomStaff">{{$item['usuario']['nombre']}}</span>
+                    <span class="nomStaff">{{$item['usuario']['nombre']}} {{$item['usuario']['apellido']}}</span>
 
-                    <img src="{{$item['img_staff']}}" alt="" class="imgStaff">
+                    <img src="{{$item['usuario']['img_usuario']}}" alt="" class="imgStaff">
 
                     <span class="rediretRegister">
                         <button type="submit" class="btnOption"><a href="../../Form/Register/Staff/regsiterStaff.html">Editar</a></button>
@@ -145,7 +145,7 @@
                     <form action="{{ route('productos', ['accion' => 'eliminar']) }}" method="POST">
                     @csrf
                     <button type="submit" class="btnOption" name="deleteProducto" id="eliminarItem" value="{{$product['id_prod']}}">Eliminar</button>
-                    </form>  
+                    </form>
                     </span>
                 </figure>
                 @endforeach
@@ -180,7 +180,7 @@
                 </div>
             </article>
             @endforeach
-            
+
         </div>
 
         <span class="rediretCategoria">

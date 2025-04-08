@@ -12,25 +12,24 @@ class Staff extends Model
 
     protected $fillable = [
         'id_usuario',
-        'id_establc',
         'id_rol',
-        'telefono',
-        'img_staff'
+        'id_establc',
+        'id_negocio'
     ];
 
-    public function usuario()
-{
-    return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
-}
-
-
-    public function establecimiento()
-    {
-        return $this->belongsTo(Establecimiento::class, 'id_establc');
+    public function usuario(){
+        return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');
     }
 
-    public function rol()
-    {
-        return $this->belongsTo(Rol::class, 'id_rol');
+    public function establecimiento(){
+        return $this->belongsTo(Establecimiento::class, 'id_establc', 'id_establc');
+    }
+
+    public function rol(){
+        return $this->belongsTo(Rol::class, 'id_rol', 'id_rol');
+    }
+
+    public function negocio(){
+        return $this->belongsTo(Negocio::class, 'id_negocio', 'id_negocio');
     }
 }

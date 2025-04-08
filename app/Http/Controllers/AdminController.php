@@ -22,11 +22,11 @@ class AdminController extends Controller
         $indexAdminView = GlobalVariables::$indexAdminView;
 
         $configAdminView = GlobalVariables::$configAdminView;
-        
-        
+
+
         if($accion === 'index'){
             $categorias = Categoria::all()->toArray();
-            
+
             //Seccion de productos en el administrador
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
             $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
@@ -38,7 +38,7 @@ class AdminController extends Controller
             $infoStaff = Staff::with('usuario', 'rol')->get()->toArray();
 
 
-            
+
             foreach ($categorias as &$categoria) {
                 if (isset($categoria['imagen'])) {
                     $categoria['imagen'] = 'data:image/png;base64,' . base64_encode($categoria['imagen']);
@@ -52,8 +52,8 @@ class AdminController extends Controller
             }
 
             foreach ($infoStaff as &$staff){
-                if (isset($staff['img_staff'])) {
-                    $staff['img_staff'] = 'data:image/png;base64,' . base64_encode($staff['img_staff']);
+                if (isset($staff['usuario']['img_usuario'])) {
+                    $staff['usuario']['img_usuario'] = 'data:image/png;base64,' . base64_encode($staff['usuario']['img_usuario']);
                 }
             }
 
@@ -64,7 +64,7 @@ class AdminController extends Controller
             return view($loginAdminView);
         }elseif($accion === 'config'){
             return view($configAdminView);
-            
+
         }else{
             return redirect()->route('admin', ['accion' => 'index']);
         }
