@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
 
-    public function crudAdmin(Request $request, $accion = null){
+    public function crudAdmin(Request $request, $accion = null)
+    {
 
         $registerView = GlobalVariables::$registerAdminView;
 
@@ -24,16 +25,16 @@ class AdminController extends Controller
         $configAdminView = GlobalVariables::$configAdminView;
 
 
-        if($accion === 'index'){
+        if ($accion === 'index') {
             $categorias = Categoria::all()->toArray();
 
             //Seccion de productos en el administrador
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
             $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
             $productsPreview = Producto::whereIn('id_establc', $establecimiento)
-                           ->latest()
-                           ->take(3)
-                           ->get();
+                ->latest()
+                ->take(3)
+                ->get();
 
             $infoStaff = Staff::with('usuario', 'rol')->get()->toArray();
 
@@ -45,31 +46,35 @@ class AdminController extends Controller
                 }
             }
 
-            foreach ($productsPreview as &$productPreview){
+            foreach ($productsPreview as &$productPreview) {
                 if (isset($productPreview['img_prod'])) {
                     $productPreview['img_prod'] = 'data:image/png;base64,' . base64_encode($productPreview['img_prod']);
                 }
             }
+            
+            $negocioId = Auth::guard('negocio')->user()->id_negocio;
+            $establecimientos = Establecimiento::where('id_negocio', $negocioId)->pluck('id_establc');
+            $infoStaff = Staff::whereIn('id_establc', $establecimientos)
+                ->where('id_rol', '!=', 1)
+                ->with(['usuario', 'rol']) 
+                ->get()
+                ->toArray();
 
-            foreach ($infoStaff as &$staff){
+            foreach ($infoStaff as &$staff) {
                 if (isset($staff['usuario']['img_usuario'])) {
                     $staff['usuario']['img_usuario'] = 'data:image/png;base64,' . base64_encode($staff['usuario']['img_usuario']);
                 }
             }
 
-            return view($indexAdminView, compact('categorias','productsPreview', 'infoStaff'));
-        }elseif($accion === 'register'){
+            return view($indexAdminView, compact('categorias', 'productsPreview', 'infoStaff'));
+        } elseif ($accion === 'register') {
             return view($registerView);
-        }elseif($accion === 'login'){
+        } elseif ($accion === 'login') {
             return view($loginAdminView);
-        }elseif($accion === 'config'){
+        } elseif ($accion === 'config') {
             return view($configAdminView);
-
-        }else{
+        } else {
             return redirect()->route('admin', ['accion' => 'index']);
         }
-
     }
-
-
 }

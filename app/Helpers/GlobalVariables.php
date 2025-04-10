@@ -68,11 +68,14 @@ class GlobalVariables
     public static $registerStaff = 'Formularios.Login.registerStaff';
     
     public static $loginStaff = 'Formularios.Login.loginStaff';
+
+    public static $viewCrudStaff = 'Formularios.Login.registerStaff';
     
     /* ------------------------------------------------------------------------------ */
 
     public static $viewProductos = 'viewCrud.Admin.viewProductos';
 
     public static $viewCrudProductos = 'Formularios.Insercciones.registerProductos';
+
     
 }

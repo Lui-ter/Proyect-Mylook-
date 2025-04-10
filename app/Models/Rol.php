@@ -10,6 +10,6 @@ class Rol extends Model
     protected $primaryKey = 'id_rol';
 
     protected $fillable = [
-        'desc_rol'
+        'nombre_rol'
     ];
 }

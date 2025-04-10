@@ -97,13 +97,21 @@
             <article class="staffItem">
                 @foreach($infoStaff as $item)
                 <figure class="staffCard">
-                    <span class="nomStaff">{{$item['usuario']['nombre']}} {{$item['usuario']['apellido']}}</span>
+                    <span class="nomStaff">{{$item['usuario']['nombre']}}</span>
 
-                    <img src="{{$item['usuario']['img_usuario']}}" alt="" class="imgStaff">
+                    <img src="{{$item['usuario']['img_usuario']}}" alt="foto staff" class="imgStaff">
 
                     <span class="rediretRegister">
-                        <button type="submit" class="btnOption"><a href="../../Form/Register/Staff/regsiterStaff.html">Editar</a></button>
-                        <button type="submit" class="btnOption">Eliminar</button>
+                         <!-- Boton para editar un staff -->
+                    <form action="{{ route('staff', ['accion' => 'editar']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btnOption" name="editStaff" value="{{$item['id_usuario'] }}">Editar</button>
+                    </form>
+                    <!-- Boton para borrar un staff -->
+                    <form action="{{ route('staff', ['accion' => 'eliminar']) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btnOption"name="deleteStaff" id="eliminarStaff" value="{{$item['id_usuario']}}">Eliminar</button>
+                    </form> 
                     </span>
                 </figure>
                 @endforeach

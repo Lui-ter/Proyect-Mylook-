@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Helpers\GlobalVariables;
@@ -11,7 +12,9 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Valoracion;
 use App\Models\Negocio;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class UsuariosController extends Controller
 {
@@ -31,8 +34,29 @@ class UsuariosController extends Controller
         $configUsersView = GlobalVariables::$configUsersView;
 
         if ($accion === 'index') {
-            $mejoresEstablecimientos = Establecimiento::orderByDesc('valoracion_final')->take(7)->get(['nombre_establc', 'desc_establc', 'id_establc'])->toArray();
-            return view($indexUsuarioView, compact('mejoresEstablecimientos'));
+            $establecimientosAleatorios = Establecimiento::with('negocio')
+                ->inRandomOrder()
+                ->take(5)
+                ->get()
+                ->toArray();
+
+            // TOP 3 establecimientos con mejor valoración promedio
+            $mejoresEstablecimientos = Establecimiento::with('negocio')
+                ->select('establecimiento.id_establc', 'establecimiento.id_negocio', 'establecimiento.nombre_establc', 'establecimiento.desc_establc', DB::raw('AVG(valoracion.calificacion) as promedio_calificacion'))
+                ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
+                ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
+                ->groupBy('establecimiento.id_establc', 'establecimiento.id_negocio', 'establecimiento.nombre_establc', 'establecimiento.desc_establc')
+                ->orderByDesc(DB::raw('promedio_calificacion'))
+                ->take(3)
+                ->get();
+
+                $establecimientosRecomendados = Establecimiento::with('negocio')
+                ->inRandomOrder()
+                ->take(6)
+                ->get(); // ← no usamos toArray() para evitar errores
+        
+            return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados'));
+
         } elseif ($accion === 'agendar') {
             $id = $request->input('id_establecimiento');
             $establecimiento = Establecimiento::where('id_establc', $id)->first()->toArray();
@@ -82,7 +106,6 @@ class UsuariosController extends Controller
         } else {
             return redirect()->route('usuarios', ['accion' => 'index']);
         }
-
     }
 
     /*  INSERCION DE UN USUARIO ADMIN (Falta especificar el rol, en las migraciones no esta unida la tabla rol con usuario)   */
@@ -101,12 +124,12 @@ class UsuariosController extends Controller
             'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
         ]);
 
-            // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
-            $img_usuario = null;
-            if($request->hasFile('imagenPerfil')){
-                $img = $request->file('imagenPerfil');
-                $img_usuario = file_get_contents($img->getRealPath());
-            };
+        // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
+        $img_usuario = null;
+        if ($request->hasFile('imagenPerfil')) {
+            $img = $request->file('imagenPerfil');
+            $img_usuario = file_get_contents($img->getRealPath());
+        };
 
         // Aqui se crea un nuevo usuario en la tabla falta especificar que es con el rol de administrador
         $usuario = Usuario::create([
@@ -159,5 +182,4 @@ class UsuariosController extends Controller
 
         return redirect()->route('usuarios', ['accion' => 'index']);
     }
-
 }

@@ -72,6 +72,7 @@ Route::put('/update-service/{id}', [ServiciosController::class, 'handleUpdateSer
 Route::put('/update-product/{id}', [ProductosController::class, 'handleUpdateProduct'])->name('updateProduct');
 Route::put('/update-user/{id}', [UsuariosController::class, 'handleUpdateUsers'])->name('updateUsers');
 Route::put('/update-negocio/{id}', [NegociosController::class, 'handleUpdateNegocio'])->name('updateNegocio');
+Route::put('/update-staff/{id}', [StaffController::class, 'handleUpdateStaff'])->name('updateStaff');
 
 
 /* RUTAS DELETE - DELETE */
@@ -79,7 +80,14 @@ Route::delete('/delete-category', [CategoriasController::class, 'handleDeleteCat
 Route::delete('/delete-type-service', [TiposServiciosController::class, 'handleDeleteServiceType'])->name('deleteServiceType');
 Route::delete('/delete-service', [ServiciosController::class, 'handleDeleteService'])->name('deleteService');
 Route::delete('/delete-product', [ProductosController::class, 'handleDeleteProduct'])->name('deleteProduct');
+Route::delete('/staff/{id}', [StaffController::class, 'handleDeleteStaff'])->name('deleteStaff');
 
 
+// Rutas para editar staff
+Route::get('/staff/edit/{id}', [StaffController::class, 'edit'])->name('editStaff');
+
+
+/* RUTAS GET - OBTENER */
+Route::get('/staff', [StaffController::class, 'getStaff'])->name('getStaff');
 
 /* --------------------------------------------------------------------------------------- */
