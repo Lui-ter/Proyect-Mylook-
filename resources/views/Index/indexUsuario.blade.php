@@ -83,20 +83,26 @@
             <section class="establecimientos-recomendados">
                 <h2 class="titulo-seccion">ESTABLECIMIENTOS RECOMENDADOS</h2>
                 <div class="contenedor-establecimientos">
-            
+
                     @foreach ($establecimientosRecomendados as $establecimiento)
                         <article class="carta-establecimiento">
                             {{-- Imagen de perfil del negocio --}}
-                            <img src="{{ asset($establecimiento->negocio->img_perfil ?? 'images/default-perfil.jpg') }}"
-                                 alt="Perfil del negocio" class="img-perfil" />
-            
+                            @php
+                                $imgPerfil =
+                                    $establecimiento->negocio && $establecimiento->negocio->img_perfil
+                                        ? 'data:image/jpeg;base64,' .
+                                            base64_encode($establecimiento->negocio->img_perfil)
+                                        : asset('images/default-perfil.jpg');
+                            @endphp
+                            <img src="{{ $imgPerfil }}" alt="Perfil del negocio" class="img-perfil" />
+
                             <div class="contenedor-informacion">
                                 <div class="informacion">
                                     <div class="nombre-descripcion">
                                         <h2>{{ $establecimiento->nombre_establc }}</h2>
                                         <p>{{ $establecimiento->desc_establc }}</p>
                                     </div>
-            
+
                                     <div class="servicios">
                                         <h3>SERVICIOS</h3>
                                         <ul>
@@ -107,22 +113,23 @@
                                         <div class="puntuacion">★★★★★</div>
                                     </div>
                                 </div>
-            
+
                                 <div class="contenedor-boton-agendar">
                                     <form action="{{ url('/usuarios/agendar') }}" method="GET">
                                         @csrf
-                                        <input type="hidden" name="id_establc" value="{{ $establecimiento->id_establc }}">
+                                        <input type="hidden" name="id_establc"
+                                            value="{{ $establecimiento->id_establc }}">
                                         <button class="boton-agendar">AGENDAR</button>
                                     </form>
                                 </div>
                             </div>
                         </article>
                     @endforeach
-            
+
                 </div>
             </section>
-            
-            
+
+
 
 
             <!-- Sección dedicada a los mejores establecimientos de la semana -->

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const idInput = document.getElementById('Id');
     const nombreInput = document.getElementById('nombre');
+    const apellidoInput = document.getElementById('apellido');
     const contrasenaInput = document.getElementById('contrasena');
     const telefonoInput = document.getElementById('telefono');
     const correoInput = document.getElementById('correo');
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const imagenInput = document.getElementById('imagenServicio');
 
     const nombrePrevisualizacion = document.getElementById('nombrePrevisualizacion');
+    const apellidoPrevisualizacion = document.getElementById('apellidoPrevisualizacion');
     const telefonoPrevisualizacion = document.getElementById('telefonoPrevisualizacion');
     const correoPrevisualizacion = document.getElementById('correoPrevisualizacion');
     const direccionPrevisualizacion = document.getElementById('direccionPrevisualizacion');
@@ -18,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function actualizarPrevisualizacion() {
         nombrePrevisualizacion.textContent = nombreInput.value || '-';
+        apellidoPrevisualizacion.textContent = apellidoInput.value || '-';
         telefonoPrevisualizacion.textContent = telefonoInput.value || '-';
         correoPrevisualizacion.textContent = correoInput.value || '-';
         direccionPrevisualizacion.textContent = direccionInput.value || '-';
@@ -38,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     idInput.addEventListener('input', actualizarPrevisualizacion);
     nombreInput.addEventListener('input', actualizarPrevisualizacion);
+    apellidoInput.addEventListener('input', actualizarPrevisualizacion);
     telefonoInput.addEventListener('input', actualizarPrevisualizacion);
     correoInput.addEventListener('input', actualizarPrevisualizacion);
     direccionInput.addEventListener('input', actualizarPrevisualizacion);

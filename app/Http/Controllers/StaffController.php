@@ -28,6 +28,7 @@ class StaffController extends Controller
         // Obtener los datos del request
         $documentoStaff = $request->input('documentoStaff');
         $nombreCompletoStaff = $request->input('nombreCompletoStaff');
+        $apellidoStaff = $request->input('apellidoStaff');
         $correoStaff = $request->input('correoStaff');
         $contrasenaStaff = password_hash($request->input('contrasena'), PASSWORD_BCRYPT);
         $telefonoStaff = $request->input('telefonoStaff');
@@ -39,6 +40,7 @@ class StaffController extends Controller
         $usuario = Usuario::create([
             'id_usuario' => $documentoStaff,
             'nombre' => $nombreCompletoStaff,
+            'apellido' => $apellidoStaff,
             'contrasena' => $contrasenaStaff,
             'telefono' => $telefonoStaff,
             'correo' => $correoStaff,
@@ -74,6 +76,7 @@ class StaffController extends Controller
             $usuario = $staff->usuario;
             
             $usuario->nombre = $request->input('nombreCompletoStaff');
+            $usuario->apellido = $request->input('apellidoStaff');
             $usuario->correo = $request->input('correoStaff');
             $usuario->telefono = $request->input('telefonoStaff');
             if ($request->filled('contrasena')) {

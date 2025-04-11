@@ -45,6 +45,12 @@
                 </div>
 
                 <div class="infoInput">
+                    <p class="nombreInput">INGRESE APELLIDO</p>
+                    <input type="text" id="apellido" name="apellidoStaff"
+                        value="{{ $usuario->apellido ?? '' }}" placeholder="Ingresa apellido...." required />
+                </div>
+
+                <div class="infoInput">
                     <p class="nombreInput">INGRESE CONTRASEÑA</p>
                     <div class="passwordContainer">
                         <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa contraseña...."
@@ -106,14 +112,14 @@
                         <div class="cardText">
                             <h3>Nombre:</h3>
                             <p id="nombrePrevisualizacion">-</p>
+                            <h3>Apelldio:</h3>
+                            <p id="apellidoPrevisualizacion">-</p>
                             <h3>Documento de Identificación:</h3>
                             <p id="idPrevisualizacion">-</p>
                             <h3>Teléfono:</h3>
                             <p id="telefonoPrevisualizacion">-</p>
                             <h3>Correo:</h3>
                             <p id="correoPrevisualizacion">-</p>
-                            <h3>Dirección:</h3>
-                            <p id="direccionPrevisualizacion">-</p>
                             <h3>Rol:</h3>
                             <p id="rolPrevisualizacion">-</p>
                         </div>
