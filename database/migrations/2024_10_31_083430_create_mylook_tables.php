@@ -6,24 +6,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
-
         Schema::create('rol', function (Blueprint $table) {
             $table->increments('id_rol');
             $table->string('nombre_rol', 20);
         });
-
-        DB::table('rol')->insert([
-            ['nombre_rol' => 'Administrador'],
-            ['nombre_rol' => 'Peluquero'],
-            ['nombre_rol' => 'Barbero'],
-            ['nombre_rol' => 'Manicurista'],
-            ['nombre_rol' => 'Pedicurista'],
-        ]);
 
         Schema::create('usuario', function (Blueprint $table) {
             $table->bigInteger('id_usuario')->primary();
@@ -40,7 +29,7 @@ return new class extends Migration {
             $table->bigInteger('id_negocio')->primary();
             $table->bigInteger('id_usuario')->unique()->nullable();
             $table->string('nombre_negocio', 30);
-            $table->string('desc_negocio', 255)->nullable();
+            $table->string('desc_negocio', 300)->nullable();
             $table->string('contrasena');
             $table->foreign('id_usuario')->references('id_usuario')->on('usuario')->nullable();
             $table->timestamps();
@@ -50,7 +39,7 @@ return new class extends Migration {
             $table->bigInteger('id_establc')->primary();
             $table->bigInteger('id_negocio');
             $table->string('nombre_establc', 30);
-            $table->string('desc_establc', 255);
+            $table->string('desc_establc', 300);
             $table->string('ubicacion', 30);
             $table->string('correo', 60);
             $table->string('telefono', 20);
@@ -61,29 +50,19 @@ return new class extends Migration {
         Schema::create('categoria', function (Blueprint $table) {
             $table->increments('id_categoria');
             $table->bigInteger('id_establc')->nullable();
-            $table->string('nombre_categoria', 30);
-            $table->string('desc_categoria', 255);
-            $table->foreign('id_establc')->references('id_establc')->on('establecimiento');
-        });
-
-
-        Schema::create('tipo_servicio', function (Blueprint $table) {
-            $table->increments('id_tiposerv');
-            $table->bigInteger('id_establc')->nullable();
-            $table->UnsignedInteger('id_categoria');
-            $table->string('tipo_serv', 30);
-            $table->foreign('id_categoria')->references('id_categoria')->on('categoria');
+            $table->string('nom_categoria', 30);
+            $table->string('desc_categoria', 300);
             $table->foreign('id_establc')->references('id_establc')->on('establecimiento');
         });
 
         Schema::create('servicio', function (Blueprint $table) {
             $table->increments('id_servicio');
-            $table->unsignedInteger('id_tiposerv');
+            $table->unsignedInteger('id_categoria');
             $table->string('nombre_servicio', 30);
-            $table->string('desc_servicio', 255);
+            $table->string('desc_servicio', 300);
             $table->float('duracion_serv');
             $table->float('precio_servicio');
-            $table->foreign('id_tiposerv')->references('id_tiposerv')->on('tipo_servicio');
+            $table->foreign('id_categoria')->references('id_categoria')->on('categoria');
         });
 
         Schema::create('producto', function (Blueprint $table) {
@@ -91,19 +70,11 @@ return new class extends Migration {
             $table->bigInteger('id_establc')->nullable();
             $table->string('nombre_prod', 30);
             $table->string('nom_marca', 30);
-            $table->string('desc_prod', 255);
+            $table->string('desc_prod', 300);
             $table->integer('stock');
             $table->float('valor_prod');
             $table->timestamps();
             $table->foreign('id_establc')->references('id_establc')->on('establecimiento');
-        });
-
-        Schema::create('serv_establecimiento', function (Blueprint $table) {
-            $table->unsignedInteger('id_servicio');
-            $table->bigInteger('id_establc');
-            $table->foreign('id_servicio')->references('id_servicio')->on('servicio');
-            $table->foreign('id_establc')->references('id_establc')->on('establecimiento');
-            $table->primary(['id_servicio', 'id_establc']);
         });
 
         Schema::create('staff', function (Blueprint $table) {
@@ -112,6 +83,7 @@ return new class extends Migration {
             $table->unsignedInteger('id_rol');
             $table->bigInteger('id_establc');
             $table->bigInteger('id_negocio');
+            $table->string('estado', 30)->nullable();
             $table->foreign('id_usuario')->references('id_usuario')->on('usuario');
             $table->foreign('id_establc')->references('id_establc')->on('establecimiento');
             $table->foreign('id_negocio')->references('id_negocio')->on('negocio');
@@ -145,12 +117,14 @@ return new class extends Migration {
             $table->increments('id_cita');
             $table->bigInteger('id_usuario');
             $table->bigInteger('id_establc');
+            $table->unsignedInteger('id_staff');
             $table->date('fecha_cita');
             $table->time('hora_cita');
             $table->float('duracion_cita');
             $table->string('estado_cita', 30);
             $table->foreign('id_usuario')->references('id_usuario')->on('usuario');
             $table->foreign('id_establc')->references('id_establc')->on('establecimiento');
+            $table->foreign('id_staff')->references('id_staff')->on('staff');
         });
 
         Schema::create('reserva_servicio', function (Blueprint $table) {
@@ -177,19 +151,8 @@ return new class extends Migration {
             $table->decimal('calificacion', 10, 2);
             $table->foreign('id_cita')->references('id_cita')->on('cita');
         });
-
-        Schema::create('admin', function (Blueprint $table) {
-            $table->increments('id_admin');
-            $table->unsignedInteger('id_cita');
-            $table->unsignedInteger('id_staff');
-            $table->foreign('id_cita')->references('id_cita')->on('cita');
-            $table->foreign('id_staff')->references('id_staff')->on('staff');
-        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('valoracion');
@@ -200,11 +163,9 @@ return new class extends Migration {
         Schema::dropIfExists('horario');
         Schema::dropIfExists('staff');
         Schema::dropIfExists('rol');
-        Schema::dropIfExists('serv_establecimiento');
         Schema::dropIfExists('producto');
         Schema::dropIfExists('establecimiento');
         Schema::dropIfExists('servicio');
-        Schema::dropIfExists('tipo_servicio');
         Schema::dropIfExists('categoria');
         Schema::dropIfExists('negocio');
         Schema::dropIfExists('usuario');

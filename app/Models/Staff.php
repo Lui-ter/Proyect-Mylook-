@@ -14,7 +14,8 @@ class Staff extends Model
         'id_usuario',
         'id_rol',
         'id_establc',
-        'id_negocio'
+        'id_negocio',
+        'estado'
     ];
 
     public function usuario(){
