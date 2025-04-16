@@ -9,7 +9,7 @@ class ReservaProducto extends Model
     protected $table = 'reserva_producto';
     public $incrementing = false;
     protected $primaryKey = ['id_cita', 'id_prod'];
-
+    public $timestamps = false;
     protected $fillable = [
         'id_cita',
         'id_prod',

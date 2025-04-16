@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Establecimiento;
 use App\Models\Usuario;
 use App\Models\Producto;
+use App\Models\Cita;
+use App\Models\ReservaServicio;
+use App\Models\ReservaProducto;
 use App\Models\Categoria;
+use App\Models\Servicio;
 use App\Models\Valoracion;
 use App\Models\Negocio;
+use App\Models\Staff;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB as FacadesDB;
@@ -32,6 +37,7 @@ class UsuariosController extends Controller
         $indexUsuarioView = GlobalVariables::$indexUsuarioView;
         $agendamientoView = GlobalVariables::$agendamientoView;
         $configUsersView = GlobalVariables::$configUsersView;
+        $agendamientoEstablecimiento = GlobalVariables::$agendamientoEstablecimiento;
 
         if ($accion === 'index') {
             $establecimientosAleatorios = Establecimiento::with('negocio')
@@ -57,9 +63,12 @@ class UsuariosController extends Controller
         
             return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados'));
 
-        } elseif ($accion === 'agendar') {
+        } elseif ($accion === 'verMas') {
+            //Campos necesarios para cargar los datos necesarios del ver mas de un establecimiento
             $id = $request->input('id_establecimiento');
-            $establecimiento = Establecimiento::where('id_establc', $id)->first()->toArray();
+            $negocios =  Negocio::where('id_negocio',$id)->get()->toArray();
+            $establecimiento = Establecimiento::where('id_establc', $id)->first()->toArray(); 
+            $staffs = staff::where('id_establc', $id)->with('usuario','rol')->distinct()->get();
             $productos = Producto::where('id_establc', $id)->get()->toArray();
             $categorias = Categoria::where('id_establc', $id)->get()->toArray();
             $valoraciones = Valoracion::with([
@@ -69,6 +78,18 @@ class UsuariosController extends Controller
                 }
             ])->get()->toArray();
 
+            foreach ($negocios as $negocio){
+                if(isset($negocio['img_perfil']) && isset($negocio['img_portada'])){
+                    $negocio['img_perfil'] = 'data:image/png;base64,' . base64_encode($negocio['img_perfil']);
+                    $negocio['img_portada'] = 'data:image/png;base64,' . base64_encode($negocio['img_portada']);
+                }
+            }
+            foreach ($staffs as $staff) {
+                if (isset($staff->usuario->img_usuario)) {
+                    $staff->usuario->img_usuario = 'data:image/png;base64,' . base64_encode($staff->usuario->img_usuario);
+                }
+            }
+            
             foreach ($productos as &$producto) {
                 if (isset($producto['img_prod'])) {
                     $producto['img_prod'] = 'data:image/png;base64,' . base64_encode($producto['img_prod']);
@@ -91,12 +112,105 @@ class UsuariosController extends Controller
                 }
             }
 
-            return view($agendamientoView, compact('establecimiento', 'productos', 'categorias', 'valoraciones'));
+            return view($agendamientoView, compact('establecimiento', 'productos','negocio','staffs', 'categorias', 'valoraciones'));
+        
         } elseif ($accion === 'config') {
             $id = session('usuario_id');
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
             return view($configUsersView, compact(('usuario')));
             dd($id);
+
+        } elseif ($accion === 'agendar'){
+            // Variables que se necesita para luego crear una cita
+            $idEstablecimiento = $request->input('id_establecimiento');
+            $idUsuario = Auth::guard('usuario')->user()->id_usuario;
+            $productos = Producto::where('id_establc', $idEstablecimiento)->get()->toArray();
+            $staffs = Staff::where('id_establc', $idEstablecimiento)
+               ->where('estado', 'disponible') 
+               ->where('id_rol', '!=', 1) 
+               ->with('usuario', 'rol')
+               ->get();
+            $categorias = Categoria::where('id_establc', $idEstablecimiento)->get()->toArray();
+            $servicios = Servicio::all();
+            return view($agendamientoEstablecimiento, compact('idEstablecimiento','idUsuario','productos','staffs','categorias','servicios'));
+        } elseif ($accion === 'agendamiento'){
+            //Variables necesarias para crear una cita, reserva servicio y opcional reserva producto
+            $idEstablecimiento = $request->input('id_establecimiento');
+            $idUsuario = $request->input('id_usuario');
+            $estado = $request->input('estado'); // Siempre llegara como pendiente
+            $fecha = $request->input('fecha'); 
+            $hora = $request->input('hora'); 
+            $idStaff = $request->input('idStaff'); 
+            $idCategoria = $request->input('idCategoria'); 
+            $idServicio = $request->input('idServicio'); 
+            $duracion = Servicio::where('id_servicio', $idServicio)->pluck('duracion_serv')->first(); 
+            //Opcional Producto y cantidad
+            $idProducto = $request->input('idProducto'); 
+            $cantidadProducto = $request->input('cantidad_producto');
+           
+            if (isset($idEstablecimiento) && isset($idUsuario) && isset($estado)
+            && isset($fecha) && isset($hora) && isset($idStaff) && isset($idCategoria)
+            && isset($idServicio)){
+                // Verifica si llegan todas las variables necesarios para una cita sin productos
+                $cita = cita::create([
+                    'id_usuario' => $idUsuario,
+                    'id_establc' => $idEstablecimiento,
+                    'id_staff' => $idStaff,
+                    'fecha_cita' => $fecha,
+                    'hora_cita' => $hora,
+                    'duracion_cita' => $duracion,
+                    'estado_cita' => $estado
+                ]);
+                $idCita = $cita->id_cita;
+
+                $reserva_servicio = ReservaServicio::create([
+                    'id_cita' => $idCita,
+                    'id_servicio' => $idServicio
+                ]);
+                // Si selecciona un producto y cantidad crea tambien reserva_producto
+                if(isset($idProducto) && isset($cantidadProducto)){
+                    $reserva_producto = ReservaProducto::create([
+                        'id_cita' => $idCita,
+                        'id_prod' => $idProducto,
+                        'cantidad' => $cantidadProducto
+                    ]);
+                }
+                // Datos necesarios para funcionar nuevamente la vista indexUsuario:
+                $establecimientosAleatorios = Establecimiento::with('negocio')
+                ->inRandomOrder()
+                ->take(5)
+                ->get()
+                ->toArray();
+                $mejoresEstablecimientos = Establecimiento::with('negocio')
+                    ->select(
+                        'establecimiento.id_establc', 
+                        'establecimiento.id_negocio', 
+                        'establecimiento.nombre_establc', 
+                        'establecimiento.desc_establc', 
+                        DB::raw('AVG(valoracion.calificacion) as promedio_calificacion')
+                    )
+                    ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
+                    ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
+                    ->groupBy(
+                        'establecimiento.id_establc', 
+                        'establecimiento.id_negocio', 
+                        'establecimiento.nombre_establc', 
+                        'establecimiento.desc_establc'
+                    )
+                    ->orderByDesc(DB::raw('promedio_calificacion'))
+                    ->take(3)
+                    ->get();
+
+                $establecimientosRecomendados = Establecimiento::with('negocio')
+                    ->inRandomOrder()
+                    ->take(6)
+                    ->get();
+
+                return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados'));
+            }else{
+                echo "Falta un campo por deligenciar";
+            }
+
         } elseif ($accion === 'logout') {
             Auth::guard('usuario')->logout();
             $request->session()->invalidate();

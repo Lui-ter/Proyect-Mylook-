@@ -26,7 +26,9 @@ class GlobalVariables
 
     public static $indexUsuarioView = 'Index.indexUsuario';
 
-    public static $agendamientoView = 'Agendamiento.IndexAgendamiento';
+    public static $agendamientoView = 'perfilEstablecimiento.perfilEstablecimiento';
+
+    public static $agendamientoEstablecimiento = 'Agendamiento.indexAgendamiento';
 
     public static $configUsersView = 'Configuracion.configUsers';
 

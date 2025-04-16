@@ -43,7 +43,7 @@
                                         <p class="descripcion-establecimiento">
                                             {{ $establecimiento['desc_establc'] }}
                                         </p>
-                                        <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                        <form action="{{ url('/usuarios/verMas') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="id_establecimiento"
                                                 value="{{ $establecimiento['id_establc'] }}">

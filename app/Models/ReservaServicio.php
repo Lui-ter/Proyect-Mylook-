@@ -9,6 +9,7 @@ class ReservaServicio extends Model
     protected $table = 'reserva_servicio';
     public $incrementing = false;
     protected $primaryKey = ['id_cita', 'id_servicio'];
+    public $timestamps = false;
 
     protected $fillable = [
         'id_cita',
