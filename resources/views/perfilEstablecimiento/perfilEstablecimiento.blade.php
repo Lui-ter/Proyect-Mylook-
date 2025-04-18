@@ -12,6 +12,14 @@
 </head>
 
 <body>
+    @section('link-index', '/usuarios/index')
+    @section('link-configurar-perfil', '/admin/configurar-perfil')
+    @section('link-historial', '/admin/historial')
+    @section('link-salir', '/usuarios/logout')
+
+    @include('components.header')
+
+
     <main>
 
         <div class="portada"

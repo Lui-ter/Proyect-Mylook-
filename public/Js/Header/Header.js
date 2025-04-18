@@ -1,51 +1,105 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Obtenemos las variables que necesitaremos usar 
-    const botonBuscar = document.getElementById("botonBuscar");
-    const opcionesBusqueda = document.getElementById("opcionesBusqueda");
-    const botonCategorias = document.getElementById("botonCategorias");
-    const submenuCategorias = document.getElementById("submenuCategorias");
+const contenedorPerfil = document.getElementById('perfil');
+const menuPerfil = document.getElementById('menu-perfil');
 
-    // Mostrar/ocultar opciones de búsqueda
-    botonBuscar.addEventListener("click", function() {
-        opcionesBusqueda.style.display =
-            opcionesBusqueda.style.display === "grid" ? "none" : "grid";
+// Mostrar/ocultar menú de perfil con animación
+// Se agrega un evento de clic al contenedor del perfil que alterna la visibilidad del menú de perfil
+contenedorPerfil.addEventListener('click', () => {
+  if (menuPerfil.classList.contains('oculto')) {
+    menuPerfil.classList.remove('oculto', 'animar-salir');
+    menuPerfil.classList.add('animar-entrar');
+
+  } else {
+    // Si el menú de perfil no está oculto, se quita la clase de animación de entrada y se agrega la de salida
+    menuPerfil.classList.remove('animar-entrar');
+    menuPerfil.classList.add('animar-salir');
+
+    menuPerfil.addEventListener('animationend', function ocultar() {
+      menuPerfil.classList.add('oculto');
+      menuPerfil.removeEventListener('animationend', ocultar);
     });
+  }
+});
 
-    // Mostrar menú de categorías al hacer clic en el botón
-    botonCategorias.addEventListener("click", function() {
-        submenuCategorias.classList.toggle("activo");
+// Se seleccionan los elementos del DOM necesarios para la funcionalidad de búsqueda y categorías
+const btnBuscar = document.querySelector('.lupa');
+const menuBusqueda = document.querySelector('.menu-busqueda');
+const btnCategorias = document.querySelector('.ejecutar-categorias');
+const contenedorBotones = document.querySelector('.contenedor-botones-categorias');
+
+// Mostrar/ocultar cuadro de búsqueda con animación
+btnBuscar.addEventListener('click', () => {
+  if (menuBusqueda.classList.contains('oculto')) {
+    menuBusqueda.classList.remove('oculto', 'animar-salir');
+    menuBusqueda.classList.add('animar-entrar');
+  } else {
+    menuBusqueda.classList.remove('animar-entrar');
+    menuBusqueda.classList.add('animar-salir');
+
+    // Se agrega un evento de finalización de animación al menú de búsqueda
+    menuBusqueda.addEventListener('animationend', function ocultar() {
+      menuBusqueda.classList.add('oculto');
+      menuBusqueda.removeEventListener('animationend', ocultar);
     });
+  }
+});
 
-    // Mantener abierto el submenú al pasar el mouse
-    botonCategorias.addEventListener("mouseenter", function() {
-        submenuCategorias.style.display = "grid";
+// Mostrar/ocultar botones de categorías con animación
+btnCategorias.addEventListener('click', () => {
+  if (contenedorBotones.classList.contains('oculto')) {
+    contenedorBotones.classList.remove('oculto', 'animar-salir');
+    contenedorBotones.classList.add('animar-entrar');
+  } else {
+    contenedorBotones.classList.remove('animar-entrar');
+    contenedorBotones.classList.add('animar-salir');
+
+    contenedorBotones.addEventListener('animationend', function ocultar() {
+      contenedorBotones.classList.add('oculto');
+      contenedorBotones.removeEventListener('animationend', ocultar);
     });
+  }
+});
 
-    submenuCategorias.addEventListener("mouseenter", function() {
-        submenuCategorias.style.display = "grid";
+// Cerrar menús al hacer clic fuera
+document.addEventListener('click', (event) => {
+  // Perfil
+  if (
+    !contenedorPerfil.contains(event.target) &&
+    !menuPerfil.contains(event.target) &&
+    !menuPerfil.classList.contains('oculto')
+  ) {
+    menuPerfil.classList.remove('animar-entrar');
+    menuPerfil.classList.add('animar-salir');
+    menuPerfil.addEventListener('animationend', function ocultar() {
+      menuPerfil.classList.add('oculto');
+      menuPerfil.removeEventListener('animationend', ocultar);
     });
+  }
 
-    // Ocultar el submenú solo cuando el mouse salga completamente
-    submenuCategorias.addEventListener("mouseleave", function() {
-        submenuCategorias.style.display = "none";
+  // Búsqueda
+  if (
+    !btnBuscar.contains(event.target) &&
+    !menuBusqueda.contains(event.target) &&
+    !menuBusqueda.classList.contains('oculto')
+  ) {
+    menuBusqueda.classList.remove('animar-entrar');
+    menuBusqueda.classList.add('animar-salir');
+    menuBusqueda.addEventListener('animationend', function ocultar() {
+      menuBusqueda.classList.add('oculto');
+      menuBusqueda.removeEventListener('animationend', ocultar);
     });
+  }
 
-    botonCategorias.addEventListener("mouseleave", function() {
-        setTimeout(() => {
-            if (!submenuCategorias.matches(":hover")) {
-                submenuCategorias.style.display = "none";
-            }
-        }, 200);
+  // Categorías
+  if (
+    !btnCategorias.contains(event.target) &&
+    !contenedorBotones.contains(event.target) &&
+    !contenedorBotones.classList.contains('oculto')
+  ) {
+    contenedorBotones.classList.remove('animar-entrar');
+    contenedorBotones.classList.add('animar-salir');
+    contenedorBotones.addEventListener('animationend', function ocultar() {
+      contenedorBotones.classList.add('oculto');
+      contenedorBotones.removeEventListener('animationend', ocultar);
     });
-
-    // Ocultar menús al hacer clic fuera de ellos
-    document.addEventListener("click", function(event) {
-        if (!botonBuscar.contains(event.target) && !opcionesBusqueda.contains(event.target)) {
-            opcionesBusqueda.style.display = "none";
-        }
-
-        if (!botonCategorias.contains(event.target) && !submenuCategorias.contains(event.target)) {
-            submenuCategorias.style.display = "none";
-        }
-    });
+  }
 });
