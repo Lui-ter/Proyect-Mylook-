@@ -30,4 +30,15 @@ class Cita extends Model
     public function staff(){
         return $this->belongsTo(Staff::class, 'id_staff', 'id_staff');
     }
+
+    public function reservaServicio()
+    {
+    return $this->hasOne(reservaServicio::class, 'id_cita');
+    }
+
+    public function reservaProducto()
+    {
+    return $this->hasOne(ReservaProducto::class, 'id_cita');
+    }
+
 }

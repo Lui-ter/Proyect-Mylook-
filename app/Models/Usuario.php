@@ -25,4 +25,10 @@ class Usuario extends Authenticatable
     {
         return $this->contrasena;
     }
+
+    public function staff()
+    {
+    return $this->hasOne(Staff::class, 'id_usuario');
+    }
+
 }

@@ -20,9 +20,10 @@ class ReservaProducto extends Model
     {
         return $this->belongsTo(Cita::class, 'id_cita');
     }
-
+    
     public function producto()
     {
-        return $this->belongsTo(Producto::class, 'id_prod');
+    return $this->belongsTo(Producto::class, 'id_prod');
     }
+
 }

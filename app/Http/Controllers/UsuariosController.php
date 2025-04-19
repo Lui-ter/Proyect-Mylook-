@@ -174,6 +174,16 @@ class UsuariosController extends Controller
                         'id_prod' => $idProducto,
                         'cantidad' => $cantidadProducto
                     ]);
+                //Elimina provicional los productos solicitados
+                $producto = Producto::find($idProducto);
+                if($producto){
+                    if ($producto->stock >= $cantidadProducto) {
+                        $producto->stock -= $cantidadProducto;
+                    } else {
+                        $producto->stock = 0;
+                    }
+                    $producto->save();
+                }
                 }
                 // Datos necesarios para funcionar nuevamente la vista indexUsuario:
                 $establecimientosAleatorios = Establecimiento::with('negocio')

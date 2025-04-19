@@ -639,62 +639,13 @@ body {
 
     .crudInicio {
         position: relative; 
-        height: 95%; width: 100%;
-        background-color: var(--color-dark);
+        height: 100%; width: 100%;
+        background-color: #eeeeee;
         border-radius: 3px;
         display: flex;
         justify-content: right;
         align-items: center;
-
-        
-        .containerImg{
-           height: 100%;
-           width: 100%;
-           display: flex;
-
-            .imgPresentacion{
-                position: relative;
-                height: 100%;
-                width: 100%;
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
-                border-radius: 3px;
-                opacity: .6;
-            }
-        }
-
-        .redirectEditar{
-            position: absolute;
-            top: 85%;
-            left: 85%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            z-index: 2;
-
-            .nomEditar{
-                padding: 10% 40%;
-                background-color: var(--color-white);
-                color: var(--color-dark);
-                padding-right: 2vw;
-                border-radius: 3px;
-            }
-
-            i{
-                padding: 20%;
-                background-color: var(--color-primary);
-                border-radius: 100%;
-                margin-left: -1.5vw;
-                color: var(--color-white);
-                font-size: 1.5vw;
-            }   
-        }
-
-        .input-file-hidden {
-            display: none;
-        }
+    
     }
 }
 

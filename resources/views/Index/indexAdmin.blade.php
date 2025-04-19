@@ -197,18 +197,150 @@
 
         </section>
 
-        <!-- SECCION PARA MODIFICAR LA IMAGEN DE PRESENTACION DEL ESTABLECIMIENTO -->
-        <section class="crudInicio" style="display: none;">
-            <article class="containerImg">
-                <figure class="imgPresentacion" id="previewImage"></figure>
-                <label for="fileInput" class="redirectEditar">
-                    <span class="nomEditar">Editar</span>
-                    <i class="fas fa-arrow-right-from-bracket"></i>
-                </label>
-                <input type="file" id="fileInput"  class="input-file-hidden" accept="image/*">
-            </article>
-        </section>
+        <!-- SECCIÓN PARA EL CALENDARIO -->
+<style>
+    .custom-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+    }
 
+    .custom-modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 500px;
+    }
+
+    .close-btn {
+        float: right;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #333;
+    }
+</style>
+
+<section class="crudInicio">
+    <!-- MODAL -->
+    <div id="detalleCitaModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="close-btn" onclick="cerrarModal()">&times;</span>
+            <h3>Detalle de la Cita</h3>
+            <p><strong>Empleado:</strong> <span id="modalEmpleado"></span></p>
+            <p><strong>Usuario:</strong> <span id="modalUsuario"></span></p>
+            <p><strong>Establecimiento:</strong> <span id="modalEstablecimiento"></span></p>
+            <p><strong>Fecha:</strong> <span id="modalFecha"></span></p>
+            <p><strong>Hora Inicio:</strong> <span id="modalHoraInicio"></span></p>
+            <p><strong>Hora Fin:</strong> <span id="modalHoraFin"></span></p>
+            <p><strong>Producto:</strong> <span id="modalProducto"></span></p>
+            <p><strong>Cantidad:</strong> <span id="modalCantidad"></span></p>
+            <p><strong>Estado:</strong> <span id="modalEstado"></span></p>
+            <form action="{{ route('admin', ['accion' => 'solicitud']) }}" method="POST">
+                @csrf
+                <input type="hidden" id="modalIdCita" name="id_cita">
+                <input type="submit" name="resultado" value="eliminar">
+                <input type="submit" name="resultado" value="aceptar">
+            </form>
+        </div>
+    </div>
+    <!-- MODAL -->
+    <div id='calendar'></div>
+</section>
+
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
+
+<script>
+    function cerrarModal() {
+        document.getElementById('detalleCitaModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('detalleCitaModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            locale: 'es',
+            allDayText: 'Tiempo',
+            titleFormat: {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            },
+            slotLabelFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            },
+            eventTimeFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            },
+            dayHeaderFormat: {
+                weekday: 'long',
+                day: 'numeric'
+            },
+            events: @json($arreglo),
+            // Aqui si el estado es igual a aceptado cambia de color a cafe. lo pueden cambiar
+            eventDidMount: function(info) {
+            const estado = info.event.extendedProps.estado;
+
+            if (estado === 'Aceptado') {
+                info.el.style.backgroundColor = '#A68160'; // café
+                info.el.style.borderColor = '#8B4513';
+            }
+            },
+            eventClick: function(info) {
+
+                const evento = info.event.extendedProps;
+
+                // Verifica en consola los datos
+                console.log("Datos extendidos del evento: ", info.event.extendedProps);
+
+                // Actualiza los valores del modal
+                document.getElementById('modalEmpleado').textContent = evento.empleado || 'No definido';
+                document.getElementById('modalUsuario').textContent = evento.usuario || 'No definido';
+                document.getElementById('modalEstablecimiento').textContent = evento.establecimiento || 'No definido';
+                document.getElementById('modalFecha').textContent = info.event.start.toLocaleDateString();
+                document.getElementById('modalHoraInicio').textContent = info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                document.getElementById('modalHoraFin').textContent = info.event.end ? info.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'N/A';
+                document.getElementById('modalProducto').textContent = evento.producto || 'Sin producto';
+                document.getElementById('modalCantidad').textContent = evento.cantidad || 'Sin cantidad';
+                document.getElementById('modalEstado').textContent = evento.estado || 'Sin estado';
+
+                // Trae el id_cita
+                document.getElementById('modalIdCita').value = evento.id_cita;
+
+                // Muestra el modal
+                document.getElementById('detalleCitaModal').style.display = 'block';
+            }
+        });
+        calendar.render();
+    });
+</script>
+
+
+            
+
+        
         <!-- CRUD DE ADMINISTRADORES DE MYLOOK Y SUS ESTABLECIMIENTOS (( ESTA SECCION SOLO SERA VISIBLE PARA EL ADMINISTRADOR LIDER )) -->
         <section class="sectionAdministrador">
 
