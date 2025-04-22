@@ -105,6 +105,9 @@
                             <div class="contenedor-informacion">
                                 <div class="informacion">
                                     <div class="nombre-descripcion">
+                                            <h2>{{ $establecimiento->nombre_establc }}</h2>
+                                            <p>{{ $establecimiento->desc_establc }}</p>
+                                    </div>
                                         <div class="servicios">
                                             @if ($establecimiento->categorias->isNotEmpty())
                                                 <h4>Categorías:</h4>
