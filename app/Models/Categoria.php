@@ -11,8 +11,12 @@ class Categoria extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id_establc',
         'nom_categoria',
         'desc_categoria',
         'imagen'
     ];
+    public function establecimiento(){
+        return $this->belongsTo(Establecimiento::class, 'id_establc');
+    }
 }

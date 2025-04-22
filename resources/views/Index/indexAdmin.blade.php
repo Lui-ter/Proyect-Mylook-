@@ -92,7 +92,7 @@
         <section class="crudStaff" style="display: none;">
 
             <span class="rediretViewStaff">
-                <a link href="../../View/Administrador/viewStaff.html" class="tittleRediret">VER TODOS...</a>
+                <a href="{{ route('getStaff') }}" class="tittleRediret">VER TODOS...</a>
             </span>
             <article class="staffItem">
                 @foreach($infoStaff as $item)

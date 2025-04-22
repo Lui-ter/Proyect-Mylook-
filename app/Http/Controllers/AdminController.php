@@ -41,6 +41,7 @@ class AdminController extends Controller
         ->where('id_rol', '!=', 1)
         ->with(['usuario', 'rol']) 
         ->get()
+        ->take(3)
         ->toArray();
 
     foreach ($infoStaff as &$staff) {

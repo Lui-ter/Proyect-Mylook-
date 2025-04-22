@@ -16,7 +16,7 @@ const regexNombre = /^[a-zA-Z\s]+$/;  // Solo letras y espacios
 const regexDescripcion = /^[a-zA-Z0-9\s.,!?-]+$/; // Letras, números y algunos caracteres especiales
 const regexNumerico = /^[0-9]+$/;  // Solo números
 const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;    // Contraseñas seguras
-const regexNit = /^[0-9-]{10,}$/; 
+const regexNit = /^[0-9-]{10,}$/;
 const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
 
 /* FORMULARIO DE INSERCIÓN DE CATEGORIA */
@@ -139,7 +139,7 @@ function handleValidationRegister(event) {
             return;
         }
         event.target.submit();
-                return true;
+        return true;
     } else {
         const documentoUsuario = document.getElementById("4").value.trim();
         const nombreUsuario = document.getElementById("5").value.trim();
@@ -226,5 +226,210 @@ function handleValidationConfigUser(event) {
     }
 
     event.target.submit();
-    
+
+}
+
+/* VALIDACIONES FORMULARIO STAFF */
+function handleValidationStaff(event) {
+    event.preventDefault();
+
+    const documentoStaff = document.getElementById("Id")?.value.trim();
+    const nombreStaff = document.getElementById("nombre")?.value.trim();
+    const apellidoStaff = document.getElementById("apellido")?.value.trim();
+    const telefonoStaff = document.getElementById("telefono")?.value.trim();
+    const correoStaff = document.getElementById("correo")?.value.trim();
+    const contrasenaStaff = document.getElementById("contrasena")?.value.trim();
+    const rolStaff = document.getElementById("tipoRol")?.value.trim();
+    const imagenStaff = document.getElementById("imagenServicio")?.files[0]();
+
+    const regexNumerico = /^[0-9]+$/;
+    const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;   
+    const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
+
+
+
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    // CONTENEDOR MANEJO DE ERRORES
+    const form = document.querySelector(".contenedorForm");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.style.cssText = "background-color: #ffcccc; color: #d60000; padding: 10px; margin: 10px 0; border-radius: 5px; text-align: center; font-weight: bold;";
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+    }
+
+    if (!documentoStaff || !nombreStaff || !apellidoStaff || !telefonoStaff || !correoStaff || !contrasenaStaff || !rolStaff || !imagenStaff) {
+        showError("!Todos los campos son obligatorios.¡");
+        return;
+    }
+
+    if (!regexNumerico.test(documentoStaff)) {
+        showError("!El documento debe contener solo números.¡");
+        return;
+    }
+
+    if (!regexNombre.test(nombreStaff) || !regexNombre.test(apellidoStaff)) {
+        showError("!El nombre y el apellido solo pueden contener letras.¡");
+        return;
+    }
+
+    if (!regexNumerico.test(telefonoStaff) || telefonoStaff.length < 7) {
+        showError(!"El teléfono debe contener solo números y tener al menos 7 dígitos.¡");
+        return;
+    }
+
+    if (!regexCorreo.test(correoStaff)) {
+        showError("!El correo electrónico no tiene un formato válido.¡");
+        return;
+    }
+
+    if (!regexNombre.test(rolStaff)) {
+        showError("EL staff debe tener algun tipo de rol.");
+        return;
+    }
+
+    if (!tiposImgPermitidos.test(imagenStaff)) {
+        showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
+        return;
+    }
+
+    if (!regexPassword.test(contrasenaStaff)) {
+        showError("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!.");
+        return;
+    }
+
+    event.target.submit();
+
+}
+
+function handleValidationLogin(event) {
+    event.preventDefault();
+
+    const tipo_usuario = document.getElementById("tipo_usuario").value;
+
+    if (tipo_usuario == "2") {
+        const nitNegocio = document.getElementById("10").value.trim();
+        const contrasenaNegocio = document.getElementById("11").value.trim();
+
+        if (!nitNegocio || !contrasenaNegocio) {
+            showError("¡Faltan campos por llenar en el negocio!");
+            return;
+        }
+
+        if (!regexNit.test(nitNegocio)) {
+            showError("¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!");
+            return;
+        }
+
+        if (!regexPassword.test(contrasenaNegocio)) {
+            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+            return;
+        }
+        event.target.submit();
+        return true;
+    } else {
+        const documentoUsuario = document.getElementById("8").value.trim();
+        const passwordUsuario = document.getElementById("9").value.trim();
+
+        if (!documentoUsuario || !passwordUsuario) {
+            alert("¡Faltan campos por llenar en el usuario!");
+            return false;
+        } else {
+            if (!regexNumerico.test(documentoUsuario)) {
+                alert("¡El documento del usuario solo debe contener números!");
+                return false;
+            } else if (!regexPassword.test(passwordUsuario)) {
+                alert(
+                    "La contraseña del usuario debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
+                );
+                return false;
+            } else {
+                event.target.submit();
+                return true;
+            }
+        }
+    }
+}
+
+/* VALIDACIONES FORMULARIO STAFF */
+function handleValidationAdmin(event) {
+    event.preventDefault();
+
+    const documentoAdmin = document.getElementById("idAdmin")?.value.trim();
+    const nombreAdmin = document.getElementById("nombreAdmin")?.value.trim();
+    const apellidoAdmin = document.getElementById("apellidoAdmin")?.value.trim();
+    const telefonoAdmin = document.getElementById("telefonoAdmin")?.value.trim();
+    const correoAdmin = document.getElementById("correoAdmin")?.value.trim();
+    const contrasenaAdmin = document.getElementById("contrasenaAdmin")?.value.trim();
+    const imagenAdmin = document.getElementById("fileInput")?.files[0]();
+
+    const regexNumerico = /^[0-9]+$/;
+    const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;   
+    const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
+
+
+
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    // CONTENEDOR MANEJO DE ERRORES
+    const form = document.querySelector(".contenedorForm");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.style.cssText = "background-color: #ffcccc; color: #d60000; padding: 10px; margin: 10px 0; border-radius: 5px; text-align: center; font-weight: bold;";
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+    }
+
+    if (!documentoAdmin || !nombreAdmin || !apellidoAdmin || !telefonoStaff || !correoAdmin || !contrenaAdmin || !imagenAdmin) {
+        showError("!Todos los campos son obligatorios.¡");
+        return;
+    }
+
+    if (!regexNumerico.test(documentoAdmin)) {
+        showError("!El documento debe contener solo números.¡");
+        return;
+    }
+
+    if (!regexNombre.test(nombreAdmin) || !regexNombre.test(apellidoAdmin)) {
+        showError("!El nombre y el apellido solo pueden contener letras.¡");
+        return;
+    }
+
+    if (!regexNumerico.test(telefonoAdmin) || telefonoAdmin.length < 7) {
+        showError(!"El teléfono debe contener solo números y tener al menos 7 dígitos.¡");
+        return;
+    }
+
+    if (!regexCorreo.test(correoAdmin)) {
+        showError("!El correo electrónico no tiene un formato válido.¡");
+        return;
+    }
+
+    if (!tiposImgPermitidos.test(imagenAdmin)) {
+        showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
+        return;
+    }
+
+    if (!regexPassword.test(contrasenaAdmin)) {
+        showError("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!.");
+        return;
+    }
+
+    event.target.submit();
+
 }

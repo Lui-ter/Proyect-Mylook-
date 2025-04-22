@@ -105,19 +105,19 @@
                             <div class="contenedor-informacion">
                                 <div class="informacion">
                                     <div class="nombre-descripcion">
-                                        <h2>{{ $establecimiento->nombre_establc }}</h2>
-                                        <p>{{ $establecimiento->desc_establc }}</p>
-                                    </div>
-
-                                    <div class="servicios">
-                                        <h3>SERVICIOS</h3>
-                                        <ul>
-                                            <li>Servicio 1</li>
-                                            <li>Servicio 2</li>
-                                            <li>Servicio 3</li>
-                                        </ul>
-                                        <div class="puntuacion">★★★★★</div>
-                                    </div>
+                                        <div class="servicios">
+                                            @if ($establecimiento->categorias->isNotEmpty())
+                                                <h4>Categorías:</h4>
+                                                <ul>
+                                                    @foreach ($establecimiento->categorias as $categoria)
+                                                        <li>{{ $categoria->nom_categoria }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                <p>Sin categorías registradas.</p>
+                                            @endif
+                                            <div class="puntuacion">★★★★★</div>
+                                        </div>
                                 </div>
 
                                 <div class="contenedor-boton-agendar">

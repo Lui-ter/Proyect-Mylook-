@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const contrasenaInput = document.getElementById('contrasena');
     const telefonoInput = document.getElementById('telefono');
     const correoInput = document.getElementById('correo');
-    const direccionInput = document.getElementById('direccion');
     const rolInput = document.getElementById('tipoRol');
     const imagenInput = document.getElementById('imagenServicio');
 
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const apellidoPrevisualizacion = document.getElementById('apellidoPrevisualizacion');
     const telefonoPrevisualizacion = document.getElementById('telefonoPrevisualizacion');
     const correoPrevisualizacion = document.getElementById('correoPrevisualizacion');
-    const direccionPrevisualizacion = document.getElementById('direccionPrevisualizacion');
     const rolPrevisualizacion = document.getElementById('rolPrevisualizacion');
     const idPrevisualizacion = document.getElementById('idPrevisualizacion');
     const imagenPrevisualizacion = document.getElementById('imagenPrevisualizacion');
@@ -23,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
         apellidoPrevisualizacion.textContent = apellidoInput.value || '-';
         telefonoPrevisualizacion.textContent = telefonoInput.value || '-';
         correoPrevisualizacion.textContent = correoInput.value || '-';
-        direccionPrevisualizacion.textContent = direccionInput.value || '-';
         rolPrevisualizacion.textContent = rolInput.options[rolInput.selectedIndex].text || '-';
         idPrevisualizacion.textContent = idInput.value || '-';
     }
@@ -44,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
     apellidoInput.addEventListener('input', actualizarPrevisualizacion);
     telefonoInput.addEventListener('input', actualizarPrevisualizacion);
     correoInput.addEventListener('input', actualizarPrevisualizacion);
-    direccionInput.addEventListener('input', actualizarPrevisualizacion);
     rolInput.addEventListener('change', actualizarPrevisualizacion);
     imagenInput.addEventListener('change', actualizarImagenPrevisualizacion);
 

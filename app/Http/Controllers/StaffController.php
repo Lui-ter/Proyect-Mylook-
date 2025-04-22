@@ -142,6 +142,18 @@ class StaffController extends Controller
             Staff::where('id_usuario', $id)->delete();
             Usuario::where('id_usuario', $id)->delete();
             return redirect()->back()->with('success', 'Operación completada exitosamente.');
+        }elseif ($accion === 'ver') {
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $idStaff = Establecimiento::where('id_negocio',$idNegocio)->value('id_establc');
+            $infoStaff = Staff::where('id_staff', $idStaff)->get()->toArray();
+            
+            foreach ($infoStaff as &$item) {
+                if (isset($item['img_usuario'])) {
+                    $item['img_usuario'] = 'data:image/png;base64,' . base64_encode($item['img_prod']);
+                }
+            }
+    
+            return view($infoStaff, compact('infoStaff'));
         }else{
             return redirect()->route('staff', ['accion' => 'index']);
         }

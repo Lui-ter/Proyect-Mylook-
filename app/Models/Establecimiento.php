@@ -22,4 +22,9 @@ class Establecimiento extends Model
     public function negocio(){
         return $this->belongsTo(Negocio::class, 'id_negocio', 'id_negocio');
     }
+    public function categorias()
+{
+    return $this->hasMany(Categoria::class, 'id_establc', 'id_establc');
+}
+
 }

@@ -23,7 +23,7 @@
         </section>
 
         <form action="{{ isset($staff) ? route('updateStaff', ['id' => $staff->id_staff]) : route('registerStaff') }}"
-            method="POST" class="contenedorForm" enctype="multipart/form-data">
+            method="POST" class="contenedorForm" enctype="multipart/form-data" onsubmit="handleValidationStaff(event)">
             @csrf
             @if (isset($staff))
                 @method('PUT')
@@ -94,7 +94,7 @@
                 <div class="infoInput">
                     <p class="nombreInput">Imagen del Staff:</p>
                     <label for="imagenServicio" class="fileUploadLabel">Subir imagen</label>
-                    <input type="file" id="imagenServicio" name="imagenStaff"
+                    <input type="file" id="imagenServicio" name="imagenStaff" 
                         src="{{ $imgBase64 ?? '/descarga (3).png' }}" accept="image/jpeg, image/png"
                         class="fileUploadInput" {{ isset($staff) ? '' : 'required' }} />
                 </div>
@@ -107,7 +107,7 @@
                     <h2 class="tituloPrevisualizacion">Previsualización de ficha Staff</h2>
                     <div class="card">
                         <figure class="cardImg">
-                            <img id="imagenPrevisualizacion" src="./descarga (3).png" alt="" />
+                            <img id="imagenPrevisualizacion" src="{{ $imgBase64 ?? asset('/descarga (3).png') }}" alt="Imagen del staff" />
                         </figure>
                         <div class="cardText">
                             <h3>Nombre:</h3>

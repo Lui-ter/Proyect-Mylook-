@@ -197,7 +197,7 @@
             </div>
 
             <div class="contenedor-formulario contenedor-inicio-sesion">
-                <form action="{{ route('loginUser') }}" method="POST">
+                <form action="{{ route('loginUser') }}" method="POST" onsubmit="handleValidationLogin(event)">
                     @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Usuario</button>
@@ -223,7 +223,7 @@
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="contrasenaNegocio" id="10" placeholder="Ingrese su contraseña..."  />
+                            <input type="password" name="contrasenaNegocio" id="11" placeholder="Ingrese su contraseña..."  />
                         </div>
                     
                         

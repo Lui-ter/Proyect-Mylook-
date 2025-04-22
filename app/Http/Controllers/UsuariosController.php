@@ -56,7 +56,7 @@ class UsuariosController extends Controller
                 ->take(3)
                 ->get();
 
-                $establecimientosRecomendados = Establecimiento::with('negocio')
+                $establecimientosRecomendados = Establecimiento::with('negocio', 'categorias')
                 ->inRandomOrder()
                 ->take(6)
                 ->get(); // ← no usamos toArray() para evitar errores
