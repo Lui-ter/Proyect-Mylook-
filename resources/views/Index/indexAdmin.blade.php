@@ -17,9 +17,9 @@
     @section('link-configurar-perfil', '/admin/configurar-perfil')
     @section('link-historial', '/admin/historial')
     @section('link-salir', '/negocio/logout')
-    
+
     @include('components.header-staff')
-    
+
 
     <aside class="bandejaentradaAdmin">
         <article class="containerMensajes">
@@ -111,7 +111,7 @@
                     <form action="{{ route('staff', ['accion' => 'eliminar']) }}" method="POST">
                     @csrf
                     <button type="submit" class="btnOption"name="deleteStaff" id="eliminarStaff" value="{{$item['id_usuario']}}">Eliminar</button>
-                    </form> 
+                    </form>
                     </span>
                 </figure>
                 @endforeach
@@ -170,22 +170,25 @@
 
             <div class="contianerCategoria">
 
-                @foreach($categorias as $categoria)
-            <article class="categoriaCard">
-                <figure class="imgCategoria">
-                    <img src="{{$categoria['imagen']}}" alt="" class="fotoCategoria">
-                </figure>
-
-                <div class="infoCategoria">
-                    <h3 class="nomCategoria">{{$categoria['nom_categoria']}}</h3>
-                    <p class="descripCategoria">{{$categoria['desc_categoria']}}</p>
-                    <form action="{{ route('categorias', ['accion' => 'editar']) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btnOption" name="editCategoria" value="{{ $categoria['id_categoria'] }}">
-                            Editar Categoría
-                        </button>
-                    </form>
-                </div>
+            @foreach($categorias as $categoria)
+                <article class="categoriaCard">
+                    <a href="{{ route('servicios', ['accion' => 'ver', 'id' => $categoria['id_categoria']]) }}">
+                        <figure class="imgCategoria">
+                            <img src="{{$categoria['imagen']}}" alt="" class="fotoCategoria">
+                        </figure>
+                    <div class="infoCategoria">
+                        <h3 class="nomCategoria">{{$categoria['nom_categoria']}}</h3>
+                        <p class="descripCategoria">{{$categoria['desc_categoria']}}</p>
+                        <form action="{{ route('categorias', ['accion' => 'editar']) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btnOption" name="editCategoria" value="{{ $categoria['id_categoria'] }}">Editar</button>
+                        </form>
+                        <form action="{{ route('categorias', ['accion' => 'eliminar']) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btnOption" name="deleteCategoria" value="{{ $categoria['id_categoria'] }}">Eliminar</button>
+                        </form>
+                    </div>
+                </a>
             </article>
             @endforeach
 
@@ -338,9 +341,9 @@
 </script>
 
 
-            
 
-        
+
+
         <!-- CRUD DE ADMINISTRADORES DE MYLOOK Y SUS ESTABLECIMIENTOS (( ESTA SECCION SOLO SERA VISIBLE PARA EL ADMINISTRADOR LIDER )) -->
         <section class="sectionAdministrador">
 

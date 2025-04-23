@@ -4,80 +4,62 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Models\Establecimiento;
 use App\Helpers\GlobalVariables;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriasController extends Controller
 {
 
-    /* LOGICA DE CATEGORIA */
+/* LOGICA DE CATEGORIA */
 
     public function handleAddCategory(Request $request){
 
-        $nombre = $request->input('nombreCategoria');
-        $imagen = file_get_contents($request->file('imgCategoria')->getRealPath());
-        $desc = $request->input('descripcionCategoria');
-    
-    
-        if (!empty($nombre) && !empty($imagen) && !empty('desc')) {
-            $category = Categoria::create([
-                'nom_categoria' => $nombre,
-                'desc_categoria' => $desc,
-                'imagen' => $imagen
-            ]);
-    
-            echo "Insercion Exitosa";
-            }else{
-                echo "Fallo en la inserción";
-            }
-    
-        }
+        // Aqui se validan los datos que provienen del formulario de categoria
+        $request->validate([
+            'idEstablecimiento' => 'required|numeric|exists:establecimiento,id_establc',
+            'nombreCategoria' => 'required|string',
+            'descripcionCategoria' => 'required|string',
+            'imgCategoria' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+        ]);
 
-    /* ACTUALIZACION DE CATEGORIA */
+        if($request->hasFile('imgCategoria')){
+            $img = $request->file('imgCategoria');
+            $imgCategoria = file_get_contents($img->getRealPath());
+        };
 
-    public function handleUpdateCategory(Request $request, $id)
-    {
-        try {
+        Categoria::create([
+            'id_establc' => $request->idEstablecimiento,
+            'nom_categoria' => $request->nombreCategoria,
+            'desc_categoria' => $request->descripcionCategoria,
+            'imagen' => $imgCategoria
+        ]);
 
-            $categoria = Categoria::where('id_categoria', $id)->firstOrFail();
-    
-
-            $categoria->nom_categoria = $request->input('nombreCategoria');
-            $categoria->desc_categoria = $request->input('descripcionCategoria');
-    
-
-            if ($request->hasFile('imgCategoria') && $request->file('imgCategoria')->isValid()) {
-                $categoria->imagen = file_get_contents($request->file('imgCategoria')->getRealPath());
-            }
-    
-
-            $categoria->save();
-    
-            return redirect()->route('admin');
-        } catch (\Throwable $th) {
-            \Log::error('Error al actualizar la categoría: ' . $th->getMessage());
-            return back()->withErrors(['error' => 'Ocurrió un error al actualizar la categoría.']);
-        }
+        return redirect()->route('admin', ['accion' => 'index']);
     }
-    
-    
 
+/* ACTUALIZACION DE CATEGORIA */
 
-    /* ELIMINACION DE CATEGORIA */
-    
-    public function handleDeleteCategory(Request $request){
-        
-        $id = $request->input('deleteButton');
-        
-        $category = Categoria::where('id_categoria', $id)->first();
-        
-        if ($category) {
-            
-            $category->destroy();
-            
+    public function handleUpdateCategory(Request $request, $id){
+
+        $request->validate([
+            'nombreCategoria' => 'required|string',
+            'descripcionCategoria' => 'required|string',
+            'imgCategoria' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+        ]);
+
+        $categoria = Categoria::where('id_categoria', $id)->firstOrFail();
+        $categoria->nom_categoria = $request->input('nombreCategoria');
+        $categoria->desc_categoria = $request->input('descripcionCategoria');
+        // Si se selecciono una nueva imagen se guardara en la db, de lo contrario mantendra la imagen que tenia anteriormente
+        if($request->hasFile('imgCategoria')){
+            $img = $request->file('imgCategoria');
+            $imgCategoria = file_get_contents($img->getRealPath());
+            $categoria->imagen = $imgCategoria;
         }
-        
-        return redirect('#');
+        $categoria->save();
 
+        return redirect()->route('admin', ['accion' => 'index']);
     }
 
     public function crudCategorias(Request $request, $accion = null){
@@ -86,21 +68,27 @@ class CategoriasController extends Controller
         $viewCategorias2 = GlobalVariables::$viewCategorias2;
 
         if ($accion === 'nuevo') {
+            // Se obtiene el id del negocio logueado para sacar el id del establecimiento asociado a ese negocio
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->value('id_establc');
             $modeValidator = '2';
-            return view($viewCategorias2, compact('modeValidator'));
+            return view($viewCategorias2, compact('modeValidator', 'idEstablecimiento'));
+
         } elseif ($accion === 'ver') {
             $categorias = Categoria::all()->toArray();
-            return view($viewCategorias, compact('categorias'));
+            return view($viewCategorias, compact('categorias')); // Muestra una vista de categorias totalmente diferente
+
         } elseif ($accion === 'editar' && $request->has('editCategoria')) {
-            $id = $request->input('editCategoria');
-            $categoria = Categoria::where('id_categoria', $id)->first();
+            $id_categoria = $request->input('editCategoria');
+            $categoria = Categoria::where('id_categoria', $id_categoria)->first();
+            $categoria['imagen'] = 'data:image/png;base64,' . base64_encode($categoria['imagen']);
             $modeValidator = '1';
             return view($viewCategorias2, compact('categoria', 'modeValidator'));
-        } else {
-            return redirect()->route('crudCategorias', ['accion' => 'ver']);
+
+        }  elseif ($accion === 'eliminar' && $request->has('deleteCategoria')) {
+            $id_categoria = $request->input('deleteCategoria');
+            Categoria::where('id_categoria', $id_categoria)->delete();
+            return redirect()->back()->with('success', 'Se elimino la categoria satisfactoriamente');
         }
-
     }
-
-
 }

@@ -8,7 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
-  <!--sección todo--> 
+  <!--sección todo-->
 <main>
   <article class="titulo">
   <h1 class="titulo1">{{ $modeValidator == 1? '' : 'EDICIÓN Y CREACIÓN DE CATEGORÍAS' }}</h1>
@@ -22,19 +22,27 @@
       @csrf
       @method($modeValidator == 1? 'PUT':'POST')
       <article class="contenedorPadre">
+
         <div class="columna">
           <label for="nombreCategoria" class="nombreCategoria">Nombre de la categoría:</label>
-          <input type="text" name="nombreCategoria" class="nombreInput" id="nombreCategoria" maxlength="50" value="{{ $categoria['nombreCategoria'] ?? '' }}"/>
-          
+          <input type="text" name="nombreCategoria" class="nombreInput" id="nombreCategoria" maxlength="50" value="{{ $categoria['nom_categoria'] ?? '' }}"/>
+
           <div class="inputImagen">
             <label for="imagen" class="nombreCategoria labelImagen">Subir imagen categoría:</label>
             <input type="file" name="imgCategoria" class="nombreInput subirImagen" id="imagen" />
           </div>
-          
+
           <label for="descripcion" class="nombreCategoria">Descripción de la categoría:</label>
-          <textarea name="descripcionCategoria" id="descripcion" maxlength="300">{{$categoria['descripcionCategoria']??''}}</textarea>
+          <textarea name="descripcionCategoria" id="descripcion" maxlength="300">{{$categoria['desc_categoria']??''}}</textarea>
         </div>
-      <!-- BOTONES DE GUARDAR Y CANCELAR (HAY ALGO POR PREGUNTAR) -->
+
+        <!-- Input para llevar el id del establecimiento a registrar en la categoria siempre y cuando el modevalidator sea 2 -->
+        @if($modeValidator == 2)
+            <input type="hidden" name="idEstablecimiento" value="{{ $idEstablecimiento }}">
+        @endif
+
+
+        <!-- BOTONES DE GUARDAR Y CANCELAR (HAY ALGO POR PREGUNTAR) -->
        <div class="botones">
           <button type="reset" class="cancelar">CANCELAR</button>
           <button type="submit" class="guardar">GUARDAR</button>
@@ -48,8 +56,15 @@
         <div class="columna">
           <section class="infoPrevisual">
             <figure>
-              <img id="imagenCategoria" src="" alt="Imagen de la categoría" style="display: none;" />
-            </figure>
+                <img id="imagenCategoria"
+                     src="{{ isset($categoria['imagen']) && !empty($categoria['imagen']) ? $categoria['imagen'] : '' }}"
+                     alt="Imagen de la categoría"
+                     style="max-width: 100%; display: {{ isset($categoria['imagen']) && !empty($categoria['imagen']) ? 'block' : 'none' }};" />
+
+                @if(!isset($categoria['imagen']) || empty($categoria['imagen']))
+                  <p id="sinImagen">No hay imagen disponible</p>
+                @endif
+              </figure>
             <h3 class="titulo3" id="vistaNombre"></h3>
             <p class="texto2" id="vistaDescripcion"></p>
           </section>

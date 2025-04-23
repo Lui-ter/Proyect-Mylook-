@@ -16,7 +16,8 @@ class Categoria extends Model
         'desc_categoria',
         'imagen'
     ];
+
     public function establecimiento(){
-        return $this->belongsTo(Establecimiento::class, 'id_establc');
+        return $this->belongsTo(Establecimiento::class, 'id_establc', 'id_establc');
     }
 }

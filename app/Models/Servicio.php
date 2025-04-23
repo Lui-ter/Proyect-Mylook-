@@ -11,22 +11,20 @@ class Servicio extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id_tiposerv',
-        'nom_servicio',
+        'id_categoria',
+        'nombre_servicio',
         'desc_servicio',
         'img_serv',
         'duracion_serv',
         'precio_servicio'
     ];
 
-    public function tipoServicio()
-    {
-        return $this->belongsTo(TipoServicio::class, 'id_tiposerv');
+    public function Categoria(){
+        return $this->belongsTo(Categoria::class, 'id_categoria', 'id_categoria');
     }
 
-    public function reservas()
-    {
-    return $this->hasMany(ReservaServicio::class, 'id_servicio');
+    public function reservas(){
+        return $this->hasMany(ReservaServicio::class, 'id_servicio');
     }
 
 }

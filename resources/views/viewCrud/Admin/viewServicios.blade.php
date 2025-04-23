@@ -13,56 +13,63 @@
         <!-- VOLVER AL MENU INICIAL -->
         <span class="volver">
             <a href="{{route('admin', ['accion' => 'index'])}}">
-                <i class="fas fa-arrow-left"></i> 
-            </a>    
+                <i class="fas fa-arrow-left"></i>
+            </a>
             <h3 class="nomView">Gestion Servicios</h3>
         </span>
-    
+
         <!-- FILTRADO DE SERVICIOS -->
         <nav class="filter">
             <div class="option">
                 <button type="submit" id="btnInicio" class="optionGestion"> TODO</button>
                 <button type="submit" class="optionGestion">RECIENTES</button>
                 <button type="submit" class="optionGestion">RANKING</button>
-            </div> 
+                <a href="{{ route('servicios', ['accion' => 'nuevo', 'id' => $categorias['id_categoria']]) }}"><button type="submit" class="optionGestion">NUEVO</button></a>
+            </div>
             <div class="searchBar">
                 <select name="service" class="inputSearch">
                     <option value="" disabled selected>Seleccione un tipo de servicio</option>
-                    @foreach($tipoServicio as $tipo)
-                    <option value="{{$tipo['tipo_serv']}}">{{$tipo['tipo_serv']}}</option>
+                    @foreach ( $servicios as $servicio )
+                        <option value="{{ $servicio->id_servicio }}">{{ $servicio->nombre_servicio }}</option>
                     @endforeach
                 </select>
             </div>
         </nav>
-        
+
         <!-- CONTENEDOR DEL SERVICIO A REFERENCIAR -->
         <section class="cardItems">
 
             @foreach($servicios as $servicio)
             <div class="cardUnited">
                 <article class="itemImg">
-                    <img src="{{$servicio['img_serv']}}" alt="Imagen de Servicio" class="img">
+                    <img src="{{ $categorias['imagen'] }}" alt="Imagen de la categoria" class="img">
                 </article>
                 <div class="infoItem">
-                    <h3 class="nomNegocio">ALEJANDRO MALDITA PERRA</h3>
-                    <h2 class="nomItem">{{$servicio['nom_servicio']}}</h2>
-                    <p class="precio">$ {{$servicio['precio_servicio']}} CO</p>
-    
+                    <h2 class="nomNegocio">{{ $nombreNegocio }}</h2>
+                    <h3 class="nomItem">{{$servicio->nombre_servicio}}</h3>
+                    <p class="precio">$ {{$servicio->precio_servicio}}</p>
+                    <p class="precio">{{$servicio->desc_servicio}}</p>
+
                     <div class="btnCrud">
                     <form action="{{ route('servicios', ['accion' => 'editar']) }}" method="POST">
                         @csrf
-                        <input type="hidden" name="editServicio" value="{{ $servicio['id_servicio'] }}">
+                        <input type="hidden" name="editServicio" value="{{ $servicio->id_servicio }}">
                         <button type="submit" class="btnEdit">EDITAR SERVICIO</button>
                     </form>
+                    <form action="{{ route('servicios', ['accion' => 'eliminar']) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="deleteServicio" value="{{ $servicio->id_servicio }}">
+                        <button type="submit" class="btnEdit">ELIMINAR SERVICIO</button>
+                    </form>
                     </div>
-    
+
                     </p>
-                    <p class="time">{{$servicio['duracion_serv']}} Minutos</p>
+                    <p class="time">{{$servicio->duracion_serv}} Minutos</p>
                 </div>
             </div>
             @endforeach
 
         </section>
-    </section>    
+    </section>
 </body>
 </html>

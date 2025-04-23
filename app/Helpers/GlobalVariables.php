@@ -39,45 +39,41 @@ class GlobalVariables
     public static $loginView = 'Formularios.Login.formLoginPrincipal';
 
     /* ------------------------------------------------------------------------------ */
-    
+
     public static $configEstablecimiento = 'Configuracion.configEstablecimiento';
-    
+
     /* ------------------------------------------------------------------------------ */
-    
+
     public static $viewCategorias2 = 'Formularios.Insercciones.registerCategoria';
-    
+
     public static $viewCategorias = 'viewCrud.Admin.viewCategorias';
-    
+
     /* ------------------------------------------------------------------------------ */
-
-    public static $viewCrudTipoServicio = 'Formularios.Insercciones.registerTipServicio';
-
-    public static $viewTipoServicios = 'viewCrud.Admin.viewTipoServicios';
 
     public static $viewCrudServicios = 'Formularios.Insercciones.registerServicios';
 
     public static $viewServicios = 'viewCrud.Admin.viewServicios';
 
     /* ------------------------------------------------------------------------------ */
-    
+
     public static $configBienvenidaMiNegocio = 'Configuracion.configBienvenidaMiNegocio';
-    
-    
+
+
     /* ------------------------------------------------------------------------------ */
-    
+
     public static $indexStaff = 'Index.indexStaff';
-    
+
     public static $registerStaff = 'Formularios.Login.registerStaff';
-    
+
     public static $loginStaff = 'Formularios.Login.loginStaff';
 
     public static $viewCrudStaff = 'Formularios.Login.registerStaff';
-    
+
     /* ------------------------------------------------------------------------------ */
 
     public static $viewProductos = 'viewCrud.Admin.viewProductos';
 
     public static $viewCrudProductos = 'Formularios.Insercciones.registerProductos';
 
-    
+
 }

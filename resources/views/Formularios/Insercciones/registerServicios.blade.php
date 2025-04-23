@@ -29,36 +29,31 @@
       </section>
 
       <!--Contenedor principal divisor de columnas-->
-      <form class="contenedor-formularios" method="post" action="{{ $modeValidator == 1 
-      ? route('updateService', ['id' => $servicio['id_servicio']]) 
+      <form class="contenedor-formularios" method="post" action="{{ $modeValidator == 1
+      ? route('updateService', ['id' => $servicio['id_servicio']])
       : route('registerService') }}" enctype="multipart/form-data">
           @csrf
     @method($modeValidator == 1 ? 'PUT' : 'POST')
           <!--Contenedor de columna numero uno-->
-          <section class="columna-uno columna">
-              <div class="informacion-input">
-                  <p class="nombre-input">CATEGORIA</p>
-                  <select id="categoria" name="categoria">
-                      <option disabled selected>nombre</option>
-                      <option value="categoria">nombre categoria</option>
-                  </select>
-              </div>
-              <div class="informacion-input">
-                  <p class="nombre-input">NOMBRE</p>
-                  <input type="text" id="nombreServicio" name="nombreServicio"
-                      value="{{$servicio['nom_servicio'] ?? ''}}" required />
-              </div>
-              <div class="informacion-input">
-                  <p class="nombre-input">PRECIO</p>
-                  <input type="number" id="precioServicio" name="precioServicio"
-                      value="{{$servicio['precio_servicio'] ?? ''}}" required />
-              </div>
-              <div class="informacion-input">
-                  <p class="nombre-input">DURACION</p>
-                  <input type="number" id="duracionServicio" name="duracionServicio"
-                      value="{{$servicio['duracion_serv'] ?? ''}}" />
-              </div>
-          </section>
+            <section class="columna-uno columna">
+                <div class="informacion-input">
+                    <p class="nombre-input">CATEGORIA</p>
+                    <input type="hidden" id="categoria" name="idCategoria" value="{{$categorias->id_categoria}}"/>
+                    <input type="text" id="categoria" name="nameCategoria" value="{{$categorias->nom_categoria}}" readonly />
+                </div>
+                <div class="informacion-input">
+                    <p class="nombre-input">NOMBRE</p>
+                    <input type="text" id="nombreServicio" name="nombreServicio" value="{{$servicio['nombre_servicio'] ?? ''}}" required />
+                </div>
+                <div class="informacion-input">
+                    <p class="nombre-input">PRECIO</p>
+                    <input type="number" id="precioServicio" name="precioServicio" value="{{$servicio['precio_servicio'] ?? ''}}" required />
+                </div>
+                <div class="informacion-input">
+                    <p class="nombre-input">DURACION</p>
+                    <input type="number" id="duracionServicio" name="duracionServicio" value="{{$servicio['duracion_serv'] ?? ''}}" />
+                </div>
+            </section>
 
           <!--Contenedor de columna numero dos-->
 

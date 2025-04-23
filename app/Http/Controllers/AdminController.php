@@ -16,9 +16,9 @@ class AdminController extends Controller
     // una clase privada  donde estan todos los parametros para que la vista cargue correctamente
     private function cargarDatosIndex()
     {
-    $categorias = Categoria::all()->toArray();
     $idNegocio = Auth::guard('negocio')->user()->id_negocio;
     $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
+    $categorias = Categoria::where('id_establc', $establecimiento)->get()->toArray();
 
     $productsPreview = Producto::whereIn('id_establc', $establecimiento)
         ->latest()
@@ -39,7 +39,7 @@ class AdminController extends Controller
 
     $infoStaff = Staff::whereIn('id_establc', $establecimiento)
         ->where('id_rol', '!=', 1)
-        ->with(['usuario', 'rol']) 
+        ->with(['usuario', 'rol'])
         ->get()
         ->take(3)
         ->toArray();
@@ -92,7 +92,7 @@ class AdminController extends Controller
         $configAdminView = GlobalVariables::$configAdminView;
 
         //Paramentros necesarios para cargar el admin
-        
+
 
         if ($accion === 'index') {
             // Arriba esta la clase private donde estan todos los paramentros CargarDatos...
@@ -102,13 +102,13 @@ class AdminController extends Controller
 
             $respuesta = $request->input('resultado'); // Recibe la acción (aceptar/eliminar)
             $idCita = $request->input('id_cita'); // Recibe el ID de la cita
-            
+
             if ($respuesta === 'aceptar') {
                 $cita = Cita::find($idCita);
                 if ($cita) {
                     $cita->estado_cita = "Aceptado"; // Cambia estado a 'Aceptado'
                     $cita->save();
-                    
+
                 } else {
                     // Depuraciones que cambian...
                     return response()->json(['mensaje' => 'Cita no encontrada'], 404);
@@ -117,20 +117,20 @@ class AdminController extends Controller
                 $cita = Cita::find($idCita);
                 if ($cita) {
                     // trae los datos de reserva para mirar cantidad
-                    $reserva = $cita->reservaProducto; 
+                    $reserva = $cita->reservaProducto;
                     if ($reserva) {
-                        
+
                         $producto = Producto::find($reserva->id_prod);
                         if ($producto) {
                             $producto->stock += $reserva->cantidad; // Devuelve la cantidad al stock
                             $producto->save(); // Guarda el cambio en la base de datos
                         }
                     }
-            
+
                     $cita->reservaServicio()?->delete();
                     $cita->reservaProducto()?->delete();
                     $cita->delete();
-                
+
                 } else {
                     // Depuraciones que cambian...
                     return response()->json(['mensaje' => 'Cita no encontrada'], 404);
@@ -140,8 +140,8 @@ class AdminController extends Controller
             // Arriba esta la clase private donde estan todos los paramentros CargarDatos...
             return view($indexAdminView, $this->cargarDatosIndex());
 
-            
-              
+
+
 
         } elseif ($accion === 'register') {
             return view($registerView);
@@ -153,5 +153,5 @@ class AdminController extends Controller
             return redirect()->route('admin', ['accion' => 'index']);
         }
     }
-    
+
 }
