@@ -62,8 +62,6 @@
     header {
         display: grid;
         grid-template-columns: 1fr 9fr;
-        width: 100vw;
-
         background-color: var(--color-secondary);
         color: var(--color-primary);
         justify-content: space-between;
@@ -71,7 +69,6 @@
         padding: 0.5em 1em;
         gap: 2em;
         z-index: 22;
-        height: 6em;
 
         .contenedor-logo {
             cursor: pointer;
@@ -236,7 +233,7 @@
 
 <script>
 
-    
+
     const contenedorPerfil = document.getElementById('perfil');
     const menuPerfil = document.getElementById('menu-perfil');
 

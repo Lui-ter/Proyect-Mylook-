@@ -1,651 +1,869 @@
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI";
 }
 
-/* VARIABLES DE ENTORNO */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Variables de css*/
 :root {
-    --color-background: #624023;
-    --color-primary: #c29268;
-    --color-dark: #795434;
+    --color-primary: #a68160;
+    --color-secondary: #f2f2f2;
     --color-white: white;
     --color-black: black;
 }
 
 body {
-    display: grid;
-    grid-template-columns: 30% 70%; 
-    grid-template-rows: 25% 10% 65%;
-    grid-template-areas: 
-    "Header Header"
-    "Mensajeria Nav"
-    "Mensajeria Main";
+    /* tamaño del 100% de la pantalla  */
     height: 100vh;
-    width: 100vw;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
 
-.encabezadoAdmin {
-    grid-area: Header;
-    height: 100%; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .tittleApp {
-        font-size: 4vw;
-        padding-left: 4.5vw;
-        padding-bottom: 5vh;
-        color: var(--color-dark);
-    }      
-
-    .containerPerfil {
+    /* etiqueta contenedora principal */
+    & main {
         display: flex;
-        justify-content: right;
-        align-items: start;
-        padding-right: 5vw;
-    
-        .imgPerfil {
-            height: 9vh;
-            width: 4vw;
-            border: 1px solid var(--color-primary);
-            border-radius: 100%;
-        }
-    }    
-}
+        gap: 1.25em;
+        padding: 1em 1.5em;
 
-.bandejaentradaAdmin {
-    grid-area: Mensajeria;
-    height: 100%; 
-    display: flex;
-    justify-content: right;
-    
-
-    .containerMensajes {
-        border: 1px solid var(--color-primary);
-        height: 105%;
-        width: 95%;
-        border-radius: 2%;
-        margin-top: -6vh;
-        z-index: 1;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 15% 71% 1fr;        
-
-        .tittleItem{
-            display: flex;
+        .contenedor-administrador {
+            /* 100% del espacio verticalmente */
+            height: 100%;
+            flex: 2;
+            display: grid;
+            /* una columna */
+            grid-template-columns: 1fr;
             justify-content: center;
-            align-items: center;
-            background-color: var(--color-dark);
+            /* dos filas una muy pequeña, otra muy grande */
+            grid-template-rows: 0.5fr 9fr;
+            gap: 1em;
 
-
-            .nomEntrada{
-                padding-bottom: 1vh;
-                font-size: 1.6vw;
-                color: var(--color-white);}
-        }
-
-        .mensajesItem{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-            gap: 1.5vh;
-            border-radius: 3px;
-            height: 88%;
-            width: 100%;
-            padding-top: 1vh;
-            margin-bottom: 4vh;
-            margin-top: 4vh;
-            overflow-y: scroll;
-            scrollbar-width: none;
-
-            .mensajeUnited{
-                display: flex;
+            & .navegacion {
+                width: 100%;
+                display: grid;
+                gap: 1em;
+                /* 4 culumnas iguales */
+                grid-template-columns: 1fr 1fr 1fr 1fr;
                 justify-content: space-between;
-                align-items: center;
-                height: 12vh;
-                min-height: 12vh;
-                width: 80%;
-                background-color: var(--color-primary);
-                transition: .1s ease-in-out;
 
-                &:hover{
-                    background-color: var(--color-dark);
+                & button {
+                    padding: 0.4em 0;
+                    width: 100%;
+                    font-size: clamp(1em, 1.2vw, 3em);
+                    font-weight: bold;
+                    color: var(--color-primary);
+                    width: 100%;
+                    border: 1px solid var(--color-primary);
+                    border-radius: 0.5em;
+                    background-color: var(--color-white);
+                    height: 100%;
                     cursor: pointer;
                 }
-                
 
-                .fechaMensaje{
-                    border-right: 1px solid var(--color-white);
-                    height: 100%;
-                    width: 15%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    .namFecha{
-                        margin: 20%;
-                        font-size: .8vw;
-                        text-align: center;
-                    }   color: var(--color-white);
+                & button:hover,
+                & button.active {
+                    color: var(--color-white);
+                    border-color: var(--color-primary);
+                    background-color: var(--color-primary);
+                    transition: background 0.2s ease-in-out;
                 }
+            }
 
-                .mensaje{
-                    height: 100%;
-                    width: 70%;
+            /* contenedor de secciones */
+            & .secciones {
+                display: grid;
+                grid-template-rows: repeat(auto-fit, minmax(20em, 1fr));
+                max-height: 28em;
+                min-height: 28em;
+
+                /* contenedor de agenda */
+                & .agenda {
+                    width: 100%;
+                    text-align: center;
+                    border: 1px solid var(--color-primary);
+                    border-radius: 0.7em;
+                    /* oculta excesos  */
+                    overflow: hidden;
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
-                    align-items: start;
-                    text-align: left;
-                    padding-left: 1vw;
-                    color: var(--color-white);
-
-                    .nomCliente{
-                        font-size: 1vw;
-                    }
-
-                    .txtMensaje{
-                        font-size: .8vw;
-
-                    }
-                }
-
-                i{
-                    border-left: 1px solid var(--color-white);
-                    height: 100%;
-                    width: 15%;
-                    font-size: 1.5vw;
-                    display: flex;
-                    justify-content: center;
                     align-items: center;
-                    color: var(--color-white);
+                    /* ocupa el 70% de la pantalla, ya sea movil o pc */
+                    height: 70vh;
+                    & .modal-personalizado {
+                        justify-content: center;
+                        align-items: center;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.7);
+                        z-index: 1000;
+                        /* Lo ocultamos por defecto */
+                        display: none;
+
+                        & .contenido-modal-personalizado {
+                            background-color: var(--color-white);
+                            border-radius: 0.4em;
+                            padding: 1em;
+                            width: 50%;
+                            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+                            animation: deslizamiento 0.4s ease-out;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            gap: 0.5em;
+                            align-items: center;
+                            position: relative;
+                            z-index: 2000;
+
+                            & .btn-cerrar {
+                                position: absolute;
+                                top: 15px;
+                                right: 15px;
+                                font-size: clamp(1em, 2vw, 5em);
+                                color: var(--color-black);
+                                cursor: pointer;
+                                transition: color 0.3s ease;
+
+                                &:hover {
+                                    color: var(--color-primary);
+                                }
+                            }
+
+                            & .encabezado-modal {
+                                display: flex;
+                                align-items: center;
+                                font-size: clamp(1em, 1.6vw, 4em);
+                                font-weight: 600;
+                                color: var(--color-black);
+                                text-align: center;
+                            }
+                            & .cuerpo-modal {
+                                display: grid;
+                                gap: 1em;
+                                width: 100%;
+
+                                & .seccion-modal {
+                                    width: 100%;
+                                    /*   que ocupe todo el ancho del modal */
+                                    & .subtitulo-modal {
+                                        font-size: clamp(1em, 1.4vw, 4em);
+
+                                        font-weight: 500;
+                                        color: var(--color-primary);
+                                        border-bottom: 1px solid var(--color-secondary);
+                                    }
+
+                                    & .informacion-modal {
+                                        display: grid;
+                                        gap: 0.5em;
+
+                                        & .fila-modal {
+                                            display: flex;
+                                            justify-content: space-between;
+
+                                            & .etiqueta-modal {
+                                                font-size: clamp(1em, 1.3vw, 4em);
+                                            }
+
+                                            & .campo-modal {
+                                                font-size: clamp(1em, 1.3vw, 4em);
+                                                color: var(--color-black);
+                                                text-align: right;
+                                            }
+                                        }
+                                    }
+                                }
+                                & .formulario-modal {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    .input-oculto-modal {
+                                        display: none;
+                                    }
+                                    & .acciones-modal {
+                                        display: grid;
+                                        grid-template-columns: 1fr 1fr;
+                                        justify-content: center;
+                                        align-items: center;
+                                        gap: 1em;
+                                        width: 100%;
+                                        & .boton-modal {
+                                            padding: 0.2em 0.4em;
+                                            border: 1px solid;
+                                            border-radius: 0.4em;
+                                            font-size: clamp(1em, 1.2vw, 3em);
+                                            cursor: pointer;
+                                            font-weight: bold;
+                                            transition: background-color 0.3s ease, transform 0.2s ease;
+
+                                            &.cancelar {
+                                                background-color: var(--color-primary);
+                                                color: var(--color-white);
+                                                border-color: var(--color-primary);
+
+                                                &:hover {
+                                                    background-color: var(--color-secondary);
+                                                    color: var(--color-primary);
+                                                    border-color: var(--color-primary);
+                                                }
+                                            }
+
+                                            &.aceptar {
+                                                background-color: var(--color-white);
+                                                color: var(--color-primary);
+                                                border-color: var(--color-primary);
+
+                                                &:hover {
+                                                    background-color: var(--color-primary);
+                                                    color: var(--color-white);
+                                                    border-color: var(--color-primary);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
                 }
-            }
-        }
 
-        .showMas{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--color-dark);
-            margin: 2% 4% 2% 4%;
-            border-radius: 4px;
-            cursor: pointer; 
-            transition: .3s ease-in-out;
+                /* clase en general para las secciones de staff,pordutos y categorias */
+                & .seccion-opcion {
+                    display: flex;
+                    gap: 1em;
+                    height: 70vh;
+                    overflow-x: hidden;
 
-            &:hover{
-                background-color: var(--color-background);
-            }
+                    /* clase para las cartas de agrgar o ver todos */
+                    & .agregar,
+                    & .ver-todos {
+                        transition: flex 0.3s ease-in-out,
+                            width 0.3s ease-in-out;
+                        flex: 1 1 8vw;
+                        background-color: var(--color-white);
+                        border: 1px solid var(--color-primary);
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        height: 100%;
+                        border-radius: 0.5em;
+                        height: 70vh;
+                        cursor: pointer;
 
-            .tittleShow{
-                color: var(--color-white);
-                font-size: 1vw;
+                        & button {
+                            display: grid;
+                            grid-template-rows: 9fr 1fr;
+                            height: 100%;
+                            border: none;
+                            color: var(--color-primary);
+                            font-size: clamp(0.7em, 1vw, 3em);
+                            font-weight: bold;
+                            cursor: pointer;
+
+                            & i {
+                                font-size: clamp(5em, 3vw, 5em);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                        cursor: pointer;
+
+                            }
+
+                            & p {
+                                font-size: 1.5em;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+                        }
+                    }
+
+                    & .agregar:hover,
+                    & .ver-todos:hover {
+                        flex: 2 1 17vw;
+                    }
+
+                    /* clase en general de las cartas de staff, productos y categorias */
+                    & .carta {
+                        flex: 1 1 8vw;
+                        height: 100%;
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        grid-template-rows: 4fr 1fr;
+                        justify-content: space-between;
+                        background-color: var(--color-secondary);
+                        border: 1px solid var(--color-primary);
+                        border-radius: 0.4em;
+                        height: 70vh;
+                        gap: 0.2em;
+                        position: relative;
+                        font-size: clamp(0.8em, 1.2vw, 3em);
+                        overflow: hidden;
+                        transition: flex 0.3s ease-in-out,
+                            box-shadow 0.3s ease-in-out;
+                        cursor: pointer;
+
+                        & .carta-imagen {
+                            background-color: var(--color-white);
+                            width: 100%;
+                            position: relative;
+                            display: grid;
+
+                            & img {
+                                width: 100%;
+                                height: 70vh;
+                                object-fit: cover;
+                                transition: height 0.3s ease-in-out,
+                                    border 0.3s ease-in-out;
+                            }
+
+                            & .stock {
+                                position: absolute;
+                                top: 0px;
+                                right: 0px;
+                                background-color: var(--color-black);
+                                color: white;
+                                padding: 5px 10px;
+                                border-radius: 0 0.3em 0 0.3em;
+                            }
+
+                            & .precio {
+                                position: absolute;
+                                bottom: 0px;
+                                width: 100%;
+                                background-color: var(--color-black);
+                                color: var(--color-white);
+                                font-weight: bold;
+                                padding: 0.2em 0;
+                                text-align: center;
+                                border-radius: 0 0 0.3em 0.3em;
+                            }
+
+                            & .rol {
+                                position: absolute;
+                                top: 0px;
+                                right: 0px;
+                                background-color: var(--color-black);
+                                color: white;
+                                padding: 5px 10px;
+                                border-radius: 0 0.3em 0 0.3em;
+                            }
+
+                            & a {
+                                text-decoration: none;
+                                font-weight: bold;
+                            }
+                        }
+
+                        & h3 {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        & p {
+                            font-size: 1em;
+                            font-weight: 500;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 4;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                        }
+
+                        & .contenedor-botones {
+                            width: 100%;
+                            justify-content: center;
+                            align-items: end;
+                            align-self: end;
+                            display: grid;
+                            gap: 1em;
+                            grid-template-columns: 1fr 1fr;
+
+                            & form {
+                                & .boton {
+                                    width: 100%;
+                                    border: 1px solid var(--color-primary);
+                                    background-color: var(--color-primary);
+                                    padding: 0.2em 0;
+                                    border-radius: 0.4em;
+                                    color: var(--color-secondary);
+                                    font-weight: bold;
+                                    font-size: 1.1em;
+                                    cursor: pointer;
+                                }
+
+                                & .boton:hover {
+                                    border-color: var(--color-primary);
+                                    background-color: var(--color-secondary);
+                                    padding: 0.2em 0;
+                                    border-radius: 0.4em;
+                                    color: var(--color-primary);
+                                }
+                            }
+                        }
+
+                        /* ocultamos la visibilidad para que solo se muestren las imagenes antes de hacer hover */
+                        & p,
+                        a,
+                        .contenedor-botones {
+                            opacity: 0;
+                            transition: opacity 0.3s ease-in-out;
+                        }
+                    }
+
+                    /* al hacer hover muestra los datos que antes estaban ocultos */
+                    & .carta:hover {
+                        flex: 2 1 17vw;
+                        grid-template-rows: 4fr 1fr 2fr 1fr;
+                        padding: 0.5em;
+                        & img {
+                            height: 40vh;
+                            border-radius: 0.4em;
+                            border: 1px solid var(--color-primary);
+                        }
+                    }
+
+                    /* estilos a la carta staff, ya que necesita algunas modficaciones al tener menos datos */
+                    & #carta-staff {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        grid-template-rows: 4fr 1fr 1fr;
+
+                        & #foto-staff {
+                            height: 50vh;
+                        }
+                    }
+
+                    #carta-staff:hover {
+                        flex: 2 1 17vw;
+                        grid-template-rows: 4fr 0.5fr 0.5fr;
+                        padding: 0.5em;
+
+                        & img {
+                            height: 54vh;
+                            border-radius: 0.4em;
+                            border: 1px solid var(--color-primary);
+                        }
+                    }
+
+                    & .carta:hover p,
+                    .carta:hover a,
+                    .carta:hover .contenedor-botones {
+                        opacity: 1;
+                    }
+                }
             }
         }
     }
 }
 
-.menunavegacionAdmin {
-    grid-area: Nav;
+
+
+/* estilos para el calendario */
+.fc {
+    width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: right;
+}
+
+/* Cambiar el color del "scrollbar" del calendario */
+.fc-theme-standard .fc-scroller::-webkit-scrollbar {
+    width: .4em; /* ancho de la barra */
+}
+
+.fc-theme-standard .fc-scroller::-webkit-scrollbar-track {
+    background: var(--color-white) !important; /* color del fondo de la barra */
+}
+
+.fc-theme-standard .fc-scroller::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary) !important; /* color de la barra */
+    border-radius: .5em;
+    border: 2px solid var(--color-secondary);
+}
+
+.fc-theme-standard .fc-scroller {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) var(--color-secondary); /* color de la barra y del fondo */
+}
+
+.fc .fc-toolbar {
     align-items: center;
-    padding-right: 3vw;
+}
 
-    .btnCrud {
-        padding: 1% 4%;
-        margin-right: 2%;
-        background-color: transparent;
-        color: var(--color-dark);
-        border: 1px solid var(--color-dark);
-        border-radius: 5px;
-        font-size: 1vw;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
+.fc .fc-toolbar-title {
+    text-align: center;
+}
 
-        &:hover {
-            background-color: var(--color-dark);
-            color: var(--color-white);
+.fc .fc-toolbar.fc-header-toolbar {
+    padding: 0.5em 0.5em;
+    margin: 0 !important;
+    align-items: center;
+}
+
+.fc-timegrid-slot-label {
+    color: var(--color-black) !important;
+    font-weight: bold !important;
+}
+
+.fc-col-header-cell-cushion {
+    font-weight: bold !important;
+}
+
+th {
+    .fc-scroller-harness {
+        .fc-scroller {
+            overflow-y: hidden !important;
         }
     }
+}
 
-    .btnCrud.active {
-        background-color: var(--color-dark);
+.fc-event {
+    background-color: var(--color-primary) !important;
+    border: 1px solid var(--color-primary) !important;
+    opacity: 1 !important;
+}
+
+.fc-event-time {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    font-weight: bold;
+}
+
+.fc-event-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.fc-event-title {
+    font-size: clamp(1em, 1vw, 2em);
+    font-weight: bold;
+}
+
+.fc-event:hover {
+    filter: brightness(1.1) !important;
+    cursor: pointer !important;
+}
+
+.fc-button {
+    background-color: var(--color-primary) !important;
+    border: 1px solid var(--color-primary) !important;
+    color: var(--color-white) !important;
+    font-weight: bold !important;
+}
+
+.fc-button-group {
+    display: flex;
+    gap: 0.2em;
+}
+
+.fc-button:hover {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-primary) !important;
+}
+
+.fc-button:disabled {
+    opacity: 1 !important;
+}
+
+.fc-event-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+
+    i {
+        font-size: 1.4em;
         color: var(--color-white);
     }
-    
-    .btnCrud.active::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: var(--color-dark);
-    }
-}    
+}
 
-.contentcrudAdmin {
-    grid-area: Main;
-    height: 97%;
-    width: 90%;
-    margin-left: 2.5vw;
-    overflow: hidden;
+.fc-timegrid-axis-frame {
+    content: "HORA";
+    display: block !important;
+    font-weight: bold;
+    height: 100%;
+    align-items: center;
+    color: #000000;
+    text-align: center;
+}
 
-    
-    .sectionDefault {
-            display: flex;
-            justify-content: start;
-            align-items: end;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-            padding-top: 8vh;
-            padding-left: 5vw;
+.fc-timegrid-axis-frame::before {
+    display: block !important;
+    content: "HORA";
+    height: 100%;
+    align-items: center;
+}
 
-            .infoDefault{
-                height: 20%;
-                width: 95%;
-                display: flex;
-                justify-content: center;
-                align-items: end;
+.fc-direction-ltr .fc-timegrid-slot-label-frame {
+    text-align: center;
+}
 
-                .txtIntroduccion{
-                    width: 85%;
-                    font-size: 1vw;
-                }
+.fc .fc-col-header-cell-cushion {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 1.2;
+    white-space: pre-line;
+    justify-content: center;
+    align-items: center;
+}
 
-                .btnExample{
-                    padding: .3% 1.5%;
-                    border: 1px solid var(--color-primary);
-                    color: var(--color-primary);
-                    border-radius: 3px;
-                }
-            }
+.fc .fc-col-header-cell-cushion abbr {
+    display: block;
+    text-decoration: none;
+}
 
-            .passAndPass{
-                height: 40%;
-                width: 95%;
+.fc-toolbar-chunk {
+    height: 100% !important;
+    display: flex;
+    align-items: center !important;
+}
 
-                .listaCrud{
-                    padding-top: 3vh;
-                    padding-left: 10vw;
-                    font-size: 1vw;
-                    display: flex;
-                    flex-direction: column;
-                    gap: .5vh;
-                }
-            }
+.evento-aceptado {
+    background-color: black !important;
+}
 
-            .infoImportant{
-                height: 20%;
-                width: 95%;
-                display: flex;
-                justify-content: center;
-                align-items: start;
-
-                .txtImportant{
-                    padding-top: 3vh;
-                    font-size: 1vw;
-                    width: 85%;
-                }
-            }
+@keyframes deslizamiento {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
     }
 
-    .crudStaff {
-        height: 90%;
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 20% 80%;
-
-        .rediretViewStaff{
-            display: flex;
-            align-items: end;
-            justify-content: right;
-
-            .tittleRediret{
-                color: var(--color-black);
-                font-size: 1vw;
-                font-weight: bold;
-                text-decoration: none;
-                padding-bottom: 2vh;
-            }
-        }
-
-        .staffItem{
-            height: 100%;
-            width: 100%;
-            display: flex;
-            justify-content: right;
-            align-items: start;
-            gap: 2vw;
-            flex-direction: row-reverse;
-
-            .staffCard{
-                border: 1px solid var(--color-primary);
-                box-shadow: 1px 1px 5px 1px var(--color-dark);
-                border-radius: 5px;
-                height: 95%;
-                width: 25%;
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 15% 1fr 15%;
-
-                .nomStaff{
-                    text-align: center;
-                    padding-top: 2vh;
-                    font-weight: bold;
-                    color: var(--color-background);
-                }
-
-                .imgStaff{
-                    height: 100%;
-                    width: 95%;
-                    border-radius: 2px;
-                    background-size: cover;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    padding-left: .7vw;
-                }
-
-                .rediretRegister{
-                    text-align: center;
-
-                    .btnOption{
-                        background-color: var(--color-dark);
-                        color: var(--color-white);
-                        border: none;
-                        border-radius: 3px;
-                        width: 40%;
-                        height: 60%;
-                        cursor: pointer;
-                        margin-top: 1.5vh;
-                        font-weight: bold;
-
-                        a{
-                            text-decoration: none;
-                            color: var(--color-white);
-                        }
-                    }
-                }
-            }
-
-            #AñadirStaff{
-                background-color: var(--color-white);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            
-            .rediretStaff{
-                color: var(--color-dark);
-                font-size: 30vh;
-                text-decoration: none;
-            }
-            
-        }
-    }
-
-    .crudProductos {
-        height: 90%;
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 20% 80%;
-
-        .rediretViewProductos{
-            display: flex;
-            align-items: end;
-            justify-content: right;
-
-            .tittleRediret{
-                color: var(--color-black);
-                font-size: 1vw;
-                font-weight: bold;
-                text-decoration: none;
-                padding-bottom: 2vh;
-            }
-        }
-
-        
-        .productosItem{
-            height: 100%;
-            width: 100%;
-            display: flex;
-            justify-content: right;
-            align-items: start;
-            gap: 2vw;
-            flex-direction: row-reverse;
-
-            .productoCard{
-                border: 1px solid var(--color-primary);
-                box-shadow: 1px 1px 5px 1px var(--color-dark);
-                border-radius: 5px;
-                height: 95%;
-                width: 25%;
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 60% 5% 20% 15%;
-
-                .imgProducto{
-                    height: 100%;
-                    width: 95%;
-                    border-radius: 2px;
-                    background-size: cover;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    padding-top: 1.5vh;
-                    padding-left: .7vw;
-                }
-
-                .nomProducto{
-                    text-align: center;
-                    font-weight: bold;
-                    color: var(--color-background);
-                    padding-top: .2vh;
-                }
-                
-
-                .descripProducto{
-                    margin: 0% 5% 5% 5%;
-                    text-align: left;
-                    font-size: .63vw;
-                    padding-top: 2vh;
-                    padding-left: .5vw;
-                    color: var(--color-background);
-                }
-
-                .rediretRegister{
-                    text-align: center;
-
-                    .btnOption{
-                        background-color: var(--color-dark);
-                        color: var(--color-white);
-                        border: none;
-                        border-radius: 3px;
-                        width: 40%;
-                        height: 50%;
-                        cursor: pointer;
-                        margin-top: 1.5vh;
-                        font-weight: bold;
-
-                        a{
-                            text-decoration: none;
-                            color: var(--color-white);
-                        }
-                    }
-                }
-            }
-
-            #AñadirProducto{
-                background-color: var(--color-white);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            
-            .rediretProducto{
-                color: var(--color-dark);
-                font-size: 30vh;
-                text-decoration: none;
-            }
-            
-        }
-    }
-
-    .crudCategoria {
-        height: 75%;
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 15% 75% 5%;
-
-        .rediretViewProductos{
-            display: flex;
-            align-items: end;
-            justify-content: space-between;
-
-            .tittleRediret{
-                color: var(--color-black);
-                font-size: 1vw;
-                font-weight: bold;
-                text-decoration: none;
-                padding-bottom: 2vh;
-            }
-        }
-
-        .contianerCategoria{
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: row-reverse;
-            gap: .1vw;
-
-        
-            .categoriaCard{
-                width: 5%;
-                display: flex;
-                position: relative;
-                transition: .5s ease-in-out;
-                border: 1px solid var(--color-primary);
-
-                
-            &:hover{
-                width: 35%;
-            }
-
-
-                .imgCategoria{
-                    height: 100%;
-                    width: 100%;
-                    transition: .5s ease-in-out;
-                    background-color: var(--color-dark);
-
-                .fotoCategoria{
-                        height: 100%;
-                        width: 100%;
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        background-size: cover;
-                        opacity: .6;
-                        transition: 1s ease-in-out;
-
-
-                        &:hover{
-                            opacity: .1;
-                        }
-                    }
-                }
-
-                .infoCategoria {
-                    position: absolute; 
-                    top: 25vh;
-                    width: 100%;
-                    height: 100%;
-                    color: white; 
-                    opacity: 0; 
-                    display: flex;
-                    align-items: end;
-                    justify-content: right;
-                    flex-direction: column;
-                    padding-right: 2vw;
-
-                    .nomCategoria{
-                        pointer-events: none;
-                        width: 75%;
-                        font-size: 1vw;
-                        border-bottom: 1px solid var(--color-white);
-                    }
-
-                    .descripCategoria{
-                        pointer-events: none;
-                        font-size: .6vw;
-                        padding-top: .3vw;
-                        width: 75%;
-                    }
-
-                    a{
-                        background-color: var(--color-white);
-                        color: var(--color-dark);
-                        text-decoration: none;
-                        width: 75%;
-                        height: 10%;
-                        text-align: center;
-                        cursor: pointer;
-                        margin-top: .5vw;
-                        opacity: .6;
-                        opacity: 1;
-
-                        &:hover{
-                            opacity: .8;
-                        }
-                    }
-                }
-
-                .imgCategoria:hover + .infoCategoria,
-                .infoCategoria:hover {
-                    transition: .5s ease-in-out;
-                    opacity: 1;
-                    width: 100%;
-                }
-            }
-        }
-
-        .rediretCategoria{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: 4vh;
-            
-            .nomRediret{
-                font-size: .8vw;
-
-                a{
-                    color: var(--color-dark);
-                    text-decoration: none;
-                    padding-left: .5vw;
-                    font-weight: bold;
-                }
-            }
-        }
-    }
-
-    .crudInicio {
-        position: relative; 
-        height: 100%; width: 100%;
-        background-color: #eeeeee;
-        border-radius: 3px;
-        display: flex;
-        justify-content: right;
-        align-items: center;
-    
+    100% {
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 
+@keyframes deslizamiento {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Media query para hacerla responsive */
+@media (max-width: 1024px) {
+    body {
+        height: 100%;
+
+        & main {
+            padding: 1em;
+
+            .contenedor-administrador {
+                grid-template-rows: 0.2fr 9fr;
+
+                & .navegacion {
+                    max-height: 2em;
+                    min-height: 2em;
+                }
+
+                & .secciones {
+                    max-height: 100%;
+                    min-height: 20em;
+
+                    & .agenda {
+                        height: 100%;
+                    }
+
+                    & .seccion-opcion {
+                        height: 100%;
+                        grid-template-columns: 1fr 1fr;
+
+                        & .agregar,
+                        & .ver-todos {
+                            height: 70vh;
+                        }
+
+                        & .agregar:hover,
+                        & .ver-todos:hover {
+                            flex: default;
+                        }
+
+                        & .carta {
+                            height: 100%;
+                            height: 70vh;
+                            gap: 0.2em;
+                            position: relative;
+                            font-size: clamp(0.8em, 1.4vw, 3em);
+                            grid-template-rows: 4fr 1fr 2fr 1fr;
+                            padding: 0.5em;
+
+                            & .carta-imagen {
+                                border-radius: 0.4em;
+                                border: 1px solid var(--color-primary);
+
+                                & img {
+                                    width: 100%;
+                                    height: 40vh;
+                                    border-radius: 0.4em;
+                                    border: none;
+                                }
+
+                                & .stock {
+                                    font-size: 1.4em;
+                                }
+
+                                & .precio {
+                                    font-size: 1.5em;
+                                }
+
+                                & .rol {
+                                    font-size: 1.3em;
+                                }
+                            }
+
+                            & h3 {
+                                font-size: 1.6em;
+                            }
+
+                            & p {
+                                font-size: 1.2em;
+                                -webkit-line-clamp: 4;
+                            }
+
+                            & p,
+                            a,
+                            .contenedor-botones {
+                                opacity: 1;
+                            }
+                        }
+
+                        & .carta:hover {
+                            flex: default;
+                            padding: default;
+
+                            img {
+                                border-radius: default;
+                                border: default;
+                            }
+                        }
+
+                        & #carta-staff {
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            flex: 2 1 17vw;
+                            grid-template-rows: 4fr 0.5fr 0.5fr;
+                            padding: 0.5em;
+
+                            & img {
+                                height: 54vh;
+                                border-radius: 0.4em;
+                                border: 1px solid var(--color-primary);
+                            }
+                        }
+
+                        #carta-staff:hover {
+                            flex: default;
+                            grid-template-rows: default;
+                            padding: default;
+
+                            & img {
+                                height: default;
+                                border-radius: default;
+                                border: default;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .seccion-activa {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        & main {
+            .contenedor-administrador {
+                & .navegacion {
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: 1fr 1fr;
+                    max-height: 7em;
+                    min-height: 7em;
+                }
+
+                & .secciones {
+                    & .seccion-opcion {
+                        height: 100%;
+                        grid-template-columns: 1fr;
+
+                        & .agregar,
+                        & .ver-todos {
+                            height: 15em;
+                        }
+
+                        & .carta {
+                            & .carta-imagen {
+                                & .stock {
+                                    font-size: 1.2em;
+                                }
+
+                                & .precio {
+                                    font-size: 1.5em;
+                                }
+
+                                & .rol {
+                                    font-size: 1.2em;
+                                }
+                            }
+
+                            & h3 {
+                                font-size: 1.4em;
+                            }
+
+                            & p {
+                                font-size: 1.2em;
+                                -webkit-line-clamp: 4;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .fc .fc-toolbar-title {
+        font-size: 1.1em !important;
+    }
+
+    .contenido-modal-personalizado {
+        width: 80%;
+    }
+}
+
+@media (max-width: 450px) {
+    .fc .fc-col-header-cell-cushion {
+        font-size: 0.6em;
+    }
+
+    .fc .fc-toolbar-title {
+        font-size: 0.9em !important;
+        padding: 0.2em;
+    }
+
+    .fc-timegrid-axis-frame {
+        font-size: 0.9em;
+    }
+
+    .fc .fc-timegrid-axis-cushion,
+    .fc .fc-timegrid-slot-label-cushion {
+        font-size: 0.9em;
+    }
+}

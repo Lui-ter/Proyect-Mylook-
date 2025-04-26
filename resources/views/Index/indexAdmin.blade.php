@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet"  href="{{ asset('Css/Index/indexAdmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('Css/Index/indexAdmin.css') }}">
     <title>Mi Negocio | MyLook</title>
 </head>
 
@@ -21,339 +22,416 @@
     @include('components.header-staff')
 
 
-    <aside class="bandejaentradaAdmin">
-        <article class="containerMensajes">
+    <main>
 
-            <div class="tittleItem">
-                <p class="nomEntrada">BANDEJA DE ENTRADA</p>
-            </div>
+        {{-- seccion contenedora --}}
+        <section class="contenedor-administrador">
+            {{-- navegacion entre secciones --}}
+            <nav class="navegacion">
+                <button type="submit" class="boton-seccion">AGENDA</button>
+                <button type="submit" class="boton-seccion">STAFF</button>
+                <button type="submit" class="boton-seccion">PRODUCTOS</button>
+                <button type="submit" class="boton-seccion">CATEGORIA</button>
+            </nav>
 
-            <div class="mensajesItem">
-                <article class="mensajeUnited">
 
-                    <span class="fechaMensaje">
-                        <p class="namFecha">26 JUN</p>
-                    </span>
+            {{-- contenedor de secciones --}}
+            <section class="secciones">
 
-                    <div class="mensaje">
-                        <h4 class="nomCliente">Alejandro Aguilon Buitrago</h4>
-                        <p class="txtMensaje">Solicitud de corte</p>
+                {{-- seccion de agenda --}}
+                <section class="agenda" id="agenda">
+
+                    <!-- MODAL -->
+                    {{-- fondo de modal --}}
+                    <div id="detalleCitaModal" class="modal-personalizado">
+
+                        {{-- contenido modal --}}
+                        <div class="contenido-modal-personalizado">
+                            <span class="btn-cerrar" onclick="cerrarModal()">&times;</span>
+                            <h3 class="encabezado-modal">Detalles</h3>
+                            <div class="cuerpo-modal">
+                                <div class="seccion-modal">
+                                    <h4 class="subtitulo-modal">Información de la Cita</h4>
+                                    <div class="informacion-modal">
+                                        <div class="fila-modal">
+                                            <div class="etiqueta-modal"><strong>Empleado:</strong></div>
+                                            <div class="campo-modal"><span id="modalEmpleado"></span></div>
+                                        </div>
+                                        <div class="fila-modal">
+                                            <div class="etiqueta-modal"><strong>Usuario:</strong></div>
+                                            <div class="campo-modal"><span id="modalUsuario"></span></div>
+                                        </div>
+                                        <div class="fila-modal">
+                                            <div class="etiqueta-modal"><strong>Establecimiento:</strong></div>
+                                            <div class="campo-modal"><span id="modalEstablecimiento"></span></div>
+                                        </div>
+                                        <div class="fila-modal">
+                                            <div class="etiqueta-modal"><strong>Fecha:</strong></div>
+                                            <div class="campo-modal"><span id="modalFecha"></span></div>
+                                        </div>
+                                        <div class="fila-modal">
+                                            <div class="etiqueta-modal"><strong>Hora Inicio:</strong></div>
+                                            <div class="campo-modal"><span id="modalHoraInicio"></span></div>
+                                        </div>
+                                        <div class="fila-modal">
+                                            <div class="etiqueta-modal"><strong>Hora Fin:</strong></div>
+                                            <div class="campo-modal"><span id="modalHoraFin"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="seccion-modal">
+                                    <h4 class="subtitulo-modal">Detalles del Producto</h4>
+                                    <div class="informacion-modal">
+                                        <div class="fila-modal">
+                                            <div class="etiqueta-modal"><strong>Producto:</strong></div>
+                                            <div class="campo-modal"><span id="modalProducto"></span></div>
+                                        </div>
+                                        <div class="fila-modal">
+                                            <div class="etiqueta-modal"><strong>Cantidad:</strong></div>
+                                            <div class="campo-modal"><span id="modalCantidad"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="seccion-modal">
+                                    <h4 class="subtitulo-modal">Estado de la Cita</h4>
+                                    <div class="informacion-modal">
+                                        <div class="fila-modal">
+                                            <div class="etiqueta-modal"><strong>Estado:</strong></div>
+                                            <div class="campo-modal"><span id="modalEstado"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form class="formulario-modal" action="{{ route('admin', ['accion' => 'solicitud']) }}"
+                                    method="POST">
+                                    @csrf
+                                    <input class="input-oculto-modal" type="hidden" id="modalIdCita" name="id_cita">
+                                    <div class="acciones-modal">
+                                        <input class="boton-modal cancelar" type="submit" name="resultado"
+                                            value="eliminar">
+                                        <input class="boton-modal aceptar" type="submit" name="resultado"
+                                            value="aceptar">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
+                    <!--calendario de agenda-->
+                    <div id='calendar'></div>
+                </section>
 
-                    <i class="fas fa-envelope"></i>
+                {{-- seccion de staff --}}
+                <section class="staff seccion-opcion" id="staff">
 
+                    {{-- carta de staff --}}
+                    @foreach ($infoStaff as $item)
+                        <article class="carta" id="carta-staff">
+                            <figure class="carta-imagen" id="foto-staff">
+                                <img src="{{ $item['usuario']['img_usuario'] }}" alt="imagen staff">
+                                <p class="rol">Barbero</p>
+                            </figure>
+                            <h3>{{ $item['usuario']['nombre'] }}</h3>
+                            <div class="contenedor-botones">
+                                <!-- Boton para editar un staff -->
+                                <form action="{{ route('staff', ['accion' => 'editar']) }}" method="POST">
+                                    @csrf
+                                    <button class="boton" type="submit" value="{{ $item['id_usuario'] }}"
+                                        name="editStaff">Editar</button>
+                                </form>
 
-                </article>
+                                <!-- Boton para eliminar un staff -->
+                                <form action="{{ route('staff', ['accion' => 'eliminar']) }}" method="POST">
+                                    @csrf
+                                    <button class="boton" type="submit" value="{{ $item['id_usuario'] }}"
+                                        name="deleteStaff">Eliminar</button>
+                                </form>
+                            </div>
+                        </article>
+                    @endforeach
 
-            </div>
-
-            <div class="showMas">
-                <h3 class="tittleShow">VER MÁS</h3>
-            </div>
-
-        </article>
-    </aside>
-
-    <nav class="menunavegacionAdmin">
-        <button type="submit" class="btnCrud">Staff</button>
-        <button type="submit" class="btnCrud">Productos</button>
-        <button type="submit" class="btnCrud">Servicios</button>
-        <button type="submit" class="btnCrud">Inicio</button>
-    </nav>
-
-    <main class="contentcrudAdmin">
-
-        <!-- SECCION DEFAULT QUE VE EL USUARIO ADMINISTRADOR CUANDO ENTRA A SU ESTABLECIMIENTOS -->
-        <section class="sectionDefault" style="display: none;">
-
-            <div class="infoDefault">
-                <p class="txtIntroduccion">Bienvenido al interfaz de Administrador, Aqui podras insertar los productos
-                    de tu negocio. Para poder continuar pulsa sobre un <button type="submit" class="btnExample">Botón</button> para poder navegar en las diferentes
-                    insercciones que tenemos para ti.
-                </p>
-            </div>
-            <span class="passAndPass">
-                <ul class="listaCrud">
-                    <li class="optionCrud">Registrar Servicios.</li>
-                    <li class="optionCrud">Regsitrar Categorias.</li>
-                    <li class="optionCrud">Registrar Tipos de servicio.</li>
-                    <li class="optionCrud">Regsitrar Productos.</li>
-                    <li class="optionCrud">Configurar Perfil.</li>
-                </ul>
-            </span>
-            <div class="infoImportant">
-                <p class="txtImportant"><strong>Nota:</strong> Los cambios realizados en este apartado seran actualizados en las demas interfaces de la aplicación.</p>
-            </div>
-
-        </section>
-
-        <!-- SECCION PARA MODIFICAR LOS MIEMBROS DEL STAFF -->
-        <section class="crudStaff" style="display: none;">
-
-            <span class="rediretViewStaff">
-                <a href="{{ route('getStaff') }}" class="tittleRediret">VER TODOS...</a>
-            </span>
-            <article class="staffItem">
-                @foreach($infoStaff as $item)
-                <figure class="staffCard">
-                    <span class="nomStaff">{{$item['usuario']['nombre']}}</span>
-
-                    <img src="{{$item['usuario']['img_usuario']}}" alt="foto staff" class="imgStaff">
-
-                    <span class="rediretRegister">
-                         <!-- Boton para editar un staff -->
-                    <form action="{{ route('staff', ['accion' => 'editar']) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btnOption" name="editStaff" value="{{$item['id_usuario'] }}">Editar</button>
-                    </form>
-                    <!-- Boton para borrar un staff -->
-                    <form action="{{ route('staff', ['accion' => 'eliminar']) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btnOption"name="deleteStaff" id="eliminarStaff" value="{{$item['id_usuario']}}">Eliminar</button>
-                    </form>
-                    </span>
-                </figure>
-                @endforeach
-
-                <figure class="staffCard" id="AñadirStaff">
-                    <form action="{{ route('staff', ['accion' => 'register']) }}" method="POST">
+                    {{-- carta de agregar staff --}}
+                    <form class="agregar" action="{{ route('staff', ['accion' => 'register']) }}" method="POST">
                         @csrf
-                        <button type="submit" style="border: none; background: none;">
-                            <a class="rediretStaff">+</a>
+                        <button type="submit" style="background: none;">
+                            <i class="fa-solid fa-plus"></i>
+                            <p>AGREGAR</p>
                         </button>
                     </form>
-                </figure>
-            </article>
 
-        </section>
-
-        <!-- SECCION PARA MODIFICAR LOS PRODUCTOS DE MYLOOK -->
-        <section class="crudProductos" style="display: none;">
-            <span class="rediretViewProductos">
-            <a href="{{ route('productos', ['accion' => 'ver']) }}" class="tittleRediret" ver="true">VER TODOS...</a>
-            </span>
-
-            <article class="productosItem">
-                @foreach($productsPreview as $product)
-                <figure class="productoCard">
-                    <img src="{{$product['img_prod']}}" alt="" class="imgProducto">
-
-                    <span class="nomProducto">{{$product['nombre_prod']}}</span>
-
-                    <p class="descripProducto">{{$product['desc_prod']}}</p>
-
-                    <span class="rediretRegister">
-                    <!-- Boton para editar un producto -->
-                    <form action="{{ route('productos', ['accion' => 'editar']) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btnOption" name="editProducto" value="{{ $product['id_prod'] }}">Editar</button>
+                    {{-- carta de staff --}}
+                    <form class="ver-todos" action="{{ route('staff', ['accion' => 'ver']) }}" method="POST">
+                        @csrf
+                        <button type="submit" style="background: none;">
+                            <i class="fa-solid fa-users"></i>
+                            <p>VER TODOS</p>
+                        </button>
                     </form>
-                    <!-- Boton para borrar un producto -->
-                    <form action="{{ route('productos', ['accion' => 'eliminar']) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btnOption" name="deleteProducto" id="eliminarItem" value="{{$product['id_prod']}}">Eliminar</button>
+                </section>
+
+                {{-- seccion de productos --}}
+                <section class="productos seccion-opcion" id="productos">
+
+                    {{-- carta de productos --}}
+                    @foreach ($productsPreview as $product)
+                        <article class="carta">
+                            <figure class="carta-imagen">
+                                <img src="{{ $product['img_prod'] }}" alt="">
+                                <p class="stock">{{ $product['stock'] }} <i class="fa-solid fa-boxes-stacked"></i>
+                                </p>
+                                <p class="precio"><span>{{ $product['valor_prod'] }} COP</span></p>
+                            </figure>
+                            <h3>{{ $product['nombre_prod'] }}</h3>
+                            <p>{{ $product['desc_prod'] }}</p>
+                            <div class="contenedor-botones">
+                                <form action="{{ route('productos', ['accion' => 'editar']) }}" method="POST">
+                                    @csrf
+                                    <button class="boton" type="submit" value="{{ $product['id_prod'] }}"
+                                        name="editProducto">Editar</button>
+                                </form>
+                                <form action="{{ route('productos', ['accion' => 'eliminar']) }}" method="POST">
+                                    @csrf
+                                    <button class="boton" value="{{ $product['id_prod'] }}"
+                                        name="deleteProducto">Eliminar</button>
+                                </form>
+                            </div>
+                        </article>
+                    @endforeach
+
+                    {{-- carta de agregar productos --}}
+                    <form class="agregar" action="{{ route('productos', ['accion' => 'nuevo']) }}" method="POST">
+                        @csrf
+                        <button type="submit" style="background: none;">
+                            <i class="fa-solid fa-plus"></i>
+                            <p>AGREGAR</p>
+                        </button>
                     </form>
-                    </span>
-                </figure>
-                @endforeach
-            </article>
 
+                    {{-- carta de ver todos los productos --}}
+                    <form class="ver-todos" action="{{ route('productos', ['accion' => 'ver']) }}" method="get">
+                        <button type="submit" style="background: none;">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                            <p>VER TODOS</p>
+                        </button>
+                    </form>
+
+                </section>
+
+                {{-- seccion de categorias --}}
+                <section class="categoria seccion-opcion" id="categoria">
+
+                    {{-- carta de categorias --}}
+                    @foreach ($categorias as $categoria)
+                        <article class="carta">
+
+                            <figure class="carta-imagen">
+                                <img src="{{ $categoria['imagen'] }}" alt="Foto de categoria">
+                                <a class="stock"
+                                    href="{{ route('servicios', ['accion' => 'ver', 'id' => $categoria['id_categoria']]) }}">
+                                    VER SERVICIOS
+                                </a>
+
+                            </figure>
+                            <h3>{{ $categoria['nom_categoria'] }}</h3>
+                            <p>{{ $categoria['desc_categoria'] }}</p>
+                            <div class="contenedor-botones">
+                                <form action="{{ route('categorias', ['accion' => 'editar']) }}" method="POST">
+                                    @csrf
+                                    <button class="boton" type="submit" value="{{ $categoria['id_categoria'] }}"
+                                        name="editCategoria">Editar</button>
+                                </form>
+                                <form action="{{ route('categorias', ['accion' => 'eliminar']) }}" method="POST">
+                                    @csrf
+                                    <button class="boton" value="{{ $categoria['id_categoria'] }}"
+                                        name="deleteCategoria">Eliminar</button>
+                                </form>
+                            </div>
+                        </article>
+                    @endforeach
+
+                    {{-- carta de agregar categroias --}}
+                    <form class="agregar" action="{{ route('categorias', ['accion' => 'nuevo']) }}" method="POST">
+                        @csrf
+                        <button type="submit" style="background: none;">
+                            <i class="fa-solid fa-plus"></i>
+                            <p>AGREGAR</p>
+                        </button>
+                    </form>
+
+                    {{-- carta de ver todas las categorias --}}
+                    <form class="ver-todos" action="{{ route('categorias', ['accion' => 'ver']) }}" method="POST">
+                        @csrf
+                        <button type="submit" style="background: none;">
+                            <i class="fa-solid fa-star"></i>
+                            <p>VER TODOS</p>
+                        </button>
+                    </form>
+                </section>
+            </section>
         </section>
-
-        <!-- SECCION PARA MODIFICAR LAS CATEGORIAS Y VISUALIZAR EN OTRAS PESTAÑAS LOS SERVICIOS Y LOS TIPOS DE SERVICIO DEL ESTABLECIMIENTO -->
-        <section class="crudCategoria" style="display: none;">
-            <span class="rediretViewProductos">
-                <a link href="{{ route('tipoServicios', ['accion' => 'ver']) }}" class="tittleRediret">VER TIPOS DE SERVICIO</a>
-                <a link href="{{route('servicios')}}" class="tittleRediret" >VER SERVICIOS</a>
-            </span>
-
-            <div class="contianerCategoria">
-
-            @foreach($categorias as $categoria)
-                <article class="categoriaCard">
-                    <a href="{{ route('servicios', ['accion' => 'ver', 'id' => $categoria['id_categoria']]) }}">
-                        <figure class="imgCategoria">
-                            <img src="{{$categoria['imagen']}}" alt="" class="fotoCategoria">
-                        </figure>
-                    <div class="infoCategoria">
-                        <h3 class="nomCategoria">{{$categoria['nom_categoria']}}</h3>
-                        <p class="descripCategoria">{{$categoria['desc_categoria']}}</p>
-                        <form action="{{ route('categorias', ['accion' => 'editar']) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btnOption" name="editCategoria" value="{{ $categoria['id_categoria'] }}">Editar</button>
-                        </form>
-                        <form action="{{ route('categorias', ['accion' => 'eliminar']) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btnOption" name="deleteCategoria" value="{{ $categoria['id_categoria'] }}">Eliminar</button>
-                        </form>
-                    </div>
-                </a>
-            </article>
-            @endforeach
-
-        </div>
-
-        <span class="rediretCategoria">
-            <p class="nomRediret">¿ Deseas registrar una categoría nueva ?<a href="{{ route('categorias', ['accion' => 'nuevo']) }}">Registrar Aquí</a></p>
-        </span>
-
-        </section>
-
-        <!-- SECCIÓN PARA EL CALENDARIO -->
-<style>
-    .custom-modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.5);
-    }
-
-    .custom-modal-content {
-        background-color: #fff;
-        margin: 10% auto;
-        padding: 20px;
-        border-radius: 10px;
-        width: 80%;
-        max-width: 500px;
-    }
-
-    .close-btn {
-        float: right;
-        font-size: 24px;
-        font-weight: bold;
-        cursor: pointer;
-        color: #333;
-    }
-</style>
-
-<section class="crudInicio">
-    <!-- MODAL -->
-    <div id="detalleCitaModal" class="custom-modal">
-        <div class="custom-modal-content">
-            <span class="close-btn" onclick="cerrarModal()">&times;</span>
-            <h3>Detalle de la Cita</h3>
-            <p><strong>Empleado:</strong> <span id="modalEmpleado"></span></p>
-            <p><strong>Usuario:</strong> <span id="modalUsuario"></span></p>
-            <p><strong>Establecimiento:</strong> <span id="modalEstablecimiento"></span></p>
-            <p><strong>Fecha:</strong> <span id="modalFecha"></span></p>
-            <p><strong>Hora Inicio:</strong> <span id="modalHoraInicio"></span></p>
-            <p><strong>Hora Fin:</strong> <span id="modalHoraFin"></span></p>
-            <p><strong>Producto:</strong> <span id="modalProducto"></span></p>
-            <p><strong>Cantidad:</strong> <span id="modalCantidad"></span></p>
-            <p><strong>Estado:</strong> <span id="modalEstado"></span></p>
-            <form action="{{ route('admin', ['accion' => 'solicitud']) }}" method="POST">
-                @csrf
-                <input type="hidden" id="modalIdCita" name="id_cita">
-                <input type="submit" name="resultado" value="eliminar">
-                <input type="submit" name="resultado" value="aceptar">
-            </form>
-        </div>
-    </div>
-    <!-- MODAL -->
-    <div id='calendar'></div>
-</section>
-
-
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
-
-<script>
-    function cerrarModal() {
-        document.getElementById('detalleCitaModal').style.display = 'none';
-    }
-
-    window.onclick = function(event) {
-        const modal = document.getElementById('detalleCitaModal');
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    }
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',
-            locale: 'es',
-            allDayText: 'Tiempo',
-            titleFormat: {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            },
-            slotLabelFormat: {
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true
-            },
-            eventTimeFormat: {
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true
-            },
-            dayHeaderFormat: {
-                weekday: 'long',
-                day: 'numeric'
-            },
-            events: @json($arreglo),
-            // Aqui si el estado es igual a aceptado cambia de color a cafe. lo pueden cambiar
-            eventDidMount: function(info) {
-            const estado = info.event.extendedProps.estado;
-
-            if (estado === 'Aceptado') {
-                info.el.style.backgroundColor = '#A68160'; // café
-                info.el.style.borderColor = '#8B4513';
-            }
-            },
-            eventClick: function(info) {
-
-                const evento = info.event.extendedProps;
-
-                // Verifica en consola los datos
-                console.log("Datos extendidos del evento: ", info.event.extendedProps);
-
-                // Actualiza los valores del modal
-                document.getElementById('modalEmpleado').textContent = evento.empleado || 'No definido';
-                document.getElementById('modalUsuario').textContent = evento.usuario || 'No definido';
-                document.getElementById('modalEstablecimiento').textContent = evento.establecimiento || 'No definido';
-                document.getElementById('modalFecha').textContent = info.event.start.toLocaleDateString();
-                document.getElementById('modalHoraInicio').textContent = info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                document.getElementById('modalHoraFin').textContent = info.event.end ? info.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'N/A';
-                document.getElementById('modalProducto').textContent = evento.producto || 'Sin producto';
-                document.getElementById('modalCantidad').textContent = evento.cantidad || 'Sin cantidad';
-                document.getElementById('modalEstado').textContent = evento.estado || 'Sin estado';
-
-                // Trae el id_cita
-                document.getElementById('modalIdCita').value = evento.id_cita;
-
-                // Muestra el modal
-                document.getElementById('detalleCitaModal').style.display = 'block';
-            }
-        });
-        calendar.render();
-    });
-</script>
-
-
-
-
-
-        <!-- CRUD DE ADMINISTRADORES DE MYLOOK Y SUS ESTABLECIMIENTOS (( ESTA SECCION SOLO SERA VISIBLE PARA EL ADMINISTRADOR LIDER )) -->
-        <section class="sectionAdministrador">
-
-        </section><!-- ---- PEDIENTE DE LOGICA ---- -->
 
     </main>
 
 
-    <script src="/Js/Admin/indexAdmin.js">
 
+    {{-- script para la importacion de fullcalendar --}}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
+    {{-- script de la logica de el calendario --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtiene el elemento donde se renderizará el calendario
+            var calendarEl = document.getElementById('calendar');
+
+            // Inicializa el calendario
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek', // Vista inicial: semana
+                locale: 'es', // Idioma español
+                allDayText: 'Tiempo', // Texto para eventos de todo el día
+                allDaySlot: false, // Ocultar slot de todo el día
+
+                // Configuración de la barra de herramientas del header
+                headerToolbar: {
+                    start: 'today', // Botón de hoy a la izquierda
+                    center: 'title', // Título en el centro
+                    end: 'prev,next' // Botones de navegación a la derecha
+                },
+
+                // Formato del título (mes, día y año)
+                titleFormat: {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                },
+
+                // Formato de las horas en las columnas
+                slotLabelFormat: {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true // Formato 12 horas
+                },
+
+                // Formato de la hora en los eventos
+                eventTimeFormat: {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                },
+
+                // Formato de los encabezados de los días
+                dayHeaderFormat: {
+                    weekday: 'short', // Nombre corto del día (Lun, Mar, etc.)
+                    day: 'numeric'
+                },
+
+                // Texto personalizado para el botón de "hoy"
+                buttonText: {
+                    today: 'HOY'
+                },
+
+                // Carga de eventos
+                events: @json($arreglo).map(event => {
+                    // Asigna clase CSS basada en el estado del evento
+                    event.className = event.estado?.toLowerCase() === 'aceptado' ? [
+                        'evento-aceptado'
+                    ] : [];
+                    return event;
+                }),
+
+                // Personaliza el contenido del evento
+                eventContent: function(arg) {
+                    const estado = arg.event.extendedProps.estado;
+                    const esAceptado = estado?.toLowerCase() === 'aceptado';
+
+                    return {
+                        html: `<i class="fas fa-info-circle"></i>`, // Ícono en el evento
+                        classNames: esAceptado ? ['evento-aceptado'] :
+                        [] // Aplica clase si está aceptado
+                    };
+                },
+
+                // Se ejecuta cuando un evento se monta en el DOM
+                eventDidMount: function(info) {
+                    if (info.event.extendedProps.estado?.toLowerCase() === 'aceptado') {
+                        info.el.classList.add(
+                        'evento-aceptado'); // Agrega clase CSS si el evento está aceptado
+                    }
+                },
+
+                // Se ejecuta al cambiar de vista en el calendario
+                datesSet: function() {
+                    document.querySelectorAll('.fc-event').forEach(eventEl => {
+                        const eventId = eventEl.getAttribute('data-event-id');
+                        const eventObj = calendar.getEventById(eventId);
+                        if (eventObj && eventObj.extendedProps.estado?.toLowerCase() ===
+                            'aceptado') {
+                            eventEl.classList.add('evento-aceptado');
+                        }
+                    });
+                },
+
+                // Maneja el clic sobre un evento
+                eventClick: function(info) {
+                    const evento = info.event.extendedProps;
+                    console.log("Datos extendidos del evento: ", evento);
+
+                    // Actualiza los datos del modal con la información del evento
+                    document.getElementById('modalEmpleado').textContent = evento.empleado ||
+                        'No definido';
+                    document.getElementById('modalUsuario').textContent = evento.usuario ||
+                        'No definido';
+                    document.getElementById('modalEstablecimiento').textContent = evento
+                        .establecimiento || 'No definido';
+                    document.getElementById('modalFecha').textContent = info.event.start
+                        .toLocaleDateString();
+                    document.getElementById('modalHoraInicio').textContent = info.event.start
+                        .toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    document.getElementById('modalHoraFin').textContent = info.event.end ? info.event
+                        .end.toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }) : 'N/A';
+                    document.getElementById('modalProducto').textContent = evento.producto ||
+                        'Sin producto';
+                    document.getElementById('modalCantidad').textContent = evento.cantidad ||
+                        'Sin cantidad';
+                    document.getElementById('modalEstado').textContent = evento.estado || 'Sin estado';
+
+                    // Guarda el ID de la cita en un input hidden
+                    document.getElementById('modalIdCita').value = evento.id_cita;
+
+                    // Muestra el modal de detalle
+                    document.getElementById('detalleCitaModal').style.display = 'flex';
+                }
+            });
+
+            // Renderiza el calendario en la página
+            calendar.render();
+
+            // Refresca los eventos y ajusta el tamaño del calendario tras 100 ms
+            setTimeout(() => {
+                calendar.refetchEvents();
+                calendar.updateSize();
+            }, 100);
+
+            // Maneja el evento de redimensionamiento de la ventana
+            window.addEventListener('resize', function() {
+                calendar.batchRendering(() => {
+                    calendar.getEvents().forEach(event => {
+                        event.setProp('title', event
+                        .title); // Forzar actualización de títulos
+                    });
+                });
+            });
+        });
     </script>
+
+
+    <script src="/Js/Admin/indexAdmin.js"></script>
 </body>
+
 </html>
