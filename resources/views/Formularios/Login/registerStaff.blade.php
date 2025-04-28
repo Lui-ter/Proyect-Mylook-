@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('Css/Form/registerStaff.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Slab:wght@400&display=swap"
         rel="stylesheet">
@@ -35,26 +37,25 @@
                 <div class="infoInput">
                     <p class="nombreInput">DOCUMENTO DE IDENTIFICACION </p>
                     <input type="text" id="Id" name="documentoStaff" value="{{ $usuario->id_usuario ?? '' }}"
-                        placeholder="Ingrese documento de identificacion..." required />
+                        placeholder="Ingrese documento de identificacion..." />
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE NOMBRE</p>
-                    <input type="text" id="nombre" name="nombreCompletoStaff"
-                        value="{{ $usuario->nombre ?? '' }}" placeholder="Ingresa nombre...." required />
+                    <input type="text" id="nombre" name="nombreCompletoStaff" value="{{ $usuario->nombre ?? '' }}"
+                        placeholder="Ingresa nombre...."  />
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE APELLIDO</p>
-                    <input type="text" id="apellido" name="apellidoStaff"
-                        value="{{ $usuario->apellido ?? '' }}" placeholder="Ingresa apellido...." required />
+                    <input type="text" id="apellido" name="apellidoStaff" value="{{ $usuario->apellido ?? '' }}"
+                        placeholder="Ingresa apellido...."  />
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE CONTRASEÑA</p>
                     <div class="passwordContainer">
-                        <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa contraseña...."
-                            required />
+                        <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa contraseña...." />
                         <span id="togglePassword">
                             <i class="fa-solid fa-eye-slash"></i>
                         </span>
@@ -64,7 +65,7 @@
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE CORREO</p>
                     <input type="email" id="correo" name="correoStaff" value="{{ $usuario->correo ?? '' }}"
-                        placeholder="Ingresa correo...." required />
+                        placeholder="Ingresa correo...."  />
                 </div>
 
 
@@ -72,12 +73,12 @@
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE TELEFONO</p>
                     <input type="number" id="telefono" name="telefonoStaff" value="{{ $usuario->telefono ?? '' }}"
-                        placeholder="Ingresa telefono...." required />
+                        placeholder="Ingresa telefono...."  />
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">Rol:</p>
-                    <select name="tipoRol" id="tipoRol" required>
+                    <select name="tipoRol" id="tipoRol" >
                         <option value="0">Tipo:</option>
                         @foreach ($roles as $rol)
                             @if (strtolower($rol->nombre_rol) !== 'admin')
@@ -94,9 +95,9 @@
                 <div class="infoInput">
                     <p class="nombreInput">Imagen del Staff:</p>
                     <label for="imagenServicio" class="fileUploadLabel">Subir imagen</label>
-                    <input type="file" id="imagenServicio" name="imagenStaff" 
+                    <input type="file" id="imagenServicio" name="imagenStaff"
                         src="{{ $imgBase64 ?? '/descarga (3).png' }}" accept="image/jpeg, image/png"
-                        class="fileUploadInput" {{ isset($staff) ? '' : 'required' }} />
+                        class="fileUploadInput"/>
                 </div>
 
             </section>
@@ -107,7 +108,8 @@
                     <h2 class="tituloPrevisualizacion">Previsualización de ficha Staff</h2>
                     <div class="card">
                         <figure class="cardImg">
-                            <img id="imagenPrevisualizacion" src="{{ $imgBase64 ?? asset('/descarga (3).png') }}" alt="Imagen del staff" />
+                            <img id="imagenPrevisualizacion" src="{{ $imgBase64 ?? asset('/descarga (3).png') }}"
+                                alt="Imagen del staff" />
                         </figure>
                         <div class="cardText">
                             <h3>Nombre:</h3>
@@ -134,6 +136,9 @@
         </form>
     </main>
     <script src="/Js/Staff/registerStaff.js"></script>
+    <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
+
+
 </body>
 
 </html>

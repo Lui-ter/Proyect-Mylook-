@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('Css/Insercciones/inserccionProductos.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
     <title>{{ isset($producto) ? 'Editar Producto | MyLook' : 'Agregar Producto - MyLook' }}</title>
 </head>
 <body>
@@ -13,7 +14,7 @@
 
         <!-- FORMULARIO -->
         <form action="{{ isset($producto) ? route('updateProduct', ['id' => $producto->id_prod]) : route('registerProduct') }}"
-              method="POST" enctype="multipart/form-data" class="formulario-productos">
+              method="POST" enctype="multipart/form-data" class="formulario-productos" onsubmit="handleValidationProduct(event)">
             @csrf
             @if(isset($producto))
                 @method('PUT')
@@ -105,5 +106,7 @@
         </form>
     </main>
     <script src="{{ asset('Js/Insercciones/inserccionProductos.js') }}"></script>
+    <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
+
 </body>
 </html>

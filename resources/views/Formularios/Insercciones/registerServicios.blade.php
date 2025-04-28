@@ -11,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}" />
   </head>
   <body>
     <main>
@@ -29,7 +30,7 @@
       </section>
 
       <!--Contenedor principal divisor de columnas-->
-      <form class="contenedor-formularios" method="post" action="{{ $modeValidator == 1
+      <form class="contenedor-formularios" method="post" onsubmit="handleValidationService(event)" action="{{ $modeValidator == 1
       ? route('updateService', ['id' => $servicio['id_servicio']])
       : route('registerService') }}" enctype="multipart/form-data">
           @csrf
@@ -43,11 +44,11 @@
                 </div>
                 <div class="informacion-input">
                     <p class="nombre-input">NOMBRE</p>
-                    <input type="text" id="nombreServicio" name="nombreServicio" value="{{$servicio['nombre_servicio'] ?? ''}}" required />
+                    <input type="text" id="nombreServicio" name="nombreServicio" value="{{$servicio['nombre_servicio'] ?? ''}}"  />
                 </div>
                 <div class="informacion-input">
                     <p class="nombre-input">PRECIO</p>
-                    <input type="number" id="precioServicio" name="precioServicio" value="{{$servicio['precio_servicio'] ?? ''}}" required />
+                    <input type="number" id="precioServicio" name="precioServicio" value="{{$servicio['precio_servicio'] ?? ''}}"  />
                 </div>
                 <div class="informacion-input">
                     <p class="nombre-input">DURACION</p>
@@ -60,7 +61,7 @@
           <section class="columna-dos columna">
               <div class="informacion-input">
                   <p class="nombre-input">DESCRIPCION</p>
-                  <textarea id="descripcionServicio" name="descripcionServicio" rows="5" maxlength="180" required>{{$servicio['desc_servicio'] ?? ''}}
+                  <textarea id="descripcionServicio" name="descripcionServicio" rows="5" maxlength="180" >{{$servicio['desc_servicio'] ?? ''}}
                   </textarea>
 
               </div>
@@ -85,5 +86,6 @@
       </form>
   </main>
     <script src="{{asset('Js/Insercciones/inserccionServicios.js')}}"></script>
+    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
   </body>
 </html>

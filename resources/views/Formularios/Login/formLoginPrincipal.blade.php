@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="../Js/pcLogin.js"></script>
-    
-    <link rel="stylesheet" href="{{asset('Css/Form/formLoginPrincipal.css')}}">
+
+    <link rel="stylesheet" href="{{ asset('Css/Form/formLoginPrincipal.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
+
     <title>Inicio de sesión | MyLook</title>
 </head>
+
 <body>
 
     <section class="contenedorMobile"> <!-- SOLO PARA MOBILES -->
-        <article class="iniciarLogin">   
+        <article class="iniciarLogin">
             <div class="logoSta">
                 <span class="iconoDesarrolladores"> <i class="far fa-lightbulb icon"></i></span>
                 <h3 class="nomDesarrolladores">STA</h3>
@@ -27,85 +31,98 @@
             <div class="activadorForm">
                 <div class="btn">
                     <button type="submit" class="startSesionBtn">INICIAR SESION</button>
-                    <span class="registerSesionBtn">¿ No tienes cuenta aun ? <a class="link-register" href="http://">Regsitrate Aqui.</a></span>
+                    <span class="registerSesionBtn">¿ No tienes cuenta aun ? <a class="link-register"
+                            href="http://">Regsitrate Aqui.</a></span>
                 </div>
             </div>
-            <span class="cabecera"><p>></p></span>
+            <span class="cabecera">
+                <p>></p>
+            </span>
         </article> <!-- PRIMERA ENTRADA DE BOTONES A MANEJAR EN MOBILE -->
         <article class="registerSesion login">
 
-                <span class="tipUsuarios">
-                    <button type="submit" class="Btn" id="formRegisterUsuario">Usuario</button>
-                    <button type="submit" class="Btn" id="formRegisterEstablecimiento">Establecimiento</button>
-                </span>
+            <span class="tipUsuarios">
+                <button type="submit" class="Btn" id="formRegisterUsuario">Usuario</button>
+                <button type="submit" class="Btn" id="formRegisterEstablecimiento">Establecimiento</button>
+            </span>
 
-                <!-- REGISTRAR ESTABLECIMIENTO -->
-                <form action="" method="post" class="registerEstablecimiento" style="display: none;" onsubmit="handleValidationRegister(event)">
-                    <div class="groupInput">
-                        <i class="fas fa-building"><input type="number" class="inputRegister" name="nitNegocio" id="nitNegocio" placeholder="Ingrese nitEmpresarial..."></i></i>
+            <!-- REGISTRAR ESTABLECIMIENTO -->
+            <form action="" method="post" class="registerEstablecimiento" style="display: none;"
+                onsubmit="handleValidationRegister(event)">
+                <div class="groupInput">
+                    <i class="fas fa-building"><input type="number" class="inputRegister" name="nitNegocio"
+                            id="nitNegocio" placeholder="Ingrese nitEmpresarial..."></i></i>
+                </div>
+                <div class="groupInput">
+                    <i class="fas fa-user"><input type="text" class="inputRegister" name="nombreNegocio"
+                            id="nombreNegocio" placeholder="Ingrese nombre establecimiento..."></i></i>
+                </div>
+                <div class="groupInput">
+                    <i class="fas fa-lock"><input type="password" class="inputRegister" name="contrasenaNegocio"
+                            id="contrasenaNegocio" placeholder="Ingrese contraseña..."></i>
+                </div>
+                <div class="groupInput">
+                    <div class="recuerdame">
+                        <input type="checkbox" value="1">
+                        <p>Recuerdame</p>
                     </div>
-                    <div class="groupInput">
-                        <i class="fas fa-user"><input type="text" class="inputRegister" name="nombreNegocio" id="nombreNegocio" placeholder="Ingrese nombre establecimiento..."></i></i>
-                    </div>
-                    <div class="groupInput">
-                    <i class="fas fa-lock"><input type="password" class="inputRegister" name="contrasenaNegocio" id="contrasenaNegocio" placeholder="Ingrese contraseña..."></i>
-                    </div>
-                    <div class="groupInput">
-                        <div class="recuerdame">
-                            <input type="checkbox" value="1">
-                            <p>Recuerdame</p>
-                        </div>
-                    </div>
-                    <button type="submit" class="btnRegisterEstablecimiento">Registrar Establecimiento</button>
-                    <div class="socialMedia">
-                        <i class="fab fa-facebook"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-whatsapp"></i>
-                        <i class="fab fa-telegram"></i>
-                        <i class="fab fa-google"></i>
-                    </div>                    
-                </form>
+                </div>
+                <button type="submit" class="btnRegisterEstablecimiento">Registrar Establecimiento</button>
+                <div class="socialMedia">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-whatsapp"></i>
+                    <i class="fab fa-telegram"></i>
+                    <i class="fab fa-google"></i>
+                </div>
+            </form>
 
-                <!-- REGISTRAR USUARIO -->
-                <form action="" method="post" class="registerUsuario" onsubmit="handleValidationRegister(event)">
-                    <div class="groupInput">
-                        <i class="fas fa-file-alt"><input type="number" class="inputRegister" name="documentoUsuario" placeholder="Ingrese documento..."></i></i>
+            <!-- REGISTRAR USUARIO -->
+            <form action="" method="post" class="registerUsuario" onsubmit="handleValidationRegister(event)">
+                <div class="groupInput">
+                    <i class="fas fa-file-alt"><input type="number" class="inputRegister" name="documentoUsuario"
+                            placeholder="Ingrese documento..."></i></i>
+                </div>
+                <div class="groupInput">
+                    <i class="fas fa-user"><input type="text" class="inputRegister" name="nombreUsuario"
+                            placeholder="Ingrese nombre completo..."></i></i>
+                </div>
+                <div class="groupInput">
+                    <i class="fas fa-lock"><input type="password" class="inputRegister" name="passwordUsuario"
+                            placeholder="Ingrese contraseña..."></i>
+                </div>
+                <div class="groupInput">
+                    <div class="recuerdame">
+                        <input type="checkbox" value="1">
+                        <p>Recuerdame</p>
                     </div>
-                    <div class="groupInput">
-                        <i class="fas fa-user"><input type="text" class="inputRegister" name="nombreUsuario" placeholder="Ingrese nombre completo..."></i></i>
-                    </div>
-                    <div class="groupInput">
-                    <i class="fas fa-lock"><input type="password" class="inputRegister" name="passwordUsuario" placeholder="Ingrese contraseña..."></i>
-                    </div>
-                    <div class="groupInput">
-                        <div class="recuerdame">
-                            <input type="checkbox" value="1">
-                            <p>Recuerdame</p>
-                        </div>
-                    </div>
-                    <button type="submit" class="btnRegisterUsuario">Registrar Usuario</button>
-                    <div class="socialMedia">
-                        <i class="fab fa-facebook"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-whatsapp"></i>
-                        <i class="fab fa-telegram"></i>
-                        <i class="fab fa-google"></i>
-                    </div>
-                </form>
+                </div>
+                <button type="submit" class="btnRegisterUsuario">Registrar Usuario</button>
+                <div class="socialMedia">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-whatsapp"></i>
+                    <i class="fab fa-telegram"></i>
+                    <i class="fab fa-google"></i>
+                </div>
+            </form>
         </article> <!-- REGISTRAR PERFIL -->
         <article class="iniciarSesion login">
             <span class="tipUsuarios">
                 <button type="submit" class="Btn" id="formStartUsuario">Usuario</button>
                 <button type="submit" class="Btn" id="formStartEsatblecimiento">Establecimiento</button>
             </span>
-            
-                <!-- INICIAR SESION ESTABLECIMIENTO -->
-                <form action="" method="post" class="StartEstablecimiento" style="display: none;">
+
+            <!-- INICIAR SESION ESTABLECIMIENTO -->
+            <form action="" method="post" class="StartEstablecimiento" style="display: none;"
+                onsubmit="handleValidationLogin(event)">
                 <div class="groupInput">
-                    <i class="fas fa-building"><input type="number" class="inputStart" name="nitNegocio" placeholder="Ingrese nitEmpresarial..."></i></i>
+                    <i class="fas fa-building"><input type="number" class="inputStart" id=""
+                            name="nitNegocio" placeholder="Ingrese nitEmpresarial..."></i></i>
                 </div>
                 <div class="groupInput">
-                <i class="fas fa-lock"><input type="password" class="inputStart" name="nombreNegocio" placeholder="Ingrese contraseña..."></i>
+                    <i class="fas fa-lock"><input type="password" class="inputStart" id=""
+                            name="nombreNegocio" placeholder="Ingrese contraseña..."></i>
                 </div>
                 <div class="groupInput">
                     <div class="recuerdame">
@@ -125,13 +142,15 @@
             </form>
 
             <!-- INICIAR SESION USUARIO -->
-            <form action="" method="post" class="StartUsuario">
+            <form action="" method="post" class="StartUsuario" onsubmit="handleValidationLogin(event)">
                 <div class="groupInput">
-                    <i class="fas fa-file-alt"><input type="number" class="inputStart" name="documentoUsuario" placeholder="Ingrese documento..."></i></i>
+                    <i class="fas fa-file-alt"><input type="number" id="" class="inputStart"
+                            name="documentoUsuario" placeholder="Ingrese documento..."></i></i>
                 </div>
 
                 <div class="groupInput">
-                <i class="fas fa-lock"><input type="password" class="inputStart" name="passwordUsuario" placeholder="Ingrese contraseña..."></i>
+                    <i class="fas fa-lock"><input type="password" id="" class="inputStart"
+                            name="passwordUsuario" placeholder="Ingrese contraseña..."></i>
                 </div>
                 <div class="groupInput">
                     <div class="recuerdame">
@@ -149,14 +168,15 @@
                     <i class="fab fa-google"></i>
                 </div>
             </form>
-        </article>  <!-- LOGIN -->
+        </article> <!-- LOGIN -->
     </section>
 
-   
+
     <div class="contenedorPc"> <!-- SOLO PARA PC -->
         <div class="contenedor" id="contenedor">
             <div class="contenedor-formulario contenedor-registro">
-                <form action="{{ route('registerUser') }}" method="POST" onsubmit="handleValidationRegister(event)">
+                <form action="{{ route('registerUser') }}" method="POST" class="registerForm"
+                    onsubmit="handleValidationRegister(event)">
                     @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Negocio</button>
@@ -166,38 +186,44 @@
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input id="1" type="text" name="nitNegocio" placeholder="Ingrese su nit Empresarial..." required />
+                            <input id="1" type="text" name="nitNegocio"
+                                placeholder="Ingrese su nit Empresarial..." />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-user"></i>
-                            <input id="2" type="text" name="nombreNegocio"  placeholder="Ingrese el nombre de negocio..." required />
+                            <input id="2" type="text" name="nombreNegocio"
+                                placeholder="Ingrese el nombre de negocio..." />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input id="3" type="password" name="contrasenaNegocio"  placeholder="Ingrese la contraseña del negocio..." required />
+                            <input id="3" type="password" name="contrasenaNegocio"
+                                placeholder="Ingrese la contraseña del negocio..." />
                         </div>
                     </div>
                     <div class="campos-formulario campos-profesor" style="display: none;">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input id="4" type="text" name="docUsuario" id="documentoUsuario" placeholder="Ingrese su Documento..." required />
+                            <input id="4" type="text" name="docUsuario" id="documentoUsuario"
+                                placeholder="Ingrese su Documento..." />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-user"></i>
-                            <input id="5" type="text" name="nombreCompletoUsuario" id="nombreUsuario" placeholder="Ingrese su Nombre..." required />
+                            <input id="5" type="text" name="nombreCompletoUsuario" id="nombreUsuario"
+                                placeholder="Ingrese su Nombre..." />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario" placeholder="Ingrese su Contraseña..."required />
+                            <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario"
+                                placeholder="Ingrese su Contraseña..." />
                         </div>
                     </div>
-                    <div id="errorMessage" style="display: none; color: red; font-weight: bold;"></div>
                     <button type="submit" name="accionRegistrar" value="registrar">Registrar</button>
                 </form>
             </div>
 
             <div class="contenedor-formulario contenedor-inicio-sesion">
-                <form action="{{ route('loginUser') }}" method="POST" onsubmit="handleValidationLogin(event)">
+                <form action="{{ route('loginUser') }}" method="POST" class="loginForm"
+                    onsubmit="handleValidationLogin(event)">
                     @csrf
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">Usuario</button>
@@ -207,32 +233,35 @@
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input type="text" name="documentoUsuario" id="8" placeholder="Ingrese su Documento..."  />
+                            <input type="text" name="documentoUsuario" id="8"
+                                placeholder="Ingrese su Documento..." />
                         </div>
                         <div class="input-container">
-                        
+
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="passwordUsuario" id="9" placeholder="Ingrese su Contraseña..."  />
+                            <input type="password" name="passwordUsuario" id="9"
+                                placeholder="Ingrese su Contraseña..." />
                         </div>
                         <input type="hidden" name="rol" value="estudiante" />
                     </div>
                     <div class="campos-formulario campos-profesor" style="display: none;">
                         <div class="input-container">
                             <i class="fas fa-id-card"></i>
-                            <input type="text" name="nitNegocio" id="10" placeholder=" Ingrese su nit Empresarial..."  />
+                            <input type="text" name="nitNegocio" id="10"
+                                placeholder=" Ingrese su nit Empresarial..." />
                         </div>
                         <div class="input-container">
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="contrasenaNegocio" id="11" placeholder="Ingrese su contraseña..."  />
+                            <input type="password" name="contrasenaNegocio" id="11"
+                                placeholder="Ingrese su contraseña..." />
                         </div>
-                    
-                        
-                        
+
+
+
                     </div>
-                    <div id="errorMessage" style="display: none; color: red; font-weight: bold;"></div>
                     <a href="#" class="olvidaste-contraseña">¿Olvidaste tu contraseña?</a>
                     <button type="submit" name="accionIniciarSesion" value="iniciar_sesion">Iniciar Sesión</button>
-                    
+
                 </form>
             </div>
             <div class="contenedor-superposicion">
@@ -240,7 +269,7 @@
                     <div class="panel-superposicion panel-izquierdo">
                         <h1>MYLOOK</h1>
                         <p>BIENVENIDO!</p>
-                        <button  type="submit" class="fantasma" id="botonInicioSesion">Accede Ahora</button>
+                        <button type="submit" class="fantasma" id="botonInicioSesion">Accede Ahora</button>
                     </div>
                     <div class="panel-superposicion panel-derecho">
                         <div class="imgPresentation">
@@ -249,16 +278,47 @@
                             <div class="promotion">
                                 <p>"Resplandece con estilo.<br>
                                     haz tu cita hoy mismo y dejate envolver por la belleza ¡ No esperes Mas !"</p>
-                            </div> 
-                        <button type="submit" class="fantasma" id="botonRegistro">Únete Hoy</button>
+                            </div>
+                            <button type="submit" class="fantasma" id="botonRegistro">Únete Hoy</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- LOGICA JS PARA EL MANEJO DE FORMULARIOS -->
-    <script src="{{asset('Js/Formularios/LoginPrincipal/logicLoginPrincipal.js')}}"></script>
-    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const botonesTipoUsuario = document.querySelectorAll('.loginForm .boton-tipo-usuario');
+        
+                botonesTipoUsuario.forEach(boton => {
+                    boton.addEventListener('click', function () {
+                        // Quitar clase "activo" de todos los botones
+                        botonesTipoUsuario.forEach(btn => btn.classList.remove('activo'));
+                        // Activar el botón actual
+                        this.classList.add('activo');
+        
+                        const tipo = this.getAttribute('data-tipo');
+                        const inputTipo = document.querySelector('.loginForm .tipo_usuario');
+                        inputTipo.value = tipo;
+        
+                        const camposUsuario = document.querySelector('.loginForm .campos-estudiante');
+                        const camposNegocio = document.querySelector('.loginForm .campos-profesor');
+        
+                        // Mostrar campos según tipo
+                        if (tipo === "2") {
+                            camposUsuario.style.display = "none";
+                            camposNegocio.style.display = "block";
+                        } else {
+                            camposUsuario.style.display = "block";
+                            camposNegocio.style.display = "none";
+                        }
+                    });
+                });
+            });
+        </script>
+        
+        <!-- LOGICA JS PARA EL MANEJO DE FORMULARIOS -->
+        <script src="{{ asset('Js/Formularios/LoginPrincipal/logicLoginPrincipal.js') }}"></script>
+        <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
 </body>
+
 </html>

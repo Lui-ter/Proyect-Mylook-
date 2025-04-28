@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Formulario Categorías</title>
   <link rel="stylesheet" href="{{asset('Css/Form/inserccionCategorias.css')}}" />
+  <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -74,6 +75,8 @@
   </section>
 </main>
     <script src="{{ asset('Js/Formularios/PrevisualizacionCategoria.js') }}"></script>
+  <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
+
 
   </body>
 </html>

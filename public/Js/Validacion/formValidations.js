@@ -1,32 +1,43 @@
-/* FUNCIÓN PARA MANEJO DE MENSAJES DE ERROR */
-function showError(message) {
-    const errorDiv = document.getElementById("errorMessage");
-    if (!errorDiv) return;
-
-    errorDiv.textContent = message;
-    errorDiv.style.display = "block";
-
-    setTimeout(() => {
-        errorDiv.style.display = "none";
-    }, 3000);
-}
-
 /* Expresiones regulares para validar caracteres */
-const regexNombre = /^[a-zA-Z\s]+$/;  // Solo letras y espacios
-const regexDescripcion = /^[a-zA-Z0-9\s.,!?-]+$/; // Letras, números y algunos caracteres especiales
-const regexNumerico = /^[0-9]+$/;  // Solo números
-const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;    // Contraseñas seguras
-const regexNit = /^[0-9-]{10,}$/;
-const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
+const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Solo letras y espacios
+const regexDescripcion = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s.,!?()-¿¡:;]+$/; // Letras, números y signos básicos 
+const regexNumerico = /^[0-9]+$/;  // Solo números 
+const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/; // Contraseñas seguras
+const regexNit = /^[0-9-]{10,}$/; // Solo números y guion (-), mínimo 10 dígitos
+const tiposImgPermitidos = /image\/(jpeg|png|jpg)/i; // Tipos de imagen permitidos (JPEG, PNG, JPG)
+const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Correo electrónico
+const regexDocumentoUsuario = /^[0-9]{10,}$/; // Solo números, mínimo 10 dígitos
 
 /* FORMULARIO DE INSERCIÓN DE CATEGORIA */
 function handleValidationCategory(event) {
     event.preventDefault();
 
-    const nombreCategoria = document.getElementById("nombreCategoria").value.trim();
-    const descripcionCategoria = document.getElementById("descripcion").value.trim();
-    const imagenCategoria = document.getElementById("imagen").files[0];
+    const nombreCategoria = document.getElementById("nombreCategoria")?.value.trim();
+    const descripcionCategoria = document.getElementById("descripcion")?.value.trim();
+    const imagenCategoria = document.getElementById("imagen")?.files[0];
 
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    // CONTENEDOR MANEJO DE ERRORES
+    const form = document.querySelector(".formulario");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add('validacion-error');
+
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";}, 3000);
+
+        setTimeout(() => {
+            alertDiv.remove();}, 3500);
+    }
     if (!nombreCategoria || !descripcionCategoria || !imagenCategoria) {
         showError("¡Faltan campos por llenar!");
         return;
@@ -42,7 +53,7 @@ function handleValidationCategory(event) {
         return;
     }
 
-    if (!tiposImgPermitidos.includes(imagenCategoria.type)) {
+    if (!tiposImgPermitidos.test(imagenCategoria.type)) {
         showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
         return;
     }
@@ -50,19 +61,55 @@ function handleValidationCategory(event) {
     event.target.submit();
 }
 
-/* FORMULARIO DE INSERCIÓN DE TIPO DE SERVICIO */
-function handleValidationServiceType(event) {
+/* FORMULARIO DE INSERCIÓN DE SERVICIO */
+function handleValidationService(event) {
     event.preventDefault();
 
-    const nombreServicios = document.getElementById("nombreServicios").value.trim();
+    const nombreServicios = document.getElementById("nombreServicio")?.value.trim();
+    const precioServicios = document.getElementById("precioServicio")?.value.trim();
+    const duracionServicios = document.getElementById("duracionServicio")?.value.trim();
+    const descripcionServicios = document.getElementById("descripcionServicio")?.value.trim();
 
-    if (!nombreServicios) {
-        showError("¡El nombre no puede estar vacío!");
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    const form = document.querySelector(".contenedor-formularios");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add('validacion-error');
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
+    }
+
+    if (!nombreServicios || !descripcionServicios || !precioServicios || !duracionServicios) {
+        showError("¡Faltan campos por llenar!");
         return;
     }
 
     if (!regexNombre.test(nombreServicios)) {
-        showError("¡El nombre del servicio solo puede contener letras y espacios!");
+        showError("¡El nombre del servicio solo puede contener letras, espacios, ñ y tildes!");
+        return;
+    }
+
+    if (!regexDescripcion.test(descripcionServicios)) {
+        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+        return;
+    }
+
+    if (!regexNumerico.test(precioServicios) || !regexNumerico.test(duracionServicios)) {
+        showError("¡El precio y la duración deben ser valores numéricos!");
         return;
     }
 
@@ -73,12 +120,35 @@ function handleValidationServiceType(event) {
 function handleValidationProduct(event) {
     event.preventDefault();
 
-    const nombre = document.getElementById("nombre").value.trim();
-    const marca = document.getElementById("marca").value.trim();
-    const imagen = document.getElementById("imagen").files[0];
-    const desc = document.getElementById("desc").value.trim();
-    const cantidad = document.getElementById("cantidad").value.trim();
-    const precio = document.getElementById("valor").value.trim();
+    const nombre = document.getElementById("nombreProducto")?.value.trim();
+    const marca = document.getElementById("marcaProducto")?.value.trim();
+    const imagen = document.getElementById("insercion-imagen")?.files[0];
+    const desc = document.getElementById("descripcionProducto")?.value.trim();
+    const cantidad = document.getElementById("cantidadProducto")?.value.trim();
+    const precio = document.getElementById("valorProducto")?.value.trim();
+    
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    // CONTENEDOR MANEJO DE ERRORES
+    const form = document.querySelector(".formulario-productos");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add('validacion-error');
+
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";}, 3000);
+
+        setTimeout(() => {
+            alertDiv.remove();}, 3500);
+    }
 
     if (!nombre || !marca || !imagen || !desc || !cantidad || !precio) {
         showError("¡Faltan campos por llenar!");
@@ -100,7 +170,7 @@ function handleValidationProduct(event) {
         return;
     }
 
-    if (!tiposImgPermitidos.includes(imagen.type)) {
+    if (!tiposImgPermitidos.test(imagen.type)) {
         showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
         return;
     }
@@ -108,13 +178,38 @@ function handleValidationProduct(event) {
     event.target.submit();
 }
 
-/* FORMULARIO DE REGISTRO */
+// FORMULARIO DE REGISTRO
 function handleValidationRegister(event) {
     event.preventDefault();
 
     const tipo_usuario = document.getElementById("tipo_usuario").value;
+    const form = document.querySelector(".registerForm");
 
-    if (tipo_usuario == "1") {
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add('validacion-error');
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+
+        // Mostrar y luego desaparecer a los 3 segundos
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
+    }
+
+    if (tipo_usuario === "1") {
+        // NEGOCIO
         const nitNegocio = document.getElementById("1").value.trim();
         const nombreNegocio = document.getElementById("2").value.trim();
         const contrasenaNegocio = document.getElementById("3").value.trim();
@@ -138,39 +233,111 @@ function handleValidationRegister(event) {
             showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
             return;
         }
-        event.target.submit();
-        return true;
+
     } else {
+        // USUARIO
         const documentoUsuario = document.getElementById("4").value.trim();
         const nombreUsuario = document.getElementById("5").value.trim();
         const passwordUsuario = document.getElementById("7").value.trim();
 
         if (!documentoUsuario || !nombreUsuario || !passwordUsuario) {
-            alert("¡Faltan campos por llenar en el usuario!");
-            return false;
-        } else {
-            if (!regexNumerico.test(documentoUsuario)) {
-                alert("¡El documento del usuario solo debe contener números!");
-                return false;
-            } else if (!regexNombre.test(nombreUsuario)) {
-                alert(
-                    "¡El nombre de usuario solo puede contener caracteres alfanuméricos!"
-                );
-                return false;
-            } else if (!regexPassword.test(passwordUsuario)) {
-                alert(
-                    "La contraseña del usuario debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
-                );
-                return false;
-            } else {
-                event.target.submit();
-                return true;
-            }
+            showError("¡Faltan campos por llenar en el usuario!");
+            return;
+        }
+
+        if (!regexDocumentoUsuario.test(documentoUsuario)) {
+            showError("¡El documento del usuario solo debe contener al menos 10 números!");
+            return;
+        }
+
+        if (!regexNombre.test(nombreUsuario)) {
+            showError("¡El nombre de usuario solo puede contener letras y espacios!");
+            return;
+        }
+
+        if (!regexPassword.test(passwordUsuario)) {
+            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+            return;
         }
     }
+
+    event.target.submit();
 }
 
-/* FUNCIÓN PARA VALIDAR FORMULARIO DE CONFIGURACION DE USUARIO */
+// FORMULARIO DE LOGIN
+function handleValidationLogin(event) {
+    event.preventDefault();
+
+    const tipo_usuario = document.querySelector(".loginForm .tipo_usuario").value;
+    const form = document.querySelector(".loginForm");
+
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add('validacion-error');
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
+    }
+
+    if (tipo_usuario === "2") {
+        // NEGOCIO
+        const nitNegocio = document.getElementById("10").value.trim();
+        const contrasenaNegocio = document.getElementById("11").value.trim();
+
+        if (!nitNegocio || !contrasenaNegocio) {
+            showError("¡Faltan campos por llenar en el negocio!");
+            return;
+        }
+
+        if (!regexNit.test(nitNegocio)) {
+            showError("¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!");
+            return;
+        }
+
+        if (!regexPassword.test(contrasenaNegocio)) {
+            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+            return;
+        }
+
+    } else {
+        // USUARIO
+        const documentoUsuario = document.getElementById("8").value.trim();
+        const passwordUsuario = document.getElementById("9").value.trim();
+
+        if (!documentoUsuario || !passwordUsuario) {
+            showError("¡Faltan campos por llenar en el usuario!");
+            return;
+        }
+
+        if (!regexDocumentoUsuario.test(documentoUsuario)) {
+            showError("¡El documento del usuario solo debe contener al menos 10 números!");
+            return;
+        }
+
+        if (!regexPassword.test(passwordUsuario)) {
+            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+            return;
+        }
+    }
+
+    event.target.submit();
+}
+
+/* FORMULARIO DE CONFIGURACION DE USUARIO */
 function handleValidationConfigUser(event) {
     event.preventDefault();
 
@@ -179,10 +346,8 @@ function handleValidationConfigUser(event) {
     const apellidoUsuario = document.getElementById("apellidoUsuario")?.value.trim();
     const telefonoUsuario = document.getElementById("telefonoUsuario")?.value.trim();
     const correoUsuario = document.getElementById("correoUsuario")?.value.trim();
-
-    const regexNumerico = /^[0-9]+$/;
-    const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const condicionUsuario = document.getElementById("condicionUsuario")?.value.trim();
+    const imagenStaff = document.getElementById("imagenPerfil")?.files[0];
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
@@ -193,19 +358,26 @@ function handleValidationConfigUser(event) {
     const form = document.querySelector(".formConfig");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.style.cssText = "background-color: #ffcccc; color: #d60000; padding: 10px; margin: 10px 0; border-radius: 5px; text-align: center; font-weight: bold;";
+    alertDiv.classList.add('validacion-error');
+
 
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
+
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";}, 3000);
+
+        setTimeout(() => {
+            alertDiv.remove();}, 3500);
     }
 
-    if (!documentoUsuario || !nombreUsuario || !apellidoUsuario || !telefonoUsuario || !correoUsuario) {
+    if (!documentoUsuario || !nombreUsuario || !apellidoUsuario || !telefonoUsuario || !correoUsuario || !imagenStaff) {
         showError("Todos los campos son obligatorios.");
         return;
     }
 
-    if (!regexNumerico.test(documentoUsuario)) {
+    if (!regexDocumentoUsuario.test(documentoUsuario)) {
         showError("El documento debe contener solo números.");
         return;
     }
@@ -224,6 +396,22 @@ function handleValidationConfigUser(event) {
         showError("El correo electrónico no tiene un formato válido.");
         return;
     }
+    if (condicionUsuario === "0") {
+        showError("¡Debes seleccionar una condición válida para el usuario!");
+        return;
+    }
+    if (!regexDescripcion.test(condicionUsuario)) {
+        showError("¡La condición solo puede contener letras, números y signos básicos!");
+        return;
+    }
+    if (!tiposImgPermitidos.test(imagenStaff.type)) {
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
+        return;
+    }
+    if (!imagenStaff) {
+        showError("¡Debes subir una imagen del usuario!");
+        return;
+    }
 
     event.target.submit();
 
@@ -240,14 +428,7 @@ function handleValidationStaff(event) {
     const correoStaff = document.getElementById("correo")?.value.trim();
     const contrasenaStaff = document.getElementById("contrasena")?.value.trim();
     const rolStaff = document.getElementById("tipoRol")?.value.trim();
-    const imagenStaff = document.getElementById("imagenServicio")?.files[0]();
-
-    const regexNumerico = /^[0-9]+$/;
-    const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;   
-    const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
-
+    const imagenStaff = document.getElementById("imagenServicio")?.files[0];
 
 
     const alertContainer = document.getElementById("alertContainer");
@@ -259,11 +440,19 @@ function handleValidationStaff(event) {
     const form = document.querySelector(".contenedorForm");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.style.cssText = "background-color: #ffcccc; color: #d60000; padding: 10px; margin: 10px 0; border-radius: 5px; text-align: center; font-weight: bold;";
+    alertDiv.classList.add('validacion-error');
+
 
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
     }
 
     if (!documentoStaff || !nombreStaff || !apellidoStaff || !telefonoStaff || !correoStaff || !contrasenaStaff || !rolStaff || !imagenStaff) {
@@ -271,8 +460,8 @@ function handleValidationStaff(event) {
         return;
     }
 
-    if (!regexNumerico.test(documentoStaff)) {
-        showError("!El documento debe contener solo números.¡");
+    if (!regexDocumentoUsuario.test(documentoStaff)) {
+        showError("!El documento debe contener minimo 10 números.¡");
         return;
     }
 
@@ -280,9 +469,9 @@ function handleValidationStaff(event) {
         showError("!El nombre y el apellido solo pueden contener letras.¡");
         return;
     }
-
-    if (!regexNumerico.test(telefonoStaff) || telefonoStaff.length < 7) {
-        showError(!"El teléfono debe contener solo números y tener al menos 7 dígitos.¡");
+  
+    if (!regexPassword.test(contrasenaStaff)) {
+        showError("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!.");
         return;
     }
 
@@ -290,76 +479,32 @@ function handleValidationStaff(event) {
         showError("!El correo electrónico no tiene un formato válido.¡");
         return;
     }
-
-    if (!regexNombre.test(rolStaff)) {
-        showError("EL staff debe tener algun tipo de rol.");
+    
+    if (!regexNumerico.test(telefonoStaff) || telefonoStaff.length < 7) {
+        showError("!El teléfono debe contener solo números y tener al menos 7 dígitos.¡");
         return;
     }
 
-    if (!tiposImgPermitidos.test(imagenStaff)) {
-        showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
+    if (rolStaff === "0") {
+        showError("¡Debes seleccionar un rol válido para el staff!");
+        return;
+    }
+    
+    if (!imagenStaff) {
+        showError("¡Debes subir una imagen del staff!");
         return;
     }
 
-    if (!regexPassword.test(contrasenaStaff)) {
-        showError("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!.");
+    if (!tiposImgPermitidos.test(imagenStaff.type)) {
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
-
+    
     event.target.submit();
 
 }
 
-function handleValidationLogin(event) {
-    event.preventDefault();
-
-    const tipo_usuario = document.getElementById("tipo_usuario").value;
-
-    if (tipo_usuario == "2") {
-        const nitNegocio = document.getElementById("10").value.trim();
-        const contrasenaNegocio = document.getElementById("11").value.trim();
-
-        if (!nitNegocio || !contrasenaNegocio) {
-            showError("¡Faltan campos por llenar en el negocio!");
-            return;
-        }
-
-        if (!regexNit.test(nitNegocio)) {
-            showError("¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!");
-            return;
-        }
-
-        if (!regexPassword.test(contrasenaNegocio)) {
-            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
-            return;
-        }
-        event.target.submit();
-        return true;
-    } else {
-        const documentoUsuario = document.getElementById("8").value.trim();
-        const passwordUsuario = document.getElementById("9").value.trim();
-
-        if (!documentoUsuario || !passwordUsuario) {
-            alert("¡Faltan campos por llenar en el usuario!");
-            return false;
-        } else {
-            if (!regexNumerico.test(documentoUsuario)) {
-                alert("¡El documento del usuario solo debe contener números!");
-                return false;
-            } else if (!regexPassword.test(passwordUsuario)) {
-                alert(
-                    "La contraseña del usuario debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
-                );
-                return false;
-            } else {
-                event.target.submit();
-                return true;
-            }
-        }
-    }
-}
-
-/* VALIDACIONES FORMULARIO STAFF */
+/* VALIDACIONES FORMULARIO ADMIN */
 function handleValidationAdmin(event) {
     event.preventDefault();
 
@@ -369,15 +514,112 @@ function handleValidationAdmin(event) {
     const telefonoAdmin = document.getElementById("telefonoAdmin")?.value.trim();
     const correoAdmin = document.getElementById("correoAdmin")?.value.trim();
     const contrasenaAdmin = document.getElementById("contrasenaAdmin")?.value.trim();
-    const imagenAdmin = document.getElementById("fileInput")?.files[0]();
+    const imagenAdmin = document.getElementById("fileInput")?.files[0];
 
-    const regexNumerico = /^[0-9]+$/;
-    const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;   
-    const tiposImgPermitidos = ["image/jpeg", "image/png", "image/jpg"];
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
 
+    const form = document.getElementById("form1");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add('validacion-error');
 
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+        setTimeout(() => { alertDiv.style.opacity = "0"; }, 3000);
+        setTimeout(() => { alertDiv.remove(); }, 3500);
+    }
+
+    if (!documentoAdmin || !nombreAdmin || !apellidoAdmin || !telefonoAdmin || !correoAdmin || !contrasenaAdmin || !imagenAdmin) {
+        showError("¡Todos los campos son obligatorios!");
+        return;
+    }
+    if (!regexDocumentoUsuario.test(documentoAdmin)) {
+        showError("¡El documento debe contener mínimo 10 números!");
+        return;
+    }
+    if (!regexNombre.test(nombreAdmin) || !regexNombre.test(apellidoAdmin)) {
+        showError("¡El nombre y el apellido solo pueden contener letras!");
+        return;
+    }
+    if (!regexNumerico.test(telefonoAdmin)) {
+        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos!");
+        return;
+    }
+    if (!regexCorreo.test(correoAdmin)) {
+        showError("¡El correo electrónico no tiene un formato válido!");
+        return;
+    }
+    if (imagenAdmin && !tiposImgPermitidos.test(imagenAdmin.type)) {
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
+        return;
+    }
+    if (!regexPassword.test(contrasenaAdmin)) {
+        showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+        return;
+    }
+        event.target.submit(); 
+}
+
+/* VALIDACIONES FORMULARIO NEGOCIO */
+function handleValidationNegocio(event) {
+    event.preventDefault();
+
+    const imagenPerfil = document.getElementById("inputLogo")?.files[0];
+    const imagenPortada = document.getElementById("inputImagenFondo")?.files[0];    
+    const descripcionNegocio = document.getElementById("inputDescrip")?.value.trim();
+   
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    // CONTENEDOR MANEJO DE ERRORES
+    const form = document.getElementById("form2");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add('validacion-error');
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+        setTimeout(() => {alertDiv.style.opacity = "0";}, 3000);
+        setTimeout(() => {lertDiv.remove();}, 3500);
+    }
+
+    if (!imagenPerfil || !imagenPortada || !descripcionNegocio) {
+        showError("!Todos los campos son obligatorios.¡");
+        return;
+    }
+
+    if (!tiposImgPermitidos.test(imagenPerfil.type)) {
+        showError("!Solo se permiten archivos de imagen (JPEG, PNG, JPG).¡");
+        return;
+    }
+    if (!tiposImgPermitidos.test(imagenPortada.type)) {
+        showError("!Solo se permiten archivos de imagen (JPEG, PNG, JPG).¡");
+        return;
+    }
+    if (!regexDescripcion.test(descripcionNegocio)) {
+        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+        return;
+    }
+    event.target.submit();
+}
+
+/* VALIDACIONES FORMULARIO NEGOCIO */
+function handleValidationEstablecimiento(event) {
+    event.preventDefault();
+
+    const documentoEstablecimiento = document.getElementById("idEstablc")?.value.trim();
+    const nombreEstablecimiento = document.getElementById("nombreEst")?.value.trim();
+    const direccionEstablecimiento = document.getElementById("direccionEstablecimiento")?.value.trim();
+    const telefonoEstablecimiento = document.getElementById("telefonoEstablecimiento")?.value.trim();
+    const drescripcionEstablecimiento = document.getElementById("inputDescripcion")?.value.trim();
+    const correoEstablecimiento = document.getElementById("correoEstablecimiento")?.value.trim();
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
@@ -385,51 +627,45 @@ function handleValidationAdmin(event) {
     }
 
     // CONTENEDOR MANEJO DE ERRORES
-    const form = document.querySelector(".contenedorForm");
+    const form = document.getElementById("form3");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.style.cssText = "background-color: #ffcccc; color: #d60000; padding: 10px; margin: 10px 0; border-radius: 5px; text-align: center; font-weight: bold;";
+    alertDiv.classList.add('validacion-error');
 
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
-    }
+        setTimeout(() => { alertDiv.style.opacity = "0";}, 3000);
+        setTimeout(() => {alertDiv.remove();}, 3500);}
 
-    if (!documentoAdmin || !nombreAdmin || !apellidoAdmin || !telefonoStaff || !correoAdmin || !contrenaAdmin || !imagenAdmin) {
+    if (!documentoEstablecimiento || !nombreEstablecimiento || !direccionEstablecimiento || !telefonoEstablecimiento || !drescripcionEstablecimiento || !correoEstablecimiento ) {
         showError("!Todos los campos son obligatorios.¡");
         return;
     }
 
-    if (!regexNumerico.test(documentoAdmin)) {
-        showError("!El documento debe contener solo números.¡");
+    if (!regexNit.test(documentoEstablecimiento)) {
+        showError("!El documento debe contener minimo 10 números.¡");
         return;
     }
-
-    if (!regexNombre.test(nombreAdmin) || !regexNombre.test(apellidoAdmin)) {
-        showError("!El nombre y el apellido solo pueden contener letras.¡");
+    if (!regexNombre.test(nombreEstablecimiento)) {
+        showError("!El nombre solo pueden contener letras¡");
         return;
     }
-
-    if (!regexNumerico.test(telefonoAdmin) || telefonoAdmin.length < 7) {
-        showError(!"El teléfono debe contener solo números y tener al menos 7 dígitos.¡");
+    if (!regexDescripcion.test(direccionEstablecimiento)) {
+        showError("¡La direccion solo puede contener letras, números y signos básicos!");
         return;
     }
-
-    if (!regexCorreo.test(correoAdmin)) {
-        showError("!El correo electrónico no tiene un formato válido.¡");
+    if (!regexNumerico.test(telefonoEstablecimiento)) {
+        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos.!");
         return;
     }
-
-    if (!tiposImgPermitidos.test(imagenAdmin)) {
-        showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
+    if (!regexDescripcion.test(drescripcionEstablecimiento)) {
+        showError("¡La descripción solo puede contener letras, números y signos básicos!");
         return;
     }
-
-    if (!regexPassword.test(contrasenaAdmin)) {
-        showError("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!.");
+    if (!regexCorreo.test(correoEstablecimiento)) {
+        showError("¡El correo electrónico no tiene un formato válido.!");
         return;
     }
-
     event.target.submit();
-
 }

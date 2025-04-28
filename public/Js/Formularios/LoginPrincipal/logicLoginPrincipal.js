@@ -102,13 +102,7 @@ botonesTipoUsuario.forEach(boton => {
         if (tipo === '1') {
             formulario.querySelector('.campos-estudiante').style.display = 'block';
             formulario.querySelector('.campos-profesor').style.display = 'none';
-            input1.required = true;
-            input2.required = true;
-            input3.required = true;
-            /*--------------------------------  */
-            input4.required = false;
-            input5.required = false;
-            input7.required = false;
+       
             
         
             elementos.forEach((elemento) => {
@@ -120,13 +114,7 @@ botonesTipoUsuario.forEach(boton => {
             formulario.querySelector('.campos-estudiante').style.display = 'none';
             formulario.querySelector('.campos-profesor').style.display = 'block';
             
-            input1.required = false;
-            input2.required = false;
-            input3.required = false;
-            /*--------------------------------  */
-            input4.required = true;
-            input5.required = true;
-            input7.required = true;
+          
             elementos.forEach((elemento) => {
                 elemento.value = tipo; // Asigna el valor a cada elemento
             });

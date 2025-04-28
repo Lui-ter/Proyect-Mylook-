@@ -13,7 +13,8 @@ use App\Models\Rol;
 class StaffController extends Controller
 {
 
-    public function getStaff() {
+    public function getStaff()
+    {
         $roles = Rol::where('nombre_rol', '!=', 'Administrador')->get();
         return view('Formularios.Login.registerStaff', compact('roles'));
     }
@@ -24,7 +25,7 @@ class StaffController extends Controller
         //obtener foraneas
         $idNegocio = Auth::guard('negocio')->user()->id_negocio;
         $idEstablecimiento = Establecimiento::where('id_negocio', $idNegocio)->value('id_establc');
-       
+
         // Obtener los datos del request
         $documentoStaff = $request->input('documentoStaff');
         $nombreCompletoStaff = $request->input('nombreCompletoStaff');
@@ -34,8 +35,7 @@ class StaffController extends Controller
         $telefonoStaff = $request->input('telefonoStaff');
         $rolStaff = $request->input('tipoRol');
         $file = $request->file('imagenStaff');
-        $imagen = file_get_contents($file->getRealPath());
-
+        $imagen = $file ? file_get_contents($file->getRealPath()) : null;
         // Crear el Usuario asociado al Staff
         $usuario = Usuario::create([
             'id_usuario' => $documentoStaff,
@@ -46,20 +46,19 @@ class StaffController extends Controller
             'correo' => $correoStaff,
             'img_usuario' => $imagen
         ]);
-       
+
         // Crear la relacion Staff-Usuario
         Staff::create([
             'id_usuario' => $documentoStaff,
             'id_establc' => $idEstablecimiento,
             'id_negocio' => $idNegocio,
             'id_rol' => $rolStaff,
-            
+            'estado' => 'disponible',
+
         ]);
         return redirect()->route('admin');
 
-        //no envia la imagen
-        /* PENDIENTE PARA REVISAR ESTA LOGICA - A LA ESPERA DE CAMBIOS EN BD */
-        }
+    }
 
     /* ACTUALIZACIÓN DE STAFF */
     public function edit($id)
@@ -68,13 +67,14 @@ class StaffController extends Controller
         $roles = Rol::where('nombre_rol', '!=', 'Administrador')->get();
         return view('Formularios.Login.registerStaff', compact('staff', 'roles'));
     }
-    
-    public function handleUpdateStaff(Request $request, $id){
+
+    public function handleUpdateStaff(Request $request, $id)
+    {
 
         if ($request->has('editStaff')) {
             $staff = Staff::findOrFail($id);
             $usuario = $staff->usuario;
-            
+
             $usuario->nombre = $request->input('nombreCompletoStaff');
             $usuario->apellido = $request->input('apellidoStaff');
             $usuario->correo = $request->input('correoStaff');
@@ -88,43 +88,43 @@ class StaffController extends Controller
             $usuario->save();
             $staff->id_rol = $request->input('tipoRol');
             $staff->save();
-            }
+        }
         return redirect()->route('admin');
-    }        
-
-    /* ELIMINACION DE STAFF */
-    
-    public function handleDeleteStaff(Request $request){
-        
-        $id = $request->input('deleteButton');
-        
-        $staff = Usuario::where('id_usuario', $id)->first();
-        
-        if ($staff) {
-            
-            $staff->id_rol = 1;
-            $staff->save();
-
-        } 
-        return redirect()->route('admin');        
-        
     }
 
-    public function crudStaff(Request $request, $accion = null){
+    /* ELIMINACION DE STAFF */
+
+    public function handleDeleteStaff(Request $request)
+    {
+
+        $id = $request->input('deleteButton');
+
+        $staff = Usuario::where('id_usuario', $id)->first();
+
+        if ($staff) {
+
+            $staff->id_rol = 1;
+            $staff->save();
+        }
+        return redirect()->route('admin');
+    }
+
+    public function crudStaff(Request $request, $accion = null)
+    {
 
         $viewCrudStaff = GlobalVariables::$viewCrudStaff;
         $indexStaff = GlobalVariables::$indexStaff;
         $registerStaff = GlobalVariables::$registerStaff;
         $loginStaff = GlobalVariables::$loginStaff;
 
-        if($accion === 'index'){
+        if ($accion === 'index') {
             return view($indexStaff);
-        }elseif($accion === 'register'){
+        } elseif ($accion === 'register') {
             $roles = Rol::where('nombre_rol', '!=', 'Administrador')->get();
             return view($registerStaff, compact('roles'));
-        }elseif($accion === 'login'){
+        } elseif ($accion === 'login') {
             return view($loginStaff);
-        }elseif ($accion === 'editar' && $request->has('editStaff')) {
+        } elseif ($accion === 'editar' && $request->has('editStaff')) {
             $id = $request->input('editStaff');
             // Obtener usuario y staff relacionado
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
@@ -135,14 +135,14 @@ class StaffController extends Controller
             $roles = Rol::where('nombre_rol', '!=', 'Administrador')->get();
             $modeValidator = 1;
             return view($viewCrudStaff, compact('staff', 'usuario', 'roles', 'modeValidator', 'imgBase64'));
-        }elseif ($accion === 'eliminar' && $request->has('deleteStaff')) {
+        } elseif ($accion === 'eliminar' && $request->has('deleteStaff')) {
             // Se recibe el id del staff
             $id = $request->input('deleteStaff');
-            
+
             Staff::where('id_usuario', $id)->delete();
             Usuario::where('id_usuario', $id)->delete();
             return redirect()->back()->with('success', 'Operación completada exitosamente.');
-        }else{
+        } else {
             return redirect()->route('staff', ['accion' => 'index']);
         }
     }

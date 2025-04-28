@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('Css/Config/configBienvenidaAdmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
+
     <title>Configuración MiNegocio - MYLOOK</title>
 </head>
 
@@ -120,7 +122,7 @@
                 <section class="formularioPerfil">
                     <div class="informacionInput">
                         <p class="nombreInput">DOCUMENTO</p>
-                        <input type="number" class="inputDocumento" id="idAdmin" name="idAdmin" value="{{ session('id_usuario')}} required placeholder="Ingrese su documento">
+                        <input type="number" class="inputDocumento" id="idAdmin" name="idAdmin" value="{{ session('id_usuario')}}" placeholder="Ingrese su documento">
                     </div>
 
                     <div class="informacionInput">
@@ -162,7 +164,7 @@
 
             <!--FORMULARIO PARA CREAR O ACTUALIZAR EL NEGOCIO -->
             <form action="{{ route('updateNegocio', ['id' => $negocioData['id_negocio']]) }}" method="POST"
-                class="configuracionNegocio formulario" id="form2" style="display: none;" enctype="multipart/form-data">
+                class="configuracionNegocio formulario" id="form2" style="display: none;" onsubmit="handleValidationNegocio(event)" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -188,21 +190,21 @@
                 <div class="formularioNegocio">
                     <div class="informacionInput">
                         <p class="nombreInput">IDENTIFICACION</p>
-                        <input type="number" class="inputId" name="idNegocio"
+                        <input type="number" class="inputId" id="idNegocio" name="idNegocio"
                             value="{{ $negocioData['id_negocio'] }}" readonly placeholder="ID del negocio">
                     </div>
 
 
                     <div class="informacionInput">
                         <p class="nombreInput">NOMBRE</p>
-                        <input type="text" class="inputNombre" name="nombreNegocio"
+                        <input type="text" class="inputNombre" id="nombreNegocio" name="nombreNegocio"
                             value="{{ $negocioData['nombre_negocio'] }}" readonly placeholder="Nombre del negocio">
                     </div>
 
 
                     <div class="informacionInput">
                         <p class="nombreInput">DESCRIPCION</p>
-                        <textarea name="descripcionNegocio" id="" cols="30" rows="1" class="inputDescrip" placeholder="Ingrese la descripción del negocio"></textarea>
+                        <textarea name="descripcionNegocio" id="inputDescrip" cols="30" rows="1" class="inputDescrip" placeholder="Ingrese la descripción del negocio"></textarea>
                     </div>
 
 
@@ -223,7 +225,7 @@
             </form>
 
             <!--FORMULARIO PARA REGISTRAR ESTABLECIMIENTOS -->
-            <form action="{{ route('registerEstablecimiento') }}" method="POST" style="display: none;"
+            <form action="{{ route('registerEstablecimiento') }}" method="POST" onsubmit="handleValidationEstablecimiento(event)" style="display: none;"
                 class="configuracionEstablecimiento formulario" id="form3">
                 @csrf
                 <h2 class="tituloPrincipal">CONFIGURACIÓN ESTABLECIMIENTO</h2>
@@ -239,32 +241,32 @@
                 <section class="formularioEstablecimiento">
                     <div class="informacionInput">
                         <p class="nombreInput">NIT NEGOCIO</p>
-                        <input type="number" class="inputId" name="idEstablc" placeholder="Ingrese el NIT del negocio">
+                        <input type="number" class="inputId" id="idEstablc" name="idEstablc" placeholder="Ingrese el NIT del negocio">
                     </div>
 
                     <div class="informacionInput">
                         <p class="nombreInput">NOMBRE</p>
-                        <input type="text" class="inputNombre" name="nombreEst" id="nombre" placeholder="Ingrese el nombre del establecimiento">
+                        <input type="text" class="inputNombre" id="nombreEst" name="nombreEst" id="nombre" placeholder="Ingrese el nombre del establecimiento">
                     </div>
 
                     <div class="informacionInput">
                         <p class="nombreInput">DIRECCIÓN</p>
-                        <input type="text" class="inputDireccion" name="direccionEstablecimiento" placeholder="Ingrese la dirección del establecimiento">
+                        <input type="text" class="inputDireccion" id="direccionEstablecimiento" name="direccionEstablecimiento" placeholder="Ingrese la dirección del establecimiento">
                     </div>
 
                     <div class="informacionInput">
                         <p class="nombreInput">DESCRIPCIÓN</p>
-                        <textarea name="descripcionEstablecimiento" id="" cols="30" rows="10" class="inputDescripcion" placeholder="Ingrese la descripción del establecimiento"></textarea>
+                        <textarea name="descripcionEstablecimiento" id="inputDescripcion" cols="30" rows="10" class="inputDescripcion" placeholder="Ingrese la descripción del establecimiento"></textarea>
                     </div>
 
                     <div class="informacionInput">
                         <p class="nombreInput">TELÉFONO</p>
-                        <input type="text" class="inputTel" name="telefonoEstablecimiento" placeholder="Ingrese el teléfono del establecimiento">
+                        <input type="text" class="inputTel" id="telefonoEstablecimiento" name="telefonoEstablecimiento" placeholder="Ingrese el teléfono del establecimiento">
                     </div>
 
                     <div class="informacionInput">
                         <p class="nombreInput">CORREO</p>
-                        <input type="text" class="inputEmail" name="correoEstablecimiento" placeholder="Ingrese el correo del establecimiento">
+                        <input type="text" class="inputEmail" id="correoEstablecimiento" name="correoEstablecimiento" placeholder="Ingrese el correo del establecimiento">
                     </div>
                 </section>
 
@@ -275,6 +277,7 @@
         </section>
     </main>
     <script src="/Js/Admin/configBienvenidaAdmin.js"></script>
+    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
 
 </body>
 

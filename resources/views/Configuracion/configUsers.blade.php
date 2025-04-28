@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('Css/Config/configUsuarios.css') }}">
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
+
     <title>Configuracion Usuarios - MYLOOK</title>
 </head>
 
@@ -16,7 +18,7 @@
         <div class="containerPerfil">
             <!-- Imagen de perfil -->
             <figure>
-                <form action="{{ route('updateUsers', ['id' => $usuario->id_usuario]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('updateUsers', ['id' => $usuario->id_usuario]) }}" method="POST" enctype="multipart/form-data"  class="formConfig" onsubmit="handleValidationConfigUser(event)">
                     @csrf
                     @method('PUT')
                     <img id="profileImage" src="" alt="" class="imgPerfil">
@@ -26,7 +28,7 @@
                     </label>
 
                     <!-- Input de archivo oculto -->
-                    <input type="file" name="fileInput" id="fileInput" class="file-input" accept="image/*" onchange="updateProfileImage(event)" src="{{$usuario->img_usuario ? $usuario->img_usuario:''}}">
+                    <input type="file" name="imagenPerfil" id="fileInput" class="file-input" accept="image/*" onchange="updateProfileImage(event)" src="{{$usuario->img_usuario ? $usuario->img_usuario:''}}">
                 </form>
             </figure>
         </div>
@@ -71,7 +73,8 @@
     </section>
 
     <script src="/Js/Usuarios/configUsuario.js"></script>
-    <script src="/Js/Validacion/formValidations.js"></script>
+    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
+
 
 </body>
 
