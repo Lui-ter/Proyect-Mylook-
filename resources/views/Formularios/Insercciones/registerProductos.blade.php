@@ -18,6 +18,7 @@
             @csrf
             @if(isset($producto))
                 @method('PUT')
+                <input type="hidden" name="editProduct" value="true">
             @endif
 
             <!-- CONTENEDOR PREVISUALIZACIÓN -->

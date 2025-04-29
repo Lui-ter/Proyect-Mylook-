@@ -15,30 +15,30 @@ function handleValidationCategory(event) {
     const nombreCategoria = document.getElementById("nombreCategoria")?.value.trim();
     const descripcionCategoria = document.getElementById("descripcion")?.value.trim();
     const imagenCategoria = document.getElementById("imagen")?.files[0];
+    const editProduct = document.querySelector('input[name="editProduct"]')?.value;
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
         alertContainer.remove();
     }
 
-    // CONTENEDOR MANEJO DE ERRORES
     const form = document.querySelector(".formulario");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
     alertDiv.classList.add('validacion-error');
 
-
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
-
         setTimeout(() => {
-            alertDiv.style.opacity = "0";}, 3000);
-
+            alertDiv.style.opacity = "0";
+        }, 3000);
         setTimeout(() => {
-            alertDiv.remove();}, 3500);
+            alertDiv.remove();
+        }, 3500);
     }
-    if (!nombreCategoria || !descripcionCategoria || !imagenCategoria) {
+
+    if (!nombreCategoria || !descripcionCategoria || (!imagenCategoria && !editProduct)) {
         showError("¡Faltan campos por llenar!");
         return;
     }
@@ -53,8 +53,8 @@ function handleValidationCategory(event) {
         return;
     }
 
-    if (!tiposImgPermitidos.test(imagenCategoria.type)) {
-        showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
+    if (imagenCategoria && !tiposImgPermitidos.test(imagenCategoria.type)) {
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
 
@@ -99,7 +99,7 @@ function handleValidationService(event) {
     }
 
     if (!regexNombre.test(nombreServicios)) {
-        showError("¡El nombre del servicio solo puede contener letras, espacios, ñ y tildes!");
+        showError("¡El nombre del servicio solo puede contener letras y espacios!");
         return;
     }
 
@@ -126,31 +126,31 @@ function handleValidationProduct(event) {
     const desc = document.getElementById("descripcionProducto")?.value.trim();
     const cantidad = document.getElementById("cantidadProducto")?.value.trim();
     const precio = document.getElementById("valorProducto")?.value.trim();
-    
+    const editProduct = document.querySelector('input[name="editProduct"]')?.value;
+
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
         alertContainer.remove();
     }
 
-    // CONTENEDOR MANEJO DE ERRORES
     const form = document.querySelector(".formulario-productos");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
     alertDiv.classList.add('validacion-error');
 
-
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
-
         setTimeout(() => {
-            alertDiv.style.opacity = "0";}, 3000);
-
+            alertDiv.style.opacity = "0";
+        }, 3000);
         setTimeout(() => {
-            alertDiv.remove();}, 3500);
+            alertDiv.remove();
+        }, 3500);
     }
 
-    if (!nombre || !marca || !imagen || !desc || !cantidad || !precio) {
+    // Validación general
+    if (!nombre || !marca || !desc || !cantidad || !precio || (!imagen && !editProduct)) {
         showError("¡Faltan campos por llenar!");
         return;
     }
@@ -170,13 +170,14 @@ function handleValidationProduct(event) {
         return;
     }
 
-    if (!tiposImgPermitidos.test(imagen.type)) {
-        showError("Solo se permiten archivos de imagen (JPEG, PNG, JPG).");
+    if (imagen && !tiposImgPermitidos.test(imagen.type)) {
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
 
     event.target.submit();
 }
+
 
 // FORMULARIO DE REGISTRO
 function handleValidationRegister(event) {
@@ -373,27 +374,27 @@ function handleValidationConfigUser(event) {
     }
 
     if (!documentoUsuario || !nombreUsuario || !apellidoUsuario || !telefonoUsuario || !correoUsuario || !imagenStaff) {
-        showError("Todos los campos son obligatorios.");
+        showError("¡Todos los campos son obligatorios!");
         return;
     }
 
     if (!regexDocumentoUsuario.test(documentoUsuario)) {
-        showError("El documento debe contener solo números.");
+        showError("¡El documento debe contener solo números!");
         return;
     }
 
     if (!regexNombre.test(nombreUsuario) || !regexNombre.test(apellidoUsuario)) {
-        showError("El nombre y el apellido solo pueden contener letras.");
+        showError("¡El nombre y el apellido solo pueden contener letras!");
         return;
     }
 
     if (!regexNumerico.test(telefonoUsuario) || telefonoUsuario.length < 7) {
-        showError("El teléfono debe contener solo números y tener al menos 7 dígitos.");
+        showError("¡El teléfono debe contener solo números y tener al menos 7 dígitos!");
         return;
     }
 
     if (!regexCorreo.test(correoUsuario)) {
-        showError("El correo electrónico no tiene un formato válido.");
+        showError("¡El correo electrónico no tiene un formato válido!");
         return;
     }
     if (condicionUsuario === "0") {
@@ -418,6 +419,7 @@ function handleValidationConfigUser(event) {
 }
 
 /* VALIDACIONES FORMULARIO STAFF */
+/* VALIDACIONES FORMULARIO STAFF */
 function handleValidationStaff(event) {
     event.preventDefault();
 
@@ -429,19 +431,17 @@ function handleValidationStaff(event) {
     const contrasenaStaff = document.getElementById("contrasena")?.value.trim();
     const rolStaff = document.getElementById("tipoRol")?.value.trim();
     const imagenStaff = document.getElementById("imagenServicio")?.files[0];
-
+    const editStaff = document.querySelector('input[name="editStaff"]')?.value;
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
         alertContainer.remove();
     }
 
-    // CONTENEDOR MANEJO DE ERRORES
     const form = document.querySelector(".contenedorForm");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
     alertDiv.classList.add('validacion-error');
-
 
     function showError(message) {
         alertDiv.innerHTML = message;
@@ -449,60 +449,56 @@ function handleValidationStaff(event) {
         setTimeout(() => {
             alertDiv.style.opacity = "0";
         }, 3000);
-
         setTimeout(() => {
             alertDiv.remove();
         }, 3500);
     }
 
-    if (!documentoStaff || !nombreStaff || !apellidoStaff || !telefonoStaff || !correoStaff || !contrasenaStaff || !rolStaff || !imagenStaff) {
-        showError("!Todos los campos son obligatorios.¡");
+    if (!documentoStaff || !nombreStaff || !apellidoStaff || !telefonoStaff || !correoStaff || rolStaff === "0") {
+        showError("¡Todos los campos son obligatorios!");
         return;
     }
 
+    if (!editStaff) {
+        if (!contrasenaStaff || !imagenStaff) {
+            showError("¡La imagen y la contraseña son obligatorias al registrar!");
+            return;
+        }
+    }
+
     if (!regexDocumentoUsuario.test(documentoStaff)) {
-        showError("!El documento debe contener minimo 10 números.¡");
+        showError("¡El documento debe contener mínimo 10 números!");
         return;
     }
 
     if (!regexNombre.test(nombreStaff) || !regexNombre.test(apellidoStaff)) {
-        showError("!El nombre y el apellido solo pueden contener letras.¡");
+        showError("¡El nombre y el apellido solo pueden contener letras!");
         return;
     }
-  
-    if (!regexPassword.test(contrasenaStaff)) {
-        showError("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!.");
+
+    if (!editStaff && !regexPassword.test(contrasenaStaff)) {
+        showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
         return;
     }
 
     if (!regexCorreo.test(correoStaff)) {
-        showError("!El correo electrónico no tiene un formato válido.¡");
+        showError("¡El correo electrónico no tiene un formato válido!");
         return;
     }
-    
+
     if (!regexNumerico.test(telefonoStaff) || telefonoStaff.length < 7) {
-        showError("!El teléfono debe contener solo números y tener al menos 7 dígitos.¡");
+        showError("¡El teléfono debe contener solo números y tener al menos 7 dígitos!");
         return;
     }
 
-    if (rolStaff === "0") {
-        showError("¡Debes seleccionar un rol válido para el staff!");
-        return;
-    }
-    
-    if (!imagenStaff) {
-        showError("¡Debes subir una imagen del staff!");
-        return;
-    }
-
-    if (!tiposImgPermitidos.test(imagenStaff.type)) {
+    if (imagenStaff && !tiposImgPermitidos.test(imagenStaff.type)) {
         showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
-    
-    event.target.submit();
 
+    event.target.submit();
 }
+
 
 /* VALIDACIONES FORMULARIO ADMIN */
 function handleValidationAdmin(event) {
@@ -591,16 +587,16 @@ function handleValidationNegocio(event) {
     }
 
     if (!imagenPerfil || !imagenPortada || !descripcionNegocio) {
-        showError("!Todos los campos son obligatorios.¡");
+        showError("¡Todos los campos son obligatorios!");
         return;
     }
 
     if (!tiposImgPermitidos.test(imagenPerfil.type)) {
-        showError("!Solo se permiten archivos de imagen (JPEG, PNG, JPG).¡");
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
     if (!tiposImgPermitidos.test(imagenPortada.type)) {
-        showError("!Solo se permiten archivos de imagen (JPEG, PNG, JPG).¡");
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
     if (!regexDescripcion.test(descripcionNegocio)) {
@@ -639,16 +635,16 @@ function handleValidationEstablecimiento(event) {
         setTimeout(() => {alertDiv.remove();}, 3500);}
 
     if (!documentoEstablecimiento || !nombreEstablecimiento || !direccionEstablecimiento || !telefonoEstablecimiento || !drescripcionEstablecimiento || !correoEstablecimiento ) {
-        showError("!Todos los campos son obligatorios.¡");
+        showError("¡Todos los campos son obligatorios!");
         return;
     }
 
     if (!regexNit.test(documentoEstablecimiento)) {
-        showError("!El documento debe contener minimo 10 números.¡");
+        showError("¡El documento debe contener minimo 10 números!");
         return;
     }
     if (!regexNombre.test(nombreEstablecimiento)) {
-        showError("!El nombre solo pueden contener letras¡");
+        showError("¡El nombre solo pueden contener letras!");
         return;
     }
     if (!regexDescripcion.test(direccionEstablecimiento)) {
@@ -656,7 +652,7 @@ function handleValidationEstablecimiento(event) {
         return;
     }
     if (!regexNumerico.test(telefonoEstablecimiento)) {
-        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos.!");
+        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos!");
         return;
     }
     if (!regexDescripcion.test(drescripcionEstablecimiento)) {
@@ -664,7 +660,7 @@ function handleValidationEstablecimiento(event) {
         return;
     }
     if (!regexCorreo.test(correoEstablecimiento)) {
-        showError("¡El correo electrónico no tiene un formato válido.!");
+        showError("¡El correo electrónico no tiene un formato válido!");
         return;
     }
     event.target.submit();

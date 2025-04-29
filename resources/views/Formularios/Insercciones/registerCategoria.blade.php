@@ -22,6 +22,7 @@
     <form action="{{ $modeValidator == 1? route('updateCategory',['id' => $categoria['id_categoria']]): route('registerCategory') }}" method="post" class="formulario" enctype="multipart/form-data" onsubmit="handleValidationCategory(event)">
       @csrf
       @method($modeValidator == 1? 'PUT':'POST')
+      <input type="hidden" name="editProduct" value="true">
       <article class="contenedorPadre">
 
         <div class="columna">
