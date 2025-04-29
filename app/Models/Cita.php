@@ -41,4 +41,10 @@ class Cita extends Model
     return $this->hasOne(ReservaProducto::class, 'id_cita');
     }
 
+    public function notificacion()
+    {
+    return $this->hasMany(Notificacion::class, 'id_cita', 'id_cita');
+    }
+
+
 }

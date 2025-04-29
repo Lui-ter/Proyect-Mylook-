@@ -34,7 +34,7 @@
 </header>
 
 
-@include('components.bandeja')
+@include('components.bandeja', ['notificaciones' => $notificaciones])
 
 <style>
     /* Reset básico y fuentes */

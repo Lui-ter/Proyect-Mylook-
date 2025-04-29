@@ -12,6 +12,7 @@ use App\Models\Producto;
 use App\Models\Cita;
 use App\Models\ReservaServicio;
 use App\Models\ReservaProducto;
+use App\Models\notificacion;
 use App\Models\Categoria;
 use App\Models\Servicio;
 use App\Models\Valoracion;
@@ -60,8 +61,35 @@ class UsuariosController extends Controller
                 ->inRandomOrder()
                 ->take(6)
                 ->get(); // ← no usamos toArray() para evitar errores
+
+            if (Auth::guard('usuario')->check()) {
+                // Notificaciones de usuario
+                $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+                    return array_merge(
+                        $notificacion->toArray(),
+                        [
+                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                        ]
+                    );
+                })->toArray();
+            } elseif (Auth::guard('negocio')->check()) {
+                // Notificaciones de negocio
+                $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+                    return array_merge(
+                        $notificacion->toArray(),
+                        [
+                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                        ]
+                    );
+                })->toArray();
+            } else {
+                
+                $notificaciones = [];
+            }
         
-            return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados'));
+            return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados','notificaciones'));
 
         } elseif ($accion === 'verMas') {
             //Campos necesarios para cargar los datos necesarios del ver mas de un establecimiento
@@ -111,8 +139,35 @@ class UsuariosController extends Controller
                     }
                 }
             }
+            
+            if (Auth::guard('usuario')->check()) {
+                // Notificaciones de usuario
+                $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+                    return array_merge(
+                        $notificacion->toArray(),
+                        [
+                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                        ]
+                    );
+                })->toArray();
+            } elseif (Auth::guard('negocio')->check()) {
+                // Notificaciones de negocio
+                $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+                    return array_merge(
+                        $notificacion->toArray(),
+                        [
+                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                        ]
+                    );
+                })->toArray();
+            } else {
+                
+                $notificaciones = [];
+            }
 
-            return view($agendamientoView, compact('establecimiento', 'productos','negocio','staffs', 'categorias', 'valoraciones'));
+            return view($agendamientoView, compact('establecimiento', 'productos','negocio','staffs', 'categorias', 'valoraciones','notificaciones'));
         
         } elseif ($accion === 'config') {
             $id = session('usuario_id');
@@ -167,6 +222,14 @@ class UsuariosController extends Controller
                     'id_cita' => $idCita,
                     'id_servicio' => $idServicio
                 ]);
+
+                //Crea la notificacion para el establecimiento
+                $notificacion = notificacion::create([
+                    'id_cita' => $idCita,
+                    'titulo' => 'Solicitud de servicio',
+                    'estado' => 'Pendiente'
+                ]);
+
                 // Si selecciona un producto y cantidad crea tambien reserva_producto
                 if(isset($idProducto) && isset($cantidadProducto)){
                     $reserva_producto = ReservaProducto::create([
@@ -216,7 +279,34 @@ class UsuariosController extends Controller
                     ->take(6)
                     ->get();
 
-                return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados'));
+                if (Auth::guard('usuario')->check()) {
+                    // Notificaciones de usuario
+                    $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+                        return array_merge(
+                            $notificacion->toArray(),
+                            [
+                                'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                                'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                            ]
+                        );
+                    })->toArray();
+                } elseif (Auth::guard('negocio')->check()) {
+                    // Notificaciones de negocio
+                    $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+                        return array_merge(
+                            $notificacion->toArray(),
+                            [
+                                'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                                'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                            ]
+                        );
+                    })->toArray();
+                } else {
+                    
+                    $notificaciones = [];
+                }
+
+                return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados','notificaciones'));
             }else{
                 echo "Falta un campo por deligenciar";
             }

@@ -144,6 +144,14 @@ return new class extends Migration {
             $table->foreign('id_prod')->references('id_prod')->on('producto');
         });
 
+        Schema::create('notificaciones', function(Blueprint $table){
+            $table->increments('id_notificacion');
+            $table->unsignedInteger('id_cita');
+            $table->string('titulo', 50);
+            $table->string('estado', 20)->default('pendiente');
+            $table->foreign('id_cita')->references('id_cita')->on('cita');
+        });
+
         Schema::create('valoracion', function (Blueprint $table) {
             $table->increments('id_valoracion');
             $table->unsignedInteger('id_cita');

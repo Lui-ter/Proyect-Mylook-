@@ -12,6 +12,7 @@ use App\Http\Controllers\NegociosController;
 use App\Http\Controllers\EstablecimientosController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\notificacionController;
 use App\Http\Controllers\Validations;
 
 /* --------------------------------------------------------------------------------------- */
@@ -81,6 +82,7 @@ Route::delete('/delete-type-service', [TiposServiciosController::class, 'handleD
 Route::delete('/delete-service', [ServiciosController::class, 'handleDeleteService'])->name('deleteService');
 Route::delete('/delete-product', [ProductosController::class, 'handleDeleteProduct'])->name('deleteProduct');
 Route::delete('/staff/{id}', [StaffController::class, 'handleDeleteStaff'])->name('deleteStaff');
+Route::delete('delete-notificacion/{id}',[notificacionController::class,'borrarNotificacion'])->name('deleteNotificacion');
 
 
 // Rutas para editar staff

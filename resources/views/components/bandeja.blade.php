@@ -1,55 +1,20 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <aside class="contenedor-bandeja" id="sidebar">
     <div class="encabezado-bandeja">
         <p>BANDEJA DE ENTRADA</p>
     </div>
-    <div class="contenido-bandeja">
-        <div class="elemento-bandeja">
+    <div class="contenido-bandeja">  
+        @foreach ($notificaciones as $notificacion )
+        <div class="elemento-bandeja" id="notificacion-{{ $notificacion['id_notificacion'] }}">
             <div class="contenedor-fecha">
-                <div class="numero-fecha">
-                    <p>18</p>
-                </div>
-                <div class="mes-fecha">
-                    <p>jun</p>
-                </div>
+                <div class="numero-fecha">{{ $notificacion['fecha'] ?? 'No se encontró' }}</div>
             </div>
-            <div class="texto-solicitud">
-                <p>Solicitud de producto</p>
-            </div>
+            <div class="texto-solicitud">{{ $notificacion['titulo'] ?? 'No se encontró' }}</div>
             <div class="contenedor-icono">
-                <div class="sobre">
-                    <i
-                        class="fa-solid fa-envelope-open  $estado == 'pendiente' ? 'icono-pendiente' : 'icono-realizada' }}"></i>
-                </div>
+                <button class="button-borrar-notificacion" data-id="{{ $notificacion['id_notificacion'] }}">X</button>
             </div>
         </div>
-
-        <div class="elemento-bandeja">
-            <div class="contenedor-fecha">
-                <div class="numero-fecha">18</div>
-                <div class="mes-fecha">jun</div>
-            </div>
-            <div class="texto-solicitud">Solicitud de producto</div>
-            <div class="contenedor-icono">
-                <div class="sobre">
-                    <i
-                        class="fa-solid fa-envelope-open  $estado == 'pendiente' ? 'icono-pendiente' : 'icono-realizada' }}"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="elemento-bandeja elemento_leido">
-            <div class="contenedor-fecha">
-                <div class="numero-fecha">18</div>
-                <div class="mes-fecha">jun</div>
-            </div>
-            <div class="texto-solicitud">Solicitud de servicio</div>
-            <div class="contenedor-icono">
-                <div class="sobre">
-                    <i
-                        class="fa-solid fa-envelope-open  $estado == 'pendiente' ? 'icono-pendiente' : 'icono-realizada' }}"></i>
-                </div>
-            </div>
-        </div>
+        @endforeach 
     </div>
 </aside>
 
@@ -245,6 +210,25 @@
         elemento.addEventListener("click", () => {
             ocultarTodasLasSecciones();
             contenedorNotificacion.style.display = "grid"; // Muestra la info de la notificación
+        });
+    });
+
+    //Eliminar una notificación visualmente
+    document.querySelectorAll('.button-borrar-notificacion').forEach(button => {
+    button.addEventListener('click', function() {
+        let notificationId = this.dataset.id; // Obtiene el ID de la notificación
+        let notificationElement = document.getElementById(`notificacion-${notificationId}`);
+
+            fetch(`/delete-notificacion/${notificationId}`, {
+                method: 'DELETE',
+                headers: { 
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            }).then(response => {
+                if (response.ok) {
+                    notificationElement.remove(); // Elimina visualmente la notificación
+                }
+            }).catch(error => console.error('Error:', error));
         });
     });
 </script>

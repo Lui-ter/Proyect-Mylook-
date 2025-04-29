@@ -8,6 +8,7 @@ use App\Models\Establecimiento;
 use App\Models\Producto;
 use App\Models\Staff;
 use App\Models\Cita;
+use App\Models\notificacion;
 use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Auth;
 
@@ -74,8 +75,33 @@ class AdminController extends Controller
             'id_cita' => $cita->id_cita,
         ];
     }
-
-    return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo');
+    if (Auth::guard('usuario')->check()) {
+        // Notificaciones de usuario
+        $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+    } elseif (Auth::guard('negocio')->check()) {
+        // Notificaciones de negocio
+        $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+    } else {
+       
+        $notificaciones = [];
+    }
+    return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo','notificaciones');
 
     }
 
@@ -107,6 +133,13 @@ class AdminController extends Controller
                 $cita = Cita::find($idCita);
                 if ($cita) {
                     $cita->estado_cita = "Aceptado"; // Cambia estado a 'Aceptado'
+                    // Crea una nueva notificacion de aceptado
+                    $notificacion = notificacion::create([
+                        'id_cita' => $idCita,
+                        'titulo' => 'Solicitud de servicio Aceptada',
+                        'estado' => 'Aceptado'
+                    ]);
+                    $notificacion->save();
                     $cita->save();
 
                 } else {
@@ -126,7 +159,7 @@ class AdminController extends Controller
                             $producto->save(); // Guarda el cambio en la base de datos
                         }
                     }
-
+                    $cita->notificacion()?->delete();
                     $cita->reservaServicio()?->delete();
                     $cita->reservaProducto()?->delete();
                     $cita->delete();
