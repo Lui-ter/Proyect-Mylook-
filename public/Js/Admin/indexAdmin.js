@@ -57,17 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // *Lógica para abrir la sección de notificación*
-    const elementosBandeja = document.querySelectorAll(".elemento-bandeja");
-    const contenedorNotificacion = document.getElementById("notificacion");
-    const bandejaEntrada = document.querySelector(".contenedor-bandeja");
-
-    elementosBandeja.forEach((elemento) => {
-        elemento.addEventListener("click", () => {
-            ocultarTodasLasSecciones();
-            contenedorNotificacion.style.display = "grid"; // Muestra la notificación
-        });
-    });
 });
 
 // funciones para cerrar y abrir el modal

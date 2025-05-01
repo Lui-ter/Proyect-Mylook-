@@ -7,6 +7,8 @@
     <link rel="stylesheet"  href="{{ asset('Css/Index/indexBienvenida.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/trianglify@4.1.1/dist/trianglify.bundle.min.js"></script>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
+
     <title>MyLook</title>
 </head>
 

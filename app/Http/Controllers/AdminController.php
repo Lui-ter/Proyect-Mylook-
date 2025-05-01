@@ -41,6 +41,7 @@ class AdminController extends Controller
     $infoStaff = Staff::whereIn('id_establc', $establecimiento)
         ->where('id_rol', '!=', 1)
         ->with(['usuario', 'rol'])
+        ->orderBy('id_staff', 'desc') 
         ->get()
         ->take(3)
         ->toArray();

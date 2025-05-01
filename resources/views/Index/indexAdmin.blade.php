@@ -7,8 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
     <link rel="stylesheet" href="{{ asset('Css/Index/indexAdmin.css') }}">
-    <title>Mi Negocio | MyLook</title>
+    <title>Mi Negocio</title>
 </head>
 
 
@@ -131,7 +132,7 @@
                         <article class="carta" id="carta-staff">
                             <figure class="carta-imagen" id="foto-staff">
                                 <img src="{{ $item['usuario']['img_usuario'] }}" alt="imagen staff">
-                                <p class="rol">Barbero</p>
+                                <p class="rol">{{ $item['rol']['nombre_rol'] }}</p>
                             </figure>
                             <h3>{{ $item['usuario']['nombre'] }}</h3>
                             <div class="contenedor-botones">

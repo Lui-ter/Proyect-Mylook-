@@ -116,6 +116,7 @@ class StaffController extends Controller
         $indexStaff = GlobalVariables::$indexStaff;
         $registerStaff = GlobalVariables::$registerStaff;
         $loginStaff = GlobalVariables::$loginStaff;
+        $viewstaff = GlobalVariables::$viewstaff;
 
         if ($accion === 'index') {
             return view($indexStaff);
@@ -135,6 +136,23 @@ class StaffController extends Controller
             $roles = Rol::where('nombre_rol', '!=', 'Administrador')->get();
             $modeValidator = 1;
             return view($viewCrudStaff, compact('staff', 'usuario', 'roles', 'modeValidator', 'imgBase64'));
+        } elseif ($accion === 'ver') {
+
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
+            $infoStaff = Staff::whereIn('id_establc', $establecimiento)
+                ->where('id_rol', '!=', 1)
+                ->with(['usuario', 'rol'])
+                ->get()
+                ->toArray();
+
+            foreach ($infoStaff as &$staff) {
+                if (isset($staff['usuario']['img_usuario'])) {
+                    $staff['usuario']['img_usuario'] = 'data:image/png;base64,' . base64_encode($staff['usuario']['img_usuario']);
+                }
+            }
+            return view($viewstaff, compact('infoStaff'));
+
         } elseif ($accion === 'eliminar' && $request->has('deleteStaff')) {
             // Se recibe el id del staff
             $id = $request->input('deleteStaff');

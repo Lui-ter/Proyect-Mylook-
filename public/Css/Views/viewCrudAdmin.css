@@ -1,758 +1,754 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-
-/* VARIABLES DE ENTORNO */
-:root {
-    --color-background: #624023;
-    --color-primary: #c29268;
-    --color-dark: #795434;
-    --color-white: white;
-    --color-black: black;
+html {
+    scroll-behavior: smooth;
 }
 
+/* Variables de css*/
+:root {
+    --color-primary: #a68160;
+    --color-secondary: #f2f2f2;
+    --color-white: white;
+    --color-black: black;
+    font-family: 'Montserrat', sans-serif;
+
+}
 
 body {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
     display: flex;
     flex-direction: column;
 
-        /* VISTAS DE PRODUCTOS */
-        .viewProductos{
-            height: 100vh;
-            width: 100vw;
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows:20% 10% 1fr;
+    /* seccion principal*/
+    .seccion {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1em;
 
-            /* CONTENEDOR ICONO DE VOLVER */
-            .volver{
-                border-bottom: 1px solid var(--color-dark);
+        .volver {
+            border-bottom: 1px solid var(--color-primary);
+            display: flex;
+            padding: 1em;
+            justify-content: space-between;
+            align-items: center;
+
+            .encabezado {
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
+                gap: 1em;
 
-                /* ICONO */
-                i{
-                    margin-left: 3vw;
-                    padding: 1%;
-                    color: var(--color-dark);
-                    background-color: transparent;
-                    border: 1px solid var(--color-dark);
-                    border-radius: 100%;
-                }
-
-                /* NOMBRE DE LA GESTION */
-                .nomView{
-                    font-size: 2.5vw;
-                    color: var(--color-dark);
-                    padding-right: 6vw;
-                }
-            }
-
-            /* CONTENEDOR DE FILTRO DE PRODUCTOS */
-            .filter{
-                margin-top: 1vh;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* CONTENEDOR DE MANU DE NAVEGACION */
-                .option{
+                .encabezadoCategoria {
                     display: flex;
-                    margin-left: 3vw;
-                    gap: 2vw;
-
-                    /* BOTONES */
-                    .optionGestion{
-                        padding: 3% 5%;
-                        background-color: transparent;
-                        color: var(--color-dark);
-                        border: none;
-                        border: 1px solid var(--color-dark);
-                        border-radius: 10%;
-
-                        /* BOTON INICIO */
-                        &#btnInicio{
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-                }
-
-                .searchBar{
-                    margin-right: 5vw;
-                    display: flex;
-                    gap: .8vw;
-
-                    /* ICONOS */
-                    i{
-                        color: var(--color-dark);
-                        font-size: 1.7vw;
-                    }
-
-                    /* INPUT DE BUSQUEDA */
-                    .inputSearch{
-                        height: 4vh;
-                        width: 25vw;
-                        border: none;
-                        border-bottom: 1px solid var(--color-dark);
-                        padding-left: 1vw;
-                        outline: none;
-
-                        /* PLACEHOLDER */
-                        &::placeholder{
-                            font-style: italic;
-                            font-size: 1.1vw;
-                        }
-                    }
-                }
-            }
-
-            /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-            .cardItems{
-               display: flex;
-               justify-content: left;
-               align-items: center;
-               width: 100%;
-               height: auto;
-               overflow: auto;
-               scrollbar-width: none;
-               gap: .8vw;
-               padding-left: 1vw;
-               flex-wrap: wrap;
-
-                /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-               .cardUnited{
-                flex: 0 0 0 auto;
-                width: 18%;
-                height: 80%;
-                margin: 3% 1% 5% 4%;
-                border: 1px solid var(--color-primary);
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 60% 8% 22% 10%;
-                border-radius: 2%;
-                box-shadow: 1px 1px 15px 1px var(--color-primary);
-
-                /* CONTENEDOR DE LA IMAGEN */
-                .itemImg{
-                    display: flex;
+                    align-items: center;
                     justify-content: center;
-                    align-items: center;
-                    height: 90%;
-                    width: 95%;
-                    margin-top: 1vh;
-                    margin-left: .4vw;
-                    border-radius: 2%;
+                    gap: 1em;
 
-
-                    /* IMAGEN */
-                   .img{
-                    height: 100%;
-                    width: 100%;
-                    opacity: 0.7;
-                    border-radius: 5%;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-size: contain;
-
-                   }
-                }
-
-                /* NOMBRE DEL ITEM */
-                .nomItem{
-                    text-align: center;
-                    color: var(--color-dark);
-                    font-size: 1.1vw;
-                }
-
-                /* DESCRIPCION DEL ITEM */
-                .descripcion{
-                    width: 90%;
-                    margin: 0% 5%;
-                    text-align: center;
-                    font-size: .88vw;
-                    color: var(--color-dark);
-                }
-
-                /* PRECIO ITEM */
-                .precioItem{
-                    display: none;
-                }
-
-                /* BTN CRUD DE ITEMS */
-                .btnCrud{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: .6vw;
-                    padding-bottom: .8vh;
-
-                        /* BOTONES */
-                        .btnEdit{
-                            cursor: pointer;
-                            height: 70%;
-                            background-color: var(--color-dark);
-                            border: none;
-                            border-radius: 7%;
-                            width: 40%;
-                            color: var(--color-white);
-                        }
-                    }
-               }
-            }
-        }
-
-        .viewCategorias{
-            height: 100vh;
-            width: 100vw;
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows:20% 10% 1fr;
-
-            /* CONTENEDOR ICONO DE VOLVER */
-            .volver{
-                border-bottom: 1px solid var(--color-dark);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* ICONO */
-                i{
-                    margin-left: 3vw;
-                    padding: 1%;
-                    color: var(--color-dark);
-                    background-color: transparent;
-                    border: 1px solid var(--color-dark);
-                    border-radius: 100%;
-                }
-
-                /* NOMBRE DE LA GESTION */
-                .nomView{
-                    font-size: 2.5vw;
-                    color: var(--color-dark);
-                    padding-right: 6vw;
-                }
-            }
-
-            /* CONTENEDOR DE FILTRO DE PRODUCTOS */
-            .filter{
-                margin-top: 1vh;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* CONTENEDOR DE MANU DE NAVEGACION */
-                .option{
-                    display: flex;
-                    margin-left: 3vw;
-                    gap: 2vw;
-
-                    /* BOTONES */
-                    .optionGestion{
-                        padding: 3% 5%;
-                        background-color: transparent;
-                        color: var(--color-dark);
-                        border: none;
-                        border: 1px solid var(--color-dark);
-                        border-radius: 10%;
-
-                        /* BOTON INICIO */
-                        &#btnInicio{
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-                }
-
-                .searchBar{
-                    margin-right: 5vw;
-                    display: flex;
-                    gap: .8vw;
-
-                    /* ICONOS */
-                    i{
-                        color: var(--color-dark);
-                        font-size: 1.7vw;
-                    }
-
-                    /* INPUT DE BUSQUEDA */
-                    .inputSearch{
-                        height: 4vh;
-                        width: 25vw;
-                        border: none;
-                        border-bottom: 1px solid var(--color-dark);
-                        padding-left: 1vw;
-                        outline: none;
-
-                        /* PLACEHOLDER */
-                        &::placeholder{
-                            font-style: italic;
-                            font-size: 1.1vw;
-                        }
-                    }
-                }
-            }
-
-            /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-            .cardItems{
-                display: flex;
-                justify-content: left;
-                align-items: center;
-                width: 100%;
-                height: auto;
-                overflow: auto;
-                scrollbar-width: none;
-                gap: .8vw;
-                padding-left: 1vw;
-                flex-wrap: wrap;
-
-                 /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-                .cardUnited{
-                 flex: 0 0 0 auto;
-                 width: 18%;
-                 height: 80%;
-                 margin: 3% 1% 1% 4%;
-                 border: 1px solid var(--color-primary);
-                 display: grid;
-                 grid-template-columns: 1fr;
-                 grid-template-rows: 10% 77% 12%;
-                 border-radius: 2%;
-                 box-shadow: 1px 1px 15px 1px var(--color-primary);
-
-                 /* CONTENEDOR DE LA IMAGEN */
-                 .itemImg{
-                     display: flex;
-                     justify-content: center;
-                     align-items: center;
-                     height: 90%;
-                     width: 95%;
-                     margin-top: 1vh;
-                     margin-left: .4vw;
-                     background-color: var(--color-dark);
-                     border-radius: 2%;
-
-
-                     /* IMAGEN */
-                    .img{
-                     height: 100%;
-                     width: 100%;
-                     opacity: 0.7;
-                     border-radius: 5%;
-                     background-position: center;
-                     background-repeat: no-repeat;
-                     background-size: contain;
-
-                    }
-                 }
-
-                 /* NOMBRE DEL ITEM */
-                 .nomItem{
-                     text-align: center;
-                     color: var(--color-dark);
-                     font-size: 1.1vw;
-                     padding-top: 2vh;
-                 }
-
-                 /* DESCRIPCION DEL ITEM */
-                 .descripcion{
-                     width: 90%;
-                     margin-left: .7vw;
-                     text-align: center;
-                     font-size: 1vw;
-                     color: var(--color-dark);
-                 }
-
-                 /* PRECIO ITEM */
-                 .precioItem{
-                     display: none;
-                 }
-
-                 /* BTN CRUD DE ITEMS */
-                 .btnCrud{
-                     display: flex;
-                     justify-content: center;
-                     align-items: center;
-                     gap: .6vw;
-                     padding-bottom: .8vh;
-
-                         /* BOTONES */
-                         .btnEdit{
-                             cursor: pointer;
-                             height: 70%;
-                             background-color: var(--color-dark);
-                             border: none;
-                             border-radius: 7%;
-                             width: 40%;
-                             color: var(--color-white);
-                             }
-                        }
-                    }
-                }
-        }
-
-        .viewTipservicios{
-            height: 100vh;
-            width: 100vw;
-            display: grid;
-            grid-template-columns: 100vw;
-            grid-template-rows:20% 10% 1fr;
-
-            /* CONTENEDOR ICONO DE VOLVER */
-            .volver{
-                border-bottom: 1px solid var(--color-dark);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* ICONO */
-                i{
-                    margin-left: 3vw;
-                    padding: 1%;
-                    color: var(--color-dark);
-                    background-color: transparent;
-                    border: 1px solid var(--color-dark);
-                    border-radius: 100%;
-                }
-
-                /* NOMBRE DE LA GESTION */
-                .nomView{
-                    font-size: 2.5vw;
-                    color: var(--color-dark);
-                    padding-right: 6vw;
-                }
-            }
-
-            /* CONTENEDOR DE FILTRO DE PRODUCTOS */
-            .filter{
-                margin-top: 1vh;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                /* CONTENEDOR DE MANU DE NAVEGACION */
-                .option{
-                    display: flex;
-                    margin-left: 3vw;
-                    gap: 2vw;
-
-                    /* BOTONES */
-                    .optionGestion{
-                        cursor: pointer;
-                        padding: 3% 10%;
-                        background-color: transparent;
-                        color: var(--color-dark);
-                        border: none;
-                        border: 1px solid var(--color-dark);
-                        border-radius: 7%;
-
-                        /* BOTON INICIO */
-                        &#btnInicio{
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-                }
-
-                .searchBar{
-                    margin-right: 5vw;
-                    display: flex;
-                    gap: .8vw;
-
-                    /* INPUT DE BUSQUEDA */
-                    .inputSearch{
-                        height: 4vh;
-                        width: 25vw;
-                        border: none;
-                        border-bottom: 1px solid var(--color-dark);
-                        padding-left: 1vw;
-                        outline: none;
-
-                        /* PLACEHOLDER */
-                        &::placeholder{
-                            font-style: italic;
-                            font-size: 1.1vw;
-                        }
-                    }
-                }
-            }
-
-             /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-            .cardItems {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
-                    grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-                    gap: 25px;
-                    width: 100%;
-                    height: auto;
-                    padding: 0;
-                    margin-top: 8vh;
-                    scrollbar-width: none;
-                    overflow: auto;
-
-
-
-              /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-             .cardUnited{
-                margin: 0;
-                width: 90%;
-                margin-bottom: 5vh;
-                height: 125%;
-                border: 1px solid var(--color-primary);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-left: 1em;
-                border-radius: 3%;
-                padding: 10px;
-                gap: .2vw;
-
-
-              /* NOMBRE DEL ITEM */
-              .nomItem{
-                  text-align: center;
-                  color: var(--color-dark);
-                  font-size: 1vw;
-                  width: 75%;
-              }
-
-
-              /* BTN CRUD DE ITEMS */
-              .btnCrud{
-                 width: 25%;
-                 height: 100%;
-                  display: flex;
-                  justify-content: sstart;
-                  align-items: center;
-                  gap: .2vw;
-
-                      /* BOTONES */
-                      .btnEdit{
-                          cursor: pointer;
-                          height: 110%;
-                          background-color: transparent;
-                          border: none;
-                          border-radius: 7%;
-                          width: 60%;
-                          font-size: 1.5vw;
-                          color: var(--color-dark);
-
-                            &#eliminarItem{
-                                background-color: var(--color-dark);
-                                color: var(--color-white);
-                                font-size: 1.2vw;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .viewServicios{
-                height: 100vh;
-                width: 100vw;
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows:20% 10% 1fr;
-
-                /* CONTENEDOR ICONO DE VOLVER */
-                .volver{
-                    border-bottom: 1px solid var(--color-dark);
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-
-                    /* ICONO */
-                    i{
-                        margin-left: 3vw;
-                        padding: 1%;
-                        color: var(--color-dark);
-                        background-color: transparent;
-                        border: 1px solid var(--color-dark);
+                    img {
+                        width: 3em;
+                        height: 3em;
+                        object-fit: cover;
                         border-radius: 100%;
                     }
+                }
+            }
 
-                    /* NOMBRE DE LA GESTION */
-                    .nomView{
-                        font-size: 2.5vw;
-                        color: var(--color-dark);
-                        padding-right: 6vw;
+            /* contenedor icono*/
+            a {
+                background-color: var(--color-primary);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                aspect-ratio: 1 / 1;
+                width: 3em;
+                height: 3em;
+                padding: 0;
+                overflow: hidden;
+
+                /* icono */
+                i {
+                    color: var(--color-white);
+                    font-size: 1.5em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    aspect-ratio: 1 / 1;
+                }
+            }
+
+
+            /* Nobre de la vista*/
+            .nombre-vista {
+                font-size: clamp(1.5em, 2.5vw, 3em);
+                color: var(--color-primary);
+            }
+        }
+
+        /* Contenedor de los botones de filtros */
+        .filtros {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1em;
+
+            .option {
+                display: flex;
+                gap: 1em;
+                flex-wrap: wrap;
+
+                a {
+
+                    /* botones*/
+                    .boton {
+                        cursor: pointer;
+                        background-color: var(--color-primary);
+                        color: var(--color-white);
+                        border: 1px solid var(--color-primary);
+                        padding: .4em .4em;
+                        border-radius: .4em;
+                        font-size: clamp(1em, 1vw, 2em);
+                        font-weight: bold;
+                        text-align: center;
+
                     }
                 }
 
-                /* CONTENEDOR DE FILTRO DE PRODUCTOS */
-                .filter{
-                    margin-top: 1vh;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
+                /* BOTONES */
+                .boton {
+                    cursor: pointer;
+                    background-color: var(--color-primary);
+                    color: var(--color-white);
+                    border: 1px solid var(--color-primary);
+                    padding: .4em .4em;
+                    border-radius: .4em;
+                    font-size: clamp(1em, 1vw, 2em);
+                    font-weight: bold;
+                    text-align: center;
 
-                    /* CONTENEDOR DE MANU DE NAVEGACION */
-                    .option{
-                        display: flex;
-                        margin-left: 3vw;
-                        gap: 2vw;
-
-                        /* BOTONES */
-                        .optionGestion{
-                            padding: 3% 5%;
-                            background-color: transparent;
-                            color: var(--color-dark);
-                            border: none;
-                            border: 1px solid var(--color-dark);
-                            border-radius: 10%;
-
-                            /* BOTON INICIO */
-                            &#btnInicio{
-                                background-color: var(--color-dark);
-                                color: var(--color-white);
-                            }
-                        }
-                    }
-
-                    .searchBar{
-                        margin-right: 5vw;
-                        display: flex;
-                        gap: .8vw;
-
-                        /* ICONOS */
-                        i{
-                            color: var(--color-dark);
-                            font-size: 1.7vw;
-                        }
-
-                        /* INPUT DE BUSQUEDA */
-                        .inputSearch{
-                            height: 4vh;
-                            width: 25vw;
-                            border: none;
-                            border-bottom: 1px solid var(--color-dark);
-                            padding-left: 1vw;
-                            outline: none;
-
-                            /* PLACEHOLDER */
-                            &::placeholder{
-                                font-style: italic;
-                                font-size: 1.1vw;
-                            }
-                        }
-                    }
                 }
 
-                /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-                .cardItems{
-                    display: flex;
-                    margin: 1% 1% 3% 1%;
-                    align-items: center;
-                    flex-direction: column;
-                    gap: 10vh;
-                    overflow-y: auto;
-                    scrollbar-width: none;
+                .activo {
+                    background-color: var(--color-white);
+                    color: var(--color-primary);
+                    border: 1px solid var(--color-primary);
+                }
 
-                    /* CONTENEDOR DE LAS CARD DE LOS PRODUCTOS */
-                   .cardUnited{
-                    height: auto;
-                    width: 90%;
+                .boton:hover {
+                    background-color: var(--color-white);
+                    color: var(--color-primary);
+                    border: 1px solid var(--color-primary);
+                }
+            }
+
+            .searchBar {
+                display: flex;
+                gap: .5em;
+                align-items: center;
+
+                /* ICONOS */
+                i {
+                    color: var(--color-primary);
+                    font-size: clamp(1.5em, 2vw, 3em);
+
+                }
+
+                /* INPUT DE BUSQUEDA */
+                .inputSearch {
+                    height: 5vh;
+                    width: 25vw;
+                    border: 1px solid var(--color-primary);
+                    padding-left: .4em;
+                    border-radius: .4em;
+                }
+            }
+        }
+
+        .contenedor-cartas {
+            padding: 1em;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: auto;
+            scrollbar-width: none;
+            gap: .5em;
+            grid-auto-flow: dense;
+            min-height: 8fr;
+
+            /* carta general */
+            & .carta {
+                height: 100%;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 4fr 1fr 2fr 1fr;
+                padding: 0.5em;
+                justify-content: space-between;
+                background-color: var(--color-secondary);
+                border: 1px solid var(--color-primary);
+                border-radius: 0.4em;
+                height: 70vh;
+                gap: 0.2em;
+                position: relative;
+                font-size: clamp(0.8em, 1.2vw, 3em);
+                overflow: hidden;
+                transition: flex 0.3s ease-in-out,
+                    box-shadow 0.3s ease-in-out;
+                cursor: pointer;
+
+                /* conteneodr imagen */
+                & .carta-imagen {
+                    background-color: var(--color-white);
+                    width: 100%;
+                    position: relative;
                     display: grid;
-                    margin-top: 3vh;
-                    grid-template-columns: 40% 60%;
 
-                    /* CONTENEDOR DE LA IMAGEN */
-                    .itemImg{
+                    & img {
+                        width: 100%;
+                        height: 40vh;
+                        border-radius: 0.4em;
+                        border: 1px solid var(--color-primary);
+                        object-fit: cover;
+                        transition: height 0.3s ease-in-out,
+                            border 0.3s ease-in-out;
+                    }
+
+                    /*En cartas de productos */
+                    & .stock {
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        background-color: var(--color-black);
+                        color: white;
+                        padding: 5px 10px;
+                        border-radius: 0 0.3em 0 0.3em;
+                    }
+                    /*En cartas de productos */
+                    & .precio {
+                        position: absolute;
+                        bottom: 0px;
+                        width: 100%;
+                        background-color: var(--color-black);
+                        color: var(--color-white);
+                        font-weight: bold;
+                        padding: 0.2em 0;
+                        text-align: center;
+                        border-radius: 0 0 0.3em 0.3em;
+                    }
+
+                    /*En cartas de staff*/
+                    & .rol {
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        background-color: var(--color-black);
+                        color: white;
+                        padding: 5px 10px;
+                        border-radius: 0 0.3em 0 0.3em;
+                    }
+
+                    & a {
+                        text-decoration: none;
+                        font-weight: bold;
+                    }
+                }
+
+                /* para titulos */
+                & h3 {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                /* para descripcion */
+                & p {
+                    font-size: 1em;
+                    font-weight: 500;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+
+
+                & .contenedor-botones {
+                    width: 100%;
+                    justify-content: center;
+                    align-items: end;
+                    align-self: end;
+                    display: grid;
+                    gap: 1em;
+                    grid-template-columns: 1fr 1fr;
+
+                    /* botones de la carta */
+                    & form {
+                        & .boton {
+                            width: 100%;
+                            border: 1px solid var(--color-primary);
+                            background-color: var(--color-primary);
+                            padding: 0.2em 0;
+                            border-radius: 0.4em;
+                            color: var(--color-secondary);
+                            font-weight: bold;
+                            font-size: 1.1em;
+                            cursor: pointer;
+                        }
+
+                        & .boton:hover {
+                            border-color: var(--color-primary);
+                            background-color: var(--color-secondary);
+                            padding: 0.2em 0;
+                            border-radius: 0.4em;
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+
+                /* ocultamos la visibilidad para que solo se muestren las imagenes antes de hacer hover */
+                & p,
+                a,
+                .contenedor-botones {
+                    opacity: 1;
+                    transition: opacity 0.3s ease-in-out;
+                }
+            }
+
+            /* carta de staff */
+            & #carta-staff {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 4fr 0.5fr 0.5fr;
+                padding: 0.5em;
+
+                & #foto-staff {
+                    height: 54vh;
+
+                    & img {
+                        height: 54vh;
+                        border-radius: 0.4em;
+                        border: 1px solid var(--color-primary);
+                    }
+                }
+            }
+
+            /* mensaje en pantalla en caso de no encontrar resultados */
+            .mensaje {
+                display: none;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                font-size: 2em;
+                font-weight: bold;
+                height: 100%;
+                width: 100%;
+                grid-column: 1 / -1;
+            }
+
+
+        }
+
+
+        .encabezado-categoria {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 1.5rem;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+
+            .img-grande {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 50%;
+                margin-right: 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+                color: #333;
+            }
+        }
+
+    }
+
+    /* contenedor de las cartas de servicios */
+    .lista-servicios {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+        gap: 1em;
+        padding: 1em;
+
+        /* carta de servicios */
+        .carta-servicio {
+            display: grid;
+            padding: .5em;
+            border-radius: .5em;
+            border: 1px solid var(--color-primary);
+            background-color: var(--color-white);
+            gap: .8em;
+
+
+            /* nombre del servicio */
+            h2 {
+                font-size: 1.5em;
+                color: var(--color-primary);
+            }
+
+            /* descripcion del servicio */
+            .descripcion {
+                font-size: 1em;
+                display: -webkit-box;
+                -webkit-line-clamp: 4; /* máximo 5 renglones */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                min-height: 5em;
+                max-height: 5em;
+            }
+
+
+            /* contenedor de precio y duracion */
+            .fila {
+                display: flex;
+                justify-content: space-between;
+
+                .requisito {
+                    font-weight: bold;
+                    color: var(--color-primary);
+                }
+            }
+
+            & .contenedor-botones {
+                width: 100%;
+                justify-content: center;
+                align-items: end;
+                align-self: end;
+                display: grid;
+                gap: 1em;
+                grid-template-columns: 1fr 1fr;
+
+                & form {
+                    & .boton {
+                        width: 100%;
+                        border: 1px solid var(--color-primary);
+                        background-color: var(--color-primary);
+                        padding: 0.2em 0;
+                        border-radius: 0.4em;
+                        color: var(--color-secondary);
+                        font-weight: 600;
+                        font-size: 1em;
+                        cursor: pointer;
+                    }
+
+                    & .boton:hover {
+                        border-color: var(--color-primary);
+                        background-color: var(--color-secondary);
+                        color: var(--color-primary);
+                    }
+                }
+            }
+        }
+
+        /* mensaje en caso de no encotrar servicios */
+        .mensaje {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            height: 100%;
+            width: 100%;
+            grid-column: 1 / -1;
+        }
+    }
+
+}
+
+/* dispositivos grandes grandes */
+@media (max-width: 1120px) {
+    body {
+        .seccion {
+            gap: 1em;
+
+            .volver {
+
+                a {
+                    i {
+                        padding: .4em .6em;
+                    }
+                }
+
+                .nombre-vista {
+                    font-size: clamp(1.5em, 2.5vw, 3em);
+                    color: var(--color-primary);
+
+                }
+
+                .nombre-vista {
+                    font-size: clamp(2em, 2.5vw, 3em);
+                }
+            }
+
+            .contenedor-cartas {
+                grid-template-columns: repeat(3, 1fr);
+
+                & .carta {
+                    & .carta-imagen {
+                        & .stock {
+                            font-size: 1.5em;
+                        }
+
+                        & .precio {
+                            font-size: 1.3em;
+                        }
+
+                        & .rol {
+                            font-size: 1.3em;
+
+                        }
+                    }
+
+                    & h3 {
+                        font-size: 1.4em;
+
+                    }
+
+                    & p {
+                        font-size: 1.1em;
+                    }
+
+                    & .contenedor-botones {
+                        & form {
+                            & .boton {
+                                font-size: 1.5em;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        .lista-servicios {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+/* tablets */
+@media (max-width: 930px) {
+    body {
+        .seccion {
+            gap: 1em;
+
+            .volver {
+                a {
+                    i {
+                        padding: .4em .6em;
+                    }
+                }
+                .nombre-vista {
+                    font-size: clamp(1.5em, 2.5vw, 3em);
+                    color: var(--color-primary);
+
+                }
+
+                a {
+                    i {
+                        font-size: 1.4em;
+                    }
+                }
+
+                .nombre-vista {
+                    font-size: clamp(1.5em, 2.5vw, 3em);
+                }
+            }
+
+            .filtros {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 1em;
+                width: 100%;
+                gap: 1em;
+
+                .option {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: .4em;
+                    width: 100%;
+                    justify-content: space-between;
+
+                    .boton {
+                        width: 100%;
+                    }
+                }
+
+                .searchBar {
+                    display: flex;
+                    gap: .5em;
+                    width: 100%;
+                    justify-content: left;
+                    align-items: center;
+
+                    i {
+                        font-size: clamp(1.5em, 2vw, 3em);
+                    }
+
+                    .inputSearch {
+                        height: 5vh;
+                        width: 100%;
+                    }
+                }
+            }
+
+            .contenedor-cartas {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1em;
+
+                & .carta {
+                    & .carta-imagen {
+                        & .stock {
+                            font-size: 1.5em;
+                        }
+
+                        & .precio {
+                            font-size: 1.3em;
+                        }
+
+                        & .rol {
+                            font-size: 1.3em;
+
+                        }
+                    }
+
+                    & h3 {
+                        font-size: 1.4em;
+
+                    }
+
+                    & p {
+                        font-size: 1.2em;
+                    }
+
+                    & .contenedor-botones {
+                        & form {
+                            & .boton {
+                                font-size: 1.5em;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+}
+
+/* Moviles */
+@media (max-width: 768px) {
+    body {
+        .lista-servicios {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+/*Moviles muy pequeños*/
+@media (max-width: 580px) {
+    body {
+        .seccion {
+            .volver {
+                text-align: center;
+                display: flex;
+                justify-content: center;
+
+                /*clase para hacer el Icono flotante */
+                a {
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-decoration: none;
+                    width: 3em;
+                    height: 3em;
+                    aspect-ratio: 1 / 1;
+                    position: fixed;
+                    /* Esto lo hace flotante */
+                    top: .5em;
+                    /* Ajusta la distancia desde la parte superior */
+                    left: 1em;
+                    /* Ajusta la distancia desde la parte izquierda */
+                    z-index: 1000;
+                    /* Asegura que esté por encima de otros elementos */
+
+                    .nombre-vista {
+                        width: 100%;
+                        text-align: center;
+                        font-size: clamp(1.5em, 2.5vw, 3em);
+                    }
+
+                    .encabezadoCategoria {
+                        width: 100%;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        height: 100%;
-                        width: 100%;
-
-                        /* IMAGEN */
-                        .img{
-                            height: 58vh;
-                            width: 25vw;
-                            background-size: cover;
-                            background-position: center;
-                            background-repeat: no-repeat;
-                        }
-                    }
-
-                    .infoItem{
-                        display: flex;
-                        justify-content: left;
-                        align-items: start;
-                        flex-direction: column;
-                        height: 94%;
-                        width: 96%;
-                        margin-left: 1vw;
-                        margin-top: 2.2vh;
-                        color: var(--color-background);
-
-                    /* NOMBRE DEL NEGOCIO QUE LOS OFRECE */
-                    .nomNegocio{
-                        width: 100%;
-                        height: 20%;
-                        padding-top: 8vh;
-                        font-size: 1.5vw;
-                    }
-
-                    /* NOMBRE DEL ITEM */
-                    .nomItem{
-                        width: 100%;
-                        height: 12%;
-                        font-size: 2.3vw;
-                    }
-
-                    /* DESCRIPCION DEL ITEM */
-                    .descripcion{
-                        margin-top: 4vh;
-                        width: 90%;
-                        font-size: 1vw;
-                    }
-
-                    /* TIEMPO DEL CORTE DURACION */
-                    .time{
-                        width: 90%;
-                        margin-top: 5vh;
-                        font-size: .9vw;
-                        text-align: end;
-                    }
-
-                    /* PRECIO ITEM */
-                    .precio{
-                        text-align: start;
-                        height: 10%;
-                        font-size: 1vw;
-                    }
-
-                    /* BTN CRUD DE ITEMS */
-                    .btnCrud{
-                        width: 100%;
-                        height: 15%;
-                        display: flex;
-                        justify-content: left;
-                        align-items: center;
-
-                            /* BOTONES */
-                            .btnEdit{
-                                cursor: pointer;
-                                background-color: var(--color-background);
-                                border: none;
-                                border-radius: 2%;
-                                color: var(--color-white);
-                                font-size: 1.4vw;
-                                margin-left: 1vw;
-                                font-weight: bold;
-                                height: 80%;
-                                width: 85%;
-                        }
                     }
                 }
+
+                .filtros {
+                    .option {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+
+                .contenedor-cartas {
+                    grid-template-columns: 1fr;
+
+                    & .carta {
+                        & .carta-imagen {
+                            & .stock {
+                                font-size: 1.7em;
+                            }
+
+                            & .precio {
+                                font-size: 1.5em;
+                            }
+
+                            & .rol {
+                                font-size: 1.4em;
+
+                            }
+                        }
+
+                        & h3 {
+                            font-size: 1.4em;
+
+                        }
+
+                        & p {
+                            font-size: 1.2em;
+                        }
+                    }
+
                 }
             }
         }
     }
-/* -------------------------------------------------------------------- */
+}

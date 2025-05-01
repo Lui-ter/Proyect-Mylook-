@@ -22,6 +22,9 @@ class GlobalVariables
 
     public static $loginStaffView = 'Formularios.Login.loginStaff';
 
+    public static $viewstaff = 'viewCrud.Admin.viewStaff';
+
+
     /* ------------------------------------------------------------------------------ */
 
     public static $indexUsuarioView = 'Index.indexUsuario';

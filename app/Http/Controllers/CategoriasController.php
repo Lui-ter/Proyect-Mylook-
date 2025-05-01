@@ -75,7 +75,16 @@ class CategoriasController extends Controller
             return view($viewCategorias2, compact('modeValidator', 'idEstablecimiento'));
 
         } elseif ($accion === 'ver') {
-            $categorias = Categoria::all()->toArray();
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
+            $categorias = Categoria::where('id_establc', $establecimiento)->get()->toArray();
+
+
+            foreach ($categorias as &$categoria) {
+                if (isset($categoria['imagen'])) {
+                    $categoria['imagen'] = 'data:image/png;base64,' . base64_encode($categoria['imagen']);
+                }
+            }
             return view($viewCategorias, compact('categorias')); // Muestra una vista de categorias totalmente diferente
 
         } elseif ($accion === 'editar' && $request->has('editCategoria')) {

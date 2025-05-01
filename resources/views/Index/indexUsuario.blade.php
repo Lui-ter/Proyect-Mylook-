@@ -6,18 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="{{ asset('Css/Index/indexUsuario.css') }}">
+        <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
         <title>Usuario bienvenida</title>
     </head>
 
     <body>
 
-            @section('link-index', '/usuarios/index')
-            @section('link-configurar-perfil', '/admin/configurar-perfil')
-            @section('link-historial', '/admin/historial')
-            @section('link-salir', '/usuarios/logout')
-    
-            @include('components.header')
-    
+        @section('link-index', '/usuarios/index')
+        @section('link-configurar-perfil', '/admin/configurar-perfil')
+        @section('link-historial', '/admin/historial')
+        @section('link-salir', '/usuarios/logout')
+
+        @include('components.header')
+
 
         <main>
             {{-- seccion dedicada a el carrusel --}}
@@ -105,22 +106,22 @@
                             <div class="contenedor-informacion">
                                 <div class="informacion">
                                     <div class="nombre-descripcion">
-                                            <h2>{{ $establecimiento->nombre_establc }}</h2>
-                                            <p>{{ $establecimiento->desc_establc }}</p>
+                                        <h2>{{ $establecimiento->nombre_establc }}</h2>
+                                        <p>{{ $establecimiento->desc_establc }}</p>
                                     </div>
-                                        <div class="servicios">
-                                            @if ($establecimiento->categorias->isNotEmpty())
-                                                <h4>Categorías:</h4>
-                                                <ul>
-                                                    @foreach ($establecimiento->categorias as $categoria)
-                                                        <li>{{ $categoria->nom_categoria }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            @else
-                                                <p>Sin categorías registradas.</p>
-                                            @endif
-                                            <div class="puntuacion">★★★★★</div>
-                                        </div>
+                                    <div class="servicios">
+                                        @if ($establecimiento->categorias->isNotEmpty())
+                                            <h4>Categorías:</h4>
+                                            <ul>
+                                                @foreach ($establecimiento->categorias as $categoria)
+                                                    <li>{{ $categoria->nom_categoria }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <p>Sin categorías registradas.</p>
+                                        @endif
+                                        <div class="puntuacion">★★★★★</div>
+                                    </div>
                                 </div>
 
                                 <div class="contenedor-boton-agendar">

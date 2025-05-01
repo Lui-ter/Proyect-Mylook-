@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
     <!-- Idioma español -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/es.global.min.js"></script>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
     <title>Agendamiento</title>
     <style>
         body {
