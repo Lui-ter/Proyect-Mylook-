@@ -82,8 +82,7 @@ class ProductosController extends Controller
             $product = Producto::where('id_producto', $id)->first();
 
             if ($product) {
-                
-                $product->destroy();
+                $product->delete();
                 
             }
             

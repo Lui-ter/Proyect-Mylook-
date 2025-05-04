@@ -16,38 +16,46 @@ use App\Http\Controllers\notificacionController;
 use App\Http\Controllers\Validations;
 
 /* --------------------------------------------------------------------------------------- */
-
 /* PAGINA PRINCIPAL DE MYLOOK */
 Route::get('/', [LoginController::class, 'showLandingPage'])->name('landing');
-/* CRUD DE PRODUCTOS */
-Route::match(['get', 'post'], '/productos/{accion?}', [ProductosController::class, 'crudProductos'])->name('productos');
-/* CRUD DE SERVICIOS */
-Route::match(['get', 'post'], '/servicios/{accion?}', [ServiciosController::class, 'crudServicios'])->name('servicios');
-/* CRUD DE TIPO DE SERVICIOS */
-Route::match(['get', 'post'], '/tipoServicios/{accion?}', [TiposServiciosController::class, 'crudTipoServicios'])->name('tipoServicios');
-/* CRUD DE CATEGORIAS */
-Route::match(['get', 'post'], '/categorias/{accion?}', [CategoriasController::class, 'crudCategorias'])->name('categorias');
-/* CRUD DE STAFF */
-Route::match(['get', 'post'], '/staff/{accion?}', [StaffController::class, 'crudStaff'])->name('staff');
-/* CRUD DE ESTABLECIMIENTOS */
-Route::match(['get', 'post'], '/establecimientos/{accion?}', [EstablecimientosController::class, 'crudEstablecimientos'])->name('establecimientos');
 
+/* LOGIN GENERAL */
+Route::get('/login', [LoginController::class, 'showLoginPrincipal'])->name('login');
 
-/* CRUD DE NEGOCIOS */
-Route::middleware(['ValidateSession:usuario'])->group(function(){
-    Route::match(['get', 'post'], '/negocio/{accion?}', [NegociosController::class, 'crudNegocios'])->name('negocio');
-});
 /* CRUD DE USUARIOS */
 Route::middleware(['ValidateSession:usuario'])->group(function(){
     Route::match(['get', 'post'], '/usuarios/{accion?}', [UsuariosController::class, 'crudUsuarios'])->name('usuarios');
 });
-
-
+/* CRUD DE NEGOCIOS */
+Route::middleware(['ValidateSession:negocio'])->group(function(){
+    Route::match(['get', 'post'], '/negocio/{accion?}', [NegociosController::class, 'crudNegocios'])->name('negocio');
+});
 /* CRUD DE ADMIN */
-Route::match(['get', 'post'], '/admin/{accion?}', [AdminController::class, 'crudAdmin'])->name('admin');
+Route::middleware(['ValidateSession:negocio'])->group(function(){
+    Route::match(['get', 'post'], '/admin/{accion?}', [AdminController::class, 'crudAdmin'])->name('admin');
+});
+/* CRUD DE PRODUCTOS */
+Route::middleware(['ValidateSession:negocio'])->group(function(){
+    Route::match(['get', 'post'], '/productos/{accion?}', [ProductosController::class, 'crudProductos'])->name('productos');
+});
+/* CRUD DE CATEGORIAS */
+Route::middleware(['ValidateSession:negocio'])->group(function(){
+    Route::match(['get', 'post'], '/categorias/{accion?}', [CategoriasController::class, 'crudCategorias'])->name('categorias');
+});
+/* CRUD DE SERVICIOS */
+Route::middleware(['ValidateSession:negocio'])->group(function(){
+    Route::match(['get', 'post'], '/servicios/{accion?}', [ServiciosController::class, 'crudServicios'])->name('servicios');
+});
+/* CRUD DE STAFF */
+Route::middleware(['ValidateSession:negocio'])->group(function(){
+    Route::match(['get', 'post'], '/staff/{accion?}', [StaffController::class, 'crudStaff'])->name('staff');
+});
 
-/* LOGIN GENERAL */
-Route::get('/login', [LoginController::class, 'showLoginPrincipal'])->name('login');
+
+/* CRUD DE TIPO DE SERVICIOS */
+Route::match(['get', 'post'], '/tipoServicios/{accion?}', [TiposServiciosController::class, 'crudTipoServicios'])->name('tipoServicios');
+/* CRUD DE ESTABLECIMIENTOS */
+Route::match(['get', 'post'], '/establecimientos/{accion?}', [EstablecimientosController::class, 'crudEstablecimientos'])->name('establecimientos');
 
 /* RUTAS POST - VALIDACIONES */
 Route::post('/login-user', [LoginController::class, 'loginUser'])->name('loginUser');
