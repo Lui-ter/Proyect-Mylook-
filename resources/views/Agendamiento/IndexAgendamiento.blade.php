@@ -48,6 +48,10 @@
             color: #007BFF;
             margin-top: 10px;
         }
+        .fc-day-sun {
+        background-color: white !important; /* Cambiar el fondo de los domingos */
+        opacity: 1 !important; /* Asegurar que tenga la misma visibilidad que los demás */
+        }
     </style>
 </head>
 <body>
@@ -165,6 +169,9 @@
             var calendarEl = document.getElementById('calendar');
             var selectedDateEl = document.getElementById('selected-date');
 
+            var today = new Date(); // Obtener la fecha actual
+            today.setHours(0, 0, 0, 0); // Ajustar la hora para evitar errores de comparación
+
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 locale: 'es', // Idioma español
                 initialView: 'timeGridWeek', // Vista inicial
@@ -192,7 +199,19 @@
                     minute: '2-digit', 
                     hour12: true
                 },
-                selectable: true, 
+                validRange: {
+                start: today // No permitir selección de días anteriores
+                },
+                
+
+                eventContent: function(info) {
+                    return {
+                        html: '<div class="fc-event-title">' + info.event.title + '</div>'
+                    };
+                },
+                events: {!! json_encode($arreglo) !!},
+                selectable: true,
+                
                 dateClick: function (info) {
                     // Convertir la fecha seleccionada en un objeto de JavaScript
                     const fechaSeleccionada = new Date(info.date);

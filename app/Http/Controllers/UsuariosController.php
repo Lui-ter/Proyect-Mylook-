@@ -187,7 +187,26 @@ class UsuariosController extends Controller
                ->get();
             $categorias = Categoria::where('id_establc', $idEstablecimiento)->get()->toArray();
             $servicios = Servicio::all();
-            return view($agendamientoEstablecimiento, compact('idEstablecimiento','idUsuario','productos','staffs','categorias','servicios'));
+            // arreglo para fullCalendar
+            
+            
+            $citas = Cita::where('id_establc', $idEstablecimiento)->get();
+            $arreglo = []; // Inicializar el arreglo vacío antes de recorrerlo
+            
+                foreach ($citas as $cita) {
+                    $fecha_citas = $cita->fecha_cita;
+                    $hora_citas = $cita->hora_cita;
+                    $start = "{$fecha_citas}T{$hora_citas}";
+                    
+                    $arreglo[] = [
+                        'title' => 'ocupado',
+                        'start' => $start,
+                        'color' => '#A68160',
+                    ];
+                }
+            
+            
+            return view($agendamientoEstablecimiento, compact('idEstablecimiento','idUsuario','productos','staffs','categorias','servicios','arreglo'));
         } elseif ($accion === 'agendamiento'){
             //Variables necesarias para crear una cita, reserva servicio y opcional reserva producto
             $idEstablecimiento = $request->input('id_establecimiento');
