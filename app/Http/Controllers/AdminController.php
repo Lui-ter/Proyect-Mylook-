@@ -49,6 +49,8 @@ class AdminController extends Controller
     foreach ($infoStaff as &$staff) {
         if (isset($staff['usuario']['img_usuario'])) {
             $staff['usuario']['img_usuario'] = 'data:image/png;base64,' . base64_encode($staff['usuario']['img_usuario']);
+        }else{
+            $staff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
         }
     }
 

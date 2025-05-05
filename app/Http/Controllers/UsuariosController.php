@@ -88,8 +88,16 @@ class UsuariosController extends Controller
                 
                 $notificaciones = [];
             }
-        
-            return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados','notificaciones'));
+
+            $idusuario = Auth::guard('usuario')->user()->id_usuario;
+            $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
+                if($imgusuario){
+                    $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
+                }else{
+                    $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+                }
+                
+            return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados','notificaciones', 'imgusuario'));
 
         } elseif ($accion === 'verMas') {
             //Campos necesarios para cargar los datos necesarios del ver mas de un establecimiento

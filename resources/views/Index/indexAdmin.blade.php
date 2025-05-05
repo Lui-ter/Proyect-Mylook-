@@ -20,7 +20,7 @@
     @section('link-historial', '/admin/historial')
     @section('link-salir', '/negocio/logout')
 
-    @include('components.header-staff',['notificaciones' => $notificaciones])
+    @include('components.header-staff',['notificaciones' => $notificaciones, 'infoStaff' => $infoStaff])
 
 
     <main>

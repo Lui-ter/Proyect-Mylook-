@@ -17,7 +17,7 @@
         @section('link-historial', '/admin/historial')
         @section('link-salir', '/usuarios/logout')
 
-        @include('components.header')
+        @include('components.header',['imgusuario' => $imgusuario])
 
 
         <main>

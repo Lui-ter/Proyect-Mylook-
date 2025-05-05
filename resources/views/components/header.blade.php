@@ -32,8 +32,7 @@
           </div>
         <div class="contenedor-perfil" id="perfil">
             <figure>
-                <img src="https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true"
-                    alt="">
+                    <img src="{{ $imgusuario }}" alt="">
             </figure>
 
             <div class="menu-perfil oculto" id="menu-perfil">
