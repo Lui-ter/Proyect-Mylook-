@@ -175,7 +175,15 @@ class UsuariosController extends Controller
                 $notificaciones = [];
             }
 
-            return view($agendamientoView, compact('establecimiento', 'productos','negocio','staffs', 'categorias', 'valoraciones','notificaciones'));
+            $idusuario = Auth::guard('usuario')->user()->id_usuario;
+            $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
+                if($imgusuario){
+                    $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
+                }else{
+                    $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+                }
+
+            return view($agendamientoView, compact('establecimiento', 'productos','negocio','staffs', 'categorias', 'valoraciones','notificaciones', 'imgusuario'));
         
         } elseif ($accion === 'config') {
             $id = session('usuario_id');
@@ -213,8 +221,17 @@ class UsuariosController extends Controller
                     ];
                 }
             
+                $idusuario = Auth::guard('usuario')->user()->id_usuario;
+                $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
+                    if($imgusuario){
+                        $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
+                    }else{
+                        $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+                    }
             
-            return view($agendamientoEstablecimiento, compact('idEstablecimiento','idUsuario','productos','staffs','categorias','servicios','arreglo'));
+            
+            return view($agendamientoEstablecimiento, compact('idEstablecimiento','idUsuario','productos','staffs','categorias','servicios','arreglo', 'imgusuario'));
+
         } elseif ($accion === 'agendamiento'){
             //Variables necesarias para crear una cita, reserva servicio y opcional reserva producto
             $idEstablecimiento = $request->input('id_establecimiento');
@@ -333,7 +350,15 @@ class UsuariosController extends Controller
                     $notificaciones = [];
                 }
 
-                return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados','notificaciones'));
+                $idusuario = Auth::guard('usuario')->user()->id_usuario;
+                $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
+                    if($imgusuario){
+                        $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
+                    }else{
+                        $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+                    }
+
+                return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados','notificaciones', 'imgusuario'));
             }else{
                 echo "Falta un campo por deligenciar";
             }

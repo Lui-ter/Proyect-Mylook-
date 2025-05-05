@@ -11,9 +11,9 @@
         </div>
         <div class="contenedor-perfil" id="perfil">
             <figure>
-                @foreach ($infoStaff as $staff)
-                    <img src="{{ $staff['usuario']['img_usuario'] }}" alt="">
-                @endforeach
+                
+                    <img src="{{ $imgStaff }}" alt="">
+                
             </figure>
 
             <div class="menu-perfil oculto" id="menu-perfil">

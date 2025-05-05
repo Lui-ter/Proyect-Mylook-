@@ -49,10 +49,23 @@ class AdminController extends Controller
     foreach ($infoStaff as &$staff) {
         if (isset($staff['usuario']['img_usuario'])) {
             $staff['usuario']['img_usuario'] = 'data:image/png;base64,' . base64_encode($staff['usuario']['img_usuario']);
-        }else{
-            $staff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
         }
     }
+
+    $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+    $Staff_admin = Staff::where('id_negocio', $idNegocio)
+        ->where('id_rol', 1)
+        ->with(['usuario', 'rol'])
+        ->get();
+    
+    foreach ($Staff_admin as $Staff) {
+        if ($Staff->usuario && $Staff->usuario->img_usuario) {
+            $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+        } else {
+            $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+        }
+    }
+    
 
     $lascitas = Cita::with('staff.usuario', 'usuario', 'reservaServicio.servicio', 'establecimiento', 'reservaProducto.producto')
         ->whereIn('id_establc', $establecimiento)
@@ -104,7 +117,7 @@ class AdminController extends Controller
        
         $notificaciones = [];
     }
-    return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo','notificaciones');
+    return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo','notificaciones', 'imgStaff');
 
     }
 
