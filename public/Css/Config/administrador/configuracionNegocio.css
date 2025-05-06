@@ -1,0 +1,252 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI";
+}
+
+/* Variables de css*/
+:root {
+    --color-primary: #a68160;
+    --color-secondary: #f2f2f2;
+    --color-white: white;
+    --color-black: black;
+}
+
+/* dividimos la pagina en dos partes dejando la seccion de la derecha mas grande */
+body {
+    display: grid;
+    height: 100vh;
+}
+
+
+  .informacionInput {
+    display: flex;
+    flex-direction: column;
+
+    .nombreInput {
+      color: var(--color-primary);
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 1.2em;
+    border: none;
+    font-weight: 500;
+    width: 100%;
+    padding: 0.5em 0;
+    border-radius: 0.7em;
+    resize: vertical;
+    overflow-y: auto;
+    background-color: var(--color-secondary);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    padding-left: 0.5em;
+  }
+
+  textarea {
+    resize: none;
+    overflow: hidden;
+    /* Esto también ayuda a evitar el desplazamiento si se introduce más texto del tamaño visible */
+  }
+
+  .formulario {
+    display: none;
+    grid-template-rows: 1fr;
+    /* Hace que ocupe todo el espacio disponible */
+    justify-content: stretch;
+    align-items: stretch;
+    width: 100%;
+    animation: aparecer 0.5s ease-out forwards;
+
+  }
+
+  .formulario.active {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Solo una columna */
+    grid-template-rows: auto;
+    /* Para que su contenido crezca */
+    justify-content: stretch;
+    width: 100%;
+
+  }
+
+  .configuracionNegocio {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-content: stretch;
+    width: 100%;
+    padding: 1em 2em;
+    gap: 1em;
+    height: 100%;
+
+    .tituloPrincipal {
+      text-align: center;
+      font-size: 2.2em;
+      width: 100%;
+
+    }
+
+    .contenedorImagen {
+      position: relative;
+      width: 100%;
+      height: 17em;
+      border-radius: 2em;
+
+
+      .imagenFondo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        border-radius: 2em 2em 0 0;
+
+
+      }
+
+      .logoNegocio {
+        position: absolute;
+        bottom: -1.4em;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 15em;
+        border-radius: 100%;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        border: 2px solid var(--color-primary);
+        z-index: 1000;
+        /* Se asegura de que esté por encima de todo */
+
+
+
+      }
+
+      .logoNegocio img {
+        width: 15em;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 100%;
+
+      }
+
+      /* Inputs invisibles para cambiar la imagen */
+      .inputFile {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+
+
+      }
+
+      .inputDescrip {
+        resize: none;
+
+      }
+    }
+
+    .formularioNegocio {
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .8em;
+
+    }
+  }
+    /* general */
+    .contenedorBoton {
+      display: flex;
+      justify-content: right;
+      align-items: end;
+
+      .botonContinuar {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        border: none;
+        font-size: 1.4em;
+        font-weight: bold;
+        padding: 0.6em 1.3em;
+        border-radius: 0.7em;
+        max-height: 2.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 1000px) {
+        .configuracionNegocio {
+        height: 100%;
+        padding: 2em 1em;
+        gap: 2em;
+        border-radius: 2em 2em 0 0;
+
+        .contenedorImagen {
+          height: 19em;
+        }
+
+        .logoNegocio {
+          height: 13em;
+          z-index: 2;
+        }
+
+        .logoNegocio img {
+          width: 13em;
+        }
+
+        .formularioNegocio {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2em;
+
+          .inputDescrip {
+            height: 7em;
+            /* Aumentar la altura en móviles */
+          }
+        }
+
+        .formularioNegocio .informacionInput:nth-child(1) {
+          grid-row: 1;
+        }
+
+        .formularioNegocio .informacionInput:nth-child(2) {
+          grid-row: 2;
+        }
+
+        .formularioNegocio .informacionInput:nth-child(4) {
+          grid-row: 3;
+        }
+
+        /* ADMINISTRADOR LIDER */
+        .formularioNegocio .informacionInput:nth-child(3) {
+          grid-row: 4;
+        }
+
+        /* DESCRIPCIÓN al final */
+      }
+    }
+
+/* animaciones */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

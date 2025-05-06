@@ -101,3 +101,15 @@ Route::get('/staff/edit/{id}', [StaffController::class, 'edit'])->name('editStaf
 Route::get('/staff', [StaffController::class, 'getStaff'])->name('getStaff');
 
 /* --------------------------------------------------------------------------------------- */
+
+Route::get('/configurar-negocio', function () {
+    return view('Configuracion.administrador.configurarNegocio');
+});
+
+Route::get('/configurar-establecimiento', function () {
+    return view('Configuracion.administrador.configurarEstablecimiento');
+});
+
+Route::get('/configurar-perfil', function () {
+    return view('Configuracion.administrador.configurarPerfil');
+});
