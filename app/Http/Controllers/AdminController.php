@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Establecimiento;
 use App\Models\Producto;
+use App\Models\Usuario;
 use App\Models\Staff;
 use App\Models\Cita;
 use App\Models\notificacion;
 use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class AdminController extends Controller
 {
@@ -41,7 +44,7 @@ class AdminController extends Controller
     $infoStaff = Staff::whereIn('id_establc', $establecimiento)
         ->where('id_rol', '!=', 1)
         ->with(['usuario', 'rol'])
-        ->orderBy('id_staff', 'desc') 
+        ->orderBy('id_staff', 'desc')
         ->get()
         ->take(3)
         ->toArray();
@@ -57,7 +60,7 @@ class AdminController extends Controller
         ->where('id_rol', 1)
         ->with(['usuario', 'rol'])
         ->get();
-    
+
     foreach ($Staff_admin as $Staff) {
         if ($Staff->usuario && $Staff->usuario->img_usuario) {
             $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
@@ -65,7 +68,7 @@ class AdminController extends Controller
             $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
         }
     }
-    
+
 
     $lascitas = Cita::with('staff.usuario', 'usuario', 'reservaServicio.servicio', 'establecimiento', 'reservaProducto.producto')
         ->whereIn('id_establc', $establecimiento)
@@ -114,11 +117,58 @@ class AdminController extends Controller
             );
         })->toArray();
     } else {
-       
+
         $notificaciones = [];
     }
     return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo','notificaciones', 'imgStaff');
 
+    }
+
+// Aqui se hara la actualizacion del usuario con el rol de administrador
+
+    public function handleUpdateUserAdmin(Request $request, $id){
+        // Obtengo el id del negocio logueado para hacer una validacion
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+
+        // Aqui hago una consulta en la tabla staff para ver si el usuario esta ligado al negocio logueado y que efectivamente tenga el rol de administrador
+        $staffAdmin = Staff::where('id_usuario', $id)
+            ->where('id_negocio', $idNegocio)
+            ->where('id_rol', 1)
+            ->first();
+
+        // Aqui se verifica si el usuario con rol de administrador este registrado en staff y ligado al negocio logueado, si no existe se niega el acceso
+        if (!$staffAdmin) {
+            abort(403, 'Acceso denegado, solo el administrador puede actualizar datos');
+        }
+
+        // Aqui hago la consulta en la tabla usuario con el id
+        $usuario = Usuario::findOrFail($id);
+
+        // Aqui se verifican los datos del formulario para posteriormente actualizarlos
+        $request->validate([
+                'idAdmin' => 'required|numeric|exists:usuario,id_usuario',
+                'nombreAdmin' => 'required|string|max:30',
+                'apellidoAdmin' => 'required|string|max:30',
+                'correoAdmin' => 'nullable|email|unique:usuario,correo,' . $id . ',id_usuario',
+                'telefonoAdmin' => 'nullable|string|max:15|regex:/^\d+$/',
+                'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+            ]);
+
+        // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla y actualizarla en la tabla si no pues se deja la que tiene registrada
+        $img_usuario = $usuario->img_usuario;
+        if ($request->hasFile('imagenPerfil')) {
+            $img_usuario = file_get_contents($request->file('imagenPerfil')->getRealPath());
+        };
+
+        // Aqui se hace la actualizacion
+        $usuario->update([
+            'nombre' => $request->nombreAdmin,
+            'apellido' => $request->apellidoAdmin,
+            'correo' => $request->correoAdmin,
+            'telefono' => $request->telefonoAdmin,
+            'img_usuario' => $img_usuario
+        ]);
+        return redirect()->route('admin', ['accion' => 'index']);
     }
 
 
@@ -197,7 +247,23 @@ class AdminController extends Controller
         } elseif ($accion === 'login') {
             return view($loginAdminView);
         } elseif ($accion === 'config') {
-            return view($configAdminView);
+        // Aqui se obtiene el id del negocio para hacer una consulta y obtener los datos del usuario registrado como administrador a travez de la tabla staff
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $staffAdmin = Staff::where('id_negocio', $idNegocio)
+                ->where('id_rol', 1)
+                ->first();
+        // Aqui valida que efectivamente el usuario a travez de la id capturada tenga el rol de administrador
+            if (!$staffAdmin || !$staffAdmin->usuario) {
+                abort(403, 'Acceso denegado, solo el administrador puede acceder');
+            }
+        // Aqui se obtiene la imagen almacenada en usuario a travez de la relacion en el modelo
+            $fotoAdmin = base64_encode($staffAdmin->usuario->img_usuario);
+
+        // Aqui a travez de la relacion que existe en el modelo obtengo los datos del usuario y se pasan a la vista junto con su imagen decodificada
+            return view($configAdminView, [
+                'usuarioAdmin' => $staffAdmin->usuario,
+                'fotoAdmin' => $fotoAdmin
+            ]);
         } else {
             return redirect()->route('admin', ['accion' => 'index']);
         }

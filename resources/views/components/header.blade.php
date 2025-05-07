@@ -36,7 +36,7 @@
             </figure>
 
             <div class="menu-perfil oculto" id="menu-perfil">
-                <a href="@yield('link-configurar-perfil')">
+                <a href="{{ route('usuarios',['accion' => 'config'])}}">
                     <p>Configurar perfil</p>
                 </a>
                 <hr>

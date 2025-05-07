@@ -80,7 +80,10 @@ Route::put('/update-type-service/{id}', [TiposServiciosController::class, 'handl
 Route::put('/update-service/{id}', [ServiciosController::class, 'handleUpdateService'])->name('updateService');
 Route::put('/update-product/{id}', [ProductosController::class, 'handleUpdateProduct'])->name('updateProduct');
 Route::put('/update-user/{id}', [UsuariosController::class, 'handleUpdateUsers'])->name('updateUsers');
+Route::put('/update-user-admin/{id}', [AdminController::class, 'handleUpdateUserAdmin'])->name('updateUserAdmin');
 Route::put('/update-negocio/{id}', [NegociosController::class, 'handleUpdateNegocio'])->name('updateNegocio');
+Route::put('/update-negocio/{id}', [NegociosController::class, 'handleUpdateNegocioTwo'])->name('updateNegocioTwo');
+Route::put('/update-establecimiento/{id}', [EstablecimientosController::class, 'handleUpdateEstablecimiento'])->name('updateEstablecimiento');
 Route::put('/update-staff/{id}', [StaffController::class, 'handleUpdateStaff'])->name('updateStaff');
 
 

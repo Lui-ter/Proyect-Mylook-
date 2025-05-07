@@ -12,7 +12,7 @@ class GlobalVariables
 
     public static $loginAdminView = 'Formularios.Login.loginAdmin';
 
-    public static $configAdminView = 'Configuracion.configAdministrador';
+    public static $configAdminView = 'Configuracion.administrador.configurarPerfil';
 
     /* ------------------------------------------------------------------------------ */
 
@@ -43,7 +43,7 @@ class GlobalVariables
 
     /* ------------------------------------------------------------------------------ */
 
-    public static $configEstablecimiento = 'Configuracion.configEstablecimiento';
+    public static $configEstablecimiento = 'Configuracion.administrador.configurarEstablecimiento';
 
     /* ------------------------------------------------------------------------------ */
 
@@ -61,6 +61,7 @@ class GlobalVariables
 
     public static $configBienvenidaMiNegocio = 'Configuracion.configBienvenidaMiNegocio';
 
+    public static $configNegocioView = 'Configuracion.administrador.configurarNegocio';
 
     /* ------------------------------------------------------------------------------ */
 

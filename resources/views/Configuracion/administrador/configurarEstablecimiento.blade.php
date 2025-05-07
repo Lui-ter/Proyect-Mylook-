@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,63 +7,51 @@
     <title>Configurar mi establecimiento</title>
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/configuracionEstablecimiento.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
-
 </head>
 
 <body>
-
     <main>
         <!--FORMULARIO PARA REGISTRAR ESTABLECIMIENTOS -->
-        <form action="#" method="POST" onsubmit="handleValidationEstablecimiento(event)"
-            class="configuracionEstablecimiento formulario" id="form3">
+        <form action="{{ route('updateEstablecimiento',['id' => $establecimiento->id_establc]) }}" method="POST" onsubmit="handleValidationEstablecimiento(event)" class="configuracionEstablecimiento formulario" id="form3">
+            @method('PUT')
             @csrf
             <h2 class="tituloPrincipal">CONFIGURACIÓN ESTABLECIMIENTO</h2>
-
             <p>
                 En este apartado podrás modificar los datos de la sede de forma fácil y rápida. Esto te permitirá
                 mantener la
                 información actualizada en todo momento.
             </p>
-
             {{-- Quitamos el value con session para evitar errores --}}
-            <input type="hidden" name="idNegocio">
-
+            <input type="hidden" name="idNegocio" value="{{ $idNegocio }}">
             <section class="formularioEstablecimiento">
                 <div class="informacionInput">
                     <p class="nombreInput">NIT NEGOCIO</p>
-                    <input type="number" class="inputId" id="idEstablc" name="idEstablc"
-                        placeholder="Ingrese el NIT del negocio">
+                    <input type="number" class="inputId" id="idEstablc" name="idEstablc" value="{{ $establecimiento->id_establc }}" readonly>
                 </div>
 
                 <div class="informacionInput">
                     <p class="nombreInput">NOMBRE</p>
-                    {{-- Quitado el ID duplicado --}}
-                    <input type="text" class="inputNombre" id="nombreEst" name="nombreEst"
-                        placeholder="Ingrese el nombre del establecimiento">
+                    <input type="text" class="inputNombre" id="nombreEst" name="nombreEst" value="{{ $establecimiento->nombre_establc }}" placeholder="Ingrese el nombre del establecimiento">
                 </div>
 
                 <div class="informacionInput">
                     <p class="nombreInput">DIRECCIÓN</p>
-                    <input type="text" class="inputDireccion" id="direccionEstablecimiento"
-                        name="direccionEstablecimiento" placeholder="Ingrese la dirección del establecimiento">
+                    <input type="text" class="inputDireccion" id="direccionEstablecimiento" name="direccionEstablecimiento" value="{{ $establecimiento->ubicacion }}" placeholder="Ingrese la dirección del establecimiento">
                 </div>
 
                 <div class="informacionInput">
                     <p class="nombreInput">DESCRIPCIÓN</p>
-                    <textarea name="descripcionEstablecimiento" id="inputDescripcion" cols="30" rows="10" class="inputDescripcion"
-                        placeholder="Ingrese la descripción del establecimiento"></textarea>
+                    <textarea name="descripcionEstablecimiento" id="inputDescripcion" cols="30" rows="10" class="inputDescripcion" placeholder="Ingrese la descripción del establecimiento">{{ $establecimiento->desc_establc }}</textarea>
                 </div>
 
                 <div class="informacionInput">
                     <p class="nombreInput">TELÉFONO</p>
-                    <input type="text" class="inputTel" id="telefonoEstablecimiento" name="telefonoEstablecimiento"
-                        placeholder="Ingrese el teléfono del establecimiento">
+                    <input type="text" class="inputTel" id="telefonoEstablecimiento" name="telefonoEstablecimiento" value="{{ $establecimiento->telefono }}" placeholder="Ingrese el teléfono del establecimiento">
                 </div>
 
                 <div class="informacionInput">
                     <p class="nombreInput">CORREO</p>
-                    <input type="text" class="inputEmail" id="correoEstablecimiento" name="correoEstablecimiento"
-                        placeholder="Ingrese el correo del establecimiento">
+                    <input type="text" class="inputEmail" id="correoEstablecimiento" name="correoEstablecimiento" value="{{ $establecimiento->correo }}" placeholder="Ingrese el correo del establecimiento">
                 </div>
             </section>
 
@@ -72,11 +59,8 @@
                 <button type="submit" class="botonContinuar">ACTUALIZAR</button>
             </div>
         </form>
-
     </main>
     <script src="/Js/Admin/configBienvenidaAdmin.js"></script>
     <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
-
 </body>
-
 </html>

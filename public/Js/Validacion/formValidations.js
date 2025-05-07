@@ -1,7 +1,7 @@
 /* Expresiones regulares para validar caracteres */
 const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Solo letras y espacios
-const regexDescripcion = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s.,!?()-¿¡:;]+$/; // Letras, números y signos básicos 
-const regexNumerico = /^[0-9]+$/;  // Solo números 
+const regexDescripcion = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s.,!#?()-¿¡:;]+$/; // Letras, números y signos básicos 
+const regexNumerico = /^\d{10,}$/; // solo numeros
 const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/; // Contraseñas seguras
 const regexNit = /^[0-9-]{10,}$/; // Solo números y guion (-), mínimo 10 dígitos
 const tiposImgPermitidos = /image\/(jpeg|png|jpg)/i; // Tipos de imagen permitidos (JPEG, PNG, JPG)
@@ -419,7 +419,6 @@ function handleValidationConfigUser(event) {
 }
 
 /* VALIDACIONES FORMULARIO STAFF */
-/* VALIDACIONES FORMULARIO STAFF */
 function handleValidationStaff(event) {
     event.preventDefault();
 
@@ -560,6 +559,61 @@ function handleValidationAdmin(event) {
         event.target.submit(); 
 }
 
+/* VALIDACIONES FORMULARIO DE EDITAR ADMIN */
+function handleValidationUpdateAdmin(event) {
+    event.preventDefault();
+
+    const documentoAdmin = document.getElementById("idAdmin")?.value.trim();
+    const nombreAdmin = document.getElementById("nombreAdmin")?.value.trim();
+    const apellidoAdmin = document.getElementById("apellidoAdmin")?.value.trim();
+    const telefonoAdmin = document.getElementById("telefonoAdmin")?.value.trim();
+    const correoAdmin = document.getElementById("correoAdmin")?.value.trim();
+    const imagenAdmin = document.getElementById("fileInput")?.files[0];
+
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    const form = document.getElementById("form1");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add('validacion-error');
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+        setTimeout(() => { alertDiv.style.opacity = "0"; }, 3000);
+        setTimeout(() => { alertDiv.remove(); }, 3500);
+    }
+
+    if (!documentoAdmin || !nombreAdmin || !apellidoAdmin || !telefonoAdmin || !correoAdmin) {
+        showError("¡Todos los campos son obligatorios!");
+        return;
+    }
+    if (!regexDocumentoUsuario.test(documentoAdmin)) {
+        showError("¡El documento debe contener mínimo 10 números!");
+        return;
+    }
+    if (!regexNombre.test(nombreAdmin) || !regexNombre.test(apellidoAdmin)) {
+        showError("¡El nombre y el apellido solo pueden contener letras!");
+        return;
+    }
+    if (!regexNumerico.test(telefonoAdmin)) {
+        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos!");
+        return;
+    }
+    if (!regexCorreo.test(correoAdmin)) {
+        showError("¡El correo electrónico no tiene un formato válido!");
+        return;
+    }
+    if (imagenAdmin && !tiposImgPermitidos.test(imagenAdmin.type)) {
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
+        return;
+    }
+        event.target.submit(); 
+}
+
 /* VALIDACIONES FORMULARIO NEGOCIO */
 function handleValidationNegocio(event) {
     event.preventDefault();
@@ -606,7 +660,56 @@ function handleValidationNegocio(event) {
     event.target.submit();
 }
 
-/* VALIDACIONES FORMULARIO NEGOCIO */
+/* VALIDACIONES FORMULARIO ACTUALIZACION NEGOCIO */
+function handleValidationUpdateNegocio(event) {
+    event.preventDefault();
+
+    const imagenPerfil = document.getElementById("inputLogo")?.files[0];
+    const imagenPortada = document.getElementById("inputImagenFondo")?.files[0];    
+    const descripcionNegocio = document.getElementById("inputDescrip")?.value.trim();
+   
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    // CONTENEDOR MANEJO DE ERRORES
+    const form = document.getElementById("form2");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add('validacion-error');
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+        setTimeout(() => {alertDiv.style.opacity = "0";}, 3000);
+        setTimeout(() => {alertDiv.remove();}, 3500);
+    }
+
+    if (!descripcionNegocio) {
+        showError("¡Todos los campos son obligatorios!");
+        return;
+    }
+
+    if (imagenPerfil && !tiposImgPermitidos.test(imagenPerfil.type)) {
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
+        return;
+    }
+
+    if (imagenPortada && !tiposImgPermitidos.test(imagenPortada.type)) {
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
+        return;
+    }
+
+    if (!regexDescripcion.test(descripcionNegocio)) {
+        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+        return;
+    }
+
+    event.target.submit();
+}
+
+/* VALIDACIONES FORMULARIO ESTABLECIMIENTO */
 function handleValidationEstablecimiento(event) {
     event.preventDefault();
 

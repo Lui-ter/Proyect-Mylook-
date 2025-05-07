@@ -9,21 +9,21 @@
     <title>Configuracion</title>
 </head>
 <body>
-    
+
     <section class="configAdmi">
 
         <aside class="navConfig">
 
             <figure class="imgContainer">
                 <form action="" method="POST"  enctype="multipart/form-data">
-                    <img src="" alt="" class="imgPerfil" id="profileImage">
+                    <img src="data:image/png;base64,{{ $fotoAdmin }}" alt="Foto del administrador" class="imgPerfil" id="profileImage">
                     <label for="fileInput" class="changePhotoButton">
                     <i class="fa fa-camera"></i>
                     </label>
                     <input type="file" name="imgPerfil" id="fileInput" accept="image/*" style="display: none;"  enctype="multipart/form-data">
                 </form>
               </figure>
-                        
+
               <nav class="navOptions">
                 <ul class="listaNav">
                     <button type="button" class="optionNav" data-target=".configPerfil">Configurar Perfil</button>
@@ -31,7 +31,7 @@
                     <button type="button" class="optionNav" data-target=".configCuenta">Configurar Cuenta</button>
                     <button type="button" class="optionNav" data-target=".cerrarSesion">Cerrar Sesión</button>
                 </ul>
-            </nav>            
+            </nav>
 
             <span class="nomApp">
                 <h1 class="tittle">MYLOOK</h1>
@@ -40,17 +40,17 @@
         </aside>
 
         <article class="optionsConfig">
-        
+
 <!--            FORMUALRIO QUE SE VISUALIZA UNA VEZ SE ENTRA A CONFIGURAR EL INDEX ADMIN -->
             <form action="" method="POST" class="seccionDefault" id="seccionDefault"  enctype="multipart/form-data">
                 @csrf
-                        
+
                 <section class="defaultIntroduccion">
 
                 <article class="introduccionConfig">
                     <span class="tittleIntroduccion">
                         <h2 class="nomConfig">Configuración de MiNegocio</h2>
-                        <p class="descripConfig">En este apartado podras ilustar tu negocio 
+                        <p class="descripConfig">En este apartado podras ilustar tu negocio
                             y comercializar tus productos para entrar a la familia MyLook.
                         </p>
                     </span>
@@ -87,43 +87,34 @@
 
                 <label for="" class="nomForm">
                     <h3 class="tittleForm">Configuración del perfil administrador</h3>
-                    <p class="descripConfig">Bienvenido al panel de Configuración del administrador donde 
+                    <p class="descripConfig">Bienvenido al panel de Configuración del administrador donde
                         podras cambiar tus datos personales cuando desees y estar actalizado.
                     </p>
                 </label>
 
                 <article class="datosUnico">
                         <label for="" class="labelInput">Documento</label>
-                        <input type="text" class="inputDocumento" name="docuAdmin">
+                        <input type="text" class="inputDocumento" name="docuAdmin" value="{{ $usuarioAdmin->id_usuario }}" readonly>
                 </article>
 
                 <article class="datosPersonales">
                     <div class="groupInputs">
                         <label for="" class="labelInput">Nombre</label>
-                        <input type="text" class="inputNombre" name="nombreAdmin">
+                        <input type="text" class="inputNombre" name="nombreAdmin" value="{{ $usuarioAdmin->nombre }}">
                     </div>
 
                     <div class="groupInputs">
                         <label for="" class="labelInput Apellido">Apellido</label>
-                        <input type="text" class="inputApellido" name="apellidoAdmin">
+                        <input type="text" class="inputApellido" name="apellidoAdmin" value="{{ $usuarioAdmin->apellido }}">
                     </div>
                 </article>
 
                 <article class="datosContact">
                         <label for="" class="labelInput">Correo</label>
-                        <input type="text" class="inputCorreo" name="correoAdmin">
+                        <input type="text" class="inputCorreo" name="correoAdmin" value="{{ $usuarioAdmin->correo }}">
 
                         <label for="" class="labelInput">Telefono</label>
-                        <input type="text" class="inputTelefono" name="TelefonoAdmin">
-                </article>
-
-                <article class="datoPassword">
-                    <label for="" class="labelInput">Contraseña</label>
-
-                    <div class="resetPassword">
-                    <input type="text" class="inputPassword" name="contrasenaAdmin">
-                    <a href="http://" class="resetRedirect">Cambiar</a>
-                    </div>
+                        <input type="text" class="inputTelefono" name="TelefonoAdmin" value="{{ $usuarioAdmin->telefono }}">
                 </article>
 
                 <article class="btnCrud">
@@ -132,8 +123,8 @@
                         <button type="submit" class="btnCrud btnSave">Guardar</button>
                     </div>
                 </article>
-             
-            </form>     
+
+            </form>
 
 <!--             FORMULARIO DONDE SE PUEDE EDITAR LA INFORMACION DEL PERFIL DEL ESTABLECIMIENTO -->
             <form action="" method="POST" class="configEstablecimiento" id="configEstablecimientotyle"  enctype="multipart/form-data" style="display: none;">
@@ -141,46 +132,46 @@
 
                 <label for="" class="nomForm">
                     <h3 class="tittleForm">Configuración del establecimiento</h3>
-                    <p class="descripConfig">Bienvenido al panel de Configuración del establecimiento donde 
+                    <p class="descripConfig">Bienvenido al panel de Configuración del establecimiento donde
                         podras cambiar los datos personales de la sede cuando desees y estar actalizado.
                     </p>
                 </label>
 
                 <article class="datosNumericos">
                     <label for="" class="labelInputEstablecimiento">Identificacion del negocio</label>
-                    <input type="text" class="inputId" name="idNegocio">
+                    <input type="text" class="inputId" name="idNegocio" value="{{ $establecimiento->id_establc }}" readonly>
                 </article>
 
                 <article class="datosShearch">
                     <div class="groupInputs">
                         <label for="" class="labelInputEstablecimiento">Nombre</label>
-                        <input type="text" class="inputNombre" name="nombreEstablecimiento">
+                        <input type="text" class="inputNombre" name="nombreEstablecimiento" value="{{ $establecimiento->nombre_establc }}">
                     </div>
 
                     <div class="groupInputs">
                         <label for="" class="labelInputEstablecimiento">Dirección</label>
-                        <input type="text" class="inputDireccion" name="direccionEstablecimiento">
+                        <input type="text" class="inputDireccion" name="direccionEstablecimiento" value="{{ $establecimiento->ubicacion }}">
                     </div>
                 </article>
 
                 <article class="datosDescriptivos">
 
                     <label for="" class="labelInputEstablecimiento">Descripción</label>
-                    <textarea name="descripEstablecimiento" id="" cols="30" rows="10" class="inputDescripcion"></textarea>
+                    <textarea name="descripEstablecimiento" id="" cols="30" rows="10" class="inputDescripcion">{{ $establecimiento->desc_establc }}</textarea>
 
                 </article>
 
                 <article class="datosTel">
 
                     <label for="" class="labelInputEstablecimiento">Telefono</label>
-                    <input type="text" class="inputTel" name="telefonoEstablecimiento">
+                    <input type="text" class="inputTel" name="telefonoEstablecimiento" value="{{ $establecimiento->telefono }}">
 
                 </article>
 
                 <article class="datosEmail">
 
                     <label for="" class="labelInputEstablecimiento">Correo</label>
-                    <input type="text" class="inputEmail" name="correoEstablecimiento">
+                    <input type="text" class="inputEmail" name="correoEstablecimiento" value="{{ $establecimiento->correo }}">
 
                 </article>
 
@@ -202,42 +193,42 @@
                 <article class="imgsNegocio">
 
                     <figure class="imgPresentacion">
-                        <img src="https://a1.elespanol.com/metropoliabierta/2021/11/15/vivir-en-barcelona/627447264_9828444_1024x576.jpg" alt="imagen presentacion" class="presentacion">
+                        <img src="data:image/jpeg;base64,{{ $imgPortada }}" alt="imagen presentacion" class="presentacion">
 
                         <div class="inputPresentacion">
                             <label for="fileInput" class="redirectEditar">
                                 <span class="nomEditar">Editar</span>
                                 <i class="fas fa-arrow-right-from-bracket"></i>
                             </label>
-                            <input type="file" id="fileInput" name="imgPresentacion" class="input-file-hidden" accept="image/*">  
+                            <input type="file" id="fileInput" name="imgPresentacion" class="input-file-hidden" accept="image/*">
                         </div>
                     </figure>
 
                     <figure class="imgLogo">
                         <p class="fechCreacion"><strong>Fecha creación:</strong> 28 novimenbre 2023 </p>
-                        <img src="https://preview.redd.it/barber-logo-v0-2bikmha9gpub1.jpg?width=1024&format=pjpg&auto=webp&s=63c6631438949b47df1486c3cca1049583ebb08e"  name="imgLogo" alt="imagen logo" class="logo">
+                        <img src="data:image/jpeg;base64,{{ $imgPerfil }}"  name="imgLogo" alt="imagen logo" class="logo">
                     </figure>
 
                 </article>
 
                 <article class="infoNegocio">
                     <label for="" class="labelInputNegocio">Identificacion</label>
-                    <input type="text" class="inputId" name="idNegocio">
+                    <input type="text" class="inputId" name="idNegocio" value="{{ $negocio->id_negocio }}" readonly>
                 </article>
 
                 <article class="infoPublica">
                     <label for="" class="labelInputNegocio">Nombre</label>
-                    <input type="text" class="inputNombre" name="nombreNegocio">
+                    <input type="text" class="inputNombre" name="nombreNegocio" value="{{ $negocio->nombre_negocio }}">
                 </article>
 
                 <article class="infoDesciptiva">
                     <label for="" class="labelInputNegocio">Descripción</label>
-                    <textarea name="descripcionNegocio" id="" class="inputDescrip"></textarea>
+                    <textarea name="descripcionNegocio" id="" class="inputDescrip">{{ $negocio->desc_negocio }}</textarea>
                 </article>
 
                 <article class="infoPrivada">
                     <label for="" class="labelInputNegocio">Administrador Lider</label>
-                    <input type="text" class="inputLider" name="nombreAdmin">
+                    <input type="text" class="inputLider" name="nombreAdmin" value="{{ $usuarioAdmin->nombre .' '. $usuarioAdmin->apellido }}" readonly>
                 </article>
 
 
@@ -250,7 +241,7 @@
                 </article>
 
             </form>
-            
+
         </article>
 
     </section>

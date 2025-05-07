@@ -11,14 +11,20 @@
         </div>
         <div class="contenedor-perfil" id="perfil">
             <figure>
-                
-                    <img src="{{ $imgStaff }}" alt="">
-                
+                <img src="{{ $imgStaff }}" alt="Imagen de perfil">
             </figure>
 
             <div class="menu-perfil oculto" id="menu-perfil">
                 <a href="@yield('link-configurar-perfil')">
                     <p>Configurar perfil</p>
+                </a>
+                <hr>
+                <a href="@yield('link-configurar-establecimiento')">
+                    <p>Configurar Establecimiento</p>
+                </a>
+                <hr>
+                <a href="@yield('link-configurar-negocio')">
+                    <p>Configurar negocio</p>
                 </a>
                 <hr>
                 <a href="@yield('link-historial')">

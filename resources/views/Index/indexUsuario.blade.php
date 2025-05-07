@@ -13,7 +13,7 @@
     <body>
 
         @section('link-index', '/usuarios/index')
-        @section('link-configurar-perfil', '/admin/configurar-perfil')
+        @section('link-configurar-perfil')
         @section('link-historial', '/admin/historial')
         @section('link-salir', '/usuarios/logout')
 
@@ -125,11 +125,11 @@
                                 </div>
 
                                 <div class="contenedor-boton-agendar">
-                                    <form action="{{ url('/usuarios/agendar') }}" method="GET">
+                                    <form action="{{ url('/usuarios/verMas') }}" method="GET">
                                         @csrf
-                                        <input type="hidden" name="id_establc"
+                                        <input type="hidden" name="id_establecimiento"
                                             value="{{ $establecimiento->id_establc }}">
-                                        <button class="boton-agendar">AGENDAR</button>
+                                        <button class="boton-agendar">Ver más</button>
                                     </form>
                                 </div>
                             </div>

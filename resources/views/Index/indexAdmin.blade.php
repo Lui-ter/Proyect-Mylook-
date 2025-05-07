@@ -16,7 +16,9 @@
 <body>
 
     @section('link-index', '/admin/index')
-    @section('link-configurar-perfil', '/admin/configurar-perfil')
+    @section('link-configurar-perfil', route('admin', ['accion' => 'config']))
+    @section('link-configurar-establecimiento', route('establecimientos', ['accion' => 'config']))
+    @section('link-configurar-negocio', route('negocio', ['accion' => 'config']))
     @section('link-historial', '/admin/historial')
     @section('link-salir', '/negocio/logout')
 

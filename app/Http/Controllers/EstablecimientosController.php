@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Establecimiento;
 use App\Models\Negocio;
 use App\Models\Staff;
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\GlobalVariables;
 
 class EstablecimientosController extends Controller{
@@ -57,31 +58,27 @@ class EstablecimientosController extends Controller{
 
 /* ACTUALIZACIÓN DE ESTABLECIMIENTO */
 
-    public function handleUpdateHeadQuarter(Request $request, $id){
+    public function handleUpdateEstablecimiento(Request $request, $id){
+        $request->validate([
+            'idNegocio' => 'required|exists:negocio,id_negocio',
+            'idEstablc' => 'required|exists:establecimiento,id_establc',
+            'nombreEst' => 'required|string|max:70',
+            'descripcionEstablecimiento' => 'nullable|string|max:250',
+            'direccionEstablecimiento' => 'required|string|max:50',
+            'correoEstablecimiento' => 'required|email|max:50|unique:establecimiento,correo,' . $id . ',id_establc',
+            'telefonoEstablecimiento' => 'nullable|string|max:15|regex:/^\d+$/',
+        ]);
+        $establecimiento = Establecimiento::findOrFail($id);
+        $establecimiento->update([
+            'nombre_establc' => $request->nombreEst,
+            'desc_establc' => $request->descripcionEstablecimiento,
+            'ubicacion' => $request-> direccionEstablecimiento,
+            'correo' => $request-> correoEstablecimiento,
+            'telefono' => $request-> telefonoEstablecimiento,
+        ]);
 
-            /* Validación de datos que llegan del form */
-            $request->validate([
-                'idNegocio' => 'required|exists:establecimiento,id_establc',
-                'nombreEstablecimiento' => 'required|string|max:70',
-                'descripEstablecimiento' => 'nullable|string|max:250',
-                'direccionEstablecimiento' => 'required|string|max:50',
-                'correoEstablecimiento' => 'required|email|max:50|unique:establecimiento,correo,' . $id,
-                'telefonoEstablecimiento' => 'nullable|string|max:15',
-            ]);
-
-            $establecimiento = Establecimiento::findOrFail($id);
-
-            $establecimiento->id_establc = $request->input('idNegocio');
-            $establecimiento->nombre_establc = $request->input('nombreEstablecimiento');
-            $establecimiento->desc_establc = $request->input('descripEstablecimiento');
-            $establecimiento->ubicacion = $request->input('direccionEstablecimiento');
-            $establecimiento->correo = $request->input('correoEstablecimiento');
-            $establecimiento->telefono = $request->input('telefonoEstablecimiento');
-
-            $establecimiento->save();
-
-            return redirect()->back()->with('completado', 'Establecimiento actualizado correctamente.');
-        }
+        return redirect()->back()->with('completado', 'Establecimiento actualizado correctamente.');
+    }
 
 /* ELIMINACION DE ESTABLECIMIENTO */
 
@@ -105,9 +102,12 @@ class EstablecimientosController extends Controller{
 
         if($accion === 'config'){
             $configEstablecimiento = GlobalVariables::$configEstablecimiento;
-            return view($configEstablecimiento); /* Esta vista aún no existe aparentemente */
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->first();
+            return view($configEstablecimiento,[
+                'establecimiento' => $establecimiento,
+                'idNegocio' => $idNegocio
+            ]);
         }
-
     }
-
 }
