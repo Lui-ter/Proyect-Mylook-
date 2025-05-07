@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Staff;
 use App\Models\Usuario;
+use App\Models\Cita;
 use App\Models\Establecimiento;
 use App\Helpers\GlobalVariables;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Rol;
 
@@ -117,6 +119,9 @@ class StaffController extends Controller
         $registerStaff = GlobalVariables::$registerStaff;
         $loginStaff = GlobalVariables::$loginStaff;
         $viewstaff = GlobalVariables::$viewstaff;
+        //plantilla
+        $calendarioStaff = GlobalVariables::$calendarioStaff;
+        $InicioSessionStaff= GlobalVariables::$InicioSessionStaff;
 
         if ($accion === 'index') {
             return view($indexStaff);
@@ -160,6 +165,64 @@ class StaffController extends Controller
             Staff::where('id_usuario', $id)->delete();
             Usuario::where('id_usuario', $id)->delete();
             return redirect()->back()->with('success', 'Operación completada exitosamente.');
+        // Rutas provicional, para el fronted
+        } elseif ($accion === 'LoginStaff'){
+            if ($request->isMethod('get')) {
+                return view($InicioSessionStaff);
+            }
+        
+            if($request->isMethod('post')){
+                $documentoStaff = $_POST['documentoStaff'];
+                $passwordUsuario = $_POST['passwordUsuario'];
+                
+                $staff = staff::where('id_usuario', $documentoStaff)->first();
+                if($staff){
+                    if(Hash::check($passwordUsuario, $staff->usuario->contrasena)){
+                        return redirect()->route('staff', ['accion' => 'calendario']);
+                    }else{
+                        dd ("La contraseña no coincide");
+                    }
+                }else{
+                    dd ("No esta registrado un staff");
+                }
+            }
+            
+        } elseif($accion === 'calendario'){
+            $documentoStaff = Auth::guard('usuario')->user()->id_usuario;
+            $staff = staff::where('id_usuario',$documentoStaff)->first();
+            
+            if($documentoStaff == $staff->id_usuario){
+                $id_staff = staff::where('id_usuario',$documentoStaff)->value('id_staff');
+                $lasCitas = cita::with('staff.usuario','usuario','reservaServicio.servicio','establecimiento')
+                    ->where('id_staff',$id_staff)->get();
+                
+                $arreglo = [];
+
+                foreach ($lasCitas as $cita){
+                    $fechaInicio = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita));
+                    $fechaFin = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita) + ($cita->duracion_cita * 60));
+            
+                    $arreglo[] = [
+                        'title' => $cita->reservaServicio->servicio->nombre_servicio,
+                        'start' => $fechaInicio,
+                        'end' => $fechaFin,
+                        'color' => '#28a745',
+                        'empleado' => $cita->staff->usuario->nombre,
+                        'usuario' => $cita->usuario->nombre,
+                        'establecimiento' => $cita->establecimiento->nombre_establc,
+                        'estado' => $cita->estado_cita,
+                        'id_cita' => $cita->id_cita,
+                        'servicio' => $cita->reservaServicio->servicio->nombre_servicio
+                    ];  
+                }
+                return view($calendarioStaff,compact('arreglo'));
+
+            }else{
+                dd("Este usuario no es administrador");
+            }
+            
+
+            
         } else {
             return redirect()->route('staff', ['accion' => 'index']);
         }

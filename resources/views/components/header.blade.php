@@ -47,6 +47,11 @@
                 <a href="@yield('link-salir')">
                     <p>Salir</p>
                 </a>
+                <hr>
+                <!-- De plantilla, se puede cambiar de nombre -->
+                <a href="{{ route('staff', ['accion' => 'LoginStaff'])}}">
+                    <p>Soy admin</p>
+                </a>
             </div>
         </div>
     </div>

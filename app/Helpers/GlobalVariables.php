@@ -72,6 +72,12 @@ class GlobalVariables
 
     public static $viewCrudStaff = 'Formularios.Login.registerStaff';
 
+    // platilla, robert organiza :b
+
+    public static $calendarioStaff = 'Index.platillaStaff';
+
+    public static $InicioSessionStaff = 'Index.loginStaff';
+
     /* ------------------------------------------------------------------------------ */
 
     public static $viewProductos = 'viewCrud.Admin.viewProductos';
