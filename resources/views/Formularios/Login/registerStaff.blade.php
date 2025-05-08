@@ -9,6 +9,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Slab:wght@400&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
     <title>Register Staff - MiNegocio</title>
 </head>
 
@@ -35,26 +36,26 @@
                 <div class="infoInput">
                     <p class="nombreInput">DOCUMENTO DE IDENTIFICACION </p>
                     <input type="text" id="Id" name="documentoStaff" value="{{ $usuario->id_usuario ?? '' }}"
-                        placeholder="Ingrese documento de identificacion..." required />
+                        placeholder="Ingrese documento de identificacion..." />
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE NOMBRE</p>
                     <input type="text" id="nombre" name="nombreCompletoStaff"
-                        value="{{ $usuario->nombre ?? '' }}" placeholder="Ingresa nombre...." required />
+                        value="{{ $usuario->nombre ?? '' }}" placeholder="Ingresa nombre...." />
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE APELLIDO</p>
                     <input type="text" id="apellido" name="apellidoStaff"
-                        value="{{ $usuario->apellido ?? '' }}" placeholder="Ingresa apellido...." required />
+                        value="{{ $usuario->apellido ?? '' }}" placeholder="Ingresa apellido...." />
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE CONTRASEÑA</p>
                     <div class="passwordContainer">
                         <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa contraseña...."
-                            required />
+                         />
                         <span id="togglePassword">
                             <i class="fa-solid fa-eye-slash"></i>
                         </span>
@@ -64,7 +65,7 @@
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE CORREO</p>
                     <input type="email" id="correo" name="correoStaff" value="{{ $usuario->correo ?? '' }}"
-                        placeholder="Ingresa correo...." required />
+                        placeholder="Ingresa correo...." />
                 </div>
 
 
@@ -72,7 +73,7 @@
                 <div class="infoInput">
                     <p class="nombreInput">INGRESE TELEFONO</p>
                     <input type="number" id="telefono" name="telefonoStaff" value="{{ $usuario->telefono ?? '' }}"
-                        placeholder="Ingresa telefono...." required />
+                        placeholder="Ingresa telefono...." />
                 </div>
 
                 <div class="infoInput">
@@ -96,8 +97,8 @@
                     <label for="imagenServicio" class="fileUploadLabel">Subir imagen</label>
                     <input type="file" id="imagenServicio" name="imagenStaff"
                         src="{{ $imgBase64 ?? '/descarga (3).png' }}" accept="image/jpeg, image/png"
-                        class="fileUploadInput" {{ isset($staff) ? '' : 'required' }} />
-                </div>
+                        class="fileUploadInput" />
+                </div>                
 
             </section>
 
@@ -134,6 +135,7 @@
         </form>
     </main>
     <script src="/Js/Staff/registerStaff.js"></script>
+    <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
 </body>
 
 </html>

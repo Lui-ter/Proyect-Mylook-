@@ -85,12 +85,12 @@
 
                     <div class="contenedor-input">
                         <p class="texto-input">CANTIDAD DEL PRODUCTO</p>
-                        <input type="number" name="cantidad" class="insercion-input" id="cantidadProducto" min="1" max="100" value="{{ $producto->stock ?? '' }}">
+                        <input type="number" name="cantidad" class="insercion-input" id="cantidadProducto"  value="{{ $producto->stock ?? '' }}">
                     </div>
 
                     <div class="contenedor-input">
                         <p class="texto-input">VALOR DEL PRODUCTO</p>
-                        <input type="number" name="valor" class="insercion-input" id="valorProducto" min="1" max="9999999" value="{{ $producto->valor_prod ?? '' }}">
+                        <input type="number" name="valor" class="insercion-input" id="valorProducto"  value="{{ $producto->valor_prod ?? '' }}">
                     </div>
                 </div>
 

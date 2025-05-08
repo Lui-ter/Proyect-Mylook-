@@ -14,6 +14,7 @@ use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\notificacionController;
 use App\Http\Controllers\Validations;
+use App\Http\Controllers\ValoracionesController;
 
 /* --------------------------------------------------------------------------------------- */
 /* PAGINA PRINCIPAL DE MYLOOK */
@@ -71,7 +72,7 @@ Route::post('/register-staff', [StaffController::class, 'handleAddStaff'])->name
 Route::post('/register-useradmin', [UsuariosController::class, 'handleAddUser'])->name('registerUserAdmin');
 Route::post('/register-establecimiento', [EstablecimientosController::class, 'handleAddEstablecimiento'])->name('registerEstablecimiento');
 Route::post('/register-negocio', [NegociosController::class, 'handleAddNegocio'])->name('registerNegocio');
-
+Route::post('/register-valoracion', [ValoracionesController::class, 'handleAddValoracion'])->name('registerValoracion');
 
 
 /* RUTAS PUT - UPDATES */
@@ -85,6 +86,7 @@ Route::put('/update-negocio/{id}', [NegociosController::class, 'handleUpdateNego
 Route::put('/update-negocio/{id}', [NegociosController::class, 'handleUpdateNegocioTwo'])->name('updateNegocioTwo');
 Route::put('/update-establecimiento/{id}', [EstablecimientosController::class, 'handleUpdateEstablecimiento'])->name('updateEstablecimiento');
 Route::put('/update-staff/{id}', [StaffController::class, 'handleUpdateStaff'])->name('updateStaff');
+Route::put('/update-valoracion/{id}', [ValoracionesController::class, 'handleUpdateValoracion'])->name('updateValoracion');
 
 
 /* RUTAS DELETE - DELETE */
@@ -94,15 +96,13 @@ Route::delete('/delete-service', [ServiciosController::class, 'handleDeleteServi
 Route::delete('/delete-product', [ProductosController::class, 'handleDeleteProduct'])->name('deleteProduct');
 Route::delete('/staff/{id}', [StaffController::class, 'handleDeleteStaff'])->name('deleteStaff');
 Route::delete('delete-notificacion/{id}',[notificacionController::class,'borrarNotificacion'])->name('deleteNotificacion');
-
-
-// Rutas para editar staff
-Route::get('/staff/edit/{id}', [StaffController::class, 'edit'])->name('editStaff');
+Route::delete('delete-valoracion/{id}',[ValoracionesController::class,'borrarValoracion'])->name('deleteValoracion');
 
 
 /* RUTAS GET - OBTENER */
+Route::get('/staff/edit/{id}', [StaffController::class, 'edit'])->name('editStaff');
 Route::get('/staff', [StaffController::class, 'getStaff'])->name('getStaff');
-
+Route::get('/form-valoracion/{id}', [ValoracionesController::class, 'showFormValoracion'])->name('formValoracion');
 /* --------------------------------------------------------------------------------------- */
 
 Route::get('/configurar-negocio', function () {

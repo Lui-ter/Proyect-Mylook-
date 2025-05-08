@@ -1,7 +1,9 @@
 /* Expresiones regulares para validar caracteres */
-const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Solo letras y espacios
+const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*$/;
 const regexDescripcion = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s.,!#?()-¿¡:;]+$/; // Letras, números y signos básicos 
 const regexNumerico = /^\d{10,}$/; // solo numeros
+const regexCantidad = /^\d+$/; 
+const regexValor = /^\d+(\.\d{1,2})?$/; // Para valores con decimales opcionales (150, 199.99)
 const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/; // Contraseñas seguras
 const regexNit = /^[0-9-]{10,}$/; // Solo números y guion (-), mínimo 10 dígitos
 const tiposImgPermitidos = /image\/(jpeg|png|jpg)/i; // Tipos de imagen permitidos (JPEG, PNG, JPG)
@@ -108,7 +110,7 @@ function handleValidationService(event) {
         return;
     }
 
-    if (!regexNumerico.test(precioServicios) || !regexNumerico.test(duracionServicios)) {
+    if (!regexValor.test(precioServicios) || !regexCantidad.test(duracionServicios)) {
         showError("¡El precio y la duración deben ser valores numéricos!");
         return;
     }
@@ -165,7 +167,7 @@ function handleValidationProduct(event) {
         return;
     }
 
-    if (!regexNumerico.test(cantidad) || !regexNumerico.test(precio)) {
+    if (!regexCantidad.test(cantidad) || !regexValor.test(precio)) {
         showError("¡La cantidad y el precio deben ser valores numéricos!");
         return;
     }
