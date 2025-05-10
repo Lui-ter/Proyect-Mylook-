@@ -75,6 +75,8 @@ class GlobalVariables
 
     // platilla, robert organiza :b
 
+    public static $viewHistorial = 'Formularios.Citas.viewCitas';
+
     public static $calendarioStaff = 'Index.platillaStaff';
 
     public static $InicioSessionStaff = 'Index.loginStaff';

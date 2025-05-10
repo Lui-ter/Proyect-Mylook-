@@ -40,18 +40,23 @@
                     <p>Configurar perfil</p>
                 </a>
                 <hr>
-                <a href="@yield('link-historial')">
+                <!-- Pendiente el yield -->
+                <a href="{{ route('usuarios', ['accion' => 'historialCitas'])}}">
                     <p>Historial de citas</p>
                 </a>
+                <hr>
+                <!-- Pendiente el yield -->
+                @if(session('id_staff') !== 'nulo')
+                    <a href="{{ route('staff', ['accion' => 'LoginStaff'])}}">
+                        <p>Calendario</p>
+                    </a>
+                @endif
                 <hr>
                 <a href="@yield('link-salir')">
                     <p>Salir</p>
                 </a>
-                <hr>
-                <!-- De plantilla, se puede cambiar de nombre -->
-                <a href="{{ route('staff', ['accion' => 'LoginStaff'])}}">
-                    <p>Soy admin</p>
-                </a>
+                
+                
             </div>
         </div>
     </div>

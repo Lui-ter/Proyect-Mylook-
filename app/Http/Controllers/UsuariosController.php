@@ -39,6 +39,7 @@ class UsuariosController extends Controller
         $agendamientoView = GlobalVariables::$agendamientoView;
         $configUsersView = GlobalVariables::$configUsersView;
         $agendamientoEstablecimiento = GlobalVariables::$agendamientoEstablecimiento;
+        $viewHistorial = GlobalVariables::$viewHistorial;
 
         if ($accion === 'index') {
             $establecimientosAleatorios = Establecimiento::with('negocio')
@@ -64,7 +65,7 @@ class UsuariosController extends Controller
 
             if (Auth::guard('usuario')->check()) {
                 // Notificaciones de usuario
-                $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+                $notificaciones = Notificacion::with('cita')->whereIn('estado', ['Aceptado','Cancelado'])->get()->map(function ($notificacion) {
                     return array_merge(
                         $notificacion->toArray(),
                         [
@@ -363,6 +364,14 @@ class UsuariosController extends Controller
                 echo "Falta un campo por deligenciar";
             }
 
+        }elseif ($accion === 'historialCitas'){
+            $idusuario = Auth::guard('usuario')->user()->id_usuario;
+            $HistorialCitas = Cita::with('staff.usuario', 'usuario', 'establecimiento')
+            ->where('id_usuario',$idusuario)
+            ->get()
+            ->toArray();
+            return view($viewHistorial,compact('HistorialCitas'));
+    
         } elseif ($accion === 'logout') {
             Auth::guard('usuario')->logout();
             $request->session()->invalidate();

@@ -72,11 +72,13 @@ class AdminController extends Controller
 
     $lascitas = Cita::with('staff.usuario', 'usuario', 'reservaServicio.servicio', 'establecimiento', 'reservaProducto.producto')
         ->whereIn('id_establc', $establecimiento)
+        ->whereIn('estado_cita',['aceptado','pendiente'])
         ->get();
 
     $arreglo = [];
 
     foreach ($lascitas as $cita) {
+       
         $fechaInicio = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita));
         $fechaFin = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita) + ($cita->duracion_cita * 60));
 
@@ -93,6 +95,7 @@ class AdminController extends Controller
             'estado' => $cita->estado_cita,
             'id_cita' => $cita->id_cita,
         ];
+        
     }
     if (Auth::guard('usuario')->check()) {
         // Notificaciones de usuario
@@ -225,11 +228,14 @@ class AdminController extends Controller
                             $producto->save(); // Guarda el cambio en la base de datos
                         }
                     }
-                    $cita->notificacion()?->delete();
-                    $cita->reservaServicio()?->delete();
-                    $cita->reservaProducto()?->delete();
-                    $cita->delete();
-
+                    $cita->estado_cita = 'Cancelado'; // cambia el estado a 'Cancelado'
+                    $notificacion = notificacion::create([
+                        'id_cita' => $idCita,
+                        'titulo' => 'Solicitud de servicio cancelada',
+                        'estado' => 'Cancelado'
+                    ]);
+                    $notificacion->save();
+                    $cita->save();
                 } else {
                     // Depuraciones que cambian...
                     return response()->json(['mensaje' => 'Cita no encontrada'], 404);

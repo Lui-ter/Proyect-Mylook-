@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Helpers\GlobalVariables;
 use App\Models\Usuario;
 use App\Models\Negocio;
+use App\Models\Staff;
 
 class LoginController extends Controller
 {
@@ -72,7 +73,6 @@ public function loginUser(Request $request){
 if ($tipo_usuario == 1) {
     $doc_usuario = $request->input('documentoUsuario');
     $password = trim($request->input('passwordUsuario')); // trim evita los espacios
-    
     $userData = Usuario::where('id_usuario', $doc_usuario)->first();
 
     if ($userData) { 
@@ -82,10 +82,21 @@ if ($tipo_usuario == 1) {
             Auth::guard('usuario')->login($userData);
             session()->regenerate();
             $request->session()->regenerateToken();
+            $idUsuario = Auth::guard('usuario')->user()->id_usuario;
+            $idStaff = staff::where('id_usuario',$idUsuario)->pluck('id_staff')->first();
+            //Valido si es un staff sino, queda como nulo
+            $idStaff = $idStaff ?? 'nulo';
+            // valido si se recibe un staff su tipo staff sino es usuario
+            $tipoUsuario = $idStaff ? 'staff' : 'usuario';
+
+
             session([
                 'usuario_id' => $userData->id_usuario,
-                'usuario_tipo' => 'usuario'
+                'tipo_usuario' =>  $tipoUsuario,
+                'id_staff' => $idStaff
+                
             ]);
+
             /* Depuracion de los auth y guards
             Log::info('Login exitoso:', [
                 'usuario_id' => $userData->id_usuario,

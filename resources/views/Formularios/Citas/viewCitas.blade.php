@@ -31,12 +31,13 @@
                     <thead>
                         <tr>
                             <th>ID CITA</th>
-                            <th>ID USUARIO</th>
-                            <th>ID ESTABLECIMIENTO</th>
+                            <th>USUARIO</th>
+                            <th>ESTABLECIMIENTO</th>
                             <th>FECHA</th>
                             <th>HORA</th>
                             <th>DURACION</th>
                             <th>ESTADO</th>
+                            <th>Valorar</th>
                         </tr>
                     </thead>
                     <tbody id="cuerpoCitas">
@@ -45,76 +46,23 @@
                                 No se encontraron citas para esta fecha.
                             </td>
                         </tr>
-
+                        @foreach ($HistorialCitas as $historial )
+                            
+                        
                         <tr>
-                            <td data-label="ID CITA">1</td>
-                            <td data-label="ID USUARIO">1</td>
-                            <td data-label="ID ESTABLECIMIENTO">1</td>
-                            <td data-label="FECHA">22-02-2025</td>
-                            <td data-label="HORA">09:00</td>
-                            <td data-label="DURACIÓN">60 min</td>
-                            <td data-label="ESTADO" class="estadoRealizada">REALIZADA</td>
-                        </tr>
+                            <td data-label="ID CITA">{{ $historial['id_cita'] }}</td>
+                            <td data-label="ID USUARIO">{{ $historial['usuario']['nombre'] }}</td>
+                            <td data-label="ID ESTABLECIMIENTO">{{ $historial['establecimiento']['nombre_establc'] }}</td>
+                            <td data-label="FECHA">{{ $historial['fecha_cita'] }}</td>
+                            <td data-label="HORA">{{ $historial['hora_cita'] }}</td>
+                            <td data-label="DURACIÓN">{{ $historial['duracion_cita'] }}</td>
+                            <td data-label="ESTADO" class="estadoRealizada">{{ $historial['estado_cita'] }}</td>
+                            <!-- Aqui puedes agregar tu logica MARLON! -->
+                            <td data-label="VALORAR" class="VALORACION"><BUtton src = "">Valorame</BUtton></td>
 
-                        <tr>
-                            <td data-label="ID CITA">2</td>
-                            <td data-label="ID USUARIO">2</td>
-                            <td data-label="ID ESTABLECIMIENTO">2</td>
-                            <td data-label="FECHA">23-02-2025</td>
-                            <td data-label="HORA">10:30</td>
-                            <td data-label="DURACIÓN">45 min</td>
-                            <td data-label="ESTADO" class="estadoPendiente">PENDIENTE</td>
                         </tr>
-
-                        <tr>
-                            <td data-label="ID CITA">3</td>
-                            <td data-label="ID USUARIO">3</td>
-                            <td data-label="ID ESTABLECIMIENTO">3</td>
-                            <td data-label="FECHA">24-02-2025</td>
-                            <td data-label="HORA">14:00</td>
-                            <td data-label="DURACIÓN">30 min</td>
-                            <td data-label="ESTADO" class="estadoRealizada">REALIZADA</td>
-                        </tr>
-
-                        <tr>
-                            <td data-label="ID CITA">4</td>
-                            <td data-label="ID USUARIO">4</td>
-                            <td data-label="ID ESTABLECIMIENTO">4</td>
-                            <td data-label="FECHA">25-02-2025</td>
-                            <td data-label="HORA">16:15</td>
-                            <td data-label="DURACIÓN">60 min</td>
-                            <td data-label="ESTADO" class="estadoPendiente">PENDIENTE</td>
-                        </tr>
-
-                        <tr>
-                            <td data-label="ID CITA">5</td>
-                            <td data-label="ID USUARIO">5</td>
-                            <td data-label="ID ESTABLECIMIENTO">5</td>
-                            <td data-label="FECHA">26-02-2025</td>
-                            <td data-label="HORA">11:45</td>
-                            <td data-label="DURACIÓN">90 min</td>
-                            <td data-label="ESTADO" class="estadoRealizada">REALIZADA</td>
-                        </tr>
-
-                        <tr>
-                            <td data-label="ID CITA">6</td>
-                            <td data-label="ID USUARIO">6</td>
-                            <td data-label="ID ESTABLECIMIENTO">6</td>
-                            <td data-label="FECHA">27-02-2025</td>
-                            <td data-label="HORA">09:00</td>
-                            <td data-label="DURACIÓN">60 min</td>
-                            <td data-label="ESTADO" class="estadoPendiente">PENDIENTE</td>
-                        </tr>
-
-                        <tr>
-                            <td data-label="ID CITA">7</td>
-                            <td data-label="ID USUARIO">7</td>
-                            <td data-label="ID ESTABLECIMIENTO">7</td>
-                            <td data-label="FECHA">28-02-2025</td>
-                            <td data-label="HORA">13:30</td>
-                            <td data-label="DURACIÓN">75 min</td>
-                            <td data-label="ESTADO" class="estadoPendiente">PENDIENTE</td>
-                        </tr>
+                        @endforeach
+                       
 
                     </tbody>
                 </table>
