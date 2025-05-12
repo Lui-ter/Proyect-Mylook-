@@ -61,7 +61,7 @@ return new class extends Migration {
             $table->string('nombre_servicio', 30);
             $table->string('desc_servicio', 300);
             $table->float('duracion_serv');
-            $table->float('precio_servicio');
+            $table->decimal('precio_servicio', 10, 0);
             $table->foreign('id_categoria')->references('id_categoria')->on('categoria');
         });
 
@@ -72,7 +72,7 @@ return new class extends Migration {
             $table->string('nom_marca', 30);
             $table->string('desc_prod', 300);
             $table->integer('stock');
-            $table->float('valor_prod');
+            $table->decimal('valor_prod', 10, 0);
             $table->timestamps();
             $table->foreign('id_establc')->references('id_establc')->on('establecimiento');
         });
@@ -164,18 +164,19 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('valoracion');
+        Schema::dropIfExists('notificaciones');
         Schema::dropIfExists('reserva_producto');
         Schema::dropIfExists('reserva_servicio');
         Schema::dropIfExists('cita');
         Schema::dropIfExists('agenda');
         Schema::dropIfExists('horario');
         Schema::dropIfExists('staff');
-        Schema::dropIfExists('rol');
         Schema::dropIfExists('producto');
-        Schema::dropIfExists('establecimiento');
         Schema::dropIfExists('servicio');
         Schema::dropIfExists('categoria');
+        Schema::dropIfExists('establecimiento');
         Schema::dropIfExists('negocio');
         Schema::dropIfExists('usuario');
+        Schema::dropIfExists('rol');
     }
 };

@@ -52,9 +52,6 @@ Route::middleware(['ValidateSession:negocio'])->group(function(){
     Route::match(['get', 'post'], '/staff/{accion?}', [StaffController::class, 'crudStaff'])->name('staff');
 });
 
-
-/* CRUD DE TIPO DE SERVICIOS */
-Route::match(['get', 'post'], '/tipoServicios/{accion?}', [TiposServiciosController::class, 'crudTipoServicios'])->name('tipoServicios');
 /* CRUD DE ESTABLECIMIENTOS */
 Route::match(['get', 'post'], '/establecimientos/{accion?}', [EstablecimientosController::class, 'crudEstablecimientos'])->name('establecimientos');
 
@@ -64,12 +61,11 @@ Route::post('/login-user', [LoginController::class, 'loginUser'])->name('loginUs
 
 /* RUTAS POST - INSERCIONES */
 Route::post('/register-category', [CategoriasController::class, 'handleAddCategory'])->name('registerCategory');
-Route::post('/register-type-service', [TiposServiciosController::class, 'handleAddServiceType'])->name('registerServiceType');
 Route::post('/register-service', [ServiciosController::class, 'handleAddService'])->name('registerService');
 Route::post('/register-product', [ProductosController::class, 'handleAddProduct'])->name('registerProduct');
 Route::post('/register-user', [LoginController::class, 'registerUser'])->name('registerUser');
 Route::post('/register-staff', [StaffController::class, 'handleAddStaff'])->name('registerStaff');
-Route::post('/register-useradmin', [UsuariosController::class, 'handleAddUser'])->name('registerUserAdmin');
+Route::post('/register-useradmin', [AdminController::class, 'handleAddUserAdmin'])->name('registerUserAdmin');
 Route::post('/register-establecimiento', [EstablecimientosController::class, 'handleAddEstablecimiento'])->name('registerEstablecimiento');
 Route::post('/register-negocio', [NegociosController::class, 'handleAddNegocio'])->name('registerNegocio');
 Route::post('/register-valoracion', [ValoracionesController::class, 'handleAddValoracion'])->name('registerValoracion');
@@ -77,13 +73,12 @@ Route::post('/register-valoracion', [ValoracionesController::class, 'handleAddVa
 
 /* RUTAS PUT - UPDATES */
 Route::put('/update-category/{id}', [CategoriasController::class, 'handleUpdateCategory'])->name('updateCategory');
-Route::put('/update-type-service/{id}', [TiposServiciosController::class, 'handleUpdateServiceType'])->name('updateServiceType');
 Route::put('/update-service/{id}', [ServiciosController::class, 'handleUpdateService'])->name('updateService');
 Route::put('/update-product/{id}', [ProductosController::class, 'handleUpdateProduct'])->name('updateProduct');
 Route::put('/update-user/{id}', [UsuariosController::class, 'handleUpdateUsers'])->name('updateUsers');
 Route::put('/update-user-admin/{id}', [AdminController::class, 'handleUpdateUserAdmin'])->name('updateUserAdmin');
-Route::put('/update-negocio/{id}', [NegociosController::class, 'handleUpdateNegocio'])->name('updateNegocio');
-Route::put('/update-negocio/{id}', [NegociosController::class, 'handleUpdateNegocioTwo'])->name('updateNegocioTwo');
+Route::put('/update-negocio', [NegociosController::class, 'handleUpdateNegocio'])->name('updateNegocio');
+Route::put('/update-negocio-two/{id}', [NegociosController::class, 'handleUpdateNegocioTwo'])->name('updateNegocioTwo');
 Route::put('/update-establecimiento/{id}', [EstablecimientosController::class, 'handleUpdateEstablecimiento'])->name('updateEstablecimiento');
 Route::put('/update-staff/{id}', [StaffController::class, 'handleUpdateStaff'])->name('updateStaff');
 Route::put('/update-valoracion/{id}', [ValoracionesController::class, 'handleUpdateValoracion'])->name('updateValoracion');
@@ -91,7 +86,6 @@ Route::put('/update-valoracion/{id}', [ValoracionesController::class, 'handleUpd
 
 /* RUTAS DELETE - DELETE */
 Route::delete('/delete-category', [CategoriasController::class, 'handleDeleteCategory'])->name('deleteCategory');
-Route::delete('/delete-type-service', [TiposServiciosController::class, 'handleDeleteServiceType'])->name('deleteServiceType');
 Route::delete('/delete-service', [ServiciosController::class, 'handleDeleteService'])->name('deleteService');
 Route::delete('/delete-product', [ProductosController::class, 'handleDeleteProduct'])->name('deleteProduct');
 Route::delete('/staff/{id}', [StaffController::class, 'handleDeleteStaff'])->name('deleteStaff');

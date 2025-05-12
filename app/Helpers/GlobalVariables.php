@@ -6,7 +6,7 @@ class GlobalVariables
 {
     /* ------------------------------------------------------------------------------ */
 
-    public static $registerAdminView = 'Formularios.Login.registerAdmin';
+    public static $registerAdminView = 'Formularios.Insercciones.configurarPerfil';
 
     public static $indexAdminView = 'Index.indexAdmin';
 
@@ -43,6 +43,8 @@ class GlobalVariables
 
     /* ------------------------------------------------------------------------------ */
 
+    public static $registerEstablecimiento = 'Formularios.Insercciones.ConfigurarEstablecimiento';
+
     public static $configEstablecimiento = 'Configuracion.administrador.configurarEstablecimiento';
 
     /* ------------------------------------------------------------------------------ */
@@ -60,6 +62,8 @@ class GlobalVariables
     /* ------------------------------------------------------------------------------ */
 
     public static $configBienvenidaMiNegocio = 'Configuracion.configBienvenidaMiNegocio';
+
+    public static $registerNegocio = 'Formularios.Insercciones.ConfigurarNegocio';
 
     public static $configNegocioView = 'Configuracion.administrador.configurarNegocio';
 

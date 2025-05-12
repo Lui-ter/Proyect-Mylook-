@@ -197,8 +197,7 @@
 
                     <div class="informacionInput">
                         <p class="nombreInput">NOMBRE</p>
-                        <input type="text" class="inputNombre" id="nombreNegocio" name="nombreNegocio"
-                            value="{{ $negocioData['nombre_negocio'] }}" readonly placeholder="Nombre del negocio">
+                        <input type="text" class="inputNombre" id="nombreNegocio" name="nombreNegocio" value="{{ $negocioData['nombre_negocio'] }}" readonly placeholder="Nombre del negocio">
                     </div>
 
 

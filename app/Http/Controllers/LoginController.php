@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Helpers\GlobalVariables;
 use App\Models\Usuario;
 use App\Models\Negocio;
+use App\Models\Establecimiento;
 use App\Models\Staff;
 
 class LoginController extends Controller
@@ -28,7 +29,7 @@ class LoginController extends Controller
 /* REGISTRO DE USUARIOS */
 
     public function registerUser(Request $request){
-        
+
         $tipo_usuario = $request->input('tipo_usuario');
 
         if ($tipo_usuario == 2) {
@@ -46,11 +47,11 @@ class LoginController extends Controller
             ]);
             return redirect()->route('login');
         }else if ($tipo_usuario == 1) {
-            
-            $nit_negocio = $request->input('nitNegocio'); 
+
+            $nit_negocio = $request->input('nitNegocio');
             $nombre = $request->input('nombreNegocio');
             $password = $request->input('contrasenaNegocio');
-           
+
             $hashPassword = Hash::make($password);
 
             $negocio = Negocio::create([
@@ -59,15 +60,15 @@ class LoginController extends Controller
                 'contrasena' => $hashPassword
             ]);
             return redirect()->route('login');
-            
+
         }
 
     }
 
 /* LOGIN DE USUARIOS */
-    
+
 public function loginUser(Request $request){
-        
+
     $tipo_usuario = $request->input('tipo_usuario');
 
 if ($tipo_usuario == 1) {
@@ -75,7 +76,7 @@ if ($tipo_usuario == 1) {
     $password = trim($request->input('passwordUsuario')); // trim evita los espacios
     $userData = Usuario::where('id_usuario', $doc_usuario)->first();
 
-    if ($userData) { 
+    if ($userData) {
         if (Hash::check($password, $userData->contrasena)) {
             // limpiar cualquier sesion anterir
             Auth::guard('usuario')->logout();
@@ -94,7 +95,7 @@ if ($tipo_usuario == 1) {
                 'usuario_id' => $userData->id_usuario,
                 'tipo_usuario' =>  $tipoUsuario,
                 'id_staff' => $idStaff
-                
+
             ]);
 
             /* Depuracion de los auth y guards
@@ -119,22 +120,28 @@ if ($tipo_usuario == 1) {
     } else {
         dd("Error al no encontrar usuario");
     }
-     
+
     }else if($tipo_usuario == 2){
+        // Aqui se definen las variables globales de las vistas
+        $registerAdminView = GlobalVariables::$registerAdminView;
+        $configNegocio = GlobalVariables::$registerNegocio;
+        $registerEstablecimiento = GlobalVariables::$registerEstablecimiento;
 
         $nit = $request->input('nitNegocio');
         $password = trim($request->input('contrasenaNegocio'));
-        
         $negocioData = Negocio::where('id_negocio', $nit)->first();
+
+        // Aqui se verifica si el negocio existe
+        if (!$negocioData) {
+            dd("Error: El negocio no existe");
+        }
 
         if(isset($negocioData->id_usuario)){
             if(Hash::check($password, $negocioData->contrasena)){
-
                 Auth::guard('negocio')->logout();
                 Auth::guard('negocio')->login($negocioData);
                 session()->regenerate();
                 $request->session()->regenerateToken();
-
                 session([
                     'id_negocio' => $negocioData->id_negocio,
                     'usuario_tipo' => 'negocio'
@@ -149,36 +156,53 @@ if ($tipo_usuario == 1) {
                 ]);
                 */
                 //dd(session()->all());
+
+                // Aqui si hay un administrador en el negocio pero las demas configuraciones del negocio estan null redirigir a esta vista
+                if(!$negocioData->desc_negocio || !$negocioData->img_portada || !$negocioData->img_perfil){
+                    return view($configNegocio, [
+                        'negocio' => $negocioData,
+                        'admin' => $negocioData->usuario,
+                    ]);
+                }
+
+                // Si no hay un establecimiento relacionado al negocio logueado redirigir a esta vista
+                if(!Establecimiento::where('id_negocio', $negocioData->id_negocio)->exists()){
+                    return view($registerEstablecimiento);
+                }
+
+                // Si toda la configuracion esta bien redirigir a esta ruta
                 if(Auth::guard('negocio')->check()){
                     return redirect()->to('negocio/index');
                 }else{
                     dd("Error: el usuario no esta autenticado despues del login");
+                }
 
+            }else{
+                dd("Error con la contreaseña");
+            }
+
+        }else{
+            //Si el negocio no ha configurado config negocio, debera por primera vez agregarlos
+            if(Hash::check($password, $negocioData->contrasena)){
+                Auth::guard('negocio')->logout();
+                Auth::guard('negocio')->login($negocioData);
+                session()->regenerate();
+                $request->session()->regenerateToken();
+                session([
+                    'id_negocio' => $negocioData->id_negocio,
+                    'usuario_tipo' => 'negocio'
+                ]);
+
+                if(Auth::guard('negocio')->check()){
+                    return view($registerAdminView);
+                }else{
+                    dd("Error: el usuario no esta autenticado despues del login");
                 }
             }else{
                 dd("Error con la contreaseña");
             }
-        }else{
-            //Si el negocio no ha configurado config negocio, debera por primera vez agregarlos
-            Hash::check($password, $negocioData->contrasena);
-            Auth::guard('negocio')->logout();
-            Auth::guard('negocio')->login($negocioData);
-            session()->regenerate();
-            $request->session()->regenerateToken();
-
-            session([
-                'id_negocio' => $negocioData->id_negocio,
-                'usuario_tipo' => 'negocio'
-            ]);
-            if(Auth::guard('negocio')->check()){
-                return view('Configuracion/configBienvenidaMiNegocio', compact('negocioData'));
-            }else{
-                dd("Error: el usuario no esta autenticado despues del login");
-            }
         }
     }
-
-
 }
 
 

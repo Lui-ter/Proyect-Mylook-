@@ -14,11 +14,12 @@ class NegociosController extends Controller{
 
     /* ACTUALIZACIÓN DE NEGOCIO CUANDO SE CREA POR PRIMERA VEZ*/
 
-    public function handleUpdateNegocio(Request $request, $id){
+    public function handleUpdateNegocio(Request $request){
+
+        $registerEstablecimiento = GlobalVariables::$registerEstablecimiento;
 
         // Aqui se validan los datos que provienen del formulario de negocio
         $request->validate([
-            'id_usuario' => 'required|numeric',
             'descripcionNegocio' => 'required|string',
             'img_portada' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'img_logo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
@@ -37,20 +38,13 @@ class NegociosController extends Controller{
         }
 
         // Aqui se actualiza el registro de negocio encontrado a travez de su id
-        $negocioData = Negocio::findOrFail($id);
-        $negocioData->id_usuario = $request->input('id_usuario');
-        $negocioData->desc_negocio = $request->input('descripcionNegocio');
-        $negocioData->img_portada = $img_portada;
-        $negocioData->img_perfil = $img_logo;
-        $negocioData->save();
-
-        // Aqui guarda la id_negocio en la sesión para usarlo en el formulario de establecimiento ya que esta en la misma vista
-        session(['id_negocio' => $negocioData->id_negocio]);
-
-        // Aqui se elimina de la sesion los datos que estaban cargados en el formulario de perfil administrador
-        session()->forget(['id_usuario','nombreAdmin', 'apellidoAdmin']);
-
-        return view('Configuracion.configBienvenidaMiNegocio',compact('negocioData'));
+        $negocio = Negocio::find(Auth::guard('negocio')->user()->id_negocio);
+        $negocio->update([
+            'desc_negocio' => $request->descripcionNegocio,
+            'img_portada' => $img_portada,
+            'img_perfil' => $img_logo
+        ]);
+        return view($registerEstablecimiento);
     }
 
 // ACTUALIZACION DE NEGOCIO DESDE EL PANEL DE ADMINISTRADOR

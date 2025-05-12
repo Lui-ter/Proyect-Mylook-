@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement('ALTER TABLE categoria DROP COLUMN img_categoria');
+        DB::statement('ALTER TABLE categoria DROP COLUMN imagen');
         DB::statement('ALTER TABLE producto DROP COLUMN img_prod');
         DB::statement('ALTER TABLE usuario DROP COLUMN img_usuario');
         DB::statement('ALTER TABLE negocio DROP COLUMN img_perfil, DROP COLUMN img_portada');

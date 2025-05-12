@@ -18,7 +18,6 @@ class EstablecimientosController extends Controller{
     // Aqui se validan los datos que provienen del formulario de establecimiento
         $request->validate([
             'idEstablc' => 'required|numeric|unique:establecimiento,id_establc',
-            'idNegocio' => 'required|numeric|unique:establecimiento,id_negocio',
             'nombreEst' => 'required|string|max:30',
             'direccionEstablecimiento' => 'required|string|max:30',
             'descripcionEstablecimiento' => 'required|string',
@@ -26,10 +25,14 @@ class EstablecimientosController extends Controller{
             'correoEstablecimiento' => 'nullable|email|unique:establecimiento,correo'
         ]);
 
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+        $negocio = Negocio::find($idNegocio);
+        $id_usuario = $negocio->id_usuario;
+
         // Aqui se crea un nuevo un nuevo registro de establecimiento en la tabla
         Establecimiento::create([
             'id_establc' => $request->idEstablc,
-            'id_negocio' => $request->idNegocio,
+            'id_negocio' => $idNegocio,
             'nombre_establc' => $request->nombreEst,
             'ubicacion' => $request->direccionEstablecimiento,
             'desc_establc' => $request->descripcionEstablecimiento,
@@ -37,20 +40,13 @@ class EstablecimientosController extends Controller{
             'correo' => $request->correoEstablecimiento
         ]);
 
-        // Aqui a travez del id_negocio que viene del formulario, hago una consulta para encontrar el usuario registrado a ese negocio
-        $Negocio = Negocio::find($request->idNegocio);
-        $id_usuario = $Negocio->id_usuario;
-
         // Aqui creo el registro en la tabla staff relacionando el usuario anteriormente registrado, establecimiento, negocio y el rol de administrador
         Staff::create([
             'id_usuario' => $id_usuario,
             'id_establc' => $request->idEstablc,
-            'id_negocio' => $request->idNegocio,
+            'id_negocio' => $idNegocio,
             'id_rol' => 1
         ]);
-
-        // Se elimina de la sesion el dato que estaba cargado en el formulario de negocio
-        session()->forget(['id_negocio']);
 
         return redirect()->route('admin', ['accion' => 'index']);
     }

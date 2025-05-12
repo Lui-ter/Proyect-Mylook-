@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use App\Models\Establecimiento;
 use App\Models\Producto;
 use App\Models\Usuario;
+use App\Models\Negocio;
 use App\Models\Staff;
 use App\Models\Cita;
 use App\Models\notificacion;
@@ -78,7 +79,7 @@ class AdminController extends Controller
     $arreglo = [];
 
     foreach ($lascitas as $cita) {
-       
+
         $fechaInicio = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita));
         $fechaFin = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita) + ($cita->duracion_cita * 60));
 
@@ -95,7 +96,7 @@ class AdminController extends Controller
             'estado' => $cita->estado_cita,
             'id_cita' => $cita->id_cita,
         ];
-        
+
     }
     if (Auth::guard('usuario')->check()) {
         // Notificaciones de usuario
@@ -125,6 +126,53 @@ class AdminController extends Controller
     }
     return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo','notificaciones', 'imgStaff');
 
+    }
+
+    /*  INSERCION DE UN USUARIO ADMIN (Falta especificar el rol, en las migraciones no esta unida la tabla rol con usuario)   */
+
+    public function handleAddUserAdmin(Request $request){
+
+        $configNegocio = GlobalVariables::$registerNegocio;
+
+        // Aqui se validan los datos que provienen del formulario de perfil administrador
+        $request->validate([
+            'idAdmin' => 'required|numeric|unique:usuario,id_usuario',
+            'nombreAdmin' => 'required|string|max:30',
+            'apellidoAdmin' => 'required|string|max:30',
+            'correoAdmin' => 'nullable|email|unique:usuario,correo',
+            'telefonoAdmin' => 'nullable|string|max:30',
+            'contrasenaAdmin' => 'required|string',
+            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+        ]);
+
+        // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
+        $img_usuario = null;
+        if ($request->hasFile('imagenPerfil')) {
+            $img = $request->file('imagenPerfil');
+            $img_usuario = file_get_contents($img->getRealPath());
+        };
+
+        // Aqui se crea un nuevo usuario en la tabla falta especificar que es con el rol de administrador
+        $usuario = Usuario::create([
+            'id_usuario' => $request->idAdmin,
+            'nombre' => $request->nombreAdmin,
+            'apellido' => $request->apellidoAdmin,
+            'correo' => $request->correoAdmin,
+            'telefono' => $request->telefonoAdmin,
+            'contrasena' => Hash::make($request->contrasenaAdmin),
+            'img_usuario' => $img_usuario
+        ]);
+
+        // Aqui se busca el negocio logueado para insertar en el campo id_usuario el documento del admin que se registro
+        $negocio = Negocio::find(Auth::guard('negocio')->user()->id_negocio);
+        $negocio->update([
+            'id_usuario' => $request->idAdmin
+        ]);
+
+        return view($configNegocio, [
+            'negocio' => $negocio,
+            'admin' => $negocio->usuario,
+        ]);
     }
 
 // Aqui se hara la actualizacion del usuario con el rol de administrador
