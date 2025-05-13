@@ -13,7 +13,7 @@
 </head>
 <body>
 <main>
-    <form action="{{ route('registerValoracion') }}" method="POST" class="formulario-productos" onsubmit="return validarValoracion(event)">
+    <form action="{{ route('registerValoracion') }}" method="POST" class="formulario-productos" id="formValoracion" onsubmit="handleValidationValoracion(event)">
         @csrf
 
         <input type="hidden" name="id_cita" value="{{ $id_cita }}">
@@ -44,7 +44,7 @@
 
             <div class="contenedor-input">
                 <p class="texto-input">CALIFICACIÓN (1 a 5)</p>
-                <select name="calificacion" id="calificacion" class="insercion-input" required onchange="actualizarVistaValoracion()">
+                <select name="calificacion" id="calificacion" class="insercion-input" onchange="actualizarVistaValoracion()">
                     <option value="">Selecciona una calificación</option>
                     @for($i = 1; $i <= 5; $i++)
                         <option value="{{ $i }}">{{ $i }}</option>
@@ -65,7 +65,7 @@
         </div>
     </form>
 </main>
-
+    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
 <script>
     function actualizarVistaValoracion() {
         const calificacion = document.getElementById('calificacion').value;
@@ -75,15 +75,6 @@
         document.getElementById('previewComentario').textContent = comentario || '--';
     }
 
-    function validarValoracion(event) {
-        const calificacion = document.getElementById('calificacion').value;
-        if (!calificacion) {
-            alert('Por favor, selecciona una calificación.');
-            event.preventDefault();
-            return false;
-        }
-        return true;
-    }
 </script>
 
 </body>

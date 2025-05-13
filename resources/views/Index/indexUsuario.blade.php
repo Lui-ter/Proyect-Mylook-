@@ -60,7 +60,7 @@
                                                         src="https://img.icons8.com/ios-filled/100/FFFFFF/event-accepted-tentatively.png"
                                                         alt="Agendar" />
                                                 </div>
-                                                <span>AGENDAR</span>
+                                                <span>VER MÁS</span>
                                             </button>
                                         </form>
                                     </div>
@@ -138,10 +138,6 @@
 
                 </div>
             </section>
-
-
-
-
             <!-- Sección dedicada a los mejores establecimientos de la semana -->
             <section class="establecimientos-destacados" id="top">
 

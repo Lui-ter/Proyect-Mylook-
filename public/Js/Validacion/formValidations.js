@@ -1,8 +1,8 @@
 /* Expresiones regulares para validar caracteres */
 const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*$/;
-const regexDescripcion = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s.,!#?()-¿¡:;]+$/; // Letras, números y signos básicos 
+const regexDescripcion = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s.,!#?()-¿¡:;]+$/; // Letras, números y signos básicos
 const regexNumerico = /^\d{10,}$/; // solo numeros
-const regexCantidad = /^\d+$/; 
+const regexCantidad = /^\d+$/;
 const regexValor = /^\d+(\.\d{1,2})?$/; // Para valores con decimales opcionales (150, 199.99)
 const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/; // Contraseñas seguras
 const regexNit = /^[0-9-]{10,}$/; // Solo números y guion (-), mínimo 10 dígitos
@@ -14,10 +14,16 @@ const regexDocumentoUsuario = /^[0-9]{10,}$/; // Solo números, mínimo 10 dígi
 function handleValidationCategory(event) {
     event.preventDefault();
 
-    const nombreCategoria = document.getElementById("nombreCategoria")?.value.trim();
-    const descripcionCategoria = document.getElementById("descripcion")?.value.trim();
+    const nombreCategoria = document
+        .getElementById("nombreCategoria")
+        ?.value.trim();
+    const descripcionCategoria = document
+        .getElementById("descripcion")
+        ?.value.trim();
     const imagenCategoria = document.getElementById("imagen")?.files[0];
-    const editProduct = document.querySelector('input[name="editProduct"]')?.value;
+    const editProduct = document.querySelector(
+        'input[name="editProduct"]'
+    )?.value;
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
@@ -27,7 +33,7 @@ function handleValidationCategory(event) {
     const form = document.querySelector(".formulario");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
@@ -40,18 +46,26 @@ function handleValidationCategory(event) {
         }, 3500);
     }
 
-    if (!nombreCategoria || !descripcionCategoria || (!imagenCategoria && !editProduct)) {
+    if (
+        !nombreCategoria ||
+        !descripcionCategoria ||
+        (!imagenCategoria && !editProduct)
+    ) {
         showError("¡Faltan campos por llenar!");
         return;
     }
 
     if (!regexNombre.test(nombreCategoria)) {
-        showError("¡El nombre de la categoría solo puede contener letras y espacios!");
+        showError(
+            "¡El nombre de la categoría solo puede contener letras y espacios!"
+        );
         return;
     }
 
     if (!regexDescripcion.test(descripcionCategoria)) {
-        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+        showError(
+            "¡La descripción solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
 
@@ -67,10 +81,18 @@ function handleValidationCategory(event) {
 function handleValidationService(event) {
     event.preventDefault();
 
-    const nombreServicios = document.getElementById("nombreServicio")?.value.trim();
-    const precioServicios = document.getElementById("precioServicio")?.value.trim();
-    const duracionServicios = document.getElementById("duracionServicio")?.value.trim();
-    const descripcionServicios = document.getElementById("descripcionServicio")?.value.trim();
+    const nombreServicios = document
+        .getElementById("nombreServicio")
+        ?.value.trim();
+    const precioServicios = document
+        .getElementById("precioServicio")
+        ?.value.trim();
+    const duracionServicios = document
+        .getElementById("duracionServicio")
+        ?.value.trim();
+    const descripcionServicios = document
+        .getElementById("descripcionServicio")
+        ?.value.trim();
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
@@ -80,7 +102,7 @@ function handleValidationService(event) {
     const form = document.querySelector(".contenedor-formularios");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
@@ -95,22 +117,34 @@ function handleValidationService(event) {
         }, 3500);
     }
 
-    if (!nombreServicios || !descripcionServicios || !precioServicios || !duracionServicios) {
+    if (
+        !nombreServicios ||
+        !descripcionServicios ||
+        !precioServicios ||
+        !duracionServicios
+    ) {
         showError("¡Faltan campos por llenar!");
         return;
     }
 
     if (!regexNombre.test(nombreServicios)) {
-        showError("¡El nombre del servicio solo puede contener letras y espacios!");
+        showError(
+            "¡El nombre del servicio solo puede contener letras y espacios!"
+        );
         return;
     }
 
     if (!regexDescripcion.test(descripcionServicios)) {
-        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+        showError(
+            "¡La descripción solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
 
-    if (!regexValor.test(precioServicios) || !regexCantidad.test(duracionServicios)) {
+    if (
+        !regexValor.test(precioServicios) ||
+        !regexCantidad.test(duracionServicios)
+    ) {
         showError("¡El precio y la duración deben ser valores numéricos!");
         return;
     }
@@ -128,7 +162,9 @@ function handleValidationProduct(event) {
     const desc = document.getElementById("descripcionProducto")?.value.trim();
     const cantidad = document.getElementById("cantidadProducto")?.value.trim();
     const precio = document.getElementById("valorProducto")?.value.trim();
-    const editProduct = document.querySelector('input[name="editProduct"]')?.value;
+    const editProduct = document.querySelector(
+        'input[name="editProduct"]'
+    )?.value;
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
@@ -138,7 +174,7 @@ function handleValidationProduct(event) {
     const form = document.querySelector(".formulario-productos");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
@@ -152,18 +188,29 @@ function handleValidationProduct(event) {
     }
 
     // Validación general
-    if (!nombre || !marca || !desc || !cantidad || !precio || (!imagen && !editProduct)) {
+    if (
+        !nombre ||
+        !marca ||
+        !desc ||
+        !cantidad ||
+        !precio ||
+        (!imagen && !editProduct)
+    ) {
         showError("¡Faltan campos por llenar!");
         return;
     }
 
     if (!regexNombre.test(nombre) || !regexNombre.test(marca)) {
-        showError("¡El nombre y la marca solo pueden contener letras y espacios!");
+        showError(
+            "¡El nombre y la marca solo pueden contener letras y espacios!"
+        );
         return;
     }
 
     if (!regexDescripcion.test(desc)) {
-        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+        showError(
+            "¡La descripción solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
 
@@ -180,7 +227,6 @@ function handleValidationProduct(event) {
     event.target.submit();
 }
 
-
 // FORMULARIO DE REGISTRO
 function handleValidationRegister(event) {
     event.preventDefault();
@@ -195,7 +241,7 @@ function handleValidationRegister(event) {
 
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
@@ -223,20 +269,25 @@ function handleValidationRegister(event) {
         }
 
         if (!regexNit.test(nitNegocio)) {
-            showError("¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!");
+            showError(
+                "¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!"
+            );
             return;
         }
 
         if (!regexNombre.test(nombreNegocio)) {
-            showError("¡El nombre del negocio solo puede contener letras y espacios!");
+            showError(
+                "¡El nombre del negocio solo puede contener letras y espacios!"
+            );
             return;
         }
 
         if (!regexPassword.test(contrasenaNegocio)) {
-            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+            showError(
+                "¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!"
+            );
             return;
         }
-
     } else {
         // USUARIO
         const documentoUsuario = document.getElementById("4").value.trim();
@@ -249,17 +300,23 @@ function handleValidationRegister(event) {
         }
 
         if (!regexDocumentoUsuario.test(documentoUsuario)) {
-            showError("¡El documento del usuario solo debe contener al menos 10 números!");
+            showError(
+                "¡El documento del usuario solo debe contener al menos 10 números!"
+            );
             return;
         }
 
         if (!regexNombre.test(nombreUsuario)) {
-            showError("¡El nombre de usuario solo puede contener letras y espacios!");
+            showError(
+                "¡El nombre de usuario solo puede contener letras y espacios!"
+            );
             return;
         }
 
         if (!regexPassword.test(passwordUsuario)) {
-            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+            showError(
+                "¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!"
+            );
             return;
         }
     }
@@ -271,7 +328,9 @@ function handleValidationRegister(event) {
 function handleValidationLogin(event) {
     event.preventDefault();
 
-    const tipo_usuario = document.querySelector(".loginForm .tipo_usuario").value;
+    const tipo_usuario = document.querySelector(
+        ".loginForm .tipo_usuario"
+    ).value;
     const form = document.querySelector(".loginForm");
 
     const alertContainer = document.getElementById("alertContainer");
@@ -281,7 +340,7 @@ function handleValidationLogin(event) {
 
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
@@ -307,15 +366,18 @@ function handleValidationLogin(event) {
         }
 
         if (!regexNit.test(nitNegocio)) {
-            showError("¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!");
+            showError(
+                "¡El NIT debe tener al menos 10 caracteres y solo puede contener números y guion (-)!"
+            );
             return;
         }
 
         if (!regexPassword.test(contrasenaNegocio)) {
-            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+            showError(
+                "¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!"
+            );
             return;
         }
-
     } else {
         // USUARIO
         const documentoUsuario = document.getElementById("8").value.trim();
@@ -327,12 +389,16 @@ function handleValidationLogin(event) {
         }
 
         if (!regexDocumentoUsuario.test(documentoUsuario)) {
-            showError("¡El documento del usuario solo debe contener al menos 10 números!");
+            showError(
+                "¡El documento del usuario solo debe contener al menos 10 números!"
+            );
             return;
         }
 
         if (!regexPassword.test(passwordUsuario)) {
-            showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+            showError(
+                "¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!"
+            );
             return;
         }
     }
@@ -344,13 +410,25 @@ function handleValidationLogin(event) {
 function handleValidationConfigUser(event) {
     event.preventDefault();
 
-    const documentoUsuario = document.getElementById("documentoUsuario")?.value.trim();
-    const nombreUsuario = document.getElementById("nombreUsuario")?.value.trim();
-    const apellidoUsuario = document.getElementById("apellidoUsuario")?.value.trim();
-    const telefonoUsuario = document.getElementById("telefonoUsuario")?.value.trim();
-    const correoUsuario = document.getElementById("correoUsuario")?.value.trim();
-    const condicionUsuario = document.getElementById("condicionUsuario")?.value.trim();
-    const imagenStaff = document.getElementById("imagenPerfil")?.files[0];
+    const documentoUsuario = document
+        .getElementById("documentoUsuario")
+        ?.value.trim();
+    const nombreUsuario = document
+        .getElementById("nombreUsuario")
+        ?.value.trim();
+    const apellidoUsuario = document
+        .getElementById("apellidoUsuario")
+        ?.value.trim();
+    const telefonoUsuario = document
+        .getElementById("telefonoUsuario")
+        ?.value.trim();
+    const correoUsuario = document
+        .getElementById("correoUsuario")
+        ?.value.trim();
+    const condicionUsuario = document
+        .getElementById("condicionUsuario")
+        ?.value.trim();
+    const imagenStaff = document.getElementById("fileInput")?.files[0];
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
@@ -361,21 +439,29 @@ function handleValidationConfigUser(event) {
     const form = document.querySelector(".formConfig");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
-
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
 
         setTimeout(() => {
-            alertDiv.style.opacity = "0";}, 3000);
+            alertDiv.style.opacity = "0";
+        }, 3000);
 
         setTimeout(() => {
-            alertDiv.remove();}, 3500);
+            alertDiv.remove();
+        }, 3500);
     }
 
-    if (!documentoUsuario || !nombreUsuario || !apellidoUsuario || !telefonoUsuario || !correoUsuario || !imagenStaff) {
+    if (
+        !documentoUsuario ||
+        !nombreUsuario ||
+        !apellidoUsuario ||
+        !telefonoUsuario ||
+        !correoUsuario ||
+        !imagenStaff
+    ) {
         showError("¡Todos los campos son obligatorios!");
         return;
     }
@@ -385,13 +471,18 @@ function handleValidationConfigUser(event) {
         return;
     }
 
-    if (!regexNombre.test(nombreUsuario) || !regexNombre.test(apellidoUsuario)) {
+    if (
+        !regexNombre.test(nombreUsuario) ||
+        !regexNombre.test(apellidoUsuario)
+    ) {
         showError("¡El nombre y el apellido solo pueden contener letras!");
         return;
     }
 
     if (!regexNumerico.test(telefonoUsuario) || telefonoUsuario.length < 7) {
-        showError("¡El teléfono debe contener solo números y tener al menos 7 dígitos!");
+        showError(
+            "¡El teléfono debe contener solo números y tener al menos 7 dígitos!"
+        );
         return;
     }
 
@@ -404,7 +495,9 @@ function handleValidationConfigUser(event) {
         return;
     }
     if (!regexDescripcion.test(condicionUsuario)) {
-        showError("¡La condición solo puede contener letras, números y signos básicos!");
+        showError(
+            "¡La condición solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
     if (!tiposImgPermitidos.test(imagenStaff.type)) {
@@ -417,7 +510,6 @@ function handleValidationConfigUser(event) {
     }
 
     event.target.submit();
-
 }
 
 /* VALIDACIONES FORMULARIO STAFF */
@@ -442,7 +534,7 @@ function handleValidationStaff(event) {
     const form = document.querySelector(".contenedorForm");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
@@ -455,14 +547,23 @@ function handleValidationStaff(event) {
         }, 3500);
     }
 
-    if (!documentoStaff || !nombreStaff || !apellidoStaff || !telefonoStaff || !correoStaff || rolStaff === "0") {
+    if (
+        !documentoStaff ||
+        !nombreStaff ||
+        !apellidoStaff ||
+        !telefonoStaff ||
+        !correoStaff ||
+        rolStaff === "0"
+    ) {
         showError("¡Todos los campos son obligatorios!");
         return;
     }
 
     if (!editStaff) {
         if (!contrasenaStaff || !imagenStaff) {
-            showError("¡La imagen y la contraseña son obligatorias al registrar!");
+            showError(
+                "¡La imagen y la contraseña son obligatorias al registrar!"
+            );
             return;
         }
     }
@@ -478,7 +579,9 @@ function handleValidationStaff(event) {
     }
 
     if (!editStaff && !regexPassword.test(contrasenaStaff)) {
-        showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+        showError(
+            "¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!"
+        );
         return;
     }
 
@@ -488,7 +591,9 @@ function handleValidationStaff(event) {
     }
 
     if (!regexNumerico.test(telefonoStaff) || telefonoStaff.length < 7) {
-        showError("¡El teléfono debe contener solo números y tener al menos 7 dígitos!");
+        showError(
+            "¡El teléfono debe contener solo números y tener al menos 7 dígitos!"
+        );
         return;
     }
 
@@ -500,17 +605,22 @@ function handleValidationStaff(event) {
     event.target.submit();
 }
 
-
 /* VALIDACIONES FORMULARIO ADMIN */
 function handleValidationAdmin(event) {
     event.preventDefault();
 
     const documentoAdmin = document.getElementById("idAdmin")?.value.trim();
     const nombreAdmin = document.getElementById("nombreAdmin")?.value.trim();
-    const apellidoAdmin = document.getElementById("apellidoAdmin")?.value.trim();
-    const telefonoAdmin = document.getElementById("telefonoAdmin")?.value.trim();
+    const apellidoAdmin = document
+        .getElementById("apellidoAdmin")
+        ?.value.trim();
+    const telefonoAdmin = document
+        .getElementById("telefonoAdmin")
+        ?.value.trim();
     const correoAdmin = document.getElementById("correoAdmin")?.value.trim();
-    const contrasenaAdmin = document.getElementById("contrasenaAdmin")?.value.trim();
+    const contrasenaAdmin = document
+        .getElementById("contrasenaAdmin")
+        ?.value.trim();
     const imagenAdmin = document.getElementById("fileInput")?.files[0];
 
     const alertContainer = document.getElementById("alertContainer");
@@ -521,16 +631,28 @@ function handleValidationAdmin(event) {
     const form = document.getElementById("form1");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
-        setTimeout(() => { alertDiv.style.opacity = "0"; }, 3000);
-        setTimeout(() => { alertDiv.remove(); }, 3500);
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
     }
 
-    if (!documentoAdmin || !nombreAdmin || !apellidoAdmin || !telefonoAdmin || !correoAdmin || !contrasenaAdmin || !imagenAdmin) {
+    if (
+        !documentoAdmin ||
+        !nombreAdmin ||
+        !apellidoAdmin ||
+        !telefonoAdmin ||
+        !correoAdmin ||
+        !contrasenaAdmin ||
+        !imagenAdmin
+    ) {
         showError("¡Todos los campos son obligatorios!");
         return;
     }
@@ -543,7 +665,9 @@ function handleValidationAdmin(event) {
         return;
     }
     if (!regexNumerico.test(telefonoAdmin)) {
-        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos!");
+        showError(
+            "¡El teléfono debe contener solo números y tener al menos 10 dígitos!"
+        );
         return;
     }
     if (!regexCorreo.test(correoAdmin)) {
@@ -555,10 +679,12 @@ function handleValidationAdmin(event) {
         return;
     }
     if (!regexPassword.test(contrasenaAdmin)) {
-        showError("¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!");
+        showError(
+            "¡La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número!"
+        );
         return;
     }
-        event.target.submit(); 
+    event.target.submit();
 }
 
 /* VALIDACIONES FORMULARIO DE EDITAR ADMIN */
@@ -567,8 +693,12 @@ function handleValidationUpdateAdmin(event) {
 
     const documentoAdmin = document.getElementById("idAdmin")?.value.trim();
     const nombreAdmin = document.getElementById("nombreAdmin")?.value.trim();
-    const apellidoAdmin = document.getElementById("apellidoAdmin")?.value.trim();
-    const telefonoAdmin = document.getElementById("telefonoAdmin")?.value.trim();
+    const apellidoAdmin = document
+        .getElementById("apellidoAdmin")
+        ?.value.trim();
+    const telefonoAdmin = document
+        .getElementById("telefonoAdmin")
+        ?.value.trim();
     const correoAdmin = document.getElementById("correoAdmin")?.value.trim();
     const imagenAdmin = document.getElementById("fileInput")?.files[0];
 
@@ -580,16 +710,26 @@ function handleValidationUpdateAdmin(event) {
     const form = document.getElementById("form1");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
-        setTimeout(() => { alertDiv.style.opacity = "0"; }, 3000);
-        setTimeout(() => { alertDiv.remove(); }, 3500);
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
     }
 
-    if (!documentoAdmin || !nombreAdmin || !apellidoAdmin || !telefonoAdmin || !correoAdmin) {
+    if (
+        !documentoAdmin ||
+        !nombreAdmin ||
+        !apellidoAdmin ||
+        !telefonoAdmin ||
+        !correoAdmin
+    ) {
         showError("¡Todos los campos son obligatorios!");
         return;
     }
@@ -602,7 +742,9 @@ function handleValidationUpdateAdmin(event) {
         return;
     }
     if (!regexNumerico.test(telefonoAdmin)) {
-        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos!");
+        showError(
+            "¡El teléfono debe contener solo números y tener al menos 10 dígitos!"
+        );
         return;
     }
     if (!regexCorreo.test(correoAdmin)) {
@@ -613,7 +755,7 @@ function handleValidationUpdateAdmin(event) {
         showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
-        event.target.submit(); 
+    event.target.submit();
 }
 
 /* VALIDACIONES FORMULARIO NEGOCIO */
@@ -621,9 +763,11 @@ function handleValidationNegocio(event) {
     event.preventDefault();
 
     const imagenPerfil = document.getElementById("inputLogo")?.files[0];
-    const imagenPortada = document.getElementById("inputImagenFondo")?.files[0];    
-    const descripcionNegocio = document.getElementById("inputDescrip")?.value.trim();
-   
+    const imagenPortada = document.getElementById("inputImagenFondo")?.files[0];
+    const descripcionNegocio = document
+        .getElementById("inputDescrip")
+        ?.value.trim();
+
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
         alertContainer.remove();
@@ -633,13 +777,17 @@ function handleValidationNegocio(event) {
     const form = document.getElementById("form2");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
-        setTimeout(() => {alertDiv.style.opacity = "0";}, 3000);
-        setTimeout(() => {lertDiv.remove();}, 3500);
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+        setTimeout(() => {
+            lertDiv.remove();
+        }, 3500);
     }
 
     if (!imagenPerfil || !imagenPortada || !descripcionNegocio) {
@@ -656,7 +804,9 @@ function handleValidationNegocio(event) {
         return;
     }
     if (!regexDescripcion.test(descripcionNegocio)) {
-        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+        showError(
+            "¡La descripción solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
     event.target.submit();
@@ -667,9 +817,11 @@ function handleValidationUpdateNegocio(event) {
     event.preventDefault();
 
     const imagenPerfil = document.getElementById("inputLogo")?.files[0];
-    const imagenPortada = document.getElementById("inputImagenFondo")?.files[0];    
-    const descripcionNegocio = document.getElementById("inputDescrip")?.value.trim();
-   
+    const imagenPortada = document.getElementById("inputImagenFondo")?.files[0];
+    const descripcionNegocio = document
+        .getElementById("inputDescrip")
+        ?.value.trim();
+
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
         alertContainer.remove();
@@ -679,13 +831,17 @@ function handleValidationUpdateNegocio(event) {
     const form = document.getElementById("form2");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
-        setTimeout(() => {alertDiv.style.opacity = "0";}, 3000);
-        setTimeout(() => {alertDiv.remove();}, 3500);
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
     }
 
     if (!descripcionNegocio) {
@@ -704,7 +860,9 @@ function handleValidationUpdateNegocio(event) {
     }
 
     if (!regexDescripcion.test(descripcionNegocio)) {
-        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+        showError(
+            "¡La descripción solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
 
@@ -715,12 +873,24 @@ function handleValidationUpdateNegocio(event) {
 function handleValidationEstablecimiento(event) {
     event.preventDefault();
 
-    const documentoEstablecimiento = document.getElementById("idEstablc")?.value.trim();
-    const nombreEstablecimiento = document.getElementById("nombreEst")?.value.trim();
-    const direccionEstablecimiento = document.getElementById("direccionEstablecimiento")?.value.trim();
-    const telefonoEstablecimiento = document.getElementById("telefonoEstablecimiento")?.value.trim();
-    const drescripcionEstablecimiento = document.getElementById("inputDescripcion")?.value.trim();
-    const correoEstablecimiento = document.getElementById("correoEstablecimiento")?.value.trim();
+    const documentoEstablecimiento = document
+        .getElementById("idEstablc")
+        ?.value.trim();
+    const nombreEstablecimiento = document
+        .getElementById("nombreEst")
+        ?.value.trim();
+    const direccionEstablecimiento = document
+        .getElementById("direccionEstablecimiento")
+        ?.value.trim();
+    const telefonoEstablecimiento = document
+        .getElementById("telefonoEstablecimiento")
+        ?.value.trim();
+    const descripcionEstablecimiento = document
+        .getElementById("inputDescripcion")
+        ?.value.trim();
+    const correoEstablecimiento = document
+        .getElementById("correoEstablecimiento")
+        ?.value.trim();
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
@@ -731,15 +901,27 @@ function handleValidationEstablecimiento(event) {
     const form = document.getElementById("form3");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
-    alertDiv.classList.add('validacion-error');
+    alertDiv.classList.add("validacion-error");
 
     function showError(message) {
         alertDiv.innerHTML = message;
         form.prepend(alertDiv);
-        setTimeout(() => { alertDiv.style.opacity = "0";}, 3000);
-        setTimeout(() => {alertDiv.remove();}, 3500);}
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
+    }
 
-    if (!documentoEstablecimiento || !nombreEstablecimiento || !direccionEstablecimiento || !telefonoEstablecimiento || !drescripcionEstablecimiento || !correoEstablecimiento ) {
+    if (
+        !documentoEstablecimiento ||
+        !nombreEstablecimiento ||
+        !direccionEstablecimiento ||
+        !telefonoEstablecimiento ||
+        !descripcionEstablecimiento ||
+        !correoEstablecimiento
+    ) {
         showError("¡Todos los campos son obligatorios!");
         return;
     }
@@ -753,20 +935,125 @@ function handleValidationEstablecimiento(event) {
         return;
     }
     if (!regexDescripcion.test(direccionEstablecimiento)) {
-        showError("¡La direccion solo puede contener letras, números y signos básicos!");
+        showError(
+            "¡La direccion solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
     if (!regexNumerico.test(telefonoEstablecimiento)) {
-        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos!");
+        showError(
+            "¡El teléfono debe contener solo números y tener al menos 10 dígitos!"
+        );
         return;
     }
-    if (!regexDescripcion.test(drescripcionEstablecimiento)) {
-        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+    if (!regexDescripcion.test(descripcionEstablecimiento)) {
+        showError(
+            "¡La descripción solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
     if (!regexCorreo.test(correoEstablecimiento)) {
         showError("¡El correo electrónico no tiene un formato válido!");
         return;
+    }
+    event.target.submit();
+}
+
+function handleValidationValoracion(event) {
+    event.preventDefault();
+
+    const calificacion = document.getElementById("calificacion")?.value.trim();
+    const comentario = document.getElementById("comentario")?.value.trim();
+
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    // CONTENEDOR MANEJO DE ERRORES
+    const form = document.getElementById("formValoracion");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add("validacion-error");
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
+    }
+
+    if (!calificacion || !comentario) {
+        showError("¡Todos los campos son obligatorios!");
+        return;
+    }
+    if (!regexValor.test(calificacion)) {
+        showError("¡La calificación debe ser un número entre 1 y 5!");
+        return;
+    }
+    if (!regexDescripcion.test(comentario)) {
+        showError(
+            "¡El comentario solo puede contener letras, números y signos básicos!"
+        );
+        return;
+    }
+    event.target.submit();
+}
+function handleValidationCita(event) {
+    event.preventDefault();
+
+    const fecha = document.getElementById("fecha")?.value;
+    const hora = document.getElementById("hora")?.value;
+    const staff = document.getElementById("staff")?.value;
+    const categoria = document.getElementById("categoria")?.value;
+    const servicio = document.getElementById("servicio")?.value;
+    const producto = document.getElementById("producto")?.value;
+    const cantidad = document.getElementById("cantidad")?.value;
+
+    const form = document.getElementById("citaForm");
+    const existingAlert = document.getElementById("alertContainer");
+    if (existingAlert) existingAlert.remove();
+
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add("validacion-error");
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
+    }
+
+    if (!fecha || !hora || !staff || !categoria || !servicio) {
+        showError(
+            "¡Debe seleccionar fecha, hora, staff, categoría y servicio!"
+        );
+        return;
+    }
+    if (producto) {
+        if (!cantidad || isNaN(cantidad) || parseInt(cantidad) <= 0) {
+            showError("¡Debe ingresar una cantidad válida para el producto!");
+            return;
+        }
+
+        const maxStock = parseInt(
+            document
+                .querySelector(`#producto option[value="${producto}"]`)
+                .getAttribute("data-stock")
+        );
+        if (parseInt(cantidad) > maxStock) {
+            showError("¡La cantidad seleccionada excede el stock disponible!");
+            return;
+        }
     }
     event.target.submit();
 }

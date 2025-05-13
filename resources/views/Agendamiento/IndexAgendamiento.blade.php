@@ -9,6 +9,7 @@
     <!-- Idioma español -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/es.global.min.js"></script>
     <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
     <title>Agendamiento</title>
     <style>
         body {
@@ -55,7 +56,7 @@
     </style>
 </head>
 <body>
-    <form action="{{ url('/usuarios/agendamiento') }}" method="post" id="citaForm">
+    <form action="{{ url('/usuarios/agendamiento') }}" method="post" id="citaForm" onsubmit="handleValidationCita(event)">
         <center><h1>Agendamiento</h1></center>
         @csrf
         <!-- Campos ocultos -->
@@ -230,5 +231,6 @@
             calendar.render();
         });
     </script>
+    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
 </body>
 </html>

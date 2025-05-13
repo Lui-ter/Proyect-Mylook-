@@ -46,23 +46,28 @@
                                 No se encontraron citas para esta fecha.
                             </td>
                         </tr>
-                        @foreach ($HistorialCitas as $historial )
-                            
-                        
-                        <tr>
-                            <td data-label="ID CITA">{{ $historial['id_cita'] }}</td>
-                            <td data-label="ID USUARIO">{{ $historial['usuario']['nombre'] }}</td>
-                            <td data-label="ID ESTABLECIMIENTO">{{ $historial['establecimiento']['nombre_establc'] }}</td>
-                            <td data-label="FECHA">{{ $historial['fecha_cita'] }}</td>
-                            <td data-label="HORA">{{ $historial['hora_cita'] }}</td>
-                            <td data-label="DURACIÓN">{{ $historial['duracion_cita'] }}</td>
-                            <td data-label="ESTADO" class="estadoRealizada">{{ $historial['estado_cita'] }}</td>
-                            <!-- Aqui puedes agregar tu logica MARLON! -->
-                            <td data-label="VALORAR" class="VALORACION"><BUtton src = "">Valorame</BUtton></td>
+                        @foreach ($HistorialCitas as $historial)
+                            <tr>
+                                <td data-label="ID CITA">{{ $historial['id_cita'] }}</td>
+                                <td data-label="ID USUARIO">{{ $historial['usuario']['nombre'] }}</td>
+                                <td data-label="ID ESTABLECIMIENTO">
+                                    {{ $historial['establecimiento']['nombre_establc'] }}</td>
+                                <td data-label="FECHA">{{ $historial['fecha_cita'] }}</td>
+                                <td data-label="HORA">{{ $historial['hora_cita'] }}</td>
+                                <td data-label="DURACIÓN">{{ $historial['duracion_cita'] }}</td>
+                                <td data-label="ESTADO" class="estadoRealizada">{{ $historial['estado_cita'] }}</td>
+                                <!-- Aqui puedes agregar tu logica MARLON! -->
+                                <td data-label="VALORAR" class="VALORACION">
+                                    <form action="{{ route('formValoracion') }}" method="GET">
+                                        <input type="hidden" name="id_cita" value="{{ $historial['id_cita'] }}">
+                                        <button type="submit">Valorame</button>
+                                    </form>
+                                </td>
 
-                        </tr>
+
+                            </tr>
                         @endforeach
-                       
+
 
                     </tbody>
                 </table>

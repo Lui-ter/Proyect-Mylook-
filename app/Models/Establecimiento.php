@@ -16,7 +16,8 @@ class Establecimiento extends Model
         'desc_establc',
         'ubicacion',
         'correo',
-        'telefono'
+        'telefono',
+        'valoracion_final'
     ];
 
     public function negocio(){

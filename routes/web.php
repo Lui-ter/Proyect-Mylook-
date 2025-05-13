@@ -96,7 +96,8 @@ Route::delete('delete-valoracion/{id}',[ValoracionesController::class,'borrarVal
 /* RUTAS GET - OBTENER */
 Route::get('/staff/edit/{id}', [StaffController::class, 'edit'])->name('editStaff');
 Route::get('/staff', [StaffController::class, 'getStaff'])->name('getStaff');
-Route::get('/form-valoracion/{id}', [ValoracionesController::class, 'showFormValoracion'])->name('formValoracion');
+Route::get('/form-valoracion', [ValoracionesController::class, 'showFormValoracion'])->name('formValoracion');
+
 /* --------------------------------------------------------------------------------------- */
 
 Route::get('/configurar-negocio', function () {
