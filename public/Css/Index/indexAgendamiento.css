@@ -1,737 +1,830 @@
-*{
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+
+* {
     padding: 0;
     margin: 0;
-    box-sizing: border-bosx;
+    box-sizing: border-box;
 }
 
-/* VARIABLES DE ENTORNO */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Variables de css*/
 :root {
-    --color-background: #624023;
     --color-primary: #a68160;
-    --color-dark: #795434;
+    --color-secondary: #f2f2f2;
     --color-white: white;
     --color-black: black;
+    font-family: "Montserrat", sans-serif;
 }
 
-body{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
+main {
+    width: 100vw;
 
-    /* SECCION PUBLICITARIA DE LOS ESTABLECIMIENTOS */ 
-    .sectionPublicidad{
+    & .agendamiento {
         height: 100vh;
+        width: 100vw;
+        padding: 1em 3em;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 15% 58% 22%;
+        grid-template-rows: 1fr 5fr;
 
-        .menuUsuario{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 35vw;
-
-            .nomApp{
-                color: var(--color-dark);
-                font-size: 3vw;
-                font-weight: bold;
-                margin-left: 2vw;
-            }
-
-            .menuNav{
-                margin-right: 2vw;
-
-                li{
-                    display: flex;
-                    gap: 2vw;
-
-                    .optionNav{
-                        height: 6vh;
-                        width: 8vw;
-                        border-radius: 5%;
-                        border: 1px solid var(--color-primary);
-                        background-color: transparent;
-                        color: var(--color-primary);
-                        font-weight: bold;
-                        font-size: 1.75vh;
-                        transition: 1s;
-                        cursor: pointer;
-
-                        &:hover{
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-
-                    .btnInicio{
-                        background-color: var(--color-dark);
-                        color: var(--color-white);
-                    }
-
-                    .imgPerfil{
-                        position: relative;
-                        border: 1px solid var(--color-primary);
-                        border-radius: 100%;
-                        height: 7vh;
-                        width: 3.5vw;
-                        margin-top: -.8vh;
-                    }
-                }
-            }
-        }
-
-        .imgEstablecimientos{
-            display: flex;
-            background-color: var(--color-black);
-
-            .imgPublicitaria{
-                position: relative;
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-                background-repeat: no-repeat;
-                opacity: .4;
-            }
-        }
-
-        .logoEstablecimientos{
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-
-            .logoEstablecimiento{
-                z-index: 1;
-                height: 180%;
-                width: 18%;
-                margin-top: -35vh;
-
-                .logo{
-                    height: 100%;
-                    width: 100%;
-                    border-radius: 100%;
-                    background-color: var(--color-white);
-                    border: 2px solid var(--color-primary);
-                    object-fit: cover;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                }
-            }
-
-            .nomEstablecimientos{
-                width: 50%;
-                height: 20%;
-                font-size: 6vh;
-                padding-top: 6vh;
-                text-align: center;
+        & .titulo-agenda {
+            display: grid;
+            gap: .5em;
+            & .titulo1 {
+                font-size: 2rem;
                 color: var(--color-black);
-            }
-        }
-    }
-
-    /* SECCION DE PRODUCTOS DE MYLOOK A COMERCIALIZAR */
-    .sectionProductos{
-        height: 110vh;
-        width: 100%;   
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 20% 80%;
-
-        .tittleProductos{
-            display: flex;
-            justify-content: left;
-            align-items: end;
-
-            .nomTittle{
-                padding-left: 5vw;
-                font-size: 1vw;
-            }
-        }
-
-        .itemProductos{
-            margin: .5% 5% 5% 5%;
-            display: flex;
-            overflow-x: auto; 
-            white-space: nowrap; 
-            scrollbar-width: none;
-            gap: 1.5vw;
-            margin-top: 3vh;
-
-            .contianerProducto{
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 65% 25% 10%;
-                border: 1px solid var(--color-background);
-                border-radius: 1%;
-                overflow: hidden;
-                flex: 0 0 auto; 
-                height: 85%; 
-                width: 21%; 
                 text-align: center;
-                
-                .productoItem{
-                    display: flex;
-                    flex: 1;
-
-                    .imgProducto{
-                        object-fit: cover;
-                        height: 100%;
-                        width: 100%;
-                    }
-                }
-
-                .infoProducto {
-                    display: grid;
-                    grid-template-columns: 1fr;
-                    grid-template-rows: auto 1fr; 
-                    gap: 5px;
-
-                    .nomProducto {
-                        color: var(--color-dark);
-                        font-weight: bold;
-                        font-size: .9vw; 
-                        padding-top: 1vh;
-                        text-align: left;
-                        padding-left: .8vw;
-                    }
-                    
-                    .txtProducto {
-                        font-size: 0.7vw; 
-                        color: var(--color-primary);
-                        width: 90%;
-                        padding-left: .8vw;
-                        overflow-wrap: break-word;
-                        word-break: break-word;
-                        white-space: normal; 
-                        text-align: justify;
-                        overflow: auto; 
-                        scrollbar-width: none; 
-                    }
-                }
-                
-                .btnRediret{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: .8vw;
-
-                    .btnSeparar{
-                        padding: 2% 10%;
-                        cursor: pointer;
-                        background-color: var(--color-dark);
-                        color: var(--color-white);
-                        border: none;
-                        border-radius: 5%;
-                        margin-top: -4vh;
-                    }
-                }
-            }
-        }
-    } 
-
-    /* SECCION RAPIDA DE RESERVA DE SERVICIOS */
-    .sectionReserva{
-        width: 100%;
-        height: 120vh;
-        background-color: var(--color-background);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-
-        .introReserva{
-            width: 70%;
-            height: 25%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            .nomReserva{
-                color: var(--color-white);
-                font-size: 1.8vw;
-                text-align: center;
-            }
-        }
-
-        .rediretReserva{
-            width: 80%;
-            height: 15%;
-            display: flex;
-            justify-content: center;
-            align-items: start;
-
-            .rediret{
-                padding: 1% 5%;
-                text-decoration: none;
-                color: var(--color-white);
-                border-radius: 2%;
-            }
-
-            .Reserva{
-                border: 1px solid var(--color-white);
-                transition: 1s;
-
-                &:hover{
-                    background-color: var(--color-white);
-                    color: var(--color-background);
-                    
-                }
-            }
-        }
-    }
-
-    /* SECCION DE CATEGORIAS DE SERVICIOS QUE OFRECE MYLOOK A SUS USUARIOS */
-    .sectionServicios {
-        height: 120vh;
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 20% 80%;
-        padding: 0;
-
-        .allServices {
-            display: flex;
-            justify-content: right;
-            align-items: end;
-
-            .nomAll {
-                padding-bottom: .5vh;
-                padding-right: 15.2vw;
                 font-weight: bold;
-                text-decoration: none;
+            }
+
+            & .texto1 {
                 color: var(--color-black);
-                font-size: 3vh;
+                margin-bottom: 1em;
             }
         }
 
-        .categoriesSevices {
-            margin: 1% 15% 25% 5%;
-            margin-top: -.01vh;
+        & .contenedor {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr;
+            gap: 3em;
 
-            .containerUnited {
-                display: flex;
-                justify-content: right;
-
-                .servicesPrincipal {
-                    background-color: var(--color-black);
-                    height: 96%;
-                    width: 75%;
-                    margin-right: .5vw;
-                    margin-top: .5vh;
-                    position: relative;
-                    overflow: hidden; /* Asegura que el texto no se salga del contenedor */
-                }
-            }
-
-            .continerRoad {
+            & .columna1 {
+                height: 100%;
+                gap: .2em;
                 display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr;
 
-                .roadServices {
-                    background-color: var(--color-black);
-                    margin: 1% 2% 2% 2%;
-                    height: 92%;
-                    position: relative;
-                    overflow: hidden; 
-                }
-            }
-        }
+                & .campos {
+                    flex: 1 1 45%;
+                    /* Ocuparán el 45% del contenedor, ajustables */
+                    min-width: 200px;
+                    /* Evita que se hagan demasiado pequeñas */
 
-        .imgService {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: 0.3s; 
-        }
-
-        .serviceName {
-            position: absolute;
-            bottom: 0%;
-            left: 0;
-            right: 0;
-            padding: 5%;
-            text-align: center;
-            font-size: 1.3vw;
-            text-align: left;
-            font-weight: bold;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.6); 
-            opacity: 0; 
-            transform: translateY(20px); 
-            transition: opacity 0.3s ease, transform 0.3s ease; 
-        }
-
-        .roadServices:hover .serviceName,
-        .servicesPrincipal:hover .serviceName {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .roadServices:hover .imgService,
-        .servicesPrincipal:hover .imgService {
-            transform: scale(1.1);
-            opacity: .5;
-        }
-    }
-
-    /* SECCION QUE MUESTRA LOS MIEMBROS DEL STAFF QUE TRABAJAN EN EL SITIO */
-    .sectionStaff {
-        height: 110vh; 
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .cardStaff {
-            height: 70%;
-            width: 85%;
-            display: flex;
-            justify-content: flex-start; 
-            align-items: center;
-            gap: 2vw; 
-            overflow-x: scroll;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch; 
-            scrollbar-width: none; 
-        }
-
-        .cardUnited {
-            background-color: var(--color-background);
-            height: 75%; 
-            width: 22%; 
-            overflow: hidden; 
-            border-radius: 1%;
-            flex-shrink: 0; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            scroll-snap-align: start; 
-
-            &:hover .imgStaff {
-                opacity: 0.7; 
-                transform: scale(1.1); 
-            }
-
-            &:hover .nameStaff {
-                opacity: 1; 
-                transform: translateY(0);
-            }
-
-            .imgStaff {
-                height: 100%; 
-                width: 100%; 
-                object-fit: cover; 
-                background-position: center;
-                background-repeat: no-repeat;
-                opacity: 1;
-                transition: opacity 0.3s ease, transform 0.3s ease; 
-            }
-
-            .nameStaff {
-                font-weight: bold;
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                padding: 10px;
-                text-align: center;
-                background-color: var(--color-primary);
-                color: white; 
-                font-size: 1vw;
-                opacity: 0; 
-                transform: translateY(100%); 
-                transition: opacity 0.3s ease, transform 0.3s ease;
-            }
-        }
-    }
-
-    /* SECCION DE COMENTARIOS Y RESEÑAS DE LOS ESTABLECIMIENTOS A SALIR */
-    .sectionComentarios {
-        height: 100vh; 
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 20% 80%;
-    
-        .optionComment {
-            margin: 2% 3% 3% 2%;
-            display: flex;
-            justify-content: left;
-            align-items: end;
-            padding-left: 7vw;
-            gap: 1%;
-    
-            .btnComment {
-                border: 1px solid var(--color-dark);
-                padding: .8% 2%;
-                border-radius: 5%;
-                background-color: transparent;
-                color: var(--color-dark);
-                transition: 1s;
-                cursor: pointer;
-    
-                &:hover {
-                    background-color: var(--color-dark);
-                    color: var(--color-white);
-                }
-            }
-    
-            .allComment {
-                background-color: var(--color-dark);
-                color: var(--color-white);
-            }
-        }
-    
-        .containerComentarios {
-            align-items: center;
-            overflow-y: scroll; 
-            scrollbar-width: none; 
-            margin-bottom: 10vh;
-    
-            .commentUnited {
-                width: 80%;
-                height: 40%;    
-                word-wrap: break-word;
-                background-color: #f9f9f9;
-                display: grid;
-                grid-template-columns: 25% 75%;
-                grid-template-rows: 1fr;      
-                margin: 0% 2% 1% 9%;
-            }
-    
-            .imgPerfil {
-                display: flex;
-                justify-content: right;
-                align-items: start;
-                height: 90%; 
-                width: 60%;
-                border-radius: 100%;
-                z-index: 2;
-                background-color: var(--color-dark);
-
-                .imgUnited{
-                  height: 100%;
-                  width: 100%;
-                  border-radius: 100%;
-                  opacity: .8;
-                  background-size: cover;
-                  background-repeat: no-repeat;
-                  background-position: center;
-                }
-            }
-    
-            .descripPerfil {
-                display: flex;
-                flex-direction: column;
-                padding-left: 1vw;
-                display: grid;
-                height: 90%;
-                grid-template-columns: 1fr;
-                grid-template-rows: 15% 60% 25%;
-                margin-left: -13vw;
-                border-radius: 1%;
-                border: 1px solid var(--color-primary);
-
-
-                .nomPerfil {
-                    padding-top: 2vh;
-                    padding-left: 6.5vw;
-                    font-size: 1.7vw;
-
-                }
-    
-                .commentPerfil {
-                    padding-left: 6.7vw;
-                    padding-top: 4.5vh;
-                    width: 86%;
-                    font-size: 1.1vw;
-
-                }
-    
-                .valComment {
-                    display: grid;
-                    grid-template-columns:  90% 10%;
-                    grid-template-rows: 1fr;
-                    padding-left: 6.5vw;
-
-                    .startVal{ 
-                        display: flex;
-                        height: 70%;
-                        gap: .5vw;
-                        margin-top: -1vh;
-
-
-                        i {
-                            padding: .5%;
-                            border-radius: 100%;
-                            background-color: var(--color-dark);
-                            color: var(--color-white);
-                        }
-                    }
-
-                    .fechVal{
-                        font-style: italic;
-                        font-size: 2vh;
-
-                        .fecha{
-                            font-size: 2vh;
-                            color: gray;
-                        }
+                    & .titulos {
+                        color: var(--color-primary);
+                        font-weight: bold;
+                        font-size: clamp(1em, 1.3vw, 3em);
                     }
                 }
-            }
-        }
-    }
 
-    /* SECCION DE FOOTER DE MYLOOK */
-    .sectionFooter{
-        background-color: var(--color-dark);
-        height: 25vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: var(--color-white);
-
-        /* CONTENEDOR QUE SEPARA LA INFORMACION DE LAS DIFERENTES SECCIONES DEL FOOTER */
-        .infoFooter{
-            display: flex;
-            flex: 1;
-            height: 80%;
-
-            /* CONTENEDOR DE INFORMACION DE TODO EL FOOTER DE MYLOOK */
-            .infoSTA{
-                margin: 0% 2% 2% 2%;
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: left;
-                align-items: start;
-                padding-left: 4vw;
-
-                /* TITULO SOBRE NOSOTROS */
-                .tittleNosotros{
-                    margin-bottom: 1vh;
-                    font-size: 4vh;
-                }
-            
-                /* DESCRIPCION DE LAS OPCIONES DEL FOOTER */
-                .descrip{
-                    font-size: .8vw;
-                    cursor: pointer;
-                    margin-bottom: .5vh;
-                }
-
-                /* REDES SOCIALES DE LOS DESARROLLADORES */
-                .socialMediaFooter{
+                & .campos-doble {
                     display: flex;
-                    gap: 3vw;  
-                    margin-top: 1.5vh; 
-                    cursor: pointer;
-                }
-            }
+                    gap: 3rem;
+                    flex-wrap: wrap;
 
-            /* CONTENEDOR MEDIO DEL FOOTER */
-            .infoMedio{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 2vh;
+                    & .campos {
+                        flex: 1 1 45%;
+                        /* Ocuparán el 45% del contenedor, ajustables */
+                        min-width: 200px;
+                        /* Evita que se hagan demasiado pequeñas */
 
-                /* ICONO DE LOS DESAROLLADORES */
-                i{
-                    font-size: 8.5vh;
-                }
-
-                /* TITULO DE LOS DESARROLLADORES DEL NOMBRE DE SU COMPAÑIA */
-                .tittleDesarrollo{
-                    font-size: 3vh;
-                }
-            }
-
-            /* CONTENEDOR TRES DEL FOOTER SOBRE LAS PRMOMOCIONES */
-            .infoTres{
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 75% 25%;
-
-            }
-            
-            /* CONTENEDOR DEL FOMULARIO DE LAS PROMOCIONES */
-            .formPromocion{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding-top: 4vh;
-
-                /* ICONO DEL CORREO */
-                i{
-                    font-size: 2.5vh;
-                    position: absolute;
-                    margin-right: 20vw;
-                }
-
-                /* CAJA DE TEXTO DEL CORREO */
-                .inputPromocion{
-                    border: none;
-                    background-color: transparent;
-                    border-bottom: 1px solid var(--color-white);
-                    height: 150%;
-                    width: 15vw;
-                    color: var(--color-white);
-                    padding-left: 2.2vw;
-                    outline: none;
-
-                    /* CONTENIDO DE LA CAJA */
-                    &::placeholder{
-                        color: var(--color-white);
-                        font-size: 1.9vh;
+                        & .titulos {
+                            color: var(--color-primary);
+                            font-weight: bold;
+                            font-size: clamp(1em, 1.3vw, 3em);
+                        }
                     }
                 }
 
-                /* BOTON PARA ENVIAR CORREO A MYLOOK */
-                .btnPromocion{
-                    background-color: transparent;
-                    border: 1px solid var(--color-white);
-                    color: var(--color-white);
-                    height: 130%;
-                    width: 4vw;
-                    border-radius: 2%;
+                & .producto-staff {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    justify-content: space-between;
+                    gap: 4em;
+
+                    & .producto {
+                        display: grid;
+                        align-items: center;
+                        flex: 1;
+                        text-align: center;
+                        gap: 0.5em;
+
+                        & .titulos {
+                            color: var(--color-primary);
+                            font-weight: bold;
+                            font-size: clamp(1em, 1.3vw, 3em);
+                        }
+
+                        & .contenedor-carta-producto {
+                            display: grid;
+                            justify-content: center;
+                            & .card-producto {
+                                border: 1.5px solid var(--color-primary);
+                                border-radius: 8px;
+                                overflow: hidden;
+                                background-color: white;
+                                height: 40vh;
+                                max-width: 20vw;
+
+                                & img {
+                                    width: 100%;
+                                    aspect-ratio: 1 / 1;
+                                    /* Mantiene la imagen cuadrada */
+                                    object-fit: cover;
+                                    /* Recorta para que siempre se vea bien */
+                                    display: block;
+                                    height: 34vh;
+                                }
+
+                                & .nombre {
+                                    font-weight: bold;
+                                    padding: 0.5em 0;
+                                    color: var(--color-black);
+                                    font-size: clamp(1em, 1.3vw, 3em);
+                                }
+                            }
+                        }
+
+                        & .botones-producto {
+                            display: flex;
+                            justify-content: center;
+                            gap: 1.5em;
+
+                            & #contador {
+                                font-size: clamp(1em, 1.3vw, 3em);
+                                font-weight: bold;
+                                min-width: 20px;
+                                text-align: center;
+                            }
+
+                            & .btn {
+                                width: 36px;
+                                height: 36px;
+                                background-color: var(--color-primary);
+                                color: white;
+                                border: none;
+                                border-radius: 50%;
+                                font-size: 22px;
+                                line-height: 36px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+
+                    & .staff {
+                        display: grid;
+                        align-items: center;
+                        flex: 1;
+                        text-align: center;
+                        gap: 0.5em;
+
+                        & .titulos {
+                            color: var(--color-primary);
+                            font-weight: bold;
+                            font-size: clamp(1em, 1.3vw, 3em);
+                        }
+
+                        & .staff-contenedor {
+                            display: grid;
+                            align-items: center;
+                            justify-content: center;
+                            position: relative;
+                            max-width: 20vw;
+
+                            & .card-staff {
+                                border: 1.5px solid var(--color-primary);
+                                border-radius: 8px;
+                                overflow: hidden;
+                                background-color: white;
+                                height: 40vh;
+                                max-width: 20vw;
+
+                                & img {
+                                    width: 100%;
+                                    aspect-ratio: 1 / 1;
+                                    /* Mantiene la imagen cuadrada */
+                                    object-fit: cover;
+                                    /* Recorta para que siempre se vea bien */
+                                    display: block;
+                                    height: 34vh;
+                                }
+
+                                & .nombre {
+                                    font-weight: bold;
+                                    padding: 0.5em 0;
+                                    color: var(--color-black);
+                                    font-size: clamp(1em, 1.3vw, 3em);
+                                }
+                            }
+                        }
+
+                        & .botones-staff {
+                            display: flex;
+                            justify-content: center;
+                            gap: 1.5em;
+
+                            & .btn {
+                                width: 36px;
+                                height: 36px;
+                                background-color: var(--color-primary);
+                                color: white;
+                                border: none;
+                                border-radius: 50%;
+                                font-size: 22px;
+                                line-height: 36px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        & .columna2 {
+            display: grid;
+            padding: 0.3em;
+            border-radius: 0.5em;
+            border: 1px solid black;
+            height: 100%;
+            gap: 2em;
+
+            & .botones {
+                display: flex;
+                justify-content: space-between;
+
+                & .guardar,
+                .cancelar {
+                    padding: 10px 15px;
+                    width: 48%;
+                    text-align: center;
+                    font-weight: 600;
+                    border-radius: 5px;
                     cursor: pointer;
-                    transition: 1s;
-                    margin-left: 1vw;
+                    text-transform: uppercase;
+                    font-size: 16px;
                 }
-            }
 
-            /* NOTA IMPORTANTE DE CORREO DE PROMOCIONES */
-            .notaForm{
-                width: 90%;
-                padding-top: 3vh;  
+                & .guardar {
+                    background-color: #a68160;
+                    color: white;
+                    border: none;
+                }
 
-                /* TEXTO DE LA NOTA */
-                .nota{
-                    font-size: .8vw;
+                & .cancelar {
+                    background-color: white;
+                    color: #a68160;
+                    border: 1px solid #a68160;
                 }
             }
         }
+    }
 
-        /* INFO UNO CONTIENE LA INFO DE TERMINOS Y CONDICIONES */
-        .infoUno{ 
-            border-right: 1px solid var(--color-white);
-        }
+    select {
+        background-color: #f2f2f2;
+        border: none;
+        width: 100%;
+        border-radius: 0.5em;
+        padding: 0.5em;
+    }
+}
+/* estilos para el calendario */
+.fc {
+    width: 100%;
+}
+.fc td,
+.fc th {
+    padding: 0 0.5em;
+    text-align: center;
+}
+/* Cambiar el color del "scrollbar" del calendario */
+.fc-theme-standard .fc-scroller::-webkit-scrollbar {
+    width: 0.4em;
+    /* ancho de la barra */
+}
 
-        /* INFORMACION QUE CONTIENE LA INFO DEL FORMULARIO DE PROMOCIONES */
-        .infoTres{
-            border-left: 1px solid var(--color-white);
+.fc-theme-standard .fc-scroller::-webkit-scrollbar-track {
+    background: var(--color-white) !important;
+    /* color del fondo de la barra */
+}
+
+.fc-theme-standard .fc-scroller::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary) !important;
+    /* color de la barra */
+    border-radius: 0.5em;
+    border: 2px solid var(--color-secondary);
+}
+
+.fc-theme-standard .fc-scroller {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) var(--color-secondary);
+    /* color de la barra y del fondo */
+}
+
+.fc .fc-toolbar {
+    align-items: center;
+}
+
+.fc .fc-toolbar-title {
+    text-align: center;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    padding: 0.5em 0.5em;
+    margin: 0 !important;
+    align-items: center;
+}
+
+.fc-timegrid-slot-label {
+    color: var(--color-black) !important;
+    font-weight: bold !important;
+}
+
+.fc-col-header-cell-cushion {
+    font-weight: bold !important;
+}
+
+th {
+    .fc-scroller-harness {
+        .fc-scroller {
+            overflow-y: hidden !important;
         }
     }
 }
 
+.fc-event {
+    background-color: var(--color-primary) !important;
+    border: 1px solid var(--color-primary) !important;
+    opacity: 1 !important;
+}
 
+.fc-event-time {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    font-weight: bold;
+}
+
+.fc-event-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.fc-event-title {
+    font-size: clamp(1em, 1vw, 2em);
+    font-weight: bold;
+}
+
+.fc-event:hover {
+    filter: brightness(1.1) !important;
+    cursor: pointer !important;
+}
+
+.fc-button {
+    background-color: var(--color-primary) !important;
+    border: 1px solid var(--color-primary) !important;
+    color: var(--color-white) !important;
+    font-weight: bold !important;
+}
+
+.fc-button-group {
+    display: flex;
+    gap: 0.2em;
+}
+
+.fc-button:hover {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-primary) !important;
+}
+
+.fc-button:disabled {
+    opacity: 1 !important;
+}
+
+.fc-event-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+
+    i {
+        font-size: 1.4em;
+        color: var(--color-white);
+    }
+}
+
+.fc-timegrid-axis-frame {
+    content: "HORA";
+    display: block !important;
+    font-weight: bold;
+    height: 100%;
+    align-items: center;
+    color: #000000;
+    text-align: center;
+}
+
+.fc-timegrid-axis-frame::before {
+    display: block !important;
+    content: "HORA";
+    height: 100%;
+    align-items: center;
+}
+
+.fc-direction-ltr .fc-timegrid-slot-label-frame {
+    text-align: center;
+}
+
+.fc .fc-col-header-cell-cushion {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 1.2;
+    white-space: pre-line;
+    justify-content: center;
+    align-items: center;
+}
+
+.fc .fc-col-header-cell-cushion abbr {
+    display: block;
+    text-decoration: none;
+}
+
+.fc-toolbar-chunk {
+    height: 100% !important;
+    display: flex;
+    align-items: center !important;
+}
+
+.evento-aceptado {
+    background-color: black !important;
+}
+
+@media (max-width: 1200px) {
+    main {
+        & .agendamiento {
+            & .contenedor {
+                & .columna1 {
+                    & .campos {
+                        flex: 1 1 45%;
+                        /* Ocuparán el 45% del contenedor, ajustables */
+                        min-width: 200px;
+                        /* Evita que se hagan demasiado pequeñas */
+                        gap: 1em;
+
+                        & .titulos {
+                            font-size: clamp(1em, 1.3vw, 3em);
+                        }
+                    }
+
+                    & .campos-doble {
+                        display: flex;
+                        gap: 2rem;
+                        flex-wrap: wrap;
+
+                        & .campos {
+                            flex: 1 1 45%;
+                            min-width: 200px;
+
+                            & .titulos {
+                                font-size: clamp(1em, 1.3vw, 3em);
+                            }
+                        }
+                    }
+
+                    & .producto-staff {
+                        & .producto {
+                            & .titulos {
+                                font-size: clamp(1em, 1.3vw, 3em);
+                            }
+
+                            & .contenedor-carta-producto {
+                                & .card-producto {
+                                    height: 40vh;
+                                    max-width: 40vh;
+
+                                    & img {
+                                        display: block;
+                                        height: 34vh;
+                                    }
+
+                                    & .nombre {
+                                        font-size: clamp(1em, 1.3vw, 3em);
+                                    }
+                                }
+                            }
+                        }
+
+                        & .staff {
+                            gap: 0.5em;
+
+                            & .titulos {
+                                font-size: clamp(1em, 1.3vw, 3em);
+                            }
+
+                            & .staff-contenedor {
+                                & .card-staff {
+                                    height: 40vh;
+                                    max-width: 40vh;
+
+                                    & img {
+                                        height: 34vh;
+                                    }
+
+                                    & .nombre {
+                                        font-size: clamp(1em, 1.3vw, 3em);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1020px) {
+    main {
+        width: 100vw;
+
+        & .agendamiento {
+            height: 100vh;
+            width: 100vw;
+            padding: 1em;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 4fr;
+            gap: 1.5em;
+
+            & .titulo-agenda {
+                & .titulo1 {
+                    font-size: 2rem;
+                    color: var(--color-black);
+                    text-align: center;
+                    font-weight: bold;
+                    gap: 1em;
+                    margin-bottom: 0.2em;
+                }
+
+                & .texto1 {
+                    color: var(--color-black);
+                }
+            }
+
+            & .contenedor {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr;
+                gap: 3em;
+
+                & .columna1 {
+                    height: 100%;
+                    gap: 1em;
+                    display: grid;
+
+                    & .campos {
+                        flex: 1 1 45%;
+                        /* Ocuparán el 45% del contenedor, ajustables */
+                        min-width: 200px;
+                        /* Evita que se hagan demasiado pequeñas */
+                        gap: 1em;
+
+                        & .titulos {
+                            color: var(--color-primary);
+                            font-weight: bold;
+                            font-size: clamp(1em, 1.3vw, 3em);
+                        }
+                    }
+
+                    & .campos-doble {
+                        display: flex;
+                        gap: 2rem;
+                        flex-wrap: wrap;
+
+                        & .campos {
+                            flex: 1 1 45%;
+                            /* Ocuparán el 45% del contenedor, ajustables */
+                            min-width: 200px;
+                            /* Evita que se hagan demasiado pequeñas */
+
+                            & .titulos {
+                                color: var(--color-primary);
+                                font-weight: bold;
+                                font-size: clamp(1em, 1.3vw, 3em);
+                            }
+                        }
+                    }
+
+                    & .producto-staff {
+                        margin-top: 1.5em;
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        justify-content: space-between;
+                        gap: 2em;
+
+                        & .producto {
+                            display: grid;
+                            align-items: center;
+                            flex: 1;
+                            text-align: center;
+                            gap: 0.5em;
+
+                            & .titulos {
+                                color: var(--color-primary);
+                                font-weight: bold;
+                                font-size: clamp(1em, 1.3vw, 3em);
+                            }
+
+                            & .contenedor-carta-producto {
+                                display: grid;
+                                justify-content: center;
+
+                                & .card-producto {
+                                    border: 1.5px solid var(--color-primary);
+                                    border-radius: 8px;
+                                    overflow: hidden;
+                                    background-color: white;
+                                    height: 40vh;
+                                    max-width: 40vh;
+
+                                    & img {
+                                        width: 100%;
+                                        aspect-ratio: 1 / 1;
+                                        /* Mantiene la imagen cuadrada */
+                                        object-fit: cover;
+                                        /* Recorta para que siempre se vea bien */
+                                        display: block;
+                                        height: 34vh;
+                                    }
+
+                                    & .nombre {
+                                        font-weight: bold;
+                                        padding: 0.5em 0;
+                                        color: var(--color-black);
+                                        font-size: clamp(1em, 1.3vw, 3em);
+                                    }
+                                }
+                            }
+
+                            & .botones-producto {
+                                display: flex;
+                                justify-content: center;
+                                gap: 1.5em;
+
+                                & .btn {
+                                    width: 36px;
+                                    height: 36px;
+                                    background-color: var(--color-primary);
+                                    color: white;
+                                    border: none;
+                                    border-radius: 50%;
+                                    font-size: 22px;
+                                    line-height: 36px;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+
+                        & .staff {
+                            display: grid;
+                            align-items: center;
+                            flex: 1;
+                            text-align: center;
+                            gap: 0.5em;
+
+                            & .titulos {
+                                color: var(--color-primary);
+                                font-weight: bold;
+                                font-size: clamp(1em, 1.3vw, 3em);
+                            }
+
+                            & .staff-contenedor {
+                                display: grid;
+                                align-items: center;
+                                justify-content: center;
+                                position: relative;
+                                max-width: 100%;
+
+                                & .card-staff {
+                                    border: 1.5px solid var(--color-primary);
+                                    border-radius: 8px;
+                                    overflow: hidden;
+                                    background-color: white;
+                                    height: 40vh;
+                                    max-width: 40vh;
+
+                                    & img {
+                                        width: 100%;
+                                        aspect-ratio: 1 / 1;
+                                        /* Mantiene la imagen cuadrada */
+                                        object-fit: cover;
+                                        /* Recorta para que siempre se vea bien */
+                                        display: block;
+                                        height: 34vh;
+                                    }
+
+                                    & .nombre {
+                                        font-weight: bold;
+                                        padding: 0.5em 0;
+                                        color: var(--color-black);
+                                        font-size: clamp(1em, 1.3vw, 3em);
+                                    }
+                                }
+                            }
+
+                            & .botones-staff {
+                                display: flex;
+                                justify-content: center;
+                                gap: 1.5em;
+
+                                & .btn {
+                                    width: 36px;
+                                    height: 36px;
+                                    background-color: var(--color-primary);
+                                    color: white;
+                                    border: none;
+                                    border-radius: 50%;
+                                    font-size: 22px;
+                                    line-height: 36px;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .columna2 {
+                & .botones {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                & .guardar,
+                .cancelar {
+                    padding: 10px 15px;
+                    width: 48%;
+                    text-align: center;
+                    font-weight: 600;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    font-size: 16px;
+                }
+
+                & .guardar {
+                    background-color: #a68160;
+                    color: white;
+                    border: none;
+                }
+
+                & .cancelar {
+                    background-color: white;
+                    color: #a68160;
+                    border: 1px solid #a68160;
+                }
+            }
+        }
+
+        select {
+            background-color: #f2f2f2;
+            border: none;
+            width: 100%;
+            border-radius: 0.5em;
+            padding: 0.5em;
+        }
+    }
+}
+
+@media (max-width: 481px) {
+    main {
+        & .agendamiento {
+            & .contenedor {
+                & .columna1 {
+                    & .producto-staff {
+                        margin-top: 1.5em;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 450px) {
+    .fc .fc-col-header-cell-cushion {
+        font-size: 0.6em;
+    }
+
+    .fc .fc-toolbar-title {
+        font-size: 0.9em !important;
+        padding: 0.2em;
+    }
+
+    .fc-timegrid-axis-frame {
+        font-size: 0.9em;
+    }
+
+    .fc .fc-timegrid-axis-cushion,
+    .fc .fc-timegrid-slot-label-cushion {
+        font-size: 0.9em;
+    }
+}
+@media (max-width: 600px) {
+    .fc .fc-toolbar-title {
+        font-size: 1.1em !important;
+    }
+}
