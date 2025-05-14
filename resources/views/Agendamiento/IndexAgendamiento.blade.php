@@ -64,8 +64,7 @@
                             <div class="contenedor-carta-producto">
                                 <div class="card-producto">
                                     <figure>
-                                        <img
-                                            src="https://olimpica.vtexassets.com/arquivos/ids/617819/7702006298902.jpg?v=637626525186370000"
+                                        <img src="https://olimpica.vtexassets.com/arquivos/ids/617819/7702006298902.jpg?v=637626525186370000"
                                             alt="Producto" />
                                         <p class="nombre">Crema dayli</p>
                                     </figure>
@@ -106,10 +105,10 @@
                         <button type="submit" class="guardar">GUARDAR</button>
                     </div>
                 </div>
-                @if(count($staffs) > 0)
-                <input type="hidden" name="idStaff" id="staff-id" value="{{ $staffs[0]['id_staff'] }}">
+                @if (count($staffs) > 0)
+                    <input type="hidden" name="idStaff" id="staff-id" value="{{ $staffs[0]['id_staff'] }}">
                 @else
-                <p>No hay staff disponible en este momento.</p>
+                    <p>No hay staff disponible en este momento.</p>
                 @endif
     </main>
 
@@ -176,9 +175,7 @@
                         html: '<div class="fc-event-title">' + info.event.title + '</div>'
                     };
                 },
-                events: {
-                    !!json_encode($arreglo) !!
-                },
+                events: {!! json_encode($arreglo) !!},
                 selectable: true,
 
                 dateClick: function(info) {
@@ -193,11 +190,13 @@
                     });
 
                     // Actualizar los valores de los campos ocultos
-                    document.getElementById('fecha').value = fechaSeleccionada.toISOString().split('T')[0]; // Sólo la fecha (YYYY-MM-DD)
+                    document.getElementById('fecha').value = fechaSeleccionada.toISOString().split('T')[
+                        0]; // Sólo la fecha (YYYY-MM-DD)
                     document.getElementById('hora').value = horaSeleccionada; // Sólo la hora (HH:mm)
 
                     // Mostrar la fecha seleccionada al usuario
-                    selectedDateEl.textContent = "Fecha seleccionada: " + fechaSeleccionada.toLocaleDateString() + " Hora: " + horaSeleccionada;
+                    selectedDateEl.textContent = "Fecha seleccionada: " + fechaSeleccionada
+                        .toLocaleDateString() + " Hora: " + horaSeleccionada;
                 }
             });
             calendar.render();
