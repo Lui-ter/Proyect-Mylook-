@@ -199,18 +199,46 @@ class UsuariosController extends Controller
             // Variables que se necesita para luego crear una cita
             $idEstablecimiento = $request->input('id_establecimiento');
             $idUsuario = Auth::guard('usuario')->user()->id_usuario;
-            $productos = Producto::where('id_establc', $idEstablecimiento)->get()->toArray();
-            $staffs = Staff::where('id_establc', $idEstablecimiento)
-                ->where('estado', 'disponible')
-                ->where('id_rol', '!=', 1)
-                ->with('usuario', 'rol')
-                ->get();
+            $productos = Producto::where('id_establc', $idEstablecimiento)
+            ->select('id_prod', 'nombre_prod', 'stock', 'img_prod')
+            ->get()
+            ->map(function ($producto) {
+                if (!empty($producto->img_prod)) {
+                    $producto->img_prod = 'data:image/jpeg;base64,' . base64_encode($producto->img_prod);
+                } else {
+                    $producto->img_prod = 'https://via.placeholder.com/150'; // Imagen por defecto si no existe
+                }
+                return $producto;
+            })
+            ->toArray();
+           $staffs = Staff::where('id_establc', $idEstablecimiento)
+            ->where('estado', 'disponible')
+            ->where('id_rol', '!=', 1)
+            ->with('usuario') // Cargar relación con el modelo Usuario
+            ->get()
+            ->map(function ($staff) {
+                if (!empty($staff->usuario->img_usuario)) {
+                    $staff->imagen = 'data:image/jpeg;base64,' . base64_encode($staff->usuario->img_usuario);
+                } else {
+                    $staff->imagen = 'https://via.placeholder.com/150'; // Imagen por defecto si no existe
+                }
+                return [
+                    'id_staff' => $staff->id_staff,
+                    'nombre' => $staff->usuario->nombre, // Tomar el nombre del usuario
+                    'imagen' => $staff->imagen
+                ];
+            })
+            ->toArray();
+
+
             $categorias = Categoria::where('id_establc', $idEstablecimiento)->get()->toArray();
             $servicios = Servicio::all();
             // arreglo para fullCalendar
 
 
-            $citas = Cita::where('id_establc', $idEstablecimiento)->get();
+            $citas = Cita::where('id_establc', $idEstablecimiento)
+            ->whereIn('estado_cita',['aceptado','pendiente'])
+            ->get();
             $arreglo = []; // Inicializar el arreglo vacío antes de recorrerlo
 
             foreach ($citas as $cita) {
@@ -248,7 +276,8 @@ class UsuariosController extends Controller
             $duracion = Servicio::where('id_servicio', $idServicio)->pluck('duracion_serv')->first();
             //Opcional Producto y cantidad
             $idProducto = $request->input('idProducto');
-            $cantidadProducto = $request->input('cantidad_producto');
+            $cantidadProducto = $request->input('cantidadProducto');
+            
 
             if (
                 isset($idEstablecimiento) && isset($idUsuario) && isset($estado)
@@ -449,8 +478,8 @@ class UsuariosController extends Controller
         $usuario->telefono = $request->input('telefonoUsuario');
         $usuario->condicion = $request->input('condicionUsuario');
 
-        if ($request->hasFile('fileInput') && $request->file('fileInput')->isValid()) {
-            $usuario->img_usuario = file_get_contents($request->file('fileInput')->getRealPath());
+        if ($request->hasFile('imagenPerfil') && $request->file('imagenPerfil')->isValid()) {
+            $usuario->img_usuario = file_get_contents($request->file('imagenPerfil')->getRealPath());
         }
 
         $usuario->save();

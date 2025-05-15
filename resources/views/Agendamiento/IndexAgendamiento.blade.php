@@ -16,7 +16,16 @@
 
 <body>
     <main>
-        <form action="" method="post" class="agendamiento">
+        <form action="{{ url('/usuarios/agendamiento') }}" method="post" class="agendamiento">
+            @csrf
+            <!-- Campos ocultos para la creación de la cita -->
+            <input type="hidden" name="id_usuario" value="{{ $idUsuario }}">
+            <input type="hidden" name="id_establecimiento" value="{{ $idEstablecimiento }}">
+            <input type="hidden" name="estado" value="pendiente">
+            <input type="hidden" name="fecha" id="fecha">
+            <input type="hidden" name="hora" id="hora">
+            <input type="hidden" name="idStaff" id="idStaff">
+            
             <article class="titulo-agenda">
                 <h1 class="titulo1">AGENDAR CITA</h1>
                 <p class="texto1">
@@ -28,31 +37,39 @@
                 <div class="columna1">
                     <div class="campos">
                         <p class="titulos">Seleccionar categoría:</p>
-                        <select name="idcategoria" id="categoria">
-                            <option value=""> </option>
-                            <option value="">Maquillaje</option>
-                            <option value="">Barbería</option>
-                            <option value="">Uñas</option>
-                            <option value="">Peluquería</option>
+                        <select name="idCategoria" id="categoria">
+                            @foreach ($categorias as $categoria)
+                                <option selected disabled hidden></option>
+                                <option value="{{ $categoria['id_categoria'] }}">{{ $categoria['nom_categoria'] }}</option>
+                            @endforeach
                         </select>
                     </div>
 
                     <div class="campos-doble">
                         <div class="campos">
                             <p class="titulos">Seleccionar productos:</p>
-                            <select name="idproducto" id="producto">
-                                <option value=""> </option>
-                                <option value="">Crema Dayli</option>
-                                <option value="">Cera para cejas</option>
+                            <select name="idProducto" id="producto">
+                            <option selected disabled hidden>Selecciona un producto</option>
+                                @foreach ($productos as $producto)
+                                    <option value="{{ $producto['id_prod'] }}" 
+                                            data-stock="{{ $producto['stock'] }}" 
+                                            data-img="{{ $producto['img_prod'] }}">
+                                        {{ $producto['nombre_prod'] }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="campos">
                             <p class="titulos">Seleccionar servicio:</p>
-                            <select name="idservicio" id="servicio">
-                                <option value=""> </option>
-                                <option value="">Corte de barba</option>
-                                <option value="">Corte de pelo</option>
+                            <select name="idServicio" id="servicio">
+                                <option selected disabled hidden>No has seleccionado una categoria</option>
+                                @foreach ($servicios as $servicio)
+                                    <option data-categoria="{{ $servicio['id_categoria'] }}" value="{{ $servicio['id_servicio'] }}">
+                                    {{ $servicio['nombre'] }}
+                                    </option>
+                                @endforeach
+                                
                             </select>
                         </div>
                     </div>
@@ -60,22 +77,25 @@
                     <div class="producto-staff">
                         <!-- Producto seleccionado -->
                         <div class="producto">
-                            <p class="titulos">PRODUCTO SELECCIONADO</p>
-                            <div class="contenedor-carta-producto">
-                                <div class="card-producto">
-                                    <figure>
-                                        <img src="https://olimpica.vtexassets.com/arquivos/ids/617819/7702006298902.jpg?v=637626525186370000"
-                                            alt="Producto" />
-                                        <p class="nombre">Crema dayli</p>
-                                    </figure>
-                                </div>
+                        <p class="titulos">PRODUCTO SELECCIONADO</p>
+                        <div class="contenedor-carta-producto">
+                            <div class="card-producto">
+                                <figure>
+                                    <img id="producto-img" src="" />
+                                    <p class="nombre" id="producto-nombre"></p>
+                                </figure>
                             </div>
-                            <div class="botones-producto">
-                                <button class="btn" type="button" id="btn-menos">−</button>
-                                <span id="contador">0</span>
-                                <button class="btn" type="button" id="btn-mas">+</button>
-                            </div>
+                            <input type="hidden" id="idProductoSeleccionado" name="idProducto">
                         </div>
+                        <div class="botones-producto">
+                            <button class="btn" type="button" id="btn-menos">−</button>
+                            <span id="contador">0</span>
+                            <button class="btn" type="button" id="btn-mas">+</button>
+                            <input type="hidden" name="cantidadProducto" id="cantidadProducto">
+                        </div>
+                    </div>
+
+
 
                         <!-- Staff disponible -->
                         <div class="staff">
@@ -100,6 +120,8 @@
                 <!--Calendario-->
                 <div class="columna2">
                     <div id="calendar"></div>
+                    <!-- Actualizar el diseño de este nombre-->
+                    <p class="selected-date" id="selected-date">Ninguna fecha seleccionada</p>
                     <div class="botones">
                         <button type="reset" class="cancelar">CANCELAR</button>
                         <button type="submit" class="guardar">GUARDAR</button>
@@ -110,99 +132,131 @@
                 @else
                     <p>No hay staff disponible en este momento.</p>
                 @endif
+        </form>
     </main>
-
+  
+</body>
+    <!-- JS para detectar que categoria selecciono y cargarle sus servicios -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var selectedDateEl = document.getElementById('selected-date');
+        
+        document.getElementById('categoria').addEventListener('change', function () {
+            const categoriaId = this.value; // ID de categoría seleccionada
+            const servicioSelect = document.getElementById('servicio'); // Seleccionar el <select> de servicios
 
-            var today = new Date(); // Obtener la fecha actual
-            today.setHours(0, 0, 0, 0); // Ajustar la hora para evitar errores de comparación
+            servicioSelect.innerHTML = '<option value="">Seleccione un servicio</option>'; // Reinicia el select
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                locale: 'es', // Idioma español
-                allDayText: 'Tiempo', // Texto para eventos de todo el día
-                allDaySlot: false, // Ocultar slot de todo el día
+            // Verifica y filtra los servicios
+            const servicios = @json($servicios); // Servicios enviados desde Laravel
+            console.log('Servicios cargados:', servicios); // Depura en consola los servicios
 
-                initialView: 'timeGridWeek', // Vista inicial
-                headerToolbar: {
-                    start: 'today', // Botón de hoy a la izquierda
-                    center: 'title', // Título en el centro
-                    end: 'prev,next' // Botones de navegación a la derecha
-                },
-                // Formato del título (mes, día y año)
-                titleFormat: {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                },
-                buttonText: {
-                    today: 'Hoy', // Botón "Hoy"
-                    day: 'Día', // Botón "Día"
-                    week: 'Semana' // Botón "Semana"
-                },
-                dayHeaderFormat: {
-                    weekday: 'long',
-                    day: 'numeric'
-                },
-                slotLabelFormat: {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true
-                },
-                eventTimeFormat: {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true
-                }, // Formato de los encabezados de los días
-                dayHeaderFormat: {
-                    weekday: 'short', // Nombre corto del día (Lun, Mar, etc.)
-                    day: 'numeric'
-                },
-                // Texto personalizado para el botón de "hoy"
-                buttonText: {
-                    today: 'HOY'
-                },
-
-                validRange: {
-                    start: today // No permitir selección de días anteriores
-                },
-
-
-                eventContent: function(info) {
-                    return {
-                        html: '<div class="fc-event-title">' + info.event.title + '</div>'
-                    };
-                },
-                events: {!! json_encode($arreglo) !!},
-                selectable: true,
-
-                dateClick: function(info) {
-                    // Convertir la fecha seleccionada en un objeto de JavaScript
-                    const fechaSeleccionada = new Date(info.date);
-
-                    // Extraer la hora de la fecha seleccionada
-                    const horaSeleccionada = fechaSeleccionada.toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: false
-                    });
-
-                    // Actualizar los valores de los campos ocultos
-                    document.getElementById('fecha').value = fechaSeleccionada.toISOString().split('T')[
-                        0]; // Sólo la fecha (YYYY-MM-DD)
-                    document.getElementById('hora').value = horaSeleccionada; // Sólo la hora (HH:mm)
-
-                    // Mostrar la fecha seleccionada al usuario
-                    selectedDateEl.textContent = "Fecha seleccionada: " + fechaSeleccionada
-                        .toLocaleDateString() + " Hora: " + horaSeleccionada;
+            servicios.forEach(servicio => {
+                if (servicio.id_categoria == categoriaId) { // Filtrar por categoría seleccionada
+                    const option = document.createElement('option');
+                    option.value = servicio.id_servicio; // ID del servicio
+                    option.textContent = servicio.nombre_servicio; // Nombre del servicio
+                    servicioSelect.appendChild(option); // Agregar opción al <select>
                 }
-            });
-            calendar.render();
+        });
+
+            if (!servicioSelect.children.length) {
+                console.log('No hay servicios disponibles para esta categoría');
+            }
         });
     </script>
-    <script src="{{ asset('Js/index/indexAgendamiento.js') }}"></script>
-</body>
+    <!-- js para que reconozca las variables del staff -->
+    <script type="application/json" id="staff-data">
+    {!! json_encode($staffs) !!}
+    </script>
+    <!-- Scrip para el calendario -->
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var selectedDateEl = document.getElementById('selected-date');
 
+                var today = new Date(); // Obtener la fecha actual
+                today.setHours(0, 0, 0, 0); // Ajustar la hora para evitar errores de comparación
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    locale: 'es', // Idioma español
+                    allDayText: 'Tiempo', // Texto para eventos de todo el día
+                    allDaySlot: false, // Ocultar slot de todo el día
+
+                    initialView: 'timeGridWeek', // Vista inicial
+                    headerToolbar: {
+                        start: 'today', // Botón de hoy a la izquierda
+                        center: 'title', // Título en el centro
+                        end: 'prev,next' // Botones de navegación a la derecha
+                    },
+                    // Formato del título (mes, día y año)
+                    titleFormat: {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    },
+                    buttonText: {
+                        today: 'Hoy', // Botón "Hoy"
+                        day: 'Día', // Botón "Día"
+                        week: 'Semana' // Botón "Semana"
+                    },
+                    dayHeaderFormat: {
+                        weekday: 'long',
+                        day: 'numeric'
+                    },
+                    slotLabelFormat: {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                    },
+                    eventTimeFormat: {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                    }, // Formato de los encabezados de los días
+                    dayHeaderFormat: {
+                        weekday: 'short', // Nombre corto del día (Lun, Mar, etc.)
+                        day: 'numeric'
+                    },
+                    // Texto personalizado para el botón de "hoy"
+                    buttonText: {
+                        today: 'HOY'
+                    },
+
+                    validRange: {
+                        start: today // No permitir selección de días anteriores
+                    },
+
+
+                    eventContent: function(info) {
+                        return {
+                            html: '<div class="fc-event-title">' + info.event.title + '</div>'
+                        };
+                    },
+                    events: {!! json_encode($arreglo) !!},
+                    selectable: true,
+
+                    dateClick: function(info) {
+                        // Convertir la fecha seleccionada en un objeto de JavaScript
+                        const fechaSeleccionada = new Date(info.date);
+
+                        // Extraer la hora de la fecha seleccionada
+                        const horaSeleccionada = fechaSeleccionada.toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        });
+
+                        // Actualizar los valores de los campos ocultos
+                        document.getElementById('fecha').value = fechaSeleccionada.toISOString().split('T')[
+                            0]; // Sólo la fecha (YYYY-MM-DD)
+                        document.getElementById('hora').value = horaSeleccionada; // Sólo la hora (HH:mm)
+
+                        // Mostrar la fecha seleccionada al usuario
+                        selectedDateEl.textContent = "Fecha seleccionada: " + fechaSeleccionada
+                            .toLocaleDateString() + " Hora: " + horaSeleccionada;
+                    }
+                });
+                calendar.render();
+            });
+    </script>
+    <script src="{{ asset('Js/index/indexAgendamiento.js') }}"></script>
 </html>
