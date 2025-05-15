@@ -1008,11 +1008,14 @@ function handleValidationCita(event) {
 
     const fecha = document.getElementById("fecha")?.value;
     const hora = document.getElementById("hora")?.value;
-    const staff = document.getElementById("staff")?.value;
+    const staff = document.getElementById("idStaff")?.value;
     const categoria = document.getElementById("categoria")?.value;
     const servicio = document.getElementById("servicio")?.value;
-    const producto = document.getElementById("producto")?.value;
-    const cantidad = document.getElementById("cantidad")?.value;
+    const cantidad = document.getElementById("cantidadProducto")?.value;
+
+    const productoSelect = document.getElementById("producto");
+    const productoSeleccionado = productoSelect.options[productoSelect.selectedIndex];
+    const productoValido = productoSeleccionado && !productoSeleccionado.disabled;
 
     const form = document.getElementById("citaForm");
     const existingAlert = document.getElementById("alertContainer");
@@ -1034,26 +1037,22 @@ function handleValidationCita(event) {
     }
 
     if (!fecha || !hora || !staff || !categoria || !servicio) {
-        showError(
-            "¡Debe seleccionar fecha, hora, staff, categoría y servicio!"
-        );
+        showError("¡Debe seleccionar fecha, hora, staff, categoría y servicio!");
         return;
     }
-    if (producto) {
+
+    if (productoValido) {
         if (!cantidad || isNaN(cantidad) || parseInt(cantidad) <= 0) {
             showError("¡Debe ingresar una cantidad válida para el producto!");
             return;
         }
 
-        const maxStock = parseInt(
-            document
-                .querySelector(`#producto option[value="${producto}"]`)
-                .getAttribute("data-stock")
-        );
+        const maxStock = parseInt(productoSeleccionado.getAttribute("data-stock"));
         if (parseInt(cantidad) > maxStock) {
             showError("¡La cantidad seleccionada excede el stock disponible!");
             return;
         }
     }
+
     event.target.submit();
 }

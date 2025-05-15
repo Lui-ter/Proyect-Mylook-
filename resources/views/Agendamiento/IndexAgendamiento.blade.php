@@ -10,13 +10,15 @@
     <!-- Idioma español -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/es.global.min.js"></script>
     <link rel="stylesheet" href="{{ asset('Css/Index/indexAgendamiento.css') }}">
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
+
 
     <title>Agendamiento</title>
 </head>
 
 <body>
     <main>
-        <form action="{{ url('/usuarios/agendamiento') }}" method="post" class="agendamiento">
+        <form action="{{ url('/usuarios/agendamiento') }}" method="post" id="citaForm" onsubmit="handleValidationCita(event)" class="agendamiento">
             @csrf
             <!-- Campos ocultos para la creación de la cita -->
             <input type="hidden" name="id_usuario" value="{{ $idUsuario }}">
@@ -24,7 +26,6 @@
             <input type="hidden" name="estado" value="pendiente">
             <input type="hidden" name="fecha" id="fecha">
             <input type="hidden" name="hora" id="hora">
-            <input type="hidden" name="idStaff" id="idStaff">
             
             <article class="titulo-agenda">
                 <h1 class="titulo1">AGENDAR CITA</h1>
@@ -103,9 +104,8 @@
                             <div class="staff-contenedor">
                                 <div class="card-staff">
                                     <img id="staff-img"
-                                        src="https://img.freepik.com/foto-gratis/estilo-vida-emociones-gente-concepto-casual-confiado-agradable-sonriente-mujer-asiatica-brazos-cruzados-pecho-seguro-listo-ayudar-escuchando-companeros-trabajo-participando-conversacion_1258-59335.jpg?semt=ais_hybrid&w=740"
                                         alt="Staff" />
-                                    <p class="nombre" id="staff-nombre">Román</p>
+                                    <p class="nombre" id="staff-nombre"></p>
                                 </div>
                             </div>
 
@@ -127,11 +127,8 @@
                         <button type="submit" class="guardar">GUARDAR</button>
                     </div>
                 </div>
-                @if (count($staffs) > 0)
-                    <input type="hidden" name="idStaff" id="staff-id" value="{{ $staffs[0]['id_staff'] }}">
-                @else
-                    <p>No hay staff disponible en este momento.</p>
-                @endif
+                <input type="hidden" name="idStaff" id="idStaff" value="{{ $staffs[0]['id_staff'] ?? '' }}">
+
         </form>
     </main>
   
@@ -258,5 +255,6 @@
                 calendar.render();
             });
     </script>
+    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
     <script src="{{ asset('Js/index/indexAgendamiento.js') }}"></script>
 </html>
