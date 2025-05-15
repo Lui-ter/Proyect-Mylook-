@@ -1,198 +1,246 @@
-/* LOGICA MOBILE */
-
-// Obtener referencias a los elementos
-const startSesionBtn = document.querySelector('.startSesionBtn');
-const registerSesionBtn = document.querySelector('.registerSesionBtn a');
-const iniciarLogin = document.querySelector('.iniciarLogin');
-const registerSesion = document.querySelector('.registerSesion');
-const iniciarSesion = document.querySelector('.iniciarSesion');
-
-// Botones de tipo de usuario
-const formRegisterUsuario = document.getElementById('formRegisterUsuario');
-const formRegisterEstablecimiento = document.getElementById('formRegisterEstablecimiento');
-const formStartUsuario = document.getElementById('formStartUsuario');
-const formStartEsatblecimiento = document.getElementById('formStartEsatblecimiento');
-
-// Formularios
-const registerUsuarioForm = document.querySelector('.registerUsuario');
-const registerEstablecimientoForm = document.querySelector('.registerEstablecimiento');
-const startUsuarioForm = document.querySelector('.StartUsuario');
-const startEstablecimientoForm = document.querySelector('.StartEstablecimiento');
-
-// Función para mostrar el formulario de inicio de sesión
-startSesionBtn.addEventListener('click', () => {
-    iniciarLogin.classList.add('slide-up');
-    iniciarSesion.classList.add('slide-up');
-    registerSesion.classList.remove('slide-up');
-});
-
-// Función para mostrar el formulario de registro
-registerSesionBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    iniciarLogin.classList.add('slide-up');
-    registerSesion.classList.add('slide-up');
-    iniciarSesion.classList.remove('slide-up');
-});
-
-// Toggle formularios de registro
-formRegisterUsuario.addEventListener('click', () => {
-    registerUsuarioForm.style.display = 'flex';
-    registerEstablecimientoForm.style.display = 'none';
-    formRegisterUsuario.style.borderBottom = '2px solid var(--color-primary)';
-    formRegisterEstablecimiento.style.borderBottom = '1px solid var(--color-primary)';
-});
-
-formRegisterEstablecimiento.addEventListener('click', () => {
-    registerUsuarioForm.style.display = 'none';
-    registerEstablecimientoForm.style.display = 'flex';
-    formRegisterEstablecimiento.style.borderBottom = '2px solid var(--color-primary)';
-    formRegisterUsuario.style.borderBottom = '1px solid var(--color-primary)';
-});
-
-// Toggle formularios de inicio de sesión
-formStartUsuario.addEventListener('click', () => {
-    startUsuarioForm.style.display = 'flex';
-    startEstablecimientoForm.style.display = 'none';
-    formStartUsuario.style.borderBottom = '2px solid var(--color-primary)';
-    formStartEsatblecimiento.style.borderBottom = '1px solid var(--color-primary)';
-});
-
-formStartEsatblecimiento.addEventListener('click', () => {
-    startUsuarioForm.style.display = 'none';
-    startEstablecimientoForm.style.display = 'flex';
-    formStartEsatblecimiento.style.borderBottom = '2px solid var(--color-primary)';
-    formStartUsuario.style.borderBottom = '1px solid var(--color-primary)';
-});
-
-
-/* LOGICA DE PC PARA LOS LOGIN */
 const botonRegistro = document.getElementById('botonRegistro');
 const botonInicioSesion = document.getElementById('botonInicioSesion');
 const contenedor = document.getElementById('contenedor');
 const botonesTipoUsuario = document.querySelectorAll('.boton-tipo-usuario');
-const input1 = document.getElementById('1');
-const input2 = document.getElementById('2');
-const input3 = document.getElementById('3');
-const input4 = document.getElementById('4');
-const input5 = document.getElementById('5');
-const input7 = document.getElementById('7');
-const elementos = document.querySelectorAll('.tipo_usuario');
+const elementosTipoUsuario = document.querySelectorAll('.tipo_usuario');
+let modoRegistroActivo = false;
 
-// Mostrar el formulario de registro
-botonRegistro.addEventListener('click', () => {
-    contenedor.classList.add("panel-derecho-activo");
-});
-
-// Mostrar el formulario de inicio de sesión
-botonInicioSesion.addEventListener('click', () => {
-    contenedor.classList.remove("panel-derecho-activo");
-});
-
-// Manejar el cambio de tipo de usuario (Estudiante/Profesor)
-botonesTipoUsuario.forEach(boton => {
-    boton.addEventListener('click', () => {
-        const formulario = boton.closest('form');
-        const botones = formulario.querySelectorAll('.boton-tipo-usuario');
-        const tipo = boton.dataset.tipo;
-
-        // Cambiar la visualización de los campos según el rol seleccionado
-        botones.forEach(btn => btn.classList.remove('activo'));
-        boton.classList.add('activo');
-
-        if (tipo === '1') {
-            formulario.querySelector('.campos-estudiante').style.display = 'block';
-            formulario.querySelector('.campos-profesor').style.display = 'none';
-       
-            
-        
-            elementos.forEach((elemento) => {
-                elemento.value = tipo; // Asigna el valor a cada elemento
-            });
-            console.log(tipo);
-            
-        } else {
-            formulario.querySelector('.campos-estudiante').style.display = 'none';
-            formulario.querySelector('.campos-profesor').style.display = 'block';
-            
-          
-            elementos.forEach((elemento) => {
-                elemento.value = tipo; // Asigna el valor a cada elemento
-            });
-            console.log(tipo);
-        }
-    });
-});
-
-// Al cargar la página, asegúrate de que el formulario de estudiante esté visible
 document.addEventListener('DOMContentLoaded', () => {
-    // Mostrar campos para estudiante por defecto
-    const primerBotonActivo = document.querySelector('.boton-tipo-usuario.activo');
-    if (primerBotonActivo) {
-        primerBotonActivo.click();
-    }
+    manejarTipoUsuario();
+    configurarTogglePassword();
+
+    const botonActivo = document.querySelector('.boton-tipo-usuario.activo');
+    if (botonActivo) botonActivo.click();
+
+    asignarListenersToggle();
+
+    manejarModoSegunTamanio();
+
+    window.addEventListener('resize', manejarModoSegunTamanio);
 });
 
-/* Implementacion - Manejo de formularios */
-const $ = (e)=>{return document.querySelector(e)}
-const logo = $('.logoSta')
-const activadores = $('.activadorForm')
-const btnForms = [$('.startSesionBtn'),$('.link-register')]
-const bienvenida = $('.contenedorMobile')
-const formReg = $('.registerSesion')
-const formLogin = $('.iniciarSesion')
-const btnReverse = $('.cabecera p')
-const login = $('.iniciarLogin')
-btnReverse.onclick = ()=>{
-    
-    bienvenida.style.transition = "all 2s";
-    bienvenida.style.gridTemplateRows = "100vh 0";
-    setTimeout(()=>{
-        login.style.gridTemplateRows = "35% 30% 35%"
-        logo.style.opacity = "1";
-        activadores.style.opacity = "1";
-        btnReverse.style.transition = "all 2s";
-        btnReverse.style.display = "none"
-        logo.style.display = "flex";
-        activadores.style.display = "flex";
-    },2000)
-    if (btn.classList.contains('startSesionBtn')) {
-        formLogin.style.display = "none";
-        btnReverse.style.display = "none";
-    }    
-    
-    if (btn.classList.contains('link-register')) {
-        formReg.style.display = "none";
-        btnReverse.style.display = "none";
+function manejarModoSegunTamanio() {
+    if (window.innerWidth <= 768) {
+        modoMobile();
+    } else {
+        modoDesktop();
     }
 }
 
-
-btnForms.forEach(btn => {
-    btn.onclick = ()=>{
-        bienvenida.style.transition = "all 2s";
-        logo.style.transition = "all 2s";
-        logo.style.opacity = "0";
-        activadores.style.transition = "all 2s";
-        activadores.style.opacity = "0";
-        bienvenida.style.gridTemplateRows = "30vh 70vh";
-        btnReverse.style.display = "inline-block"
-        setTimeout(()=>{
-            logo.style.display = "none";
-            activadores.style.display = "none";
-            login.style.gridTemplateRows = "1fr"
-        },2000)
-
-        if (btn.classList.contains('startSesionBtn')) {
-            formLogin.style.display = "flex";
-            formReg.style.display = "none";
-
+function asignarListenersToggle() {
+    botonRegistro.addEventListener('click', () => {
+        modoRegistroActivo = true;
+        if (window.innerWidth <= 768) {
+            mostrarRegistroMobile();
+        } else {
+            contenedor.classList.add("panel-derecho-activo");
         }
-        
-        if (btn.classList.contains('link-register')) {
-            formReg.style.display = "flex";
-            formLogin.style.display = "none";
-            
-        }
-    } 
-})
+    });
 
+    botonInicioSesion.addEventListener('click', () => {
+        modoRegistroActivo = false;
+        if (window.innerWidth <= 768) {
+            mostrarLoginMobile();
+        } else {
+            contenedor.classList.remove("panel-derecho-activo");
+        }
+    });
+
+    const enlaceNoTieneCuenta = document.querySelector('.no-tiene-cuenta');
+    const enlaceTieneCuenta = document.querySelector('.tiene-cuenta');
+
+    if (enlaceNoTieneCuenta) {
+        enlaceNoTieneCuenta.addEventListener('click', e => {
+            e.preventDefault();
+            modoRegistroActivo = true;
+            if (window.innerWidth <= 768) {
+                mostrarRegistroMobile();
+            } else {
+                contenedor.classList.add("panel-derecho-activo");
+            }
+        });
+    }
+
+    if (enlaceTieneCuenta) {
+        enlaceTieneCuenta.addEventListener('click', e => {
+            e.preventDefault();
+            modoRegistroActivo = false;
+            if (window.innerWidth <= 768) {
+                mostrarLoginMobile();
+            } else {
+                contenedor.classList.remove("panel-derecho-activo");
+            }
+        });
+    }
+}
+
+function modoMobile() {
+    const superposicion = document.querySelector('.contenedor-superposicion');
+    if (superposicion) superposicion.style.display = 'none';
+
+    // Aquí removemos la clase desktop para evitar conflicto visual
+    contenedor.classList.remove("panel-derecho-activo");
+
+    if (modoRegistroActivo) {
+        if (document.querySelector('.contenedor-registro')) {
+            mostrarRegistroMobile();
+        } else {
+            console.warn('No existe contenedor de registro para mobile');
+        }
+    } else {
+        if (document.querySelector('.contenedor-inicio-sesion')) {
+            mostrarLoginMobile();
+        } else {
+            console.warn('No existe contenedor de login para mobile');
+        }
+    }
+}
+
+function modoDesktop() {
+    const superposicion = document.querySelector('.contenedor-superposicion');
+    if (superposicion) superposicion.style.display = 'block';
+
+    // Aquí agregamos o removemos la clase según modoRegistroActivo para desktop
+    if (modoRegistroActivo) {
+        contenedor.classList.add("panel-derecho-activo");
+    } else {
+        contenedor.classList.remove("panel-derecho-activo");
+    }
+}
+
+function mostrarLoginMobile() {
+    const registro = document.querySelector('.contenedor-registro');
+    const login = document.querySelector('.contenedor-inicio-sesion');
+
+    if (!login) {
+        console.warn('No existe contenedor login para mostrar');
+        return;
+    }
+
+    login.classList.add('activo');
+    if (registro) registro.classList.remove('activo');
+}
+
+function mostrarRegistroMobile() {
+    const registro = document.querySelector('.contenedor-registro');
+    const login = document.querySelector('.contenedor-inicio-sesion');
+
+    if (!registro) {
+        console.warn('No existe contenedor registro para mostrar');
+        return;
+    }
+
+    registro.classList.add('activo');
+    if (login) login.classList.remove('activo');
+}
+
+
+function manejarTipoUsuario() {
+    botonesTipoUsuario.forEach(boton => {
+        boton.addEventListener('click', () => {
+            const form = boton.closest('form');
+            const tipo = boton.dataset.tipo;
+
+            form.querySelectorAll('.boton-tipo-usuario').forEach(btn => {
+                btn.classList.remove('activo');
+                btn.style.fontWeight = 'normal';
+            });
+            boton.classList.add('activo');
+            boton.style.fontWeight = 'bold';
+
+            if (tipo === '1') {
+                form.querySelector('.campos-estudiante')?.classList.add('activo');
+                form.querySelector('.campos-estudiante')?.style.setProperty('display', 'block');
+                form.querySelector('.campos-profesor')?.classList.remove('activo');
+                form.querySelector('.campos-profesor')?.style.setProperty('display', 'none');
+            } else {
+                form.querySelector('.campos-estudiante')?.classList.remove('activo');
+                form.querySelector('.campos-estudiante')?.style.setProperty('display', 'none');
+                form.querySelector('.campos-profesor')?.classList.add('activo');
+                form.querySelector('.campos-profesor')?.style.setProperty('display', 'block');
+            }
+
+            elementosTipoUsuario.forEach(input => input.value = tipo);
+
+            console.log('Tipo de usuario:', tipo);
+        });
+    });
+}
+
+
+function configurarTogglePassword() {
+    const passwordInputs = document.querySelectorAll('input[type="password"]');
+
+    if (!document.getElementById('password-toggle-style')) {
+        const style = document.createElement('style');
+        style.id = 'password-toggle-style';
+        style.textContent = `
+            .password-toggle {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: #A68160;
+                z-index: 10;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .input-with-toggle {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+            }
+            .input-with-toggle input {
+                width: 100%;
+                padding-right: 30px;
+                box-sizing: border-box;
+            }
+            .input-with-toggle input:focus + .password-toggle,
+            .input-with-toggle input:not(:placeholder-shown) + .password-toggle,
+            .password-toggle:hover {
+                opacity: 1;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    passwordInputs.forEach(input => {
+        if (!input.parentElement.classList.contains('input-with-toggle')) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'input-with-toggle';
+            input.parentNode.insertBefore(wrapper, input);
+            wrapper.appendChild(input);
+        }
+
+        if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('password-toggle')) {
+            const toggle = document.createElement('i');
+            toggle.className = 'fas fa-eye password-toggle';
+            toggle.style.color = '#A68160';
+
+            toggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (input.type === 'password') {
+                    input.type = 'text';
+                } else {
+                    input.type = 'password';
+                }
+                toggle.classList.toggle('fa-eye');
+                toggle.classList.toggle('fa-eye-slash');
+            });
+
+            input.insertAdjacentElement('afterend', toggle);
+
+            document.addEventListener('click', function (e) {
+                if (e.target !== input && e.target !== toggle) {
+                    toggle.style.opacity = '0';
+                }
+            });
+
+            input.addEventListener('focus', () => toggle.style.opacity = '1');
+            input.addEventListener('blur', () => {
+                if (input.value === '') toggle.style.opacity = '0';
+            });
+        }
+    });
+}

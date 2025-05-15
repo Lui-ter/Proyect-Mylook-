@@ -1,551 +1,83 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Montserrat', system-ui, sans-serif;
 }
 
-/* VARIABLES DE ENTORNO A TRBAJAR */
-:root {
-    --color-background: #624023;
-    --color-primary: #a68160;
-    --color-dark:  #795434;
-    --color-white: white;
-    --color-black: black;
-}
-
-body{
-   display: flex;
-}
-
-/* 1.  MEDIA QUERY PARA DISPOSITIVOS MÓVILES */
-@media (max-width: 1024px){
-    
-    body{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100vw;
-        background-color: var(--color-dark);
-        overflow-x: hidden;
-
-        /* CONTENEDOR DE PC Y TABLET */
-        .contenedorPc, .contenedorTablet{
-            display: none;
-        }
-
-        /* CONTENEDOR PADRE DE INICIO DE SESION */
-        .contenedorMobile{
-            display: grid;
-            grid-template-columns: 1;
-            grid-template-rows: 100vh 0;
-            transition: grid-template-rows 2s ease;
-            height: 100vh;
-            width: 100%;
-
-            /* CONTENEDOR ANIMADO */
-            .iniciarLogin{
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 30% 35% 35%; 
-                width: 100%;
-                position: relative;
-
-                /* PARTE SUPERIOR QUE ME ENSEÑA LOS LOGOS Y EL NOMBRE */
-                .logoSta{
-                    display: flex;
-                    opacity: 1;
-                    transition: opacity 1s;
-                    gap: 35vw;
-                    margin-bottom: 15vh;
-                    justify-content: space-evenly;
-                    align-items: center;
-                    font-size: 8vw;
-                    color: white;
-
-                    i{
-                        font-size: 1.2em;
-                    }
-                }
-                
-                /* INFORMACION DE ENTRADA A LA PLATAFORMA COMO SU NOMBRE Y DEMAS */
-                .informacionForm{
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    color: var(--color-white);
-                    
-
-                    .welcome{
-                        padding-right: 4.5em;
-                        font-size: 7vw;
-                    }
-
-                    .tittleApp{
-                        font-size: 18vw;
-                        margin-top: -.15em;
-                    }
-                }
-
-                /* BOTONES PARA ACTIVAR LA ANIMACION DE INICIO DE SESION */
-                .activadorForm{
-                    display: flex;
-                    opacity: 1;
-                    transition: opacity 2s;
-                    justify-content: center;
-                    align-items: start;
-                   
-                    .btn{
-                        display: flex;
-                        flex-direction: column; 
-                        gap: 1em;
-                        
-                        .startSesionBtn{
-                            padding: 5% 10%;
-                            background-color: var(--color-white);
-                            color: var(--color-dark);
-                            border: none;
-                            border-radius: .5em;
-                        }
-
-                        .registerSesionBtn{
-                            background-color: transparent;
-                            color: white;
-
-
-                            a{
-                                text-decoration: none;
-                                color: var(--color-primary);
-                            }
-                        }
-                    }
-                }
-                /* CABECERA DE FORMULARIOS */
-                .cabecera {
-                    position: absolute;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background: #ffffff;
-                    border-radius: 3em 3em 0 0;
-                    height: 3em;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                    p {
-                        display: none;
-                        margin-top: -1.5em;
-                        transform: rotate(90deg);
-                        border-radius: 100%;
-                        width: 2.8em;
-                        height: 2.8em;
-                        align-content: center;
-                        text-align: center;
-                        font-weight: 1000;
-                        font-family:fantasy;
-                        animation: rotateIcon 2s ease;
-                        background-color: var(--color-white);
-                        border: 1px solid var(--color-dark);
-                    }
-                    
-                }
-            }
-            /* REGISTER PERFIL */
-            .registerSesion{
-                background-color: white;
-                display: none;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 1.5em;
-                overflow: hidden;
-                .tipUsuarios{
-                    padding: .5em;
-                    display: flex;
-                    
-                    .Btn{
-                        padding: .5em 1em;
-                        background-color: transparent;
-                        border: none;
-                        border-bottom: 1px solid var(--color-primary);
-                        color: var(--color-dark);
-                        
-                        &#formRegisterEstablecimiento{
-                            border-left: 1px solid var(--color-primary);
-                            padding: .5em 2em;
-                        }
-
-                        &:active{
-                            background-color: var(--color-background);
-                            color: var(--color-white);
-                            border: none;
-                        }
-                    }
-                }
-
-                .registerEstablecimiento, .registerUsuario{
-                    display: flex;
-                    flex-direction: column;
-                    
-                }
-
-                .groupInput{
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: .2em;
-    
-
-                    i{
-                        font-size: .9em;
-                        color: var(--color-primary);
-                    }
-
-                    .inputRegister{
-                        border: none;
-                        outline: none;
-                        padding-left: 0;
-                        width: 50vw;
-                        height: 1.5vh;
-                        border-bottom: 1px solid var(--color-primary);
-                        font-style: italic;
-                        font-size: 2vw;
-                        margin-bottom: 1em;
-                        color: var(--color-primary);
-
-                        &::placeholder{
-                           font-size: 3vw;
-                            text-align: right;
-                           color: var(--color-primary);
-                        }
-                    }
-
-                    .recuerdame{
-                        display: flex;
-                        gap: .5em;
-                        margin-top: .5em;
-                        color: var(--color-primary);
-                        font-size: 3vw;
-                    }
-                }
-
-                .btnRegisterUsuario, .btnRegisterEstablecimiento{
-                    margin-top: 2em;
-                    background-color: var(--color-primary);
-                    border: none;
-                    color: var(--color-white);
-                    padding: .8em 3em;
-                    border-radius: .3em;
-                }
-
-                .socialMedia{
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 1em;
-                    gap: .5em;
-        
-                    i{
-                        color: var(--color-primary);
-                    }
-                }   
-            }
-
-            /* LOGIN PERFIL  */
-            .iniciarSesion{
-                background-color: white;
-                display: none;
-                overflow: hidden;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 1.5em;
-                
-                .tipUsuarios{
-                    padding: .5em;
-                    display: flex;
-
-                    .Btn{
-                        padding: .5em 1em;
-                        background-color: transparent;
-                        border: none;
-                        border-bottom: 1px solid var(--color-primary);
-                        color: var(--color-dark);
-                        
-                        &#formStartEsatblecimiento{
-                            border-left: 1px solid var(--color-primary);
-                            padding: .5em 2em;
-                        }
-                    
-                    }
-                }
-
-                .StartEstablecimiento, .StartUsuario{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    flex-direction: column;
-                        
-                        .groupInput{
-                            display: flex;
-                            align-items: center;
-                            margin-bottom: .2em;
-        
-                            i{
-                              font-size: 1em;
-                                color: var(--color-primary);
-                            }
-
-                            .inputStart{
-                                border: none;
-                                outline: none;
-                                padding: .5em 6em;
-                                border-bottom: 1px solid var(--color-primary);
-                                font-style: italic;
-                                font-size: 8px;
-                                margin-left: 1em;
-                                margin-bottom: 1em;
-                                color: var(--color-primary);
-        
-                                &::placeholder{
-                                    text-align: right;
-                                    color: var(--color-primary);
-                                }
-                            }
-
-                            .recuerdame{
-                                display: flex;
-                                gap: .5em;
-                                margin-top: .5em;
-                                color: var(--color-primary);
-                                font-size: 3vw;
-                            }
-
-                            .olvidoContraseña{
-                                font-size: 2.3vw;
-                                margin-top: .6em;
-                                color: var(--color-primary);
-                            }
-                        }
-
-                        .socialMedia{
-                            display: flex;
-                            justify-content: center;
-                            margin-top: 1em;
-                            gap: .5em;
-                
-                            i{
-                                color: var(--color-primary);
-                            }
-                        }
-
-                        .btnStartUsuario, .btnStartEstablecimiento{
-                            margin-top: 2em;
-                            background-color: var(--color-primary);
-                            border: none;
-                            color: var(--color-white);
-                            padding: .8em 3em;
-                            border-radius: .3em;
-                    }
-                }
-            }
-        }
-    }
-}
-  
-/* 3. MEDIA QUERY PARA ESCRITORIOS Y DISPOSITIVOS DE GRAN TAMAÑO AL IGUAL QUE LAS TABLET  */
-@media (min-width: 1025px){
-   
-/* CONTENEDOR DE ESTILOS HACIA EL MOBILE */
-.contenedorMobile, .contenedorTablet{
-    display: none;
-}
-
-/* Estilo para el cuerpo y el html */
-body, html {
-    height: 100%;
-    width: 100%;
-    overflow: hidden; /* Evita el desplazamiento */
-}
-
-/* Variables de color y tipografía */
-:root {
-    /* COLORES DE FONDO */
-    --backgroundColor-Primary: #a68160;
-    --backgroundColor-Secondary: #be9c74;
-    --backgroundColor-Three: #a15c3c;
-    --backgroundColor-Fourt: #ffffff;
-    --backgroundColor-Five: #0000;
-
-    /* COLORES DE TEXTO */
-    --colorFont-H: #a15c3c;
-    --colorFont-P: #a68160;
-
-    /* TIPOS DE LETRAS */
-    --fontFamily-H: 'Roboto Slab', serif;
-    --fontFamily-P: 'Playfair Display', serif;
-}
-
-/* Estilos del cuerpo */
+html,
 body {
-    background: transparent; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif; /* Fuente para el cuerpo */
-}
-
-/* Estilos para el encabezado */
-.imgPresentation{
-  
-    display: flex;
-    flex-direction: column;
-    margin-top: 2em;
-    margin-right: 1.1em;
-    
-    h3{
-        text-align: left;
-        font-size: 16px;
-        margin-left: 3px;
-    }
-
-    h1{
-        font-size: 75px;
-        margin-top: -15px;
-        text-align: left;
-    }
-
-    .promotion{
-        width: 70%;
-        margin-left: 4em;
-        font-size: 9px;
-        margin-top: -1em;
-        text-align: left;
-    }
-}
-
-/* Estilos para los botones */
-button {
-    border-radius: 1em;
-    border: 1px solid var(--backgroundColor-Fourt);
-    background-color: var(--backgroundColor-Primary);
-    color: var(--backgroundColor-Fourt);
-    font-size: 12px;
-    font-weight: bold;
-    padding: 10px 45px;
-    margin-top: 1em;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in, background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Efecto al presionar el botón */
-button:active {
-    transform: scale(0.95);
-    color: var(--backgroundColor-Fourt);
-}
-
-/* Estilo para cuando el botón recibe foco */
-button:focus {
-    outline: none;
-    color: var(--backgroundColor-Fourt);
-}
-
-/* Estilos para el botón "fantasma" */
-button.fantasma {
-    background-color: transparent;
-    border-color: var(--backgroundColor-Fourt);
-    color: var(--backgroundColor-Fourt); 
-}
-
-/* Efecto hover para el botón "fantasma" */
-button.fantasma:hover {
-    border: 1px solid var(--backgroundColor-Primary);
-    background-color: var(--backgroundColor-Fourt);
-    color: var(--backgroundColor-Primary);
-    transition: 2s;
-    transform: scale(1.05); 
-}
-
-/* Estilos para el formulario */
-form {
-    background-color: var(--backgroundColor-Fourt);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 50px;
     height: 100%;
-    text-align: center;
-    width: 90%; 
-}
-
-/* Contenedor para los campos de entrada */
-.input-container {
-    position: relative;
     width: 100%;
+    overflow: hidden;
 }
 
-/* Estilo del icono en el campo de entrada */
-.input-container i {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    color: var(--backgroundColor-Primary); 
+/* ============================================================
+   VARIABLES DE ENTORNO
+============================================================ */
+:root {
+    /* COLORES PRINCIPALES */
+    --color-primary: #a68160;
+    --color-secondary: #ffffff;
+    --color-tertiary: #000000;
+
+    /* TIPOGRAFÍA */
+    --font-main: 'Montserrat', sans-serif;
 }
 
-/* Estilos para el input dentro del contenedor */
-.input-container input {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid var(--backgroundColor-Primary); 
-    border-radius: 2px; 
-    padding: 12px 15px 10px 35px;
-    margin: 8px 0;
-    width: 110%; 
-    font-size: 10px;
-    font-style: italic; 
-    color: var(--backgroundColor-Primary); 
+/* ============================================================
+   CUERPO
+============================================================ */
+body {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-main);
 }
 
-/* Estilo para el input cuando está en foco */
-.input-container input:focus {
-    outline: none; 
-}
-
-/* Contenedor principal para la interfaz */
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+============================================================ */
 .contenedor {
-    background-color: var(--backgroundColor-Fourt);
+    background-color: var(--color-secondary);
     border-radius: 10px;
-    box-shadow: 1px 1px 8px 1px var(--backgroundColor-Secondary);   
+    box-shadow: 1px 1px 8px 1px var(--color-primary);
     position: relative;
     overflow: hidden;
-    width: 60vw;
-    height: 50vh;
+    width: 75vw;
+    height: 80vh;
     max-width: 100%;
     min-height: 480px;
 }
 
-/* Contenedor para los formularios (inicio de sesión y registro) */
+/* Activador de animación del panel derecho */
+.contenedor.panel-derecho-activo .panel-izquierdo {
+    transform: translateX(0);
+    padding: 2em;
+}
+
+/* ============================================================
+   FORMULARIOS: CONTENEDORES
+============================================================ */
 .contenedor-formulario {
     position: absolute;
-    margin-top: 1em;
-    height: 90%;
+    height: 100%;
     transition: all 0.7s ease-in-out;
 }
 
-/* Contenedor para inicio de sesión */
+/* Inicio de sesión */
 .contenedor-inicio-sesion {
     left: 0;
     width: 40%;
     z-index: 2;
 }
 
-/* Estilo para el contenedor de inicio de sesión en el estado activo */
 .contenedor.panel-derecho-activo .contenedor-inicio-sesion {
     transform: translateX(100%);
 }
 
-/* Contenedor para registro */
+/* Registro */
 .contenedor-registro {
     left: 0;
     width: 40%;
@@ -554,29 +86,153 @@ form {
     animation: mostrar 0.1s;
 }
 
-/* Estilo para el contenedor de registro en el estado activo */
 .contenedor.panel-derecho-activo .contenedor-registro {
     transform: translateX(150%);
     opacity: 1;
     z-index: 5;
-    animation: mostrar 0.1s;
 }
 
-
-/* Animación para el contenedor */
+/* Animación de transición */
 @keyframes mostrar {
-    0%, 70% {
+
+    0%,
+    70% {
         opacity: 0;
         z-index: 1;
     }
-    
-    50%, 100% {
+
+    50%,
+    100% {
         opacity: 1;
         z-index: 5;
     }
 }
 
-/* Contenedor de superposición */
+/* ============================================================
+   FORMULARIO
+============================================================ */
+form {
+    background-color: var(--color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 1em 2em;
+    height: 100%;
+    text-align: center;
+    width: 100%;
+}
+
+.input-container {
+    position: relative;
+    width: 100%;
+}
+
+.input-container i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-primary);
+}
+
+.input-container input {
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 2px;
+    padding: 1em;
+    font-weight: 500;
+    margin: 8px 0;
+    width: 100%;
+    font-size: 1em;
+    color: var(--color-primary);
+}
+
+.input-container input:focus {
+    outline: none;
+}
+
+.campos-formulario {
+    width: 100%;
+}
+
+/* ============================================================
+   BOTONES
+============================================================ */
+button {
+    border-radius: .4em;
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    padding: 10px 45px;
+    text-transform: uppercase;
+    width: 100%;
+    font-size: clamp(.8em, 1.5vw, 5em);
+    font-weight: bold;
+    transition:
+        transform 80ms ease-in,
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Botón fantasma */
+button.fantasma {
+    background-color: transparent;
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+button.fantasma:hover {
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    transform: scale(1.05);
+    transition: 2s;
+}
+
+/* Botones de selección de tipo de usuario */
+.botones-tipo-usuario {
+    display: flex;
+    gap: 1.2em;
+    font-weight: bolder;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: clamp(.8em, 1.5vw, 5em);
+
+}
+
+.boton-tipo-usuario {
+    flex: 1;
+    padding: .2em 10px;
+    border: 2px solid var(--color-primary);
+    background-color: #fff;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 0.5em;
+    font-size: 1em;
+    font-weight: bolder;
+}
+
+.boton-tipo-usuario.activo {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+/* ============================================================
+   PANEL DE SUPERPOSICIÓN
+============================================================ */
 .contenedor-superposicion {
     position: absolute;
     top: 0;
@@ -588,16 +244,13 @@ form {
     z-index: 100;
 }
 
-/* Estilo para el contenedor de superposición en el estado activo */
 .contenedor.panel-derecho-activo .contenedor-superposicion {
     transform: translateX(-66.6%);
 }
 
-/* Superposición de contenido */
 .superposicion {
-    background: var(--backgroundColor-Primary);
-    background-position: 0 0;
-    color: var(--backgroundColor-Fourt);
+    background: var(--color-primary);
+    color: var(--color-secondary);
     position: relative;
     left: -100%;
     height: 100%;
@@ -606,102 +259,345 @@ form {
     transition: transform 0.6s ease-in-out;
 }
 
-/* Estilo para la superposición en el estado activo */
 .contenedor.panel-derecho-activo .superposicion {
     transform: translateX(50%);
 }
 
-/* Panel de superposición */
 .panel-superposicion {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 0 40px;
     text-align: center;
     top: 0;
     height: 100%;
     width: 50%;
-    transform: translateX(0);
+    gap: 1em;
     transition: transform 0.6s ease-in-out;
 }
 
-/* Estilo para el panel izquierdo */
+.panel-superposicion h1 {
+    font-size: 6em;
+    font-weight: bolder;
+}
+
+.panel-superposicion h3 {
+    font-weight: bolder;
+    font-size: 1.5em;
+}
+
 .panel-izquierdo {
     transform: translateX(-20%);
 }
 
-/* Estilo para el panel izquierdo en el estado activo */
 .contenedor.panel-derecho-activo .panel-izquierdo {
     transform: translateX(0);
 }
 
-/* Estilo para el panel derecho */
 .panel-derecho {
     right: 0;
     transform: translateX(0);
 }
 
-/* Estilo para el panel derecho en el estado activo */
 .contenedor.panel-derecho-activo .panel-derecho {
     transform: translateX(20%);
 }
 
-/* Contenedor para botones de tipo de usuario */
-.botones-tipo-usuario {
+/* ============================================================
+   TEXTOS E INFORMACIÓN
+============================================================ */
+.imgPresentation {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    padding: 0em 2em;
+    height: 100%;
+    gap: 2em;
+}
+
+.imgPresentation h1 {
+    font-size: 6em;
+    font-weight: bolder;
+    text-align: left;
+}
+
+.imgPresentation h3 {
+    text-align: left;
+    font-size: 2.5em;
+}
+
+.imgPresentation .promotion {
     width: 100%;
-    border-radius: 3px; 
-    margin-bottom: 20px;
+    font-size: 1.3em;
+    text-align: left;
 }
 
-/* Estilos para el botón de tipo de usuario */
-.boton-tipo-usuario {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid var(--backgroundColor-Primary);
-    background-color: #fff;
-    color: var(--backgroundColor-Primary);
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 3px; 
+/* Estilos para P y H2 dentro del formulario */
+.inputP {
+    color: var(--color-primary);
+    font-size: clamp(1em, 1.5vw, 5em);
+    font-weight: bolder;
+    text-align: left;
+    width: 100%;
 }
 
-/* Estilo para el botón de tipo de usuario activo */
-.boton-tipo-usuario.activo {
-    background-color: var(--backgroundColor-Primary);
-    color: var(--backgroundColor-Fourt);
+.inputH2 {
+    color: var(--color-primary);
+    font-size: clamp(1em, 1.9vw, 5em);
+
 }
 
-/* Enlace para contraseña olvidada */
+/* ============================================================
+   ENLACES DEL FORMULARIO
+============================================================ */
+.enlaces-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+    margin-top: 1em;
+}
+
+
+/* Enlaces del formulario */
+.enlaces-formulario2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
 .olvidaste-contraseña {
-    font-size: 12px; 
-    margin-top: 1em; 
+    font-size: 0.8em;
     text-decoration: none;
-    color: var(--backgroundColor-Primary);
-    font-size: 9px;
-    transition: transform 0.2s; 
+    font-weight: 500;
+    color: var(--color-primary);
+    transition: transform 0.2s;
 }
 
-/* Efecto hover para el enlace de contraseña olvidada */
-.olvidaste-contraseña:hover {
-    transform: scale(1.05); 
-
+.no-tiene-cuenta {
+    font-size: 0.8em;
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--color-primary);
+    transition: transform 0.2s;
+    text-align: center;
 }
 
+.tiene-cuenta {
+    font-size: 0.8em;
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--color-primary);
+    transition: transform 0.2s;
+    text-align: center;
 }
 
-/* ANIMACIONES SOBRE TODO EN MOBILE  */
+.olvidaste-contraseña:hover,
+.no-tiene-cuenta:hover,
+.tiene-cuenta:hover {
+    transform: scale(1.05);
+}
+
+/* ============================================================
+   CONTENEDOR VOLVER
+============================================================ */
+.contenedor-volver {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.tieneCuenta {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tieneCuenta:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+/* ============================================================
+   ANIMACIONES PERSONALIZADAS
+============================================================ */
 @keyframes rotateIcon {
     0% {
         transform: rotate(-90deg);
     }
+
     100% {
         transform: rotate(90deg);
-    }    
+    }
 }
 
+/* ============================================================
+   ESTILOS RESPONSIVE PARA MÓVILES (MAX-WIDTH: 768PX)
+============================================================ */
+@media (max-width: 768px) {
+
+    /* Contenedor principal - pantalla completa */
+    .contenedor {
+        width: 80vw;
+        height: 97vh;
+        border-radius: 10px;
+        box-shadow: 1px 1px 8px 1px var(--color-primary);
+        min-height: auto;
+        background-color: #fff;
+    }
+
+    /* Ocultar superposición en móviles */
+    .contenedor-superposicion {
+        display: none;
+    }
+
+    /* Contenedor de formularios */
+    .contenedor-formulario {
+        position: relative;
+        width: 100%;
+        height: auto;
+        left: 0;
+        transform: none;
+        opacity: 1;
+        display: none;
+        padding: 20px;
+    }
+
+    .contenedor-inicio-sesion,
+    .contenedor-registro {
+        display: none;
+    }
+
+    .contenedor-inicio-sesion.activo,
+    .contenedor-registro.activo {
+        display: block;
+    }
+
+    /* Estilos para los formularios */
+    form {
+        background-color: transparent;
+        padding: 0;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Títulos */
+    .inputH2 {
+        color: var(--color-primary);
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    /* Botones de tipo de usuario */
+    .botones-tipo-usuario {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    .boton-tipo-usuario {
+        flex: 1;
+        padding: 12px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        border: 2px solid var(--color-primary);
+        background: #fff;
+        color: var(--color-primary);
+        border-radius: 6px;
+    }
+
+    .boton-tipo-usuario.activo {
+        background: var(--color-primary);
+        color: #fff;
+    }
+
+    .inputP {
+        color: var(--color-primary);
+        font-size: 0.9rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .input-container input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    /* Botón de submit */
+    form>button[type="submit"] {
+        padding: 15px;
+        font-size: 1rem;
+        font-weight: bold;
+        margin-top: 10px;
+        background: var(--color-primary);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    /* Enlaces del formulario */
+    .enlaces-formulario {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
+
+
+    /* Enlaces del formulario */
+    .enlaces-formulario2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
+
+
+    .olvidaste-contraseña,
+    .no-tiene-cuenta .tiene-cuenta {
+        color: var(--color-primary);
+        font-size: 0.8rem;
+        text-decoration: none;
+    }
+
+    /* Botón tiene cuenta */
+    .tieneCuenta {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        margin-top: 10px;
+    }
+
+    .contenedor-registro,
+    .contenedor-inicio-sesion {
+        display: none;
+    }
+
+    .contenedor-registro.activo,
+    .contenedor-inicio-sesion.activo {
+        display: block;
+    }
+
+
+    .contenedor-registro:not(.activo) .tiene-cuenta,
+    .contenedor-inicio-sesion:not(.activo) .no-tiene-cuenta {
+        display: none !important;
+    }
+}
