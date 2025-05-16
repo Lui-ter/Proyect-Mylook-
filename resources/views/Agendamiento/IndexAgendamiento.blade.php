@@ -133,8 +133,6 @@
                         <button type="submit" class="guardar">GUARDAR</button>
                     </div>
                 </div>
-                <input type="hidden" name="idStaff" id="idStaff" value="{{ $staffs[0]['id_staff'] ?? '' }}">
-
         </form>
     </main>
 
