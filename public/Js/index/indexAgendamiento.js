@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // ---------- PRODUCTO ----------
     let cantidad = 0;
     let stockMaximo = 1000;
     let idProductoSeleccionado = null;
@@ -9,14 +10,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const productoSelect = document.getElementById("producto");
     const productoImg = document.getElementById("producto-img");
     const productoNombre = document.getElementById("producto-nombre");
+    const mensajeOpcional = document.getElementById("mensajeOpcional");
 
-    // **Capturar los inputs ocultos**
     const inputIdProducto = document.getElementById("idProductoSeleccionado");
     const inputCantidadProducto = document.getElementById("cantidadProducto");
 
-    // Mantener la imagen por defecto hasta que el usuario seleccione un producto
+    // Valores por defecto al cargar
     productoImg.src = "https://via.placeholder.com/150";
-    productoNombre.textContent = "Selecciona un producto";
+    productoNombre.textContent = "producto";
+    mensajeOpcional.style.display = "block"; // Mostrar mensaje inicialmente
 
     productoSelect.addEventListener("change", function () {
         let selectedOption = this.options[this.selectedIndex];
@@ -24,24 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
         let stock = parseInt(selectedOption.getAttribute("data-stock"));
         stockMaximo = stock;
 
-        // **Actualizar los inputs ocultos**
         inputIdProducto.value = idProductoSeleccionado;
-
-        // **No asignar directamente el stock como cantidad**
-        cantidad = 0; // Reiniciar cantidad al cambiar producto
+        cantidad = 0;
         inputCantidadProducto.value = cantidad;
 
-        // Actualizar la carta con los datos seleccionados
         productoNombre.textContent = selectedOption.textContent;
         productoImg.src = selectedOption.getAttribute("data-img") || "https://via.placeholder.com/150";
         contador.textContent = cantidad;
+
+        // Mostrar u ocultar el mensaje "Opcional"
+        if (idProductoSeleccionado) {
+            mensajeOpcional.style.display = "none";
+        } else {
+            mensajeOpcional.style.display = "block";
+        }
     });
 
     btnMas.addEventListener("click", () => {
         if (cantidad < stockMaximo) {
             cantidad++;
             contador.textContent = cantidad;
-            inputCantidadProducto.value = cantidad; // **Actualizar el input hidden**
+            inputCantidadProducto.value = cantidad;
         } else {
             alert("Has alcanzado el límite de productos en stock");
         }
@@ -51,14 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cantidad > 0) {
             cantidad--;
             contador.textContent = cantidad;
-            inputCantidadProducto.value = cantidad; // **Actualizar el input hidden**
+            inputCantidadProducto.value = cantidad;
         }
     });
-});
 
-//cambiar de staff
-document.addEventListener("DOMContentLoaded", () => {
-    const staffData = JSON.parse(document.getElementById("staff-data").textContent); // Obtener datos filtrados del backend
+    // ---------- STAFF ----------
+    const staffData = JSON.parse(document.getElementById("staff-data").textContent);
     const staffImg = document.getElementById("staff-img");
     const staffNombre = document.getElementById("staff-nombre");
     const idStaff = document.getElementById("idStaff");
@@ -71,10 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (staffData.length > 0) {
             staffImg.src = staffData[index].imagen || "https://via.placeholder.com/150";
             staffNombre.textContent = staffData[index].nombre;
-            idStaff.textContent = staffData[index].idStaff;
+            idStaff.value = staffData[index].id_staff;
         } else {
             staffImg.src = "https://via.placeholder.com/150";
             staffNombre.textContent = "No hay staff disponible";
+            idStaff.value = "";
         }
     }
 
@@ -88,6 +92,5 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarStaff(currentIndex);
     });
 
-    // Cargar el primer staff al inicio
     actualizarStaff(currentIndex);
 });

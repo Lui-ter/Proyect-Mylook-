@@ -11,6 +11,7 @@ use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Rol;
+use Carbon\Carbon;
 
 class StaffController extends Controller
 {
@@ -117,19 +118,80 @@ class StaffController extends Controller
         $viewCrudStaff = GlobalVariables::$viewCrudStaff;
         $indexStaff = GlobalVariables::$indexStaff;
         $registerStaff = GlobalVariables::$registerStaff;
-        $loginStaff = GlobalVariables::$loginStaff;
         $viewstaff = GlobalVariables::$viewstaff;
-        //plantilla
-        $calendarioStaff = GlobalVariables::$calendarioStaff;
-        $InicioSessionStaff= GlobalVariables::$InicioSessionStaff;
+        $InicioSessionStaff = GlobalVariables::$InicioSessionStaff;
 
         if ($accion === 'index') {
-            return view($indexStaff);
+            $documentoStaff = Auth::guard('usuario')->user()->id_usuario;
+            $staff = staff::with('establecimiento', 'usuario')->where('id_usuario', $documentoStaff)->first();
+
+            if ($staff && $documentoStaff == $staff->id_usuario) {
+                $id_staff = $staff->id_staff;
+
+                $ahora = Carbon::now('America/Bogota');
+
+                $citasProximas = cita::with('staff.usuario', 'usuario', 'reservaServicio.servicio', 'establecimiento')
+                    ->where('id_staff', $id_staff)
+                    ->where(function ($query) use ($ahora) {
+                        $query->where('fecha_cita', '>', $ahora->toDateString())
+                            ->orWhere(function ($q) use ($ahora) {
+                                $q->where('fecha_cita', $ahora->toDateString())
+                                    ->where('hora_cita', '>=', $ahora->format('H:i:s'));
+                            });
+                    })
+                    ->orderBy('fecha_cita', 'asc')
+                    ->orderBy('hora_cita', 'asc')
+                    ->take(4)
+                    ->get();
+                // Todas las citas (para el calendario), sin filtro de fecha
+                $todasLasCitas = cita::with('staff.usuario', 'usuario', 'reservaServicio.servicio', 'establecimiento')
+                    ->where('id_staff', $id_staff)
+                    ->orderBy('fecha_cita', 'asc')
+                    ->orderBy('hora_cita', 'asc')
+                    ->get();
+
+                // Función para transformar citas a formato calendario
+                $transformarCitas = function ($citas) {
+                    $resultado = [];
+                    foreach ($citas as $cita) {
+                        $fechaInicio = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita));
+                        $fechaFin = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita) + ($cita->duracion_cita * 60));
+
+                        $resultado[] = [
+                            'title' => $cita->reservaServicio->servicio->nombre_servicio,
+                            'start' => $fechaInicio,
+                            'end' => $fechaFin,
+                            'color' => '#a68160',
+                            'empleado' => $cita->staff->usuario->nombre,
+                            'usuario' => $cita->usuario->nombre,
+                            'establecimiento' => $cita->establecimiento->nombre_establc,
+                            'estado' => $cita->estado_cita,
+                            'id_cita' => $cita->id_cita,
+                            'servicio' => $cita->reservaServicio->servicio->nombre_servicio
+                        ];
+                    }
+                    return $resultado;
+                };
+
+                $arregloProximas = $transformarCitas($citasProximas);
+                $arregloTodas = $transformarCitas($todasLasCitas);
+
+                // Imagen del usuario
+                $idusuario = Auth::guard('usuario')->user()->id_usuario;
+                $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
+                if ($imgusuario) {
+                    $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
+                } else {
+                    $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+                }
+
+                return view($indexStaff, compact('arregloProximas', 'arregloTodas', 'imgusuario', 'staff'));
+            } else {
+                dd("Este usuario no es administrador");
+            }
         } elseif ($accion === 'register') {
             $roles = Rol::where('nombre_rol', '!=', 'Administrador')->get();
             return view($registerStaff, compact('roles'));
-        } elseif ($accion === 'login') {
-            return view($loginStaff);
         } elseif ($accion === 'editar' && $request->has('editStaff')) {
             $id = $request->input('editStaff');
             // Obtener usuario y staff relacionado
@@ -165,64 +227,7 @@ class StaffController extends Controller
             Staff::where('id_usuario', $id)->delete();
             Usuario::where('id_usuario', $id)->delete();
             return redirect()->back()->with('success', 'Operación completada exitosamente.');
-        // Rutas provicional, para el fronted
-        } elseif ($accion === 'LoginStaff'){
-            if ($request->isMethod('get')) {
-                return view($InicioSessionStaff);
-            }
-        
-            if($request->isMethod('post')){
-                $documentoStaff = $_POST['documentoStaff'];
-                $passwordUsuario = $_POST['passwordUsuario'];
-                
-                $staff = staff::where('id_usuario', $documentoStaff)->first();
-                if($staff){
-                    if(Hash::check($passwordUsuario, $staff->usuario->contrasena)){
-                        return redirect()->route('staff', ['accion' => 'calendario']);
-                    }else{
-                        dd ("La contraseña no coincide");
-                    }
-                }else{
-                    dd ("No esta registrado un staff");
-                }
-            }
-            
-        } elseif($accion === 'calendario'){
-            $documentoStaff = Auth::guard('usuario')->user()->id_usuario;
-            $staff = staff::where('id_usuario',$documentoStaff)->first();
-            
-            if($documentoStaff == $staff->id_usuario){
-                $id_staff = staff::where('id_usuario',$documentoStaff)->value('id_staff');
-                $lasCitas = cita::with('staff.usuario','usuario','reservaServicio.servicio','establecimiento')
-                    ->where('id_staff',$id_staff)->get();
-                
-                $arreglo = [];
-
-                foreach ($lasCitas as $cita){
-                    $fechaInicio = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita));
-                    $fechaFin = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita) + ($cita->duracion_cita * 60));
-            
-                    $arreglo[] = [
-                        'title' => $cita->reservaServicio->servicio->nombre_servicio,
-                        'start' => $fechaInicio,
-                        'end' => $fechaFin,
-                        'color' => '#28a745',
-                        'empleado' => $cita->staff->usuario->nombre,
-                        'usuario' => $cita->usuario->nombre,
-                        'establecimiento' => $cita->establecimiento->nombre_establc,
-                        'estado' => $cita->estado_cita,
-                        'id_cita' => $cita->id_cita,
-                        'servicio' => $cita->reservaServicio->servicio->nombre_servicio
-                    ];  
-                }
-                return view($calendarioStaff,compact('arreglo'));
-
-            }else{
-                dd("Este usuario no es administrador");
-            }
-            
-
-            
+            // Rutas provicional, para el fronted
         } else {
             return redirect()->route('staff', ['accion' => 'index']);
         }

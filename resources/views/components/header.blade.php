@@ -47,7 +47,7 @@
                 <hr>
                 <!-- Pendiente el yield -->
                 @if(session('id_staff') !== 'nulo')
-                    <a href="{{ route('staff', ['accion' => 'LoginStaff'])}}">
+                    <a href="{{ route('staff', ['accion' => 'index'])}}">
                         <p>Calendario</p>
                     </a>
                 @endif

@@ -629,6 +629,31 @@ th {
     background-color: black !important;
 }
 
+.estadoRealizada {
+    color: var(--color-black);
+}
+
+.estadoPendiente {
+    color: var(--color-black);
+    font-weight: bold;
+}
+.color-blanco {
+    color: var(--color-secondary)!important;
+}
+
+.color-cafe {
+    color: var(--color-primary)!important;
+}
+
+.evento-aceptado {
+    background-color: var(--color-primary)!important;
+}
+
+.evento-pendiente{
+    background-color: var(--color-secondary)!important;
+}
+
+ 
 @keyframes deslizamiento {
     0% {
         transform: translateY(-30px);

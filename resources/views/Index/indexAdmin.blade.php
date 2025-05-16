@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
     <link rel="stylesheet" href="{{ asset('Css/Index/indexAdmin.css') }}">
+    
     <title>Mi Negocio</title>
 </head>
 
@@ -335,24 +336,32 @@
 
                 // Carga de eventos
                 events: @json($arreglo).map(event => {
-                    // Asigna clase CSS basada en el estado del evento
-                    event.className = event.estado?.toLowerCase() === 'aceptado' ? [
-                        'evento-aceptado'
-                    ] : [];
+                    if (event.estado?.toLowerCase() === 'aceptado') {
+                        event.className = ['evento-aceptado'];
+                    } else if (event.estado?.toLowerCase() === 'pendiente') {
+                        event.className = ['evento-pendiente'];
+                    } else {
+                        event.className = [];
+                    }
                     return event;
                 }),
 
                 // Personaliza el contenido del evento
                 eventContent: function(arg) {
-                    const estado = arg.event.extendedProps.estado;
-                    const esAceptado = estado?.toLowerCase() === 'aceptado';
+                    const estado = arg.event.extendedProps.estado?.toLowerCase();
+
+                    let iconColor = '';
+                    if (estado === 'aceptado') {
+                        iconColor = 'color-blanco';
+                    } else if (estado === 'pendiente') {
+                        iconColor = 'color-cafe';
+                    }
 
                     return {
-                        html: `<i class="fas fa-info-circle"></i>`, // Ícono en el evento
-                        classNames: esAceptado ? ['evento-aceptado'] :
-                        [] // Aplica clase si está aceptado
+                        html: `<i class="fas fa-info-circle ${iconColor}"></i>`
                     };
                 },
+
 
                 // Se ejecuta cuando un evento se monta en el DOM
                 eventDidMount: function(info) {
