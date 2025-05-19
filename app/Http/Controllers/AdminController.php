@@ -98,7 +98,12 @@ class AdminController extends Controller
         ];
 
     }
-    if (Auth::guard('usuario')->check()) {
+    return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo', 'imgStaff');
+
+    }
+    //Clase privada para las notificaciones
+    private function notificacionUsuario(){
+        if (Auth::guard('usuario')->check()) {
         // Notificaciones de usuario
         $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
             return array_merge(
@@ -109,7 +114,7 @@ class AdminController extends Controller
                 ]
             );
         })->toArray();
-    } elseif (Auth::guard('negocio')->check()) {
+        }elseif (Auth::guard('negocio')->check()) {
         // Notificaciones de negocio
         $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
             return array_merge(
@@ -120,12 +125,10 @@ class AdminController extends Controller
                 ]
             );
         })->toArray();
-    } else {
-
-        $notificaciones = [];
-    }
-    return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo','notificaciones', 'imgStaff');
-
+        } else {
+            $notificaciones = [];
+        }
+        return compact('notificaciones');
     }
 
     /*  INSERCION DE UN USUARIO ADMIN (Falta especificar el rol, en las migraciones no esta unida la tabla rol con usuario)   */
@@ -239,7 +242,7 @@ class AdminController extends Controller
 
         if ($accion === 'index') {
             // Arriba esta la clase private donde estan todos los paramentros CargarDatos...
-            return view($indexAdminView, $this->cargarDatosIndex());
+            return view($indexAdminView, $this->cargarDatosIndex() + $this->notificacionUsuario());
 
         } elseif ($accion === 'solicitud') {
 

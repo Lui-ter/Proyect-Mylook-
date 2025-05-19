@@ -4,17 +4,21 @@
         <p>BANDEJA DE ENTRADA</p>
     </div>
     <div class="contenido-bandeja">  
-        @foreach ($notificaciones as $notificacion )
-        <div class="elemento-bandeja" id="notificacion-{{ $notificacion['id_notificacion'] }}">
-            <div class="contenedor-fecha">
-                <div class="numero-fecha">{{ $notificacion['fecha'] ?? 'No se encontró' }}</div>
+        @if(isset($notificaciones)) 
+            @foreach ($notificaciones as $notificacion )
+            <div class="elemento-bandeja" id="notificacion-{{ $notificacion['id_notificacion'] }}">
+                <div class="contenedor-fecha">
+                    <div class="numero-fecha">{{ $notificacion['fecha'] ?? 'No se encontró' }}</div>
+                </div>
+                <div class="texto-solicitud">{{ $notificacion['titulo'] ?? 'No se encontró' }}</div>
+                <div class="contenedor-icono">
+                    <button class="button-borrar-notificacion" data-id="{{ $notificacion['id_notificacion'] }}">X</button>
+                </div>
             </div>
-            <div class="texto-solicitud">{{ $notificacion['titulo'] ?? 'No se encontró' }}</div>
-            <div class="contenedor-icono">
-                <button class="button-borrar-notificacion" data-id="{{ $notificacion['id_notificacion'] }}">X</button>
-            </div>
-        </div>
-        @endforeach 
+            @endforeach 
+        @else
+        <div class="texto-solicitud">Aún no cuentas con una notificacion</div>
+        @endif
     </div>
 </aside>
 

@@ -11,8 +11,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 </head>
-
+    @section('link-index', '/usuarios/index')
+    @section('link-configurar-perfil')
+    @section('link-historial', '/admin/historial')
+    @section('link-salir', '/usuarios/logout')
+    @include('components.header',['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
 <body>
+    
     <main>
         <section class="informacion-staff">
             <article class="carta-staff">

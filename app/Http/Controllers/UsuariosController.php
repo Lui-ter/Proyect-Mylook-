@@ -22,83 +22,96 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
+/*INDEX USUARIO DE MYLOOK */
 class UsuariosController extends Controller
 {
+    //Clase privada para las variables necesarios de indexUsuario
+    private function indexUsuario(){
+        $establecimientosAleatorios = Establecimiento::with('negocio')
+            ->inRandomOrder()
+            ->take(5)
+            ->get()
+            ->toArray();
+        $mejoresEstablecimientos = Establecimiento::with('negocio')
+            ->select(
+                'establecimiento.id_establc',
+                'establecimiento.id_negocio',
+                'establecimiento.nombre_establc',
+                'establecimiento.desc_establc',
+                DB::raw('AVG(valoracion.calificacion) as promedio_calificacion')
+            )
+            ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
+            ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
+            ->groupBy(
+                'establecimiento.id_establc',
+                'establecimiento.id_negocio',
+                'establecimiento.nombre_establc',
+                'establecimiento.desc_establc'
+            )
+            ->orderByDesc(DB::raw('promedio_calificacion'))
+            ->take(3)
+            ->get();
 
-    /*INDEX USUARIO DE MYLOOK */
-
-    function showIndexUsuario()
-    {
-        return view('Index.indexUsuario');
+        $establecimientosRecomendados = Establecimiento::with('negocio')
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
+        $idusuario = Auth::guard('usuario')->user()->id_usuario;
+        $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
+        if ($imgusuario) {
+            $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
+        } else {
+            $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+        }
+        return compact(
+            'establecimientosAleatorios',
+            'mejoresEstablecimientos',
+            'establecimientosRecomendados',
+            'imgusuario'
+        );
     }
-
+    //Clase privada para las notificaciones
+    private function notificacionUsuario(){
+        if (Auth::guard('usuario')->check()) {
+        // Notificaciones de usuario
+        $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+        }elseif (Auth::guard('negocio')->check()) {
+        // Notificaciones de negocio
+        $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+        } else {
+            $notificaciones = [];
+        }
+        return compact('notificaciones');
+    }
+    //------------------------------------------------------------------------------------------------------------------------------
     public function crudUsuarios(Request $request, $accion = null)
     {
-
         $indexUsuarioView = GlobalVariables::$indexUsuarioView;
         $agendamientoView = GlobalVariables::$agendamientoView;
         $configUsersView = GlobalVariables::$configUsersView;
         $agendamientoEstablecimiento = GlobalVariables::$agendamientoEstablecimiento;
         $viewHistorial = GlobalVariables::$viewHistorial;
-
+        // Clase privada para datos necesarios para funcionar nuevamente la vista indexUsuario:
+        
         if ($accion === 'index') {
-            $establecimientosAleatorios = Establecimiento::with('negocio')
-                ->inRandomOrder()
-                ->take(5)
-                ->get()
-                ->toArray();
-
-            // TOP 3 establecimientos con mejor valoración promedio
-            $mejoresEstablecimientos = Establecimiento::with('negocio')
-                ->select('establecimiento.id_establc', 'establecimiento.id_negocio', 'establecimiento.nombre_establc', 'establecimiento.desc_establc', DB::raw('AVG(valoracion.calificacion) as promedio_calificacion'))
-                ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
-                ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
-                ->groupBy('establecimiento.id_establc', 'establecimiento.id_negocio', 'establecimiento.nombre_establc', 'establecimiento.desc_establc')
-                ->orderByDesc(DB::raw('promedio_calificacion'))
-                ->take(3)
-                ->get();
-
-            $establecimientosRecomendados = Establecimiento::with('negocio', 'categorias')
-                ->inRandomOrder()
-                ->take(6)
-                ->get(); // ← no usamos toArray() para evitar errores
-
-            if (Auth::guard('usuario')->check()) {
-                // Notificaciones de usuario
-                $notificaciones = Notificacion::with('cita')->whereIn('estado', ['Aceptado', 'Cancelado'])->get()->map(function ($notificacion) {
-                    return array_merge(
-                        $notificacion->toArray(),
-                        [
-                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                        ]
-                    );
-                })->toArray();
-            } elseif (Auth::guard('negocio')->check()) {
-                // Notificaciones de negocio
-                $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
-                    return array_merge(
-                        $notificacion->toArray(),
-                        [
-                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                        ]
-                    );
-                })->toArray();
-            } else {
-
-                $notificaciones = [];
-            }
-
-            $idusuario = Auth::guard('usuario')->user()->id_usuario;
-            $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
-            if ($imgusuario) {
-                $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
-            } else {
-                $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
-            }
-
-            return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados', 'notificaciones', 'imgusuario'));
+            return view($indexUsuarioView,($this->indexUsuario() + $this->notificacionUsuario()));
+       
         } elseif ($accion === 'verMas') {
             //Campos necesarios para cargar los datos necesarios del ver mas de un establecimiento
             $id = $request->input('id_establecimiento');
@@ -145,41 +158,16 @@ class UsuariosController extends Controller
                 ->get();
 
             foreach ($valoraciones as $valoracion) {
-    $usuario = $valoracion->cita?->usuario;
+                $usuario = $valoracion->cita?->usuario;
 
-    if ($usuario && $usuario->img_usuario) {
-        $base64Data = base64_encode($usuario->img_usuario);
-        $usuario->imagen_base64 = 'data:image/png;base64,' . $base64Data;
-    } elseif ($usuario) {
-        $usuario->imagen_base64 = null;
-    }
+                if ($usuario && $usuario->img_usuario) {
+                    $base64Data = base64_encode($usuario->img_usuario);
+                    $usuario->imagen_base64 = 'data:image/png;base64,' . $base64Data;
+                } elseif ($usuario) {
+                    $usuario->imagen_base64 = null;
+                }
             }
-            if (Auth::guard('usuario')->check()) {
-                // Notificaciones de usuario
-                $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
-                    return array_merge(
-                        $notificacion->toArray(),
-                        [
-                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                        ]
-                    );
-                })->toArray();
-            } elseif (Auth::guard('negocio')->check()) {
-                // Notificaciones de negocio
-                $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
-                    return array_merge(
-                        $notificacion->toArray(),
-                        [
-                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                        ]
-                    );
-                })->toArray();
-            } else {
-
-                $notificaciones = [];
-            }
+            
 
             $idusuario = Auth::guard('usuario')->user()->id_usuario;
             $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
@@ -189,7 +177,7 @@ class UsuariosController extends Controller
                 $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
             }
 
-            return view($agendamientoView, compact('establecimiento', 'productos', 'negocio', 'staffs', 'categorias', 'valoraciones', 'notificaciones', 'imgusuario'));
+            return view($agendamientoView, compact('establecimiento', 'productos', 'negocio', 'staffs', 'categorias', 'valoraciones', 'imgusuario') + $this->notificacionUsuario());
         } elseif ($accion === 'config') {
             $id = session('usuario_id');
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
@@ -229,18 +217,14 @@ class UsuariosController extends Controller
                 ];
             })
             ->toArray();
-
-
             $categorias = Categoria::where('id_establc', $idEstablecimiento)->get()->toArray();
             $servicios = Servicio::all();
+
             // arreglo para fullCalendar
-
-
             $citas = Cita::where('id_establc', $idEstablecimiento)
             ->whereIn('estado_cita',['aceptado','pendiente'])
             ->get();
             $arreglo = []; // Inicializar el arreglo vacío antes de recorrerlo
-
             foreach ($citas as $cita) {
                 $fecha_citas = $cita->fecha_cita;
                 $hora_citas = $cita->hora_cita;
@@ -262,7 +246,7 @@ class UsuariosController extends Controller
             }
 
 
-            return view($agendamientoEstablecimiento, compact('idEstablecimiento', 'idUsuario', 'productos', 'staffs', 'categorias', 'servicios', 'arreglo', 'imgusuario'));
+            return view($agendamientoEstablecimiento, compact('idEstablecimiento', 'idUsuario', 'productos', 'staffs', 'categorias', 'servicios', 'arreglo', 'imgusuario') + $this->notificacionUsuario());
         } elseif ($accion === 'agendamiento') {
             //Variables necesarias para crear una cita, reserva servicio y opcional reserva producto
             $idEstablecimiento = $request->input('id_establecimiento');
@@ -277,7 +261,6 @@ class UsuariosController extends Controller
             //Opcional Producto y cantidad
             $idProducto = $request->input('idProducto');
             $cantidadProducto = $request->input('cantidadProducto');
-            
 
             if (
                 isset($idEstablecimiento) && isset($idUsuario) && isset($estado)
@@ -326,73 +309,8 @@ class UsuariosController extends Controller
                         $producto->save();
                     }
                 }
-                // Datos necesarios para funcionar nuevamente la vista indexUsuario:
-                $establecimientosAleatorios = Establecimiento::with('negocio')
-                    ->inRandomOrder()
-                    ->take(5)
-                    ->get()
-                    ->toArray();
-                $mejoresEstablecimientos = Establecimiento::with('negocio')
-                    ->select(
-                        'establecimiento.id_establc',
-                        'establecimiento.id_negocio',
-                        'establecimiento.nombre_establc',
-                        'establecimiento.desc_establc',
-                        DB::raw('AVG(valoracion.calificacion) as promedio_calificacion')
-                    )
-                    ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
-                    ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
-                    ->groupBy(
-                        'establecimiento.id_establc',
-                        'establecimiento.id_negocio',
-                        'establecimiento.nombre_establc',
-                        'establecimiento.desc_establc'
-                    )
-                    ->orderByDesc(DB::raw('promedio_calificacion'))
-                    ->take(3)
-                    ->get();
-
-                $establecimientosRecomendados = Establecimiento::with('negocio')
-                    ->inRandomOrder()
-                    ->take(6)
-                    ->get();
-
-                if (Auth::guard('usuario')->check()) {
-                    // Notificaciones de usuario
-                    $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
-                        return array_merge(
-                            $notificacion->toArray(),
-                            [
-                                'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                                'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                            ]
-                        );
-                    })->toArray();
-                } elseif (Auth::guard('negocio')->check()) {
-                    // Notificaciones de negocio
-                    $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
-                        return array_merge(
-                            $notificacion->toArray(),
-                            [
-                                'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                                'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                            ]
-                        );
-                    })->toArray();
-                } else {
-
-                    $notificaciones = [];
-                }
-
-                $idusuario = Auth::guard('usuario')->user()->id_usuario;
-                $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
-                if ($imgusuario) {
-                    $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
-                } else {
-                    $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
-                }
-
-                return view($indexUsuarioView, compact('mejoresEstablecimientos', 'establecimientosAleatorios', 'establecimientosRecomendados', 'notificaciones', 'imgusuario'));
+     
+                return view($indexUsuarioView, ($this->indexUsuario() + $this->notificacionUsuario()));
             }
         } elseif ($accion === 'historialCitas') {
             $idusuario = Auth::guard('usuario')->user()->id_usuario;
@@ -400,7 +318,14 @@ class UsuariosController extends Controller
                 ->where('id_usuario', $idusuario)
                 ->get()
                 ->toArray();
-            return view($viewHistorial, compact('HistorialCitas'));
+            $idusuario = Auth::guard('usuario')->user()->id_usuario;
+            $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
+            if ($imgusuario) {
+                $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
+            } else {
+                $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+            }
+            return view($viewHistorial, compact('HistorialCitas','imgusuario') + $this->notificacionUsuario());
         } elseif ($accion === 'logout') {
             Auth::guard('usuario')->logout();
             $request->session()->invalidate();

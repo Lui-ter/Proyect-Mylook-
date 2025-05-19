@@ -7,6 +7,7 @@ use App\Models\Staff;
 use App\Models\Usuario;
 use App\Models\Cita;
 use App\Models\Establecimiento;
+use App\Models\notificacion;
 use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,36 @@ use Carbon\Carbon;
 
 class StaffController extends Controller
 {
+    //Clase privada para las notificaciones
+    private function notificacionUsuario(){
+        if (Auth::guard('usuario')->check()) {
+        // Notificaciones de usuario
+        $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+        }elseif (Auth::guard('negocio')->check()) {
+        // Notificaciones de negocio
+        $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+        } else {
+            $notificaciones = [];
+        }
+        return compact('notificaciones');
+    }
+
 
     public function getStaff()
     {
@@ -146,6 +177,7 @@ class StaffController extends Controller
                 // Todas las citas (para el calendario), sin filtro de fecha
                 $todasLasCitas = cita::with('staff.usuario', 'usuario', 'reservaServicio.servicio', 'establecimiento')
                     ->where('id_staff', $id_staff)
+                    ->whereIn('estado_cita',['aceptado','pendiente'])
                     ->orderBy('fecha_cita', 'asc')
                     ->orderBy('hora_cita', 'asc')
                     ->get();
@@ -185,7 +217,7 @@ class StaffController extends Controller
                     $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
                 }
 
-                return view($indexStaff, compact('arregloProximas', 'arregloTodas', 'imgusuario', 'staff'));
+                return view($indexStaff, compact('arregloProximas', 'arregloTodas', 'imgusuario', 'staff') + $this->notificacionUsuario());
             } else {
                 dd("Este usuario no es administrador");
             }

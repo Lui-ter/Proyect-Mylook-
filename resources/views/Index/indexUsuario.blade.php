@@ -17,7 +17,7 @@
         @section('link-historial', '/admin/historial')
         @section('link-salir', '/usuarios/logout')
 
-        @include('components.header',['imgusuario' => $imgusuario])
+        @include('components.header',['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
 
 
         <main>
@@ -169,7 +169,6 @@
 
 
                 </div>
-
             </section>
         </main>
 

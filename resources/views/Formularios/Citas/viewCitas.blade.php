@@ -8,7 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Visualizacion de citas</title>
 </head>
-
+    @section('link-index', '/usuarios/index')
+    @section('link-configurar-perfil')
+    @section('link-historial', '/admin/historial')
+    @section('link-salir', '/usuarios/logout')
+    @include('components.header',['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
 <body>
     <main>
         <div class="contenedorPrincipal">
