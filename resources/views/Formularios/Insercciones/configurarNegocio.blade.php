@@ -20,7 +20,8 @@
             <div class="contenedorImagen">
                 <!-- Input de imagen de fondo -->
                 <input type="file" name="img_portada" id="inputImagenFondo" class="inputFile" accept="image/*">
-                <img id="imagenFondo" class="imagenFondo" src="https://img.freepik.com/foto-gratis/sillas-vintage-peluqueria_155003-10150.jpg?t=st=1741058411~exp=1741062011~hmac=83e715b06e39d3689c7b29fdaa0eaceb0c4f6c1521f4b0fab3e020e84583ad27&w=1060" alt="Imagen de fondo">
+                <img id="imagenFondo" class="imagenFondo" src="https://img.freepik.com/foto-gratis/sillas-vintage-peluqueria_155003-10150.jpg" alt="Imagen de fondo">
+
                     <!-- Input para el logo (imagen superpuesta) -->
                     <div class="logoNegocio">
                         <input type="file" name="img_logo" id="inputLogo" class="inputFile" accept="image/*">
@@ -44,7 +45,10 @@
 
                     <div class="informacionInput">
                         <p class="nombreInput">DESCRIPCION</p>
-                        <textarea name="descripcionNegocio" id="inputDescrip" cols="30" rows="1" class="inputDescrip" placeholder="Ingrese la descripción del negocio">{{ $negocio->desc_negocio }}</textarea>
+                        <textarea name="descripcionNegocio" id="inputDescrip" cols="30" rows="1" class="inputDescrip" placeholder="Ingrese la descripción del negocio">{{ old('descripcionNegocio', $data['descripcionNegocio'] ?? '') }}</textarea>
+                        @if (isset($validationErrors) && $validationErrors->has('descripcionNegocio'))
+                            <div class="error">{{ $validationErrors->first('descripcionNegocio') }}</div>
+                        @endif
                     </div>
 
                     <div class="informacionInput">
@@ -59,7 +63,9 @@
             </div>
         </form>
     </main>
-    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
+    <script
+        src="{{asset('Js/Validacion/formValidations.js')}}">
+    </script>
     <script>
         const inputFondo = document.getElementById('inputImagenFondo');
         const imagenFondo = document.getElementById('imagenFondo');
@@ -85,6 +91,5 @@
             }
         });
     </script>
-
 </body>
 </html>

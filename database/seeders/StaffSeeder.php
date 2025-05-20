@@ -16,7 +16,7 @@ class StaffSeeder extends Seeder
             [
                 'id_usuario' => '1222544457',
                 'id_rol' => '1',
-                'id_establc' => '12345678910',
+                'id_establc' => '65454812210',
                 'id_negocio' => '12345678910',
                 'estado' => ''
             ]
@@ -26,7 +26,7 @@ class StaffSeeder extends Seeder
             [
                 'id_usuario' => '2654488745',
                 'id_rol' => '2',
-                'id_establc' => '12345678910',
+                'id_establc' => '65454812210',
                 'id_negocio' => '12345678910',
                 'estado' => 'disponible'
             ]
@@ -36,7 +36,7 @@ class StaffSeeder extends Seeder
             [
                 'id_usuario' => '4455887774',
                 'id_rol' => '1',
-                'id_establc' => '10987654321',
+                'id_establc' => '74502224346',
                 'id_negocio' => '10987654321',
                 'estado' => ''
             ]
@@ -46,7 +46,7 @@ class StaffSeeder extends Seeder
             [
                 'id_usuario' => '9555544122',
                 'id_rol' => '6',
-                'id_establc' => '10987654321',
+                'id_establc' => '74502224346',
                 'id_negocio' => '10987654321',
                 'estado' => 'disponible'
             ]
@@ -56,7 +56,7 @@ class StaffSeeder extends Seeder
             [
                 'id_usuario' => '6525544110',
                 'id_rol' => '1',
-                'id_establc' => '10192837465',
+                'id_establc' => '64225155511',
                 'id_negocio' => '10192837465',
                 'estado' => ''
             ]
@@ -66,7 +66,7 @@ class StaffSeeder extends Seeder
             [
                 'id_usuario' => '7845489996',
                 'id_rol' => '4',
-                'id_establc' => '10192837465',
+                'id_establc' => '64225155511',
                 'id_negocio' => '10192837465',
                 'estado' => 'disponible'
             ]

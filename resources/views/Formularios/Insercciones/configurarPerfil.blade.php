@@ -26,27 +26,42 @@
             <section class="formularioPerfil">
                 <div class="informacionInput">
                     <p class="nombreInput">DOCUMENTO</p>
-                    <input type="number" class="inputDocumento" id="idAdmin" name="idAdmin" placeholder="Ingrese su documento">
+                    <input type="number" class="inputDocumento" id="idAdmin" name="idAdmin" placeholder="Ingrese su documento" value="{{ old('idAdmin', $data['idAdmin'] ?? '') }}">
+                    @if (isset($validationErrors) && $validationErrors->has('idAdmin'))
+                        <div class="error">{{ $validationErrors->first('idAdmin') }}</div>
+                    @endif
                 </div>
 
                 <div class="informacionInput">
                     <p class="nombreInput">NOMBRE</p>
-                        <input type="text" class="inputNombre" id="nombreAdmin" name="nombreAdmin" placeholder="Ingrese su nombre">
+                        <input type="text" class="inputNombre" id="nombreAdmin" name="nombreAdmin" placeholder="Ingrese su nombre" value="{{ old('nombreAdmin', $data['nombreAdmin'] ?? '') }}">
+                        @if (isset($validationErrors) && $validationErrors->has('nombreAdmin'))
+                            <div class="error">{{ $validationErrors->first('nombreAdmin') }}</div>
+                        @endif
                     </div>
 
                     <div class="informacionInput">
                         <p class="nombreInput">APELLIDO</p>
-                        <input type="text" class="inputApellido" id="apellidoAdmin" name="apellidoAdmin" placeholder="Ingrese su apellido">
+                        <input type="text" class="inputApellido" id="apellidoAdmin" name="apellidoAdmin" placeholder="Ingrese su apellido" value="{{ old('apellidoAdmin', $data['apellidoAdmin'] ?? '') }}">
+                        @if (isset($validationErrors) && $validationErrors->has('apellidoAdmin'))
+                            <div class="error">{{ $validationErrors->first('apellidoAdmin') }}</div>
+                        @endif
                     </div>
 
                     <div class="informacionInput">
                         <p class="nombreInput">CORREO</p>
-                        <input type="text" class="inputCorreo" id="correoAdmin" name="correoAdmin" placeholder="Ingrese su correo">
+                        <input type="text" class="inputCorreo" id="correoAdmin" name="correoAdmin" placeholder="Ingrese su correo" value="{{ old('correoAdmin', $data['correoAdmin'] ?? '') }}">
+                        @if (isset($validationErrors) && $validationErrors->has('correoAdmin'))
+                            <div class="error">{{ $validationErrors->first('correoAdmin') }}</div>
+                        @endif
                     </div>
 
                     <div class="informacionInput">
                         <p class="nombreInput">TELEFONO</p>
-                        <input type="number" class="inputTelefono" id="telefonoAdmin" name="telefonoAdmin" placeholder="Ingrese su teléfono">
+                        <input type="number" class="inputTelefono" id="telefonoAdmin" name="telefonoAdmin" placeholder="Ingrese su teléfono" value="{{ old('telefonoAdmin', $data['telefonoAdmin'] ?? '') }}">
+                        @if (isset($validationErrors) && $validationErrors->has('telefonoAdmin'))
+                            <div class="error">{{ $validationErrors->first('telefonoAdmin') }}</div>
+                        @endif
                     </div>
 
                     <figure>
@@ -57,6 +72,9 @@
                     <div class="informacionInput">
                         <p class="nombreInput">CONTRASEÑA</p>
                         <input type="password" class="inputPassword" id="contrasenaAdmin" name="contrasenaAdmin" placeholder="Ingrese su contraseña">
+                        @if (isset($validationErrors) && $validationErrors->has('contrasenaAdmin'))
+                            <div class="error">{{ $validationErrors->first('contrasenaAdmin') }}</div>
+                        @endif
                     </div>
                 </section>
 

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Establecimiento;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Log;
 class SessionsMiddleware
@@ -15,10 +16,10 @@ class SessionsMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {   
-        
+    {
+
         //Este middleware solo procura validar si ha iniciado sessión alguien x
-            
+
         // Ahora un usuario puede acceder a las rutas de staff
             if ($request->is('staff/*')) {
               if (Auth::guard('usuario')->check() || Auth::guard('negocio')->check()) {
@@ -28,26 +29,26 @@ class SessionsMiddleware
 
            if(Auth::guard('usuario')->check()){
               if($request->is('usuarios/*')){
-                
+
                 return $next($request);
               }else{
                 return redirect()->route('landing');
               }
-               
+
            }
            if (Auth::guard('negocio')->check()) {
-            if ($request->is('negocio/*') || $request->is('admin') || $request->is('admin/*') 
-            ||  $request->is('productos/*') || $request->is('categorias/*') || $request->is('servicios/*')  ) {
+            if ($request->is('negocio/*') || $request->is('admin') || $request->is('admin/*')
+            ||  $request->is('productos/*') || $request->is('categorias/*') || $request->is('servicios/*') || $request->is('establecimientos/*')  ) {
                 Log::info('Acceso permitido a: ' . $request->path());
                 return $next($request);
             }
             Log::info('Acceso denegado a: ' . $request->path());
             return redirect()->route('landing');
             }
-   
+
         session()->flush();
         return redirect()->route('login');
-        
-        
+
+
     }
 }

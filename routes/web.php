@@ -53,7 +53,9 @@ Route::middleware(['ValidateSession:negocio'])->group(function(){
 });
 
 /* CRUD DE ESTABLECIMIENTOS */
-Route::match(['get', 'post'], '/establecimientos/{accion?}', [EstablecimientosController::class, 'crudEstablecimientos'])->name('establecimientos');
+Route::middleware(['ValidateSession:negocio'])->group(function() {
+    Route::match(['get', 'post'], '/establecimientos/{accion?}', [EstablecimientosController::class, 'crudEstablecimientos'])->name('establecimientos');
+});
 
 /* RUTAS POST - VALIDACIONES */
 Route::post('/login-user', [LoginController::class, 'loginUser'])->name('loginUser');
@@ -75,6 +77,7 @@ Route::post('/register-valoracion', [ValoracionesController::class, 'handleAddVa
 Route::put('/update-category/{id}', [CategoriasController::class, 'handleUpdateCategory'])->name('updateCategory');
 Route::put('/update-service/{id}', [ServiciosController::class, 'handleUpdateService'])->name('updateService');
 Route::put('/update-product/{id}', [ProductosController::class, 'handleUpdateProduct'])->name('updateProduct');
+Route::put('/update-userone', [UsuariosController::class, 'userUpdate'])->name('userUpdate');
 Route::put('/update-user/{id}', [UsuariosController::class, 'handleUpdateUsers'])->name('updateUsers');
 Route::put('/update-user-admin/{id}', [AdminController::class, 'handleUpdateUserAdmin'])->name('updateUserAdmin');
 Route::put('/update-negocio', [NegociosController::class, 'handleUpdateNegocio'])->name('updateNegocio');

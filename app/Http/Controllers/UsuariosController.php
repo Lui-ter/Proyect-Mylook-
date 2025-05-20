@@ -102,21 +102,24 @@ class UsuariosController extends Controller
     //------------------------------------------------------------------------------------------------------------------------------
     public function crudUsuarios(Request $request, $accion = null)
     {
+        $registerUserView = GlobalVariables:: $registerUserView;
         $indexUsuarioView = GlobalVariables::$indexUsuarioView;
         $agendamientoView = GlobalVariables::$agendamientoView;
         $configUsersView = GlobalVariables::$configUsersView;
         $agendamientoEstablecimiento = GlobalVariables::$agendamientoEstablecimiento;
         $viewHistorial = GlobalVariables::$viewHistorial;
         // Clase privada para datos necesarios para funcionar nuevamente la vista indexUsuario:
-        
+
         if ($accion === 'index') {
             return view($indexUsuarioView,($this->indexUsuario() + $this->notificacionUsuario()));
-       
+
         } elseif ($accion === 'verMas') {
             //Campos necesarios para cargar los datos necesarios del ver mas de un establecimiento
             $id = $request->input('id_establecimiento');
-            $negocios =  Negocio::where('id_negocio', $id)->get()->toArray();
-            $establecimiento = Establecimiento::where('id_establc', $id)->first()->toArray();
+            $establecimiento = Establecimiento::where('id_establc', $id)
+            ->with('negocio')
+            ->firstOrFail();
+            $negocio =  $establecimiento->negocio;
             $staffs = staff::where('id_establc', $id)->with('usuario', 'rol')->distinct()->get();
             $productos = Producto::where('id_establc', $id)->get()->toArray();
             $categorias = Categoria::where('id_establc', $id)->get()->toArray();
@@ -127,12 +130,11 @@ class UsuariosController extends Controller
                 }
             ])->get()->toArray();
 
-            foreach ($negocios as $negocio) {
-                if (isset($negocio['img_perfil']) && isset($negocio['img_portada'])) {
-                    $negocio['img_perfil'] = 'data:image/png;base64,' . base64_encode($negocio['img_perfil']);
-                    $negocio['img_portada'] = 'data:image/png;base64,' . base64_encode($negocio['img_portada']);
-                }
+            if (isset($negocio['img_perfil']) && isset($negocio['img_portada'])) {
+                $negocio['img_perfil'] = 'data:image/png;base64,' . base64_encode($negocio['img_perfil']);
+                $negocio['img_portada'] = 'data:image/png;base64,' . base64_encode($negocio['img_portada']);
             }
+
             foreach ($staffs as $staff) {
                 if (isset($staff->usuario->img_usuario)) {
                     $staff->usuario->img_usuario = 'data:image/png;base64,' . base64_encode($staff->usuario->img_usuario);
@@ -167,7 +169,7 @@ class UsuariosController extends Controller
                     $usuario->imagen_base64 = null;
                 }
             }
-            
+
 
             $idusuario = Auth::guard('usuario')->user()->id_usuario;
             $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
@@ -177,7 +179,12 @@ class UsuariosController extends Controller
                 $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
             }
 
+
             return view($agendamientoView, compact('establecimiento', 'productos', 'negocio', 'staffs', 'categorias', 'valoraciones', 'imgusuario') + $this->notificacionUsuario());
+        }elseif ($accion === 'register') {
+            $id = Auth::guard('usuario')->user()->id_usuario;
+            $usuario = Usuario::findOrFail($id);
+            return view($registerUserView, compact(('usuario')));
         } elseif ($accion === 'config') {
             $id = session('usuario_id');
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
@@ -309,7 +316,7 @@ class UsuariosController extends Controller
                         $producto->save();
                     }
                 }
-     
+
                 return view($indexUsuarioView, ($this->indexUsuario() + $this->notificacionUsuario()));
             }
         } elseif ($accion === 'historialCitas') {
@@ -337,56 +344,57 @@ class UsuariosController extends Controller
         }
     }
 
-    /*  INSERCION DE UN USUARIO ADMIN (Falta especificar el rol, en las migraciones no esta unida la tabla rol con usuario)   */
-
-    public function handleAddUser(Request $request)
+/*  ACTUALIZACION DE UN USUARIO DESPUES DE REGISTRARSE  */
+    public function userUpdate(Request $request)
     {
-
-        // Aqui se validan los datos que provienen del formulario de perfil administrador
+        // Aqui se validan los datos que provienen del formulario de perfil usuario
         $request->validate([
-            'idAdmin' => 'required|numeric|unique:usuario,id_usuario',
-            'nombreAdmin' => 'required|string|max:30',
-            'apellidoAdmin' => 'required|string|max:30',
-            'correoAdmin' => 'nullable|email|unique:usuario,correo',
-            'telefonoAdmin' => 'nullable|string|max:30',
-            'contrasenaAdmin' => 'required|string',
-            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
-        ]);
+            'idUser' => 'required|numeric|exists:usuario,id_usuario',
+            'nombreUser' => 'required|string|max:30',
+            'apellidoUser' => 'required|string|max:30',
+            'correoUser' => 'required|email|unique:usuario,correo,' . $request->idUser . ',id_usuario',
+            'telefonoUser' => 'required|string|max:30|unique:usuario,telefono,' . $request->idUser . ',id_usuario',
+            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:5120'
+        ],[
+            'idUser.required' => 'El documento del usuario es obligatorio',
+            'idUser.numeric' => 'El documento debe ser un número',
+            'idUser.unique' => 'Este documento ya está registrado',
 
+            'nombreUser.required' => 'El nombre es obligatorio',
+            'nombreUser.string' => 'El nombre debe ser texto',
+            'nombreUser.max' => 'El nombre no debe exceder los 30 caracteres',
+
+            'apellidoUser.required' => 'El apellido es obligatorio',
+            'apellidoUser.string' => 'El apellido debe ser texto',
+            'apellidoUser.max' => 'El apellido no debe exceder los 30 caracteres',
+
+            'correoUser.required' => 'El correo es obligatorio',
+            'correoUser.email' => 'El formato del correo no es válido',
+            'correoUser.unique' => 'Este correo ya está registrado',
+
+            'telefonoUser.required' => 'El teléfono es obligatorio',
+            'telefonoUser.unique' => 'Este teléfono ya está registrado',
+            'telefonoUser.max' => 'El teléfono no debe exceder los 30 caracteres',
+
+            'imagenPerfil.image' => 'El archivo debe ser una imagen',
+            'imagenPerfil.mimes' => 'La imagen debe ser de tipo: jpg, jpeg, png, gif o webp',
+            'imagenPerfil.max' => 'La imagen no debe pesar más de 5 MB',
+        ]);
         // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
         $img_usuario = null;
         if ($request->hasFile('imagenPerfil')) {
             $img = $request->file('imagenPerfil');
             $img_usuario = file_get_contents($img->getRealPath());
         };
-
-        // Aqui se crea un nuevo usuario en la tabla falta especificar que es con el rol de administrador
-        $usuario = Usuario::create([
-            'id_usuario' => $request->idAdmin,
-            'nombre' => $request->nombreAdmin,
-            'apellido' => $request->apellidoAdmin,
-            'correo' => $request->correoAdmin,
-            'telefono' => $request->telefonoAdmin,
-            'contrasena' => Hash::make($request->contrasenaAdmin),
+        $usuario = Usuario::find(Auth::guard('usuario')->user()->id_usuario);
+        $usuario->update([
+            'nombre' => $request->nombreUser,
+            'apellido' => $request->apellidoUser,
+            'correo' => $request->correoUser,
+            'telefono' => $request->telefonoUser,
             'img_usuario' => $img_usuario
         ]);
-
-
-        $idNegocio = session('id_negocio');
-        $negocioData = Negocio::find($idNegocio);
-
-        // Aqui se guarda los siguientes datos del formulario perfil administrador para poder usarlo en en el formulario de negocio, como es la misma vista entonces se guarda en una sesión
-        session([
-            'id_usuario' => $usuario->id_usuario,
-            'nombreAdmin' => $usuario->nombre,
-            'apellidoAdmin' => $usuario->apellido,
-            'negocioData' => $negocioData
-        ]);
-        return response()->json([
-            'nombreAdmin' => $usuario->nombre,
-            'apellidoAdmin' => $usuario->apellido,
-            'id_usuario' => $usuario->id_usuario
-        ]);
+        return redirect()->route('usuarios', ['accion' => 'index']);
     }
 
 

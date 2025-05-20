@@ -8,35 +8,53 @@ use App\Models\Negocio;
 use App\Models\Staff;
 use Illuminate\Contracts\Session\Session;
 use App\Helpers\GlobalVariables;
+use Illuminate\Support\Facades\Validator;
 
-
-class NegociosController extends Controller{
-
+class NegociosController extends Controller
+{
     /* ACTUALIZACIÓN DE NEGOCIO CUANDO SE CREA POR PRIMERA VEZ*/
-
     public function handleUpdateNegocio(Request $request){
-
-        $registerEstablecimiento = GlobalVariables::$registerEstablecimiento;
-
+        $configNegocio = GlobalVariables::$registerNegocio;
         // Aqui se validan los datos que provienen del formulario de negocio
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'descripcionNegocio' => 'required|string',
-            'img_portada' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
-            'img_logo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
-        ]);
+            'img_portada' => 'required|image|mimes:jpg,jpeg,png,gif,webp|max:5120',
+            'img_logo' => 'required|image|mimes:jpg,jpeg,png,gif,webp|max:5120'
+        ],[
+            'descripcionNegocio.required' => 'La descripción del negocio es obligatoria',
+            'descripcionNegocio.string' => 'La descripción del negocio debe ser solo texto',
 
+            'img_portada.required' => 'La imagen de portada del negocio es obligatoria',
+            'img_portada.image' => 'La imagen de portada debe ser un archivo de imagen',
+            'img_portada.mimes' => 'La imagen de portada debe tener uno de los siguientes formatos: jpg, jpeg, png, gif, webp.',
+            'img_portada.max' => 'La imagen de portada no puede exceder los 5 MB.',
+
+            'img_logo.required' => 'La imagen de perfil del negocio es obligatoria',
+            'img_logo.image' => 'La imagen de perfil debe ser un archivo de imagen',
+            'img_logo.mimes' => 'La imagen de perfil debe tener uno de los siguientes formatos: jpg, jpeg, png, gif, webp.',
+            'img_logo.max' => 'La imagen de perfil no puede exceder los 5 MB.',
+        ]);
+        // Si hay errores, recarga nuevamente la vista con los errores y datos ingresados
+        if ($validator->fails()) {
+            $negocio = Negocio::find(Auth::guard('negocio')->user()->id_negocio);
+            return view($configNegocio, [
+                'negocio' => $negocio,
+                'admin' => $negocio->usuario,
+                'validationErrors' => $validator->errors(),
+                'data' => $request->all()
+            ]);
+        }
         // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
         $img_portada = null;
         $img_logo = null;
-        if($request->hasFile('img_portada')){
-            $imgPortada = $request->file('img_portada');
-            $img_portada = file_get_contents($imgPortada->getRealPath());
-        };
-        if($request->hasFile('img_logo')){
-            $imgLogo = $request->file('img_logo');
-            $img_logo = file_get_contents($imgLogo->getRealPath());
-        }
-
+            if($request->hasFile('img_portada')){
+                $imgPortada = $request->file('img_portada');
+                    $img_portada = file_get_contents($imgPortada->getRealPath());
+            };
+            if($request->hasFile('img_logo')){
+                $imgLogo = $request->file('img_logo');
+                $img_logo = file_get_contents($imgLogo->getRealPath());
+            }
         // Aqui se actualiza el registro de negocio encontrado a travez de su id
         $negocio = Negocio::find(Auth::guard('negocio')->user()->id_negocio);
         $negocio->update([
@@ -44,13 +62,11 @@ class NegociosController extends Controller{
             'img_portada' => $img_portada,
             'img_perfil' => $img_logo
         ]);
-        return view($registerEstablecimiento);
+        return redirect()->route('establecimientos', ['accion' => 'register']);
     }
 
-// ACTUALIZACION DE NEGOCIO DESDE EL PANEL DE ADMINISTRADOR
-
+    // ACTUALIZACION DE NEGOCIO DESDE EL PANEL DE ADMINISTRADOR
     public function handleUpdateNegocioTwo(Request $request, $id){
-
         $negocioData = Negocio::findOrFail($id);
         // Aqui se validan los datos que provienen del formulario de negocio
         $request->validate([
@@ -60,7 +76,6 @@ class NegociosController extends Controller{
             'img_portada' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'img_logo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
         ]);
-
         // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
         $img_portada = $negocioData->img_portada;
         $img_logo = $negocioData->img_perfil;
@@ -72,8 +87,7 @@ class NegociosController extends Controller{
             $imgLogo = $request->file('img_logo');
             $img_logo = file_get_contents($imgLogo->getRealPath());
         }
-
-    // Aqui se actualiza el registro de negocio encontrado a travez de su id
+        // Aqui se actualiza el registro de negocio encontrado a travez de su id
         $negocioData->update([
             'nombre_negocio' => $request->nombreNegocio,
             'desc_negocio' => $request->descripcionNegocio,
@@ -84,28 +98,18 @@ class NegociosController extends Controller{
     }
 
     /* ELIMINACION DE NEGOCIO */
-
     public function handleDeleteBussiness(Request $request){
-
         $id = $request->input('deleteButton');
-
         $negocio = Negocio::where('id_negocio', $id)->first();
-
         if ($negocio) {
-
             $negocio->delete();
-
         }
-
         return redirect('#');
-
     }
 
 
     public function crudNegocios(Request $request, $accion = null){
-
         $configNegocio = GlobalVariables::$configNegocioView;
-
         if($accion === 'config'){
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
             $negocio = Negocio::where('id_negocio', $idNegocio)->first();
@@ -120,17 +124,13 @@ class NegociosController extends Controller{
                 'img_portada' => $img_portada,
                 'staffAdmin' => $staffAdmin->usuario
             ]);
-
         }elseif($accion === 'logout'){
             Auth::guard('usuario')->logout();
             $request->session()->invalidate();
-
             $indexView = GlobalVariables::$indexView;
             return view($indexView);
         }else{
             return redirect()->route('admin');
         }
-
     }
-
 }

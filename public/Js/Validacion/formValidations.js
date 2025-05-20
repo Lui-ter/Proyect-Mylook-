@@ -843,40 +843,27 @@ function handleValidationUpdateNegocio(event) {
 
 /* VALIDACIONES FORMULARIO ESTABLECIMIENTO */
 function handleValidationEstablecimiento(event) {
-    event.preventDefault();
+    const documentoEstablecimiento = document.getElementById("idEstablc")?.value.trim();
+    const nombreEstablecimiento = document.getElementById("nombreEst")?.value.trim();
+    const direccionEstablecimiento = document.getElementById("direccionEstablecimiento")?.value.trim();
+    const telefonoEstablecimiento = document.getElementById("telefonoEstablecimiento")?.value.trim();
+    const descripcionEstablecimiento = document.getElementById("inputDescripcion")?.value.trim();
+    const correoEstablecimiento = document.getElementById("correoEstablecimiento")?.value.trim();
 
-    const documentoEstablecimiento = document
-        .getElementById("idEstablc")
-        ?.value.trim();
-    const nombreEstablecimiento = document
-        .getElementById("nombreEst")
-        ?.value.trim();
-    const direccionEstablecimiento = document
-        .getElementById("direccionEstablecimiento")
-        ?.value.trim();
-    const telefonoEstablecimiento = document
-        .getElementById("telefonoEstablecimiento")
-        ?.value.trim();
-    const descripcionEstablecimiento = document
-        .getElementById("inputDescripcion")
-        ?.value.trim();
-    const correoEstablecimiento = document
-        .getElementById("correoEstablecimiento")
-        ?.value.trim();
-
+    // Remueve alertas previas
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
         alertContainer.remove();
     }
 
-    // CONTENEDOR MANEJO DE ERRORES
+    // Contenedor para mostrar errores
     const form = document.getElementById("form3");
     const alertDiv = document.createElement("div");
     alertDiv.id = "alertContainer";
     alertDiv.classList.add("validacion-error");
 
     function showError(message) {
-        alertDiv.innerHTML = message;
+        alertDiv.textContent = message;
         form.prepend(alertDiv);
         setTimeout(() => {
             alertDiv.style.opacity = "0";
@@ -886,6 +873,7 @@ function handleValidationEstablecimiento(event) {
         }, 3500);
     }
 
+    // Validación de campos vacíos
     if (
         !documentoEstablecimiento ||
         !nombreEstablecimiento ||
@@ -894,41 +882,44 @@ function handleValidationEstablecimiento(event) {
         !descripcionEstablecimiento ||
         !correoEstablecimiento
     ) {
+        event.preventDefault();
         showError("¡Todos los campos son obligatorios!");
         return;
     }
 
+    // Validaciones con expresiones regulares (usa las que declaraste)
     if (!regexNit.test(documentoEstablecimiento)) {
-        showError("¡El documento debe contener minimo 10 números!");
+        event.preventDefault();
+        showError("¡El documento debe contener mínimo 10 números y puede incluir guiones!");
         return;
     }
     if (!regexNombre.test(nombreEstablecimiento)) {
-        showError("¡El nombre solo pueden contener letras!");
+        event.preventDefault();
+        showError("¡El nombre solo puede contener letras y espacios!");
         return;
     }
     if (!regexDescripcion.test(direccionEstablecimiento)) {
-        showError(
-            "¡La direccion solo puede contener letras, números y signos básicos!"
-        );
+        event.preventDefault();
+        showError("¡La dirección solo puede contener letras, números y signos básicos!");
         return;
     }
     if (!regexNumerico.test(telefonoEstablecimiento)) {
-        showError(
-            "¡El teléfono debe contener solo números y tener al menos 10 dígitos!"
-        );
+        event.preventDefault();
+        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos!");
         return;
     }
     if (!regexDescripcion.test(descripcionEstablecimiento)) {
-        showError(
-            "¡La descripción solo puede contener letras, números y signos básicos!"
-        );
+        event.preventDefault();
+        showError("¡La descripción solo puede contener letras, números y signos básicos!");
         return;
     }
     if (!regexCorreo.test(correoEstablecimiento)) {
+        event.preventDefault();
         showError("¡El correo electrónico no tiene un formato válido!");
         return;
     }
-    event.target.submit();
+
+    // Si llega aquí, todo está bien y el formulario se envía normalmente
 }
 
 function handleValidationValoracion(event) {

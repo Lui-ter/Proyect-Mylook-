@@ -41,8 +41,8 @@ return new class extends Migration {
             $table->string('nombre_establc', 30);
             $table->string('desc_establc', 300);
             $table->string('ubicacion', 30);
-            $table->string('correo', 60);
-            $table->string('telefono', 20);
+            $table->string('correo', 60)->unique();
+            $table->string('telefono', 20)->unique();
             $table->decimal('valoracion_final', 10, 2)->default(0);
             $table->foreign('id_negocio')->references('id_negocio')->on('negocio');
         });
@@ -155,7 +155,7 @@ return new class extends Migration {
         Schema::create('valoracion', function (Blueprint $table) {
             $table->increments('id_valoracion');
             $table->unsignedInteger('id_cita');
-            $table->string('comentario', 30);
+            $table->string('comentario', 300);
             $table->decimal('calificacion', 10, 2);
             $table->foreign('id_cita')->references('id_cita')->on('cita');
         });

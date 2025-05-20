@@ -14,7 +14,7 @@ use App\Models\notificacion;
 use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -131,22 +131,53 @@ class AdminController extends Controller
         return compact('notificaciones');
     }
 
-    /*  INSERCION DE UN USUARIO ADMIN (Falta especificar el rol, en las migraciones no esta unida la tabla rol con usuario)   */
+/*  INSERCION DE UN USUARIO ADMIN   */
 
     public function handleAddUserAdmin(Request $request){
-
+        $registerAdminView = GlobalVariables::$registerAdminView;
         $configNegocio = GlobalVariables::$registerNegocio;
 
         // Aqui se validan los datos que provienen del formulario de perfil administrador
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'idAdmin' => 'required|numeric|unique:usuario,id_usuario',
             'nombreAdmin' => 'required|string|max:30',
             'apellidoAdmin' => 'required|string|max:30',
-            'correoAdmin' => 'nullable|email|unique:usuario,correo',
-            'telefonoAdmin' => 'nullable|string|max:30',
+            'correoAdmin' => 'required|email:rfc,dns|unique:usuario,correo',
+            'telefonoAdmin' => 'required|string|unique:usuario,telefono|max:30',
             'contrasenaAdmin' => 'required|string',
-            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:5120'
+        ], [
+    	    'idAdmin.required' => 'El documento del administrador es obligatorio',
+    	    'idAdmin.numeric' => 'El documento debe ser un número',
+    	    'idAdmin.unique' => 'Este documento ya se encuentra registrado',
+
+    	    'nombreAdmin.required' => 'El nombre es obligatorio',
+    	    'nombreAdmin.max' => 'El nombre no puede superar los 30 caracteres',
+
+            'apellidoAdmin.required' => 'El apellido es obligatorio',
+    	    'apellidoAdmin.max' => 'El apellido no puede superar los 30 caracteres',
+
+        	'correoAdmin.required' => 'El correo es obligatorio',
+    	    'correoAdmin.email' => 'El correo electrónico no tiene un formato válido',
+        	'correoAdmin.unique' => 'Este correo ya se encuentra registrado',
+
+        	'telefonoAdmin.required' => 'El telefono es obligatorio',
+    	    'telefonoAdmin.unique' => 'Este telefono ya se encuentra registrado',
+
+    	    'contrasenaAdmin.required' => 'La contraseña es obligatoria',
+
+        	'imagenPerfil.image' => 'El archivo debe ser una imagen',
+        	'imagenPerfil.mimes' => 'Solo se permiten imágenes JPG, JPEG, PNG, GIF o WEBP',
+    	    'imagenPerfil.max' => 'La imagen no debe superar los 5MB'
         ]);
+
+        // Si hay errores, recarga nuevamente la vista con los errores y datos ingresados
+        if ($validator->fails()) {
+            return view($registerAdminView, [
+                'validationErrors' => $validator->errors(),
+                'data' => $request->all()
+            ]);
+        }
 
         // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
         $img_usuario = null;
@@ -156,7 +187,7 @@ class AdminController extends Controller
         };
 
         // Aqui se crea un nuevo usuario en la tabla falta especificar que es con el rol de administrador
-        $usuario = Usuario::create([
+        Usuario::create([
             'id_usuario' => $request->idAdmin,
             'nombre' => $request->nombreAdmin,
             'apellido' => $request->apellidoAdmin,
@@ -200,13 +231,13 @@ class AdminController extends Controller
 
         // Aqui se verifican los datos del formulario para posteriormente actualizarlos
         $request->validate([
-                'idAdmin' => 'required|numeric|exists:usuario,id_usuario',
-                'nombreAdmin' => 'required|string|max:30',
-                'apellidoAdmin' => 'required|string|max:30',
-                'correoAdmin' => 'nullable|email|unique:usuario,correo,' . $id . ',id_usuario',
-                'telefonoAdmin' => 'nullable|string|max:15|regex:/^\d+$/',
-                'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
-            ]);
+            'idAdmin' => 'required|numeric|exists:usuario,id_usuario',
+            'nombreAdmin' => 'required|string|max:30',
+            'apellidoAdmin' => 'required|string|max:30',
+            'correoAdmin' => 'nullable|email|unique:usuario,correo,' . $id . ',id_usuario',
+            'telefonoAdmin' => 'nullable|string|max:15|regex:/^\d+$/',
+            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+        ]);
 
         // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla y actualizarla en la tabla si no pues se deja la que tiene registrada
         $img_usuario = $usuario->img_usuario;

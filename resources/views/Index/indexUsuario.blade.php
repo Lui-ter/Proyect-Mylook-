@@ -125,7 +125,7 @@
                                 </div>
 
                                 <div class="contenedor-boton-agendar">
-                                    <form action="{{ url('/usuarios/verMas') }}" method="GET">
+                                    <form action="{{ url('/usuarios/verMas') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="id_establecimiento"
                                             value="{{ $establecimiento->id_establc }}">

@@ -15,7 +15,7 @@ class ProductoSeeder extends Seeder
 
         DB::table('producto')->insert([
             [
-                'id_establc' => '12345678910',
+                'id_establc' => '65454812210',
                 'nombre_prod' => 'Gel para pelo',
                 'nom_marca' => 'Ego',
                 'desc_prod' => 'Te permite lograr un peinado con ultra fijación, para que nada te despeine, máxima duración hasta por 24 horas y una fragancia intensa premium y masculina',
@@ -29,7 +29,7 @@ class ProductoSeeder extends Seeder
 
         DB::table('producto')->insert([
             [
-                'id_establc' => '10987654321',
+                'id_establc' => '74502224346',
                 'nombre_prod' => 'Crema para masajes',
                 'nom_marca' => 'Natura',
                 'desc_prod' => 'Piel suave y protegida, fácil de aplicar, rápida absorción. Acción prebiótica que mantiene el equilibrio natural de la piel',
@@ -43,7 +43,7 @@ class ProductoSeeder extends Seeder
 
         DB::table('producto')->insert([
             [
-                'id_establc' => '10192837465',
+                'id_establc' => '64225155511',
                 'nombre_prod' => 'Esmalte para uñas',
                 'nom_marca' => 'Masglo',
                 'desc_prod' => 'El esmalte de uñas de poligel es una de las opciones de esmalte más duraderas. Puede durar hasta 21 días con un mantenimiento adecuado',

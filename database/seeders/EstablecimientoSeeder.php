@@ -14,7 +14,7 @@ class EstablecimientoSeeder extends Seeder
 
         DB::table('establecimiento')->insert([
             [
-                'id_establc' => '12345678910',
+                'id_establc' => '65454812210',
                 'id_negocio' => '12345678910',
                 'nombre_establc' => 'Imperium Barber Shop',
                 'desc_establc' => 'Establecimiento principal de Imperium Barber Shop, ubicado en el centro de la ciudad, cuenta con un ambiente sofisticado, moderno y un espacio cómodo para que cada cliente disfrute de una experiencia unica',
@@ -27,7 +27,7 @@ class EstablecimientoSeeder extends Seeder
 
         DB::table('establecimiento')->insert([
             [
-                'id_establc' => '10987654321',
+                'id_establc' => '74502224346',
                 'id_negocio' => '10987654321',
                 'nombre_establc' => 'Aura Spa',
                 'desc_establc' => 'El establecimiento de Aura Spa ubicada en el sur, diseñada para brindar una experiencia de relajacion total, ofrecemos espacios privados, tratamientos exclusivos y un ambiente sereno con aromas naturales',
@@ -40,7 +40,7 @@ class EstablecimientoSeeder extends Seeder
 
         DB::table('establecimiento')->insert([
             [
-                'id_establc' => '10192837465',
+                'id_establc' => '64225155511',
                 'id_negocio' => '10192837465',
                 'nombre_establc' => 'Nailuxe',
                 'desc_establc' => 'El establecimiento de Nailuxe, equipada con estaciones modernas para manicure y pedicure, diseñadas para ofrecer una experiencia personalizada en diseño de uñas y cuidados esteticos, en un ambiente comodo y profesional',
