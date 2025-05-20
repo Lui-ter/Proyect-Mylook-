@@ -18,7 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', manejarModoSegunTamanio);
 });
+ window.addEventListener('DOMContentLoaded', () => {
+                const errorMessages = document.querySelectorAll('.validacion-error');
+                errorMessages.forEach((msg) => {
+                    setTimeout(() => {
+                        msg.style.transition = 'opacity 1s ease';
+                        msg.style.opacity = '0';
+                    }, 3000);
 
+                    setTimeout(() => {
+                        if (msg.parentNode) msg.remove();
+                    }, 3500);
+                });
+            });
+document.addEventListener("DOMContentLoaded", function() {
+                 (session('mostrarNegocio'))
+                    document.getElementById('botonNegocio')?.click();
+            });            
 function manejarModoSegunTamanio() {
     if (window.innerWidth <= 768) {
         modoMobile();
@@ -151,13 +167,13 @@ function manejarTipoUsuario() {
             if (tipo === '1') {
                 form.querySelector('.campos-estudiante')?.classList.add('activo');
                 form.querySelector('.campos-estudiante')?.style.setProperty('display', 'block');
-                form.querySelector('.campos-profesor')?.classList.remove('activo');
-                form.querySelector('.campos-profesor')?.style.setProperty('display', 'none');
+                form.querySelector('.campos-generales')?.classList.remove('activo');
+                form.querySelector('.campos-generales')?.style.setProperty('display', 'none');
             } else {
                 form.querySelector('.campos-estudiante')?.classList.remove('activo');
                 form.querySelector('.campos-estudiante')?.style.setProperty('display', 'none');
-                form.querySelector('.campos-profesor')?.classList.add('activo');
-                form.querySelector('.campos-profesor')?.style.setProperty('display', 'block');
+                form.querySelector('.campos-generales')?.classList.add('activo');
+                form.querySelector('.campos-generales')?.style.setProperty('display', 'block');
             }
 
             elementosTipoUsuario.forEach(input => input.value = tipo);

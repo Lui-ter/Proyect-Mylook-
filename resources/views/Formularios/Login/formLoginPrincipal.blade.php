@@ -30,29 +30,29 @@
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
                             <p class="inputP">NIT EMPRESARIAL</p>
-                            <input id="1" type="text" name="nitNegocio"/>
+                            <input id="1" type="text" name="nitNegocio" />
                         </div>
                         <div class="input-container">
                             <p class="inputP">NOMBRE DE NEGOCIO</p>
-                            <input id="2" type="text" name="nombreNegocio"/>
+                            <input id="2" type="text" name="nombreNegocio" />
                         </div>
                         <div class="input-container">
                             <p class="inputP">CONTRASEÑA DE NEGOCIO</p>
-                            <input id="3" type="password" name="contrasenaNegocio"/>
+                            <input id="3" type="password" name="contrasenaNegocio" />
                         </div>
                     </div>
-                    <div class="campos-formulario campos-profesor" style="display: none;">
+                    <div class="campos-formulario campos-generales" style="display: none;">
                         <div class="input-container">
                             <p class="inputP">DOCUMENTO</p>
-                            <input id="4" type="text" name="docUsuario" id="documentoUsuario"/>
+                            <input id="4" type="text" name="docUsuario" id="documentoUsuario" />
                         </div>
                         <div class="input-container">
                             <p class="inputP">NOMBRE</p>
-                            <input id="5" type="text" name="nombreCompletoUsuario" id="nombreUsuario"/>
+                            <input id="5" type="text" name="nombreCompletoUsuario" id="nombreUsuario" />
                         </div>
                         <div class="input-container">
                             <p class="inputP">CONTRASEÑA</p>
-                            <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario"/>
+                            <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario" />
                         </div>
                     </div>
                     <div class="enlaces-formulario2">
@@ -71,28 +71,49 @@
                     <h2 class="inputH2">INICIAR SESIÓN</h2>
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">USUARIO</button>
-                        <button type="button" class="boton-tipo-usuario" data-tipo="2">NEGOCIO</button>
+                        <button type="button" class="boton-tipo-usuario" data-tipo="2"  id="botonNegocio">NEGOCIO</button>
                         <input type="hidden" name="tipo_usuario" class="tipo_usuario">
                     </div>
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
                             <p class="inputP">DOCUMENTO</p>
-                            <input type="text" name="documentoUsuario" id="8"/>
+                            <input type="text" name="documentoUsuario" id="8"
+                                value="{{ old('documentoUsuario') }}" />
+                            @error('documentoUsuario')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="input-container">
                             <p class="inputP">CONTRASEÑA</p>
-                            <input type="password" name="passwordUsuario" id="9"/>
+                            <input type="password" name="passwordUsuario" id="9" />
+                            @error('passwordUsuario')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <input type="hidden" name="rol" value="estudiante" />
                     </div>
-                    <div class="campos-formulario campos-profesor" style="display: none;">
+                    @php
+                        $mostrarNegocio =
+                            session('mostrarNegocio') ||
+                            $errors->has('nitNegocio') ||
+                            $errors->has('contrasenaNegocio');
+                    @endphp
+                    <div class="campos-formulario campos-generales"
+                        style="{{ $mostrarNegocio ? '' : 'display: none;' }}">
                         <div class="input-container">
                             <p class="inputP">NIT EMPRESARIAL</p>
-                            <input type="text" name="nitNegocio" id="10"/>
+                            <input type="text" name="nitNegocio" id="10"
+                                value="{{ old('nitNegocio') }}" />
+                            @error('nitNegocio')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="input-container">
                             <p class="inputP">CONTRASEÑA</p>
-                            <input type="password" name="contrasenaNegocio" id="11"/>
+                            <input type="password" name="contrasenaNegocio" id="11" />
+                            @error('contrasenaNegocio')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="enlaces-formulario">
@@ -102,7 +123,6 @@
                     <button type="submit" name="accionIniciarSesion" value="iniciar_sesion">INICIAR</button>
                 </form>
             </div>
-            
             <!-- Panel de Superposición (solo visible en desktop) -->
             <div class="contenedor-superposicion">
                 <div class="superposicion">
@@ -125,11 +145,17 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- LOGICA JS PARA EL MANEJO DE FORMULARIOS -->
         <script src="{{ asset('Js/Formularios/LoginPrincipal/logicLoginPrincipal.js') }}"></script>
         <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                @if (session('mostrarNegocio'))
+                    document.getElementById('botonNegocio')?.click();
+                @endif
+            });
+        </script>
     </div>
 </body>
-
 </html>
