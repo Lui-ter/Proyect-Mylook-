@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet"  href="{{ asset('Css/Index/indexBienvenida.css') }}">
+    <link rel="stylesheet" href="{{ asset('Css/Index/indexBienvenida.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/trianglify@4.1.1/dist/trianglify.bundle.min.js"></script>
     <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
@@ -114,35 +115,26 @@
                 <!-- Contenedor que agrupa las tarjetas de los establecimientos destacados -->
 
                 <!-- Tarjeta del establecimiento "Vanidosas" -->
-                <div class="cardDestacado">
-                    <img src="https://vanidosasalamoda.cl/cdn/shop/files/Diseno_sin_titulo-4.png?height=628&pad_color=ffffff&v=1679602912&width=1200"
-                        alt="Imagen de Vanidosas" class="destacadoImagen">
-                    <div class="nombrePosicion">
-                        <h4>Vanidosas</h4>
-                        <img src="https://img.icons8.com/wired/64/FFFFFF/2-circle.png" alt="Puesto número 2" />
-                    </div>
-                </div>
+                @foreach ($mejoresEstablecimientos as $establecimiento)
+                    @if ($loop->index < 3)
+                        @php
+                            $negocio = $establecimiento->negocio;
+                            $imgPerfil =
+                                $negocio && $negocio->img_perfil
+                                    ? 'data:image/jpeg;base64,' . base64_encode($negocio->img_perfil)
+                                    : 'https://via.placeholder.com/300x200?text=Sin+imagen';
+                        @endphp
 
-                <!-- Tarjeta del establecimiento "Imperio" -->
-                <div class="cardDestacado">
-                    <img src="https://d1yjjnpx0p53s8.cloudfront.net/logotipo-imperio-barberia-vector1.png"
-                        alt="Imagen de Imperio" class="destacadoImagen">
-                    <div class="nombrePosicion">
-                        <h4>Imperio</h4>
-                        <img src="https://img.icons8.com/wired/64/FFFFFF/1-circle.png" alt="Puesto número 1" />
-                    </div>
-                </div>
-
-                <!-- Tarjeta del establecimiento "Luxury" -->
-                <div class="cardDestacado">
-                    <img src="https://img.freepik.com/vector-premium/plantilla-vectorial-diseno-logotipo-marca-real-lujo_441059-968.jpg?semt=ais_hybrid"
-                        alt="Imagen de Luxury" class="destacadoImagen">
-                    <div class="nombrePosicion">
-                        <h4>Luxury</h4>
-                        <img src="https://img.icons8.com/wired/64/FFFFFF/3-circle--v1.png" alt="Puesto número 3" />
-                    </div>
-                </div>
-
+                        <div class="cardDestacado">
+                            <img src="{{ $imgPerfil }}" alt="Top {{ $loop->index + 1 }}" class="destacadoImagen">
+                            <div class="nombrePosicion">
+                                <h4>{{ $establecimiento->nombre_establc }}</h4>
+                                <img src="https://img.icons8.com/wired/64/FFFFFF/{{ $loop->index + 1 }}-circle.png"
+                                    alt="Puesto número {{ $loop->index + 1 }}" />
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
         </section>
 
@@ -192,4 +184,5 @@
     <script src="/Js/index/index.js"></script>
 
 </body>
+
 </html>

@@ -23,10 +23,12 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
 /*INDEX USUARIO DE MYLOOK */
+
 class UsuariosController extends Controller
 {
     //Clase privada para las variables necesarios de indexUsuario
-    private function indexUsuario(){
+    private function indexUsuario()
+    {
         $establecimientosAleatorios = Establecimiento::with('negocio')
             ->inRandomOrder()
             ->take(5)
@@ -70,30 +72,70 @@ class UsuariosController extends Controller
             'imgusuario'
         );
     }
+
+        private function index()
+    {
+        $establecimientosAleatorios = Establecimiento::with('negocio')
+            ->inRandomOrder()
+            ->take(5)
+            ->get()
+            ->toArray();
+        $mejoresEstablecimientos = Establecimiento::with('negocio')
+            ->select(
+                'establecimiento.id_establc',
+                'establecimiento.id_negocio',
+                'establecimiento.nombre_establc',
+                'establecimiento.desc_establc',
+                DB::raw('AVG(valoracion.calificacion) as promedio_calificacion')
+            )
+            ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
+            ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
+            ->groupBy(
+                'establecimiento.id_establc',
+                'establecimiento.id_negocio',
+                'establecimiento.nombre_establc',
+                'establecimiento.desc_establc'
+            )
+            ->orderByDesc(DB::raw('promedio_calificacion'))
+            ->take(3)
+            ->get();
+
+        $establecimientosRecomendados = Establecimiento::with('negocio')
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
+        
+        return compact(
+            'establecimientosAleatorios',
+            'mejoresEstablecimientos',
+            'establecimientosRecomendados',
+        );
+    }
     //Clase privada para las notificaciones
-    private function notificacionUsuario(){
+    private function notificacionUsuario()
+    {
         if (Auth::guard('usuario')->check()) {
-        // Notificaciones de usuario
-        $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
-            return array_merge(
-                $notificacion->toArray(),
-                [
-                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                ]
-            );
-        })->toArray();
-        }elseif (Auth::guard('negocio')->check()) {
-        // Notificaciones de negocio
-        $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
-            return array_merge(
-                $notificacion->toArray(),
-                [
-                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                ]
-            );
-        })->toArray();
+            // Notificaciones de usuario
+            $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+                return array_merge(
+                    $notificacion->toArray(),
+                    [
+                        'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                        'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                    ]
+                );
+            })->toArray();
+        } elseif (Auth::guard('negocio')->check()) {
+            // Notificaciones de negocio
+            $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+                return array_merge(
+                    $notificacion->toArray(),
+                    [
+                        'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                        'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                    ]
+                );
+            })->toArray();
         } else {
             $notificaciones = [];
         }
@@ -102,7 +144,7 @@ class UsuariosController extends Controller
     //------------------------------------------------------------------------------------------------------------------------------
     public function crudUsuarios(Request $request, $accion = null)
     {
-        $registerUserView = GlobalVariables:: $registerUserView;
+        $registerUserView = GlobalVariables::$registerUserView;
         $indexUsuarioView = GlobalVariables::$indexUsuarioView;
         $agendamientoView = GlobalVariables::$agendamientoView;
         $configUsersView = GlobalVariables::$configUsersView;
@@ -111,14 +153,13 @@ class UsuariosController extends Controller
         // Clase privada para datos necesarios para funcionar nuevamente la vista indexUsuario:
 
         if ($accion === 'index') {
-            return view($indexUsuarioView,($this->indexUsuario() + $this->notificacionUsuario()));
-
+            return view($indexUsuarioView, ($this->indexUsuario() + $this->notificacionUsuario()));
         } elseif ($accion === 'verMas') {
             //Campos necesarios para cargar los datos necesarios del ver mas de un establecimiento
             $id = $request->input('id_establecimiento');
             $establecimiento = Establecimiento::where('id_establc', $id)
-            ->with('negocio')
-            ->firstOrFail();
+                ->with('negocio')
+                ->firstOrFail();
             $negocio =  $establecimiento->negocio;
             $staffs = staff::where('id_establc', $id)->with('usuario', 'rol')->distinct()->get();
             $productos = Producto::where('id_establc', $id)->get()->toArray();
@@ -181,7 +222,7 @@ class UsuariosController extends Controller
 
 
             return view($agendamientoView, compact('establecimiento', 'productos', 'negocio', 'staffs', 'categorias', 'valoraciones', 'imgusuario') + $this->notificacionUsuario());
-        }elseif ($accion === 'register') {
+        } elseif ($accion === 'register') {
             $id = Auth::guard('usuario')->user()->id_usuario;
             $usuario = Usuario::findOrFail($id);
             return view($registerUserView, compact(('usuario')));
@@ -195,42 +236,42 @@ class UsuariosController extends Controller
             $idEstablecimiento = $request->input('id_establecimiento');
             $idUsuario = Auth::guard('usuario')->user()->id_usuario;
             $productos = Producto::where('id_establc', $idEstablecimiento)
-            ->select('id_prod', 'nombre_prod', 'stock', 'img_prod')
-            ->get()
-            ->map(function ($producto) {
-                if (!empty($producto->img_prod)) {
-                    $producto->img_prod = 'data:image/jpeg;base64,' . base64_encode($producto->img_prod);
-                } else {
-                    $producto->img_prod = 'https://via.placeholder.com/150'; // Imagen por defecto si no existe
-                }
-                return $producto;
-            })
-            ->toArray();
-           $staffs = Staff::where('id_establc', $idEstablecimiento)
-            ->where('estado', 'disponible')
-            ->where('id_rol', '!=', 1)
-            ->with('usuario') // Cargar relación con el modelo Usuario
-            ->get()
-            ->map(function ($staff) {
-                if (!empty($staff->usuario->img_usuario)) {
-                    $staff->imagen = 'data:image/jpeg;base64,' . base64_encode($staff->usuario->img_usuario);
-                } else {
-                    $staff->imagen = 'https://via.placeholder.com/150'; // Imagen por defecto si no existe
-                }
-                return [
-                    'id_staff' => $staff->id_staff,
-                    'nombre' => $staff->usuario->nombre, // Tomar el nombre del usuario
-                    'imagen' => $staff->imagen
-                ];
-            })
-            ->toArray();
+                ->select('id_prod', 'nombre_prod', 'stock', 'img_prod')
+                ->get()
+                ->map(function ($producto) {
+                    if (!empty($producto->img_prod)) {
+                        $producto->img_prod = 'data:image/jpeg;base64,' . base64_encode($producto->img_prod);
+                    } else {
+                        $producto->img_prod = 'https://via.placeholder.com/150'; // Imagen por defecto si no existe
+                    }
+                    return $producto;
+                })
+                ->toArray();
+            $staffs = Staff::where('id_establc', $idEstablecimiento)
+                ->where('estado', 'disponible')
+                ->where('id_rol', '!=', 1)
+                ->with('usuario') // Cargar relación con el modelo Usuario
+                ->get()
+                ->map(function ($staff) {
+                    if (!empty($staff->usuario->img_usuario)) {
+                        $staff->imagen = 'data:image/jpeg;base64,' . base64_encode($staff->usuario->img_usuario);
+                    } else {
+                        $staff->imagen = 'https://via.placeholder.com/150'; // Imagen por defecto si no existe
+                    }
+                    return [
+                        'id_staff' => $staff->id_staff,
+                        'nombre' => $staff->usuario->nombre, // Tomar el nombre del usuario
+                        'imagen' => $staff->imagen
+                    ];
+                })
+                ->toArray();
             $categorias = Categoria::where('id_establc', $idEstablecimiento)->get()->toArray();
             $servicios = Servicio::all();
 
             // arreglo para fullCalendar
             $citas = Cita::where('id_establc', $idEstablecimiento)
-            ->whereIn('estado_cita',['aceptado','pendiente'])
-            ->get();
+                ->whereIn('estado_cita', ['aceptado', 'pendiente'])
+                ->get();
             $arreglo = []; // Inicializar el arreglo vacío antes de recorrerlo
             foreach ($citas as $cita) {
                 $fecha_citas = $cita->fecha_cita;
@@ -332,19 +373,19 @@ class UsuariosController extends Controller
             } else {
                 $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
             }
-            return view($viewHistorial, compact('HistorialCitas','imgusuario') + $this->notificacionUsuario());
+            return view($viewHistorial, compact('HistorialCitas', 'imgusuario') + $this->notificacionUsuario());
         } elseif ($accion === 'logout') {
             Auth::guard('usuario')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             $indexView = GlobalVariables::$indexView;
-            return view($indexView);
+            return view($indexView, $this->index());
         } else {
             return redirect()->route('usuarios', ['accion' => 'index']);
         }
     }
 
-/*  ACTUALIZACION DE UN USUARIO DESPUES DE REGISTRARSE  */
+    /*  ACTUALIZACION DE UN USUARIO DESPUES DE REGISTRARSE  */
     public function userUpdate(Request $request)
     {
         // Aqui se validan los datos que provienen del formulario de perfil usuario
@@ -354,8 +395,9 @@ class UsuariosController extends Controller
             'apellidoUser' => 'required|string|max:30',
             'correoUser' => 'required|email|unique:usuario,correo,' . $request->idUser . ',id_usuario',
             'telefonoUser' => 'required|string|max:30|unique:usuario,telefono,' . $request->idUser . ',id_usuario',
-            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:5120'
-        ],[
+            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:5120',
+            'condicionUser' => 'nullable|String|'
+        ], [
             'idUser.required' => 'El documento del usuario es obligatorio',
             'idUser.numeric' => 'El documento debe ser un número',
             'idUser.unique' => 'Este documento ya está registrado',
@@ -392,7 +434,8 @@ class UsuariosController extends Controller
             'apellido' => $request->apellidoUser,
             'correo' => $request->correoUser,
             'telefono' => $request->telefonoUser,
-            'img_usuario' => $img_usuario
+            'img_usuario' => $img_usuario,
+            'condicion' => $request->condicionUser,
         ]);
         return redirect()->route('usuarios', ['accion' => 'index']);
     }

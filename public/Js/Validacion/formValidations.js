@@ -400,7 +400,7 @@ function handleValidationConfigUser(event) {
     const condicionUsuario = document
         .getElementById("condicionUsuario")
         ?.value.trim();
-    const imagenStaff = document.getElementById("fileInput")?.files[0];
+    const imagenUsuario = document.getElementById("fileInput")?.files[0];
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
@@ -432,7 +432,7 @@ function handleValidationConfigUser(event) {
         !apellidoUsuario ||
         !telefonoUsuario ||
         !correoUsuario ||
-        !imagenStaff
+        !imagenUsuario
     ) {
         showError("¡Todos los campos son obligatorios!");
         return;
@@ -472,12 +472,103 @@ function handleValidationConfigUser(event) {
         );
         return;
     }
-    if (!tiposImgPermitidos.test(imagenStaff.type)) {
+    if (!tiposImgPermitidos.test(imagenUsuario.type)) {
         showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
-    if (!imagenStaff) {
+    if (!imagenUsuario) {
         showError("¡Debes subir una imagen del usuario!");
+        return;
+    }
+
+    event.target.submit();
+}
+
+function handleValidationUser(event) {
+    event.preventDefault();
+
+    const documentoUsuario = document.getElementById("idUser")?.value.trim();
+    const nombreUsuario = document.getElementById("nombreUser")?.value.trim();
+    const apellidoUsuario = document
+        .getElementById("apellidoUser")
+        ?.value.trim();
+    const telefonoUsuario = document
+        .getElementById("telefonoUser")
+        ?.value.trim();
+    const correoUsuario = document.getElementById("correoUser")?.value.trim();
+    const condicionUsuario = document
+        .getElementById("condicionUser")
+        ?.value.trim();
+    const imagenUsuario = document.getElementById("fileInput")?.files[0];
+
+    const alertContainer = document.getElementById("alertContainer");
+    if (alertContainer) {
+        alertContainer.remove();
+    }
+
+    // CONTENEDOR MANEJO DE ERRORES
+    const form = document.getElementById("form1");
+    const alertDiv = document.createElement("div");
+    alertDiv.id = "alertContainer";
+    alertDiv.classList.add("validacion-error");
+
+    function showError(message) {
+        alertDiv.innerHTML = message;
+        form.prepend(alertDiv);
+
+        setTimeout(() => {
+            alertDiv.style.opacity = "0";
+        }, 3000);
+
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3500);
+    }
+
+    if (
+        !documentoUsuario ||
+        !nombreUsuario ||
+        !apellidoUsuario ||
+        !telefonoUsuario ||
+        !correoUsuario 
+    ) {
+        showError("¡Todos los campos son obligatorios!");
+        return;
+    }
+
+    if (!regexDocumentoUsuario.test(documentoUsuario)) {
+        showError("¡El documento debe contener solo números!");
+        return;
+    }
+
+    if (
+        !regexNombre.test(nombreUsuario) ||
+        !regexNombre.test(apellidoUsuario)
+    ) {
+        showError("¡El nombre y el apellido solo pueden contener letras!");
+        return;
+    }
+
+    if (!regexCorreo.test(correoUsuario)) {
+        showError("¡El correo electrónico no tiene un formato válido!");
+        return;
+    }
+
+    if (!regexNumerico.test(telefonoUsuario)) {
+        showError(
+            "¡El teléfono debe contener solo números y tener al menos 10 dígitos!"
+        );
+        return;
+    }
+    // Si el campo es opcional, solo valida si tiene valor
+    if (condicionUsuario && !regexDescripcion.test(condicionUsuario)) {
+        showError(
+            "¡La condición solo puede contener letras, números y signos básicos!"
+        );
+        return;
+    }
+    if (imagenUsuario && !tiposImgPermitidos.test(imagenUsuario.type)) {
+        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
 
@@ -843,12 +934,24 @@ function handleValidationUpdateNegocio(event) {
 
 /* VALIDACIONES FORMULARIO ESTABLECIMIENTO */
 function handleValidationEstablecimiento(event) {
-    const documentoEstablecimiento = document.getElementById("idEstablc")?.value.trim();
-    const nombreEstablecimiento = document.getElementById("nombreEst")?.value.trim();
-    const direccionEstablecimiento = document.getElementById("direccionEstablecimiento")?.value.trim();
-    const telefonoEstablecimiento = document.getElementById("telefonoEstablecimiento")?.value.trim();
-    const descripcionEstablecimiento = document.getElementById("inputDescripcion")?.value.trim();
-    const correoEstablecimiento = document.getElementById("correoEstablecimiento")?.value.trim();
+    const documentoEstablecimiento = document
+        .getElementById("idEstablc")
+        ?.value.trim();
+    const nombreEstablecimiento = document
+        .getElementById("nombreEst")
+        ?.value.trim();
+    const direccionEstablecimiento = document
+        .getElementById("direccionEstablecimiento")
+        ?.value.trim();
+    const telefonoEstablecimiento = document
+        .getElementById("telefonoEstablecimiento")
+        ?.value.trim();
+    const descripcionEstablecimiento = document
+        .getElementById("inputDescripcion")
+        ?.value.trim();
+    const correoEstablecimiento = document
+        .getElementById("correoEstablecimiento")
+        ?.value.trim();
 
     // Remueve alertas previas
     const alertContainer = document.getElementById("alertContainer");
@@ -890,7 +993,9 @@ function handleValidationEstablecimiento(event) {
     // Validaciones con expresiones regulares (usa las que declaraste)
     if (!regexNit.test(documentoEstablecimiento)) {
         event.preventDefault();
-        showError("¡El documento debe contener mínimo 10 números y puede incluir guiones!");
+        showError(
+            "¡El documento debe contener mínimo 10 números y puede incluir guiones!"
+        );
         return;
     }
     if (!regexNombre.test(nombreEstablecimiento)) {
@@ -900,17 +1005,23 @@ function handleValidationEstablecimiento(event) {
     }
     if (!regexDescripcion.test(direccionEstablecimiento)) {
         event.preventDefault();
-        showError("¡La dirección solo puede contener letras, números y signos básicos!");
+        showError(
+            "¡La dirección solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
     if (!regexNumerico.test(telefonoEstablecimiento)) {
         event.preventDefault();
-        showError("¡El teléfono debe contener solo números y tener al menos 10 dígitos!");
+        showError(
+            "¡El teléfono debe contener solo números y tener al menos 10 dígitos!"
+        );
         return;
     }
     if (!regexDescripcion.test(descripcionEstablecimiento)) {
         event.preventDefault();
-        showError("¡La descripción solo puede contener letras, números y signos básicos!");
+        showError(
+            "¡La descripción solo puede contener letras, números y signos básicos!"
+        );
         return;
     }
     if (!regexCorreo.test(correoEstablecimiento)) {
@@ -977,8 +1088,10 @@ function handleValidationCita(event) {
     const cantidad = document.getElementById("cantidadProducto")?.value;
 
     const productoSelect = document.getElementById("producto");
-    const productoSeleccionado = productoSelect.options[productoSelect.selectedIndex];
-    const productoValido = productoSeleccionado && !productoSeleccionado.disabled;
+    const productoSeleccionado =
+        productoSelect.options[productoSelect.selectedIndex];
+    const productoValido =
+        productoSeleccionado && !productoSeleccionado.disabled;
 
     const form = document.getElementById("citaForm");
     const existingAlert = document.getElementById("alertContainer");
@@ -1000,7 +1113,9 @@ function handleValidationCita(event) {
     }
 
     if (!fecha || !hora || !staff || !categoria || !servicio) {
-        showError("¡Debe seleccionar fecha, hora, staff, categoría y servicio!");
+        showError(
+            "¡Debe seleccionar fecha, hora, staff, categoría y servicio!"
+        );
         return;
     }
 
@@ -1010,7 +1125,9 @@ function handleValidationCita(event) {
             return;
         }
 
-        const maxStock = parseInt(productoSeleccionado.getAttribute("data-stock"));
+        const maxStock = parseInt(
+            productoSeleccionado.getAttribute("data-stock")
+        );
         if (parseInt(cantidad) > maxStock) {
             showError("¡La cantidad seleccionada excede el stock disponible!");
             return;

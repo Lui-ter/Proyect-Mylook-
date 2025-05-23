@@ -1,30 +1,55 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Helpers\GlobalVariables;
 use App\Models\Usuario;
 use App\Models\Negocio;
 use App\Models\Establecimiento;
 use App\Models\Staff;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
     /* LOGIN PRINCIPAL DE MYLOOK */
-    public function showLoginPrincipal(){
+    public function showLoginPrincipal()
+    {
         $loginView = GlobalVariables::$loginView;
         return view($loginView);
     }
-    public function showLandingPage(){
+    public function showLandingPage()
+    {
         $indexView = GlobalVariables::$indexView;
-        return view($indexView);
+        $mejoresEstablecimientos = Establecimiento::with('negocio')
+            ->select(
+                'establecimiento.id_establc',
+                'establecimiento.id_negocio',
+                'establecimiento.nombre_establc',
+                'establecimiento.desc_establc',
+                DB::raw('AVG(valoracion.calificacion) as promedio_calificacion')
+            )
+            ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
+            ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
+            ->groupBy(
+                'establecimiento.id_establc',
+                'establecimiento.id_negocio',
+                'establecimiento.nombre_establc',
+                'establecimiento.desc_establc'
+            )
+            ->orderByDesc(DB::raw('promedio_calificacion'))
+            ->take(3)
+            ->get();
+        return view($indexView, compact('mejoresEstablecimientos'));
+        if ($accion === 'indexBienvenida') {
+            return view($indexView, ($this->showLandingPage()));
     }
-
+}
     /* REGISTRO DE USUARIOS */
-    public function registerUser(Request $request){
+    public function registerUser(Request $request)
+    {
         $tipo_usuario = $request->input('tipo_usuario');
         if ($tipo_usuario == 2) {
             // Aqui recibe los datos del form para la creacion del usuario
@@ -40,14 +65,14 @@ class LoginController extends Controller
             // Aqui se crea la sesion del login cuando un usuario se registra por primera vez
             Auth::guard('usuario')->logout();
             Auth::guard('usuario')->login($userData);
-                session()->regenerate();
-                $request->session()->regenerateToken();
-                session([
-                    'usuario_id' => $userData->id_usuario,
-                    'usuario_tipo' => 'usuario'
-                ]);
+            session()->regenerate();
+            $request->session()->regenerateToken();
+            session([
+                'usuario_id' => $userData->id_usuario,
+                'usuario_tipo' => 'usuario'
+            ]);
             return redirect()->route('usuarios', ['accion' => 'register']);
-        }else if ($tipo_usuario == 1) {
+        } else if ($tipo_usuario == 1) {
             // Variable global de la vista del formulario del userAdmin
             $registerAdminView = GlobalVariables::$registerAdminView;
             // Aqui recibe los datos del form para la creacion del negocio
@@ -62,18 +87,19 @@ class LoginController extends Controller
             ]);
             Auth::guard('negocio')->logout();
             Auth::guard('negocio')->login($negocioData);
-                session()->regenerate();
-                $request->session()->regenerateToken();
-                session([
-                    'id_negocio' => $negocioData->id_negocio,
-                    'usuario_tipo' => 'negocio'
-                ]);
+            session()->regenerate();
+            $request->session()->regenerateToken();
+            session([
+                'id_negocio' => $negocioData->id_negocio,
+                'usuario_tipo' => 'negocio'
+            ]);
             return view($registerAdminView);
         }
     }
 
     /* LOGIN DE USUARIOS */
-    public function loginUser(Request $request){
+    public function loginUser(Request $request)
+    {
         $tipo_usuario = $request->input('tipo_usuario');
         if ($tipo_usuario == 1) {
             $doc_usuario = $request->input('documentoUsuario');
@@ -87,7 +113,7 @@ class LoginController extends Controller
                     session()->regenerate();
                     $request->session()->regenerateToken();
                     $idUsuario = Auth::guard('usuario')->user()->id_usuario;
-                    $idStaff = staff::where('id_usuario',$idUsuario)->pluck('id_staff')->first();
+                    $idStaff = staff::where('id_usuario', $idUsuario)->pluck('id_staff')->first();
                     //Valido si es un staff sino, queda como nulo
                     $idStaff = $idStaff ?? 'nulo';
                     // valido si se recibe un staff su tipo staff sino es usuario
@@ -106,23 +132,23 @@ class LoginController extends Controller
                     ]);
                     */
                     //dd(session()->all());
-                    if(Auth::guard('usuario')->check()){
+                    if (Auth::guard('usuario')->check()) {
                         return redirect()->to('/usuarios/index');
-                    }else{
+                    } else {
                         dd("Error: el usuario no esta autenticado despues del login");
                     }
                 } else {
                     // Error al no coincidir las contraseñas
                     return back()
-                    ->withErrors(['passwordUsuario' => 'La contraseña no concuerda con el ID ingresado.',])
-                    ->withInput();
+                        ->withErrors(['passwordUsuario' => 'La contraseña no concuerda con el ID ingresado.',])
+                        ->withInput();
                 }
             } else {
                 return back()
-                ->withErrors(['documentoUsuario' => 'No se encontró ningún usuario con ese ID.',])
-                ->withInput();
+                    ->withErrors(['documentoUsuario' => 'No se encontró ningún usuario con ese ID.',])
+                    ->withInput();
             }
-        }else if($tipo_usuario == 2){
+        } else if ($tipo_usuario == 2) {
             // Aqui se definen las variables globales de las vistas
             $registerAdminView = GlobalVariables::$registerAdminView;
             $configNegocio = GlobalVariables::$registerNegocio;
@@ -132,11 +158,11 @@ class LoginController extends Controller
             // Aqui se verifica si el negocio existe
             if (!$negocioData) {
                 return back()
-                ->withErrors(['nitNegocio' => 'No se encontró ningún negocio con ese NIT.',])
-                ->withInput()->with('mostrarNegocio', true);
+                    ->withErrors(['nitNegocio' => 'No se encontró ningún negocio con ese NIT.',])
+                    ->withInput()->with('mostrarNegocio', true);
             }
-            if(isset($negocioData->id_usuario)){
-                if(Hash::check($password, $negocioData->contrasena)){
+            if (isset($negocioData->id_usuario)) {
+                if (Hash::check($password, $negocioData->contrasena)) {
                     Auth::guard('negocio')->logout();
                     Auth::guard('negocio')->login($negocioData);
                     session()->regenerate();
@@ -156,30 +182,30 @@ class LoginController extends Controller
                     */
                     //dd(session()->all());
                     // Aqui si hay un administrador en el negocio pero las demas configuraciones del negocio estan null redirigir a esta vista
-                    if(!$negocioData->desc_negocio || !$negocioData->img_portada || !$negocioData->img_perfil){
+                    if (!$negocioData->desc_negocio || !$negocioData->img_portada || !$negocioData->img_perfil) {
                         return view($configNegocio, [
                             'negocio' => $negocioData,
                             'admin' => $negocioData->usuario,
                         ]);
                     }
                     // Si no hay un establecimiento relacionado al negocio logueado redirigir a esta vista
-                    if(!Establecimiento::where('id_negocio', $negocioData->id_negocio)->exists()){
+                    if (!Establecimiento::where('id_negocio', $negocioData->id_negocio)->exists()) {
                         return redirect()->route('establecimientos', ['accion' => 'register']);
                     }
                     // Si toda la configuracion esta bien redirigir a esta ruta
-                    if(Auth::guard('negocio')->check()){
+                    if (Auth::guard('negocio')->check()) {
                         return redirect()->route('admin', ['accion' => 'index']);
-                    }else{
+                    } else {
                         dd("Error: el usuario no esta autenticado despues del login");
                     }
-                }else{
+                } else {
                     return back()
-                    ->withErrors(['contrasenaNegocio' => 'La contraseña no concuerda con el NIT ingresado.',])
-                    ->withInput()->with('mostrarNegocio', true);
+                        ->withErrors(['contrasenaNegocio' => 'La contraseña no concuerda con el NIT ingresado.',])
+                        ->withInput()->with('mostrarNegocio', true);
                 }
-            }else{
+            } else {
                 //Si el negocio no ha configurado config negocio, debera por primera vez agregarlos
-                if(Hash::check($password, $negocioData->contrasena)){
+                if (Hash::check($password, $negocioData->contrasena)) {
                     Auth::guard('negocio')->logout();
                     Auth::guard('negocio')->login($negocioData);
                     session()->regenerate();
@@ -188,16 +214,15 @@ class LoginController extends Controller
                         'id_negocio' => $negocioData->id_negocio,
                         'usuario_tipo' => 'negocio'
                     ]);
-                    if(Auth::guard('negocio')->check()){
+                    if (Auth::guard('negocio')->check()) {
                         return view($registerAdminView);
-                    }else{
+                    } else {
                         dd("Error: el usuario no esta autenticado despues del login");
                     }
-                }else{
+                } else {
                     dd("Error con la contreaseña");
                 }
             }
         }
     }
 }
-

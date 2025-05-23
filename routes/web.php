@@ -18,7 +18,7 @@ use App\Http\Controllers\ValoracionesController;
 
 /* --------------------------------------------------------------------------------------- */
 /* PAGINA PRINCIPAL DE MYLOOK */
-Route::get('/', [LoginController::class, 'showLandingPage'])->name('landing');
+Route::get('/', [LoginController::class, 'showLandingPage'])->name('landing')->defaults('accion', 'indexBienvenida');
 
 /* LOGIN GENERAL */
 Route::get('/login', [LoginController::class, 'showLoginPrincipal'])->name('login');
