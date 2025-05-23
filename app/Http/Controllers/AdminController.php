@@ -268,6 +268,8 @@ class AdminController extends Controller
 
         $configAdminView = GlobalVariables::$configAdminView;
 
+        $viewHistorialNegocio = GlobalVariables::$viewHistorialNegocio;
+
         //Paramentros necesarios para cargar el admin
 
 
@@ -352,7 +354,31 @@ class AdminController extends Controller
                 'usuarioAdmin' => $staffAdmin->usuario,
                 'fotoAdmin' => $fotoAdmin
             ]);
-        } else {
+        }
+        elseif($accion === 'historial'){
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->pluck('id_establc')->first();
+            $HistorialCitas = Cita::with('staff.usuario','usuario','establecimiento')
+            ->where('id_establc',$idEstablecimiento)
+            ->where('estado_cita','Finalizada')
+            ->get()
+            ->toArray();
+            //Imagen del staff en el header
+            $Staff_admin = Staff::where('id_negocio', $idNegocio)
+                ->where('id_rol', 1)
+                ->with(['usuario', 'rol'])
+                ->get();
+
+            foreach ($Staff_admin as $Staff) {
+                if ($Staff->usuario && $Staff->usuario->img_usuario) {
+                    $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+                } else {
+                    $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+                }
+            }
+            return view($viewHistorialNegocio, compact('HistorialCitas','imgStaff') + $this->notificacionUsuario());
+        }
+         else {
             return redirect()->route('admin', ['accion' => 'index']);
         }
     }

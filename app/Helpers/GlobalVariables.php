@@ -83,6 +83,8 @@ class GlobalVariables
 
     public static $viewHistorial = 'Formularios.Citas.viewCitas';
 
+    public static $viewHistorialNegocio = 'Formularios.Citas.viewCitasNegocio';
+
     public static $calendarioStaff = 'Index.platillaStaff';
 
     public static $InicioSessionStaff = 'Index.loginStaff';

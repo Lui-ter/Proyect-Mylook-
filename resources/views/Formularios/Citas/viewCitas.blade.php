@@ -42,6 +42,7 @@
                             <th>DURACION</th>
                             <th>ESTADO</th>
                             <th>Valorar</th>
+                           
                         </tr>
                     </thead>
                     <tbody id="cuerpoCitas">
@@ -62,10 +63,12 @@
                                 <td data-label="ESTADO" class="estadoRealizada">{{ $historial['estado_cita'] }}</td>
                                 <!-- Aqui puedes agregar tu logica MARLON! -->
                                 <td data-label="VALORAR" class="VALORACION">
-                                    <form action="{{ route('formValoracion') }}" method="GET">
-                                        <input type="hidden" name="id_cita" value="{{ $historial['id_cita'] }}">
-                                        <button type="submit">Valorame</button>
-                                    </form>
+                                    @if($historial['estado_cita'] == 'Finalizada')
+                                        <form action="{{ route('formValoracion') }}" method="GET">
+                                            <input type="hidden" name="id_cita" value="{{ $historial['id_cita'] }}">
+                                            <button type="submit">Valorame</button>
+                                        </form>
+                                    @endif
                                 </td>
 
 
