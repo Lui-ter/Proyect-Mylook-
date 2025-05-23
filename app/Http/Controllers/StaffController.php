@@ -17,7 +17,7 @@ use Carbon\Carbon;
 class StaffController extends Controller
 {
     //Clase privada para las notificaciones
-    private function notificacionUsuario(){
+private function notificacionUsuario(){
         if (Auth::guard('usuario')->check()) {
         // Notificaciones de usuario
         $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
@@ -43,9 +43,21 @@ class StaffController extends Controller
         } else {
             $notificaciones = [];
         }
-        return compact('notificaciones');
-    }
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+        $Staff_admin = Staff::where('id_negocio', $idNegocio)
+        ->where('id_rol', 1)
+        ->with(['usuario', 'rol'])
+        ->get();
 
+    foreach ($Staff_admin as $Staff) {
+        if ($Staff->usuario && $Staff->usuario->img_usuario) {
+            $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+        } else {
+            $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+        }
+    }
+        return compact('notificaciones','imgStaff');
+    }
 
     public function getStaff()
     {
@@ -234,7 +246,7 @@ class StaffController extends Controller
             // Roles para el select
             $roles = Rol::where('nombre_rol', '!=', 'Administrador')->get();
             $modeValidator = 1;
-            return view($viewCrudStaff, compact('staff', 'usuario', 'roles', 'modeValidator', 'imgBase64'));
+            return view($viewCrudStaff, compact('staff', 'usuario', 'roles', 'modeValidator', 'imgBase64') + $this->notificacionUsuario());
         } elseif ($accion === 'ver') {
 
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;

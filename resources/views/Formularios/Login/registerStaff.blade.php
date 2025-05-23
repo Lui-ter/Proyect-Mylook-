@@ -5,15 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('Css/Form/registerStaff.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Slab:wght@400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
-    <title>Register Staff - MiNegocio</title>
+    <title>Registrar staff</title>
 </head>
 
 <body>
+    @section('link-index', '/admin/index')
+    @section('link-configurar-perfil', route('admin', ['accion' => 'config']))
+    @section('link-configurar-establecimiento', route('establecimientos', ['accion' => 'config']))
+    @section('link-configurar-negocio', route('negocio', ['accion' => 'config']))
+    @section('link-historial', '/admin/historial')
+    @section('link-salir', '/negocio/logout')
+
+    @include('components.header-staff', ['notificaciones' => $notificaciones, 'imgStaff' => $imgStaff])
     <main>
         <h2 class="tituloPrincipal">REGISTRO DE STAFF</h2>
         <section>
@@ -34,95 +45,103 @@
             <section class="columnaUno">
 
                 <div class="infoInput">
-                    <p class="nombreInput">DOCUMENTO DE IDENTIFICACION </p>
-                    <input type="text" id="Id" name="documentoStaff" value="{{ $usuario->id_usuario ?? '' }}"
-                        placeholder="Ingrese documento de identificacion..." />
+                    <p class="nombreInput">DOCUMENTO</p>
+                    <input type="text" id="Id" name="documentoStaff" value="{{ $usuario->id_usuario ?? '' }}" />
                 </div>
 
                 <div class="infoInput">
-                    <p class="nombreInput">INGRESE NOMBRE</p>
-                    <input type="text" id="nombre" name="nombreCompletoStaff"
-                        value="{{ $usuario->nombre ?? '' }}" placeholder="Ingresa nombre...." />
+                    <p class="nombreInput">NOMBRE</p>
+                    <input type="text" id="nombre" name="nombreCompletoStaff" value="{{ $usuario->nombre ?? '' }}" />
                 </div>
 
                 <div class="infoInput">
-                    <p class="nombreInput">INGRESE APELLIDO</p>
-                    <input type="text" id="apellido" name="apellidoStaff"
-                        value="{{ $usuario->apellido ?? '' }}" placeholder="Ingresa apellido...." />
+                    <p class="nombreInput">APELLIDO</p>
+                    <input type="text" id="apellido" name="apellidoStaff" value="{{ $usuario->apellido ?? '' }}" />
                 </div>
 
                 <div class="infoInput">
-                    <p class="nombreInput">INGRESE CONTRASEÑA</p>
+                    <p class="nombreInput">CONTRASEÑA</p>
                     <div class="passwordContainer">
-                        <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa contraseña...."
-                         />
+                        <input type="password" id="contrasena" name="contrasena" />
                         <span id="togglePassword">
-                            <i class="fa-solid fa-eye-slash"></i>
+                            <i class="fa-solid fa-eye"></i>
                         </span>
                     </div>
                 </div>
 
                 <div class="infoInput">
-                    <p class="nombreInput">INGRESE CORREO</p>
-                    <input type="email" id="correo" name="correoStaff" value="{{ $usuario->correo ?? '' }}"
-                        placeholder="Ingresa correo...." />
+                    <p class="nombreInput">CORREO</p>
+                    <input type="email" id="correo" name="correoStaff" value="{{ $usuario->correo ?? '' }}" />
                 </div>
 
 
 
                 <div class="infoInput">
-                    <p class="nombreInput">INGRESE TELEFONO</p>
-                    <input type="number" id="telefono" name="telefonoStaff" value="{{ $usuario->telefono ?? '' }}"
-                        placeholder="Ingresa telefono...." />
+                    <p class="nombreInput">TELEFONO</p>
+                    <input type="number" id="telefono" name="telefonoStaff" value="{{ $usuario->telefono ?? '' }}" />
                 </div>
 
-                <div class="infoInput">
-                    <p class="nombreInput">Rol:</p>
-                    <select name="tipoRol" id="tipoRol" required>
-                        <option value="0">Tipo:</option>
-                        @foreach ($roles as $rol)
-                            @if (strtolower($rol->nombre_rol) !== 'admin')
-                                <option value="{{ $rol->id_rol }}"
-                                    {{ isset($staff) && $staff->id_rol == $rol->id_rol ? 'selected' : '' }}>
-                                    {{ $rol->nombre_rol }}
-                                </option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-
-
-                <div class="infoInput">
-                    <p class="nombreInput">Imagen del Staff:</p>
-                    <label for="imagenServicio" class="fileUploadLabel">Subir imagen</label>
-                    <input type="file" id="imagenServicio" name="imagenStaff"
-                        src="{{ $imgBase64 ?? '/descarga (3).png' }}" accept="image/jpeg, image/png"
-                        class="fileUploadInput" />
-                </div>                
 
             </section>
 
             <section class="columnaDos">
+                <div class="fila-input-grid">
+                    <div class="infoInput">
+                        <p class="nombreInput">ROL</p>
+                        <select name="tipoRol" id="tipoRol">
+                            <option value="0">Tipo:</option>
+                            @foreach ($roles as $rol)
+                                @if (strtolower($rol->nombre_rol) !== 'admin')
+                                    <option value="{{ $rol->id_rol }}" {{ isset($staff) && $staff->id_rol == $rol->id_rol ? 'selected' : '' }}>
+                                        {{ $rol->nombre_rol }}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+
+                    <div class="infoInput">
+                        <p class="nombreInput">IMAGEN</p>
+                        <label for="imagenServicio" class="fileUploadLabel">Subir imagen</label>
+                        <input type="file" id="imagenServicio" name="imagenStaff"
+                            src="{{ $imgBase64 ?? '/descarga (3).png' }}" accept="image/jpeg, image/png"
+                            class="fileUploadInput" />
+                    </div>
+                </div>
 
                 <div class="contenedorCard">
-                    <h2 class="tituloPrevisualizacion">Previsualización de ficha Staff</h2>
                     <div class="card">
                         <figure class="cardImg">
-                            <img id="imagenPrevisualizacion" src="{{ $imgBase64 ?? asset('/descarga (3).png') }}" alt="Imagen del staff" />
+                            <img id="imagenPrevisualizacion" src="{{ $imgBase64 ?? asset('/descarga (3).png') }}"
+                                alt="Imagen del staff" />
                         </figure>
                         <div class="cardText">
-                            <h3>Nombre:</h3>
-                            <p id="nombrePrevisualizacion">-</p>
-                            <h3>Apelldio:</h3>
-                            <p id="apellidoPrevisualizacion">-</p>
-                            <h3>Documento de Identificación:</h3>
-                            <p id="idPrevisualizacion">-</p>
-                            <h3>Teléfono:</h3>
-                            <p id="telefonoPrevisualizacion">-</p>
-                            <h3>Correo:</h3>
-                            <p id="correoPrevisualizacion">-</p>
-                            <h3>Rol:</h3>
-                            <p id="rolPrevisualizacion">-</p>
+
+                            <div class="fila-input">
+                                <h3>Nombre:</h3>
+                                <p id="nombrePrevisualizacion"></p>
+                            </div>
+                            <div class="fila-input">
+                                <h3>Apellido:</h3>
+                                <p id="apellidoPrevisualizacion"></p>
+                            </div>
+                            <div class="fila-input">
+                                <h3>Documento:</h3>
+                                <p id="idPrevisualizacion"></p>
+                            </div>
+                            <div class="fila-input">
+                                <h3>Teléfono:</h3>
+                                <p id="telefonoPrevisualizacion"></p>
+                            </div>
+                            <div class="fila-input">
+                                <h3>Correo:</h3>
+                                <p id="correoPrevisualizacion"></p>
+                            </div>
+                            <div class="fila-input">
+                                <h3>Rol:</h3>
+                                <p id="rolPrevisualizacion"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -136,6 +155,8 @@
     </main>
     <script src="/Js/Staff/registerStaff.js"></script>
     <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
+
+
 </body>
 
 </html>
