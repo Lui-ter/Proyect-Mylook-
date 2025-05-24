@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function actualizarVistaPrevia() {
         previewElements.nombreProd.textContent = formElements.nombreProd.value || 'NOMBRE';
         previewElements.descProducto.textContent = formElements.descProducto.value || 'Descripción...';
-        previewElements.marcaProd.textContent = formElements.marcaProd.value || '-';
-        previewElements.cantidadProd.textContent = formElements.cantidadProd.value || '-';
-        previewElements.valorProd.textContent = formElements.valorProd.value || '-';
+        previewElements.marcaProd.textContent = formElements.marcaProd.value || ' ';
+        previewElements.cantidadProd.textContent = formElements.cantidadProd.value || ' ';
+        previewElements.valorProd.textContent = formElements.valorProd.value || ' ';
     }
 
     /* ACTUALIZAR TEXTO Y DESCRIPCIÓN */
@@ -37,6 +37,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     /* ACTUALIZAR VISTA DE LA IMAGEN */
+    function mostrarImagenInicial() {
+    const src = previewElements.imgPreview.getAttribute('src');
+    if (src && src.trim() !== '') {
+        previewElements.imgPreview.style.display = 'block';
+    } else {
+        previewElements.imgPreview.style.display = 'none';
+    }
+}
+
     formElements.imgProd.addEventListener('change', function () {
         const file = formElements.imgProd.files[0];
         if (file) {
@@ -47,10 +56,13 @@ document.addEventListener('DOMContentLoaded', function () {
             };
             reader.readAsDataURL(file);
         } else {
-            previewElements.imgPreview.style.display = 'none';
+            mostrarImagenInicial();
         }
     });
 
+
     /* ACTUALIZAR LA VISTA AL CARGAR LA PÁGINA */
     actualizarVistaPrevia();
+    mostrarImagenInicial();
+
 });

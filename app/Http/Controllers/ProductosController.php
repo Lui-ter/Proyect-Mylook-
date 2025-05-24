@@ -2,15 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Negocio;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Helpers\GlobalVariables;
 use App\Models\Establecimiento;
 use Illuminate\Support\Facades\Auth;
+use App\Models\notificacion;
+use App\Models\Staff;
+
+use App\Models\Usuario;
+
+
 
 class ProductosController extends Controller
 {
 
+    
+    private function notificacionUsuario(){
+        if (Auth::guard('usuario')->check()) {
+        // Notificaciones de usuario
+        $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+        }elseif (Auth::guard('negocio')->check()) {
+        // Notificaciones de negocio
+        $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+        } else {
+            $notificaciones = [];
+        }
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+        $Staff_admin = Staff::where('id_negocio', $idNegocio)
+        ->where('id_rol', 1)
+        ->with(['usuario', 'rol'])
+        ->get();
+
+    foreach ($Staff_admin as $Staff) {
+        if ($Staff->usuario && $Staff->usuario->img_usuario) {
+            $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+        } else {
+            $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+        }
+    }
+        return compact('notificaciones','imgStaff');
+    }
     /* LOGICA DE PRODUCTOS */
 
         public function handleAddProduct(Request $request){
@@ -105,7 +154,7 @@ class ProductosController extends Controller
             // transforma la blob de la imagen para mostrarla en la vista
             $producto['img_prod'] = 'data:image/png;base64,' . base64_encode($producto['img_prod']);
             $modeValidator = 1;
-            return view($viewCrudProductos, compact('producto','modeValidator'));
+            return view($viewCrudProductos, compact('producto','modeValidator')+ $this->notificacionUsuario());
 
         } elseif ($accion === 'eliminar' && $request->has('deleteProducto')) {
             // Se recibe el id del producto
@@ -121,7 +170,7 @@ class ProductosController extends Controller
              $idNegocio = Auth::guard('negocio')->user()->id_negocio;
              //para luego con el modelo obtenemos id_establecimiento para productos
              $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->value('id_establc');
-             return view($viewCrudProductos, compact('idEstablecimiento'));
+             return view($viewCrudProductos, compact('idEstablecimiento')+ $this->notificacionUsuario());
 
         } elseif ($accion === 'ver') {
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;

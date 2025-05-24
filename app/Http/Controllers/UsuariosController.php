@@ -139,7 +139,14 @@ class UsuariosController extends Controller
         } else {
             $notificaciones = [];
         }
-        return compact('notificaciones');
+         $idusuario = Auth::guard('usuario')->user()->id_usuario;
+        $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
+        if ($imgusuario) {
+            $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
+        } else {
+            $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+        }
+        return compact('notificaciones','imgusuario');
     }
     //------------------------------------------------------------------------------------------------------------------------------
     public function crudUsuarios(Request $request, $accion = null)
@@ -229,8 +236,8 @@ class UsuariosController extends Controller
         } elseif ($accion === 'config') {
             $id = session('usuario_id');
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
-            return view($configUsersView, compact(('usuario')));
-            dd($id);
+            return view($configUsersView, compact('usuario') + $this->notificacionUsuario());
+           
         } elseif ($accion === 'agendar') {
             // Variables que se necesita para luego crear una cita
             $idEstablecimiento = $request->input('id_establecimiento');
