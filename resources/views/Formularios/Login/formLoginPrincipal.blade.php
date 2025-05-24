@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <div class="enlaces-formulario">
-                        <a href="#" class="olvidaste-contraseña">¿OLVIDASTE TU CONTRASEÑA?</a>
+                        <a href="{{  route('contrasenas', ['accion' => 'olvidarContrasena']) }}" class="olvidaste-contraseña">¿OLVIDASTE TU CONTRASEÑA?</a>
                         <a href="#" class="no-tiene-cuenta">¿NO TIENE CUENTA?</a>
                     </div>
                     <button type="submit" name="accionIniciarSesion" value="iniciar_sesion">INICIAR</button>

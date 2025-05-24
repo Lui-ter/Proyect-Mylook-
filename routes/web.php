@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\viewsController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\TiposServiciosController;
+use App\Http\Controllers\ContrasenasController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\StaffController;
@@ -59,6 +59,10 @@ Route::middleware(['ValidateSession:negocio'])->group(function() {
 
 /* RUTAS POST - VALIDACIONES */
 Route::post('/login-user', [LoginController::class, 'loginUser'])->name('loginUser');
+
+/* RUTAS PARA LA RECUPERACION DE CONTRASEÑA DE USUARIOS Y NEGOCIOS */
+Route::match(['get', 'post'],'/contrasenas/{accion?}', [ContrasenasController::class, 'contrasenasOlvidadas'])->name('contrasenas');
+
 /* --------------------------------------------------------------------------------------- */
 
 /* RUTAS POST - INSERCIONES */
@@ -100,6 +104,12 @@ Route::delete('delete-valoracion/{id}',[ValoracionesController::class,'borrarVal
 Route::get('/staff/edit/{id}', [StaffController::class, 'edit'])->name('editStaff');
 Route::get('/staff', [StaffController::class, 'getStaff'])->name('getStaff');
 Route::get('/form-valoracion', [ValoracionesController::class, 'showFormValoracion'])->name('formValoracion');
+
+
+/* RUTAS DE OLVIDAR CONTRASEÑA */
+Route::post('/consultar-correo', [ContrasenasController::class, 'consultarCorreo'])->name('consultarCorreo');
+Route::post('/codigo-correo', [ContrasenasController::class, 'codigoVerificacion'])->name('codigoVerificacion');
+Route::post('/nueva-contrasena', [ContrasenasController::class, 'nuevaContrasena'])->name('nuevaContrasena');
 
 /* --------------------------------------------------------------------------------------- */
 
