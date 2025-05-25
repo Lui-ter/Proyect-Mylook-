@@ -63,6 +63,7 @@ private function notificacionUsuario(){
     {
         $roles = Rol::where('nombre_rol', '!=', 'Administrador')->get();
         return view('Formularios.Login.registerStaff', compact('roles'));
+
     }
     /* INSERCIÓN DE STAFF */
 
@@ -235,7 +236,7 @@ private function notificacionUsuario(){
             }
         } elseif ($accion === 'register') {
             $roles = Rol::where('nombre_rol', '!=', 'Administrador')->get();
-            return view($registerStaff, compact('roles'));
+            return view($registerStaff, compact('roles')+ $this->notificacionUsuario());
         } elseif ($accion === 'editar' && $request->has('editStaff')) {
             $id = $request->input('editStaff');
             // Obtener usuario y staff relacionado

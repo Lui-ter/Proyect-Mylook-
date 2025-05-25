@@ -1,143 +1,302 @@
-*{
-    margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
-/* VARIABLES DE ENTORNO */
+/* VARIABLES A UTILIZAR*/
 :root {
-    --color-background: #624023;
     --color-primary: #a68160;
-    --color-dark: #795434;
+    --color-secondary: #f2f2f2;
     --color-white: white;
     --color-black: black;
 }
 
-body{
-    height: 100vh;
+.configuracion-usuario {
+    height: 89vh;
     width: 100vw;
-    display: flex;
+    padding: 2em 3em;
+    display: grid;
     justify-content: center;
     align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 20fr;
+    gap: 1em;
 
-    .contenedorPadre{
-        border: 1px solid var(--color-primary);
-        border-radius: 1%;
-        height: 90%;
-        width: 30%;
+    & .titulo {
+        height: 100%;
+        width:100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+    }
+
+    & .introduccion {
+        height: 5vh;
+        width: 100%;
+        color: #858484;
+        display: flex;
+        align-items: center;
+        text-align: justify;
+    }
+
+    & .informacion {
+        height: 66vh;
+        width: 100%;
         display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 35% 1fr;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 1fr;
+        gap: 2em;
 
+        & .contenedor-foto {
+            height: 66vh;
+            width: 100%;
+            display: grid;
+            gap: 2.5em;
+            grid-template-columns: 1fr;
+            grid-template-rows: 2.1fr 1fr;
+            padding: 1em 2em 1em 0;
+            border-right: 1.5px solid var(--color-primary);
 
-        .containerPerfil{ 
-            width: 95%;
-            height: 10vh;
-            margin-left: .7vw;
-            display: flex;
-            justify-content: center;
-            align-items: start;
-            position: relative; 
-
-            .imgPerfil{
-                border: 1px solid var(--color-primary);
-                height: 20vh;
-                width: 9vw;
-                border-radius: 100%;
-                margin-top: 10vh;
-            }   
-
-            .camera-icon {
-                position: absolute;
-                top: 26vh;
-                right: 11vw;
-                background-color: var(--color-primary);
-                color: white;
-                border-radius: 50%;
-                padding: 6px;
-                cursor: pointer;
-                font-size: 2vh;
-            }
-
-            .file-input {
-                display: none;
-            }
-        }
-
-        .formConfig{
-            width: 90%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: left;
-            flex-direction: column;
-            gap: 2vh;
-            padding-top: 5vh;
-            margin-left: 2vw;
-       
-
-            .groupInput{
-                display: flex;
-                justify-content: left;
-                align-items: start;
-                gap: .5vw;
-                
-                .nomLabel{
-                    font-size: 1vw;
-                    text-align: left;
-                }
-
-                .inputForm{
-                    width: 100%;
-                    height: 4.5vh;
-                    padding-left: 1vw;
-                    background-color: transparent;
-                    border: 1px solid var(--color-primary);
-                    border-radius: 3%;
-                    outline: none;
-                }
-
-                #condicionUsuario{
-                    resize: none;
-                    overflow: hidden;
-                    height: 14vh;
-                    padding-top: 1vh;
-                }
-            }
-
-            .datosPersonales{
-                display: flex;
-                gap: 1.5vw;
-                
-
-                .containerPersonal{
-                    display: flex;
-                    flex-direction: column;
-                 
-                }
-            }
-
-            .btnSend{
+            & .foto-perfil {
+                height: 100%;
+                width: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                gap: .5vw;
-                padding-top: .5vh;
+                overflow: hidden;
+                border-radius: .5em;
+                border: 1.5px solid var(--color-primary);
+                background-color: var(--color-secondary);
 
-                .btnSave{
-                    padding: 1vh 2vw;
-                    border: 1px solid var(--color-primary);
-                    background-color: transparent;
-                    color: var(--color-dark);
-                    border-radius: 5%;
+                & .imagen {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: .5em;
+                    display: none;
+                }
+            }
+
+            & .campo-foto {
+                height: 6vh;
+                width: 100%;
+                display: flex;
+                align-items: start;
+    
+                & .foto {
+                    height: 100%;
+                    width: 100%;
+                    border-radius: .5em;
+                    display: flex;
+                    align-items: center;
+                    gap: 1em;
+                    cursor: pointer;
+                    color: var(--color-primary);
+                    background-color: var(--color-secondary);
+                }
+    
+                & .icono {
+                        height: 100%;
+                        width: 13%;
+                        border-radius: 50%;
+                        font-size: 180%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: var(--color-secondary);
+                    }
+    
+                & .imagen-input {
+                    height: 100%;
+                    width: 90%;
+                    display: flex;
+                    align-items: center;
+                    font-weight: bold;
+                    font-size: 1em;
+                }
+    
+                & .input-foto {
+                    display: none;
+                }
+            }
+        }
+
+        & .datos-personales {
+            height: 66vh;
+            width: 100%;
+            display: grid;
+            grid-auto-columns: 1fr;
+            grid-auto-rows: 4.5fr 1.7fr 2fr 1fr;
+            gap: 2em;
+            padding: 1em 0 0 0;
+
+            & .contenedor-columnas {
+                height: 100%;
+                width: 100%;
+                display: grid;
+                gap: 2em 2em;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+
+            }
+
+            & .contenedor-campos, .campos {
+                height: 100%;
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 2fr;
+            }
+
+            & .titulo-input {
+                height: 100%;
+                width: 100%;
+                font-size: 1em;
+                font-weight: bold;
+                color: var(--color-primary);
+            }
+
+            & .input-usuario {
+                height: 100%;
+                width: 100%;
+                border: none;
+                outline: none;
+                padding: .7em;
+                border-radius: .6em;
+                background-color: var(--color-secondary);
+            }
+
+            & .input-usuario:focus{
+                border: 1.5px solid var(--color-primary);
+            }
+
+            & .contenedor-botones {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                & .botones {
+                    height: 100%;
+                    width: 10vw;
+                    border-radius: .6em;
+                    background-color: var(--color-white);
+                    border: 1.5px solid var(--color-primary);
+                    font-weight: bold;
+                    color: var(--color-primary);
                     cursor: pointer;
                 }
 
-                #btnSend{
-                    background-color: var(--color-dark);
+                & .botones:hover {
+                    background-color: var(--color-primary);
                     color: var(--color-white);
+                }
+            }
+        }
+
+    }
+}
+
+@media (max-width: 1000px) {
+    .configuracion-usuario {
+        height: 130vh;
+        width: 100%;
+        padding: 1em;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 5fr;
+        gap: 1em;
+
+        & .titulo {
+            height: 100%;
+            width: 100%;
+            font-size: 1.2em;
+        }
+
+        & .introduccion {
+            height: 100%;
+            width: 100%;
+            font-size: .8em;
+        }
+
+        & .informacion {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: .8fr 2fr;
+            gap: 2em;
+
+            & .contenedor-foto {
+                height: 50vh;
+                width: 100%;
+                padding: 2em 4em;
+                display: grid;
+                justify-content: center;
+                align-items: center;
+                grid-template-columns: 1fr;
+                grid-template-rows: 5fr 1fr;
+                gap: 2em;
+                border-bottom: 1.5px solid var(--color-primary);
+                border-right: none;
+
+                & .foto-perfil {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+            & .datos-personales {
+                height: 70vh;
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1em;
+                padding: 0;
+
+                & .contenedor-columnas {
+                    height: 100%;
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 1fr 1fr 1fr 1fr;
+                    gap: 1em;
+                }
+
+                & .titulo-input {
+                    height: 100%;
+                    width: 100%;
+                    font-size: 1em;
+                    font-weight: bold;
+                    color: var(--color-primary);
+                }
+
+                & .input-usuario {
+                    height: 100%;
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    padding: .7em;
+                    border-radius: .6em;
+                    background-color: var(--color-secondary);
+                }
+
+
+                & .contenedor-botones {
+                    height: 100%;
+                    width: 100%;
+
+                    & .botones {
+                        height: 70%;
+                        width: 15vh;
+                    }
                 }
             }
         }
     }
 }
-
