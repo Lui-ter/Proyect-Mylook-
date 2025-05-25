@@ -6,14 +6,57 @@ use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Establecimiento;
 use App\Helpers\GlobalVariables;
+use App\Models\notificacion;
+use App\Models\Staff;
 use Illuminate\Support\Facades\Auth;
 
 class CategoriasController extends Controller
 {
+private function notificacionUsuario(){
+        if (Auth::guard('usuario')->check()) {
+        // Notificaciones de usuario
+        $notificaciones = notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+        }elseif (Auth::guard('negocio')->check()) {
+        // Notificaciones de negocio
+        $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+            return array_merge(
+                $notificacion->toArray(),
+                [
+                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                ]
+            );
+        })->toArray();
+        } else {
+            $notificaciones = [];
+        }
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+        $Staff_admin = Staff::where('id_negocio', $idNegocio)
+        ->where('id_rol', 1)
+        ->with(['usuario', 'rol'])
+        ->get();
 
+    foreach ($Staff_admin as $Staff) {
+        if ($Staff->usuario && $Staff->usuario->img_usuario) {
+            $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+        } else {
+            $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+        }
+    }
+        return compact('notificaciones','imgStaff');
+    }
 /* LOGICA DE CATEGORIA */
 
     public function handleAddCategory(Request $request){
+
 
         // Aqui se validan los datos que provienen del formulario de categoria
         $request->validate([
@@ -72,7 +115,7 @@ class CategoriasController extends Controller
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
             $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->value('id_establc');
             $modeValidator = '2';
-            return view($viewCategorias2, compact('modeValidator', 'idEstablecimiento'));
+            return view($viewCategorias2, compact('modeValidator', 'idEstablecimiento') +  $this->notificacionUsuario());
 
         } elseif ($accion === 'ver') {
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
@@ -92,7 +135,7 @@ class CategoriasController extends Controller
             $categoria = Categoria::where('id_categoria', $id_categoria)->first();
             $categoria['imagen'] = 'data:image/png;base64,' . base64_encode($categoria['imagen']);
             $modeValidator = '1';
-            return view($viewCategorias2, compact('categoria', 'modeValidator'));
+            return view($viewCategorias2, compact('categoria', 'modeValidator') +  $this->notificacionUsuario());
 
         }  elseif ($accion === 'eliminar' && $request->has('deleteCategoria')) {
             $id_categoria = $request->input('deleteCategoria');
