@@ -1,17 +1,12 @@
 function aplicarFiltro() {
     let fechaInput = document.getElementById("fechaFiltro").value;
     if (!fechaInput) {
-        // Si no hay fecha, mostrar todas las filas y ocultar el mensaje
         document.querySelectorAll("#cuerpoCitas tr").forEach(fila => fila.style.display = "");
         document.getElementById("mensajeNoCitas").style.display = "none";
         return;
     }
 
-    // Convertir fecha (YYYY-MM-DD) a formato (DD-MM-YYYY)
-    let fechaFormateada = fechaInput.split("-").reverse().join("-");
-
-    // Llamar a la función de filtrado
-    filtrarCitasPorFecha(fechaFormateada);
+    filtrarCitasPorFecha(fechaInput); // ahora usa directamente el formato YYYY-MM-DD
 }
 
 function filtrarCitasPorFecha(fecha) {

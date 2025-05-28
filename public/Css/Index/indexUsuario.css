@@ -40,7 +40,7 @@ main {
 
     /* contenedor de las imagenes del carrusel */
     & .carrusel {
-        padding: 4em 0;
+        padding: 3em 0;
         display: flex;
         position: absolute;
         justify-content: center;
@@ -51,7 +51,7 @@ main {
         & .elemento-carrusel {
             position: relative;
             width: 55vw;
-            height: 28em;
+            height: 25em;
             background-size: cover;
             background-position: center;
             color: var(--color-white);
@@ -512,77 +512,85 @@ main {
     }
 
     & .contenedor-imagenes-destacado {
-        /* Contenedor de tarjetas */
-        grid-template-columns: 1fr 1fr 1fr;
-        /* 3 columnas */
+        padding-top: 9vh;
+        width: 75vw;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr;
         display: grid;
-        padding-top: 3em;
-        gap: 2em;
+        gap: clamp(.5em, 2.5vw, 3em);
         justify-content: center;
-        align-items: flex-end;
+        align-items: unset;
     }
 
     & .card-destacado {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 80% 20%;
-        width: 20em;
-        height: 300px;
-        border-radius: 0.7em;
+        width: 100%;
+        height: 40vh;
+        border-radius: .7em;
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         position: relative;
-        background: var(--color-white);
-        border: 2px solid var(--color-primary);
-    }
-
-    & .card-destacado:nth-child(2) {
-        transform: translateY(-45px);
-        /* Sube la tarjeta del medio */
-    }
-
-    & .card-destacado img.destacado-imagen {
-        /* Imagen dentro de la tarjeta */
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        /* Ajusta la imagen */
-        display: block;
-        /* Elimina espacio extra */
-        border-radius: 0.7em 0.7em 0 0;
-    }
-
-    & .nombre-posicion {
-        /* Texto dentro de la tarjeta */
-        background: var(--color-primary);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0.5em 0;
-        gap: 0.5em;
-        border-radius: 0 0 0.4em 0.4em;
-    }
-
-    & .nombre-posicion h4 {
-        /* Nombre del establecimiento */
-        margin: 0;
-        font-size: 1.4em;
-        font-weight: bold;
-        color: var(--color-secondary);
-        -webkit-line-clamp: 1;
-        position: relative;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
+        background: var(--color-secondary);
         overflow: hidden;
+        display: grid;
+        border: 2px solid var(--color-primary);
 
+        & img {
+            /* Imagen dentro de la tarjeta */
+            width: 100%;
+            height: 33vh;
+            object-fit: cover;
+            display: block;
+        }
+
+        & .nombre-posicion {
+            height: 7vh;
+            background: var(--color-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1em 0;
+            gap: 0.5em;
+            border-radius: 0 0 .7em .7em;
+
+            & h4 {
+                margin: 0;
+                font-size: clamp(1em, 1.5vw, 15em);
+                font-weight: bold;
+                color: var(--color-secondary);
+            }
+
+            & img {
+                width: 5vh;
+                height: 5vh;
+            }
+
+        }
+    }
+
+    /* Visualmente simular el podio */
+    .primer-puesto {
+        grid-column: 2;
+        margin-top: -2.5em;
+        grid-row: 1;
+        /* se ubica al centro visualmente */
+        z-index: 3;
+    }
+
+    .segundo-puesto {
+        grid-column: 1;
+        z-index: 2;
+        grid-row: 1;
 
     }
 
-    & .nombre-posicion img {
-        /* Icono de posición */
-        width: 2em;
-        height: auto;
+    .tercer-puesto {
+        grid-column: 3;
+        /* a la derecha */
+        z-index: 1;
+        grid-row: 1;
+
     }
+
 
     /* Efecto al pasar el mouse */
     & .card-destacado:hover {
@@ -646,57 +654,12 @@ main {
             font-size: 1.7em;
         }
 
-        & .card-destacado {
-            max-width: 18em;
-            /* Mantiene tamaño */
-            height: 300px;
-        }
-
         & .contenedor-imagenes-destacado {
-            grid-template-columns: repeat(2, 1fr);
-            /* 2 columnas */
-            grid-template-rows: auto auto;
-            /* Dos filas automáticas */
-            padding-top: 3em;
-            gap: 2em;
-            justify-content: center;
+            width: 85vw;
+            grid-template-columns: 1fr 1fr 1fr;
 
-            .card-destacado {
-                width: 21em;
-                height: 300px;
-            }
         }
 
-        & .card-destacado:nth-child(2) {
-            grid-column: span 2;
-            /* Ocupa las 2 columnas */
-            grid-row: 1;
-            /* Se mantiene en la primera fila */
-            justify-self: center;
-            /* Centrar horizontalmente */
-            align-self: center;
-            /* Centrar verticalmente */
-            transform: translateY(0px);
-            /* Vuelve a la posición original */
-        }
-
-        & .card-destacado:nth-child(1) {
-            grid-column: 1;
-            /* Primera columna */
-            grid-row: 2;
-            /* Segunda fila */
-            justify-self: flex-end;
-            /* derecha */
-        }
-
-        & .card-destacado:nth-child(3) {
-            grid-column: 2;
-            /* Segunda columna */
-            grid-row: 2;
-            /* Segunda fila */
-            justify-self: flex-start;
-            /* izquierda */
-        }
     }
 
 }
@@ -791,6 +754,29 @@ main {
                     }
                 }
             }
+
+            .primer-puesto {
+                grid-column: 1;
+                margin-top: 0;
+                grid-row: 1;
+                /* se ubica al centro visualmente */
+                z-index: 3;
+            }
+
+            .segundo-puesto {
+                grid-column: 1;
+                z-index: 2;
+                grid-row: 2;
+
+            }
+
+            .tercer-puesto {
+                grid-column: 1;
+                /* a la derecha */
+                z-index: 1;
+                grid-row: 3;
+
+            }
         }
     }
 
@@ -816,25 +802,7 @@ main {
             max-width: 18em;
 
             /* Mantiene tamaño */
-            height: 300px;
         }
-
-        & .card-destacado:nth-child(1) {
-            order: 2;
-            /* El primer hijo pasa a ser el segundo */
-        }
-
-        & .card-destacado:nth-child(2) {
-            transform: translateY(0px);
-            /* Sube la tarjeta del medio */
-            order: 1;
-        }
-
-        & .card-destacado:nth-child(3) {
-            order: 3;
-            /* El primer hijo pasa a ser el segundo */
-        }
-
         & .card-destacado:hover {
             /* Efecto al pasar el mouse */
             transform: scale(1.05) translateY(-5px);

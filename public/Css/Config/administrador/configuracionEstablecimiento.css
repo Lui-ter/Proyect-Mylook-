@@ -20,97 +20,118 @@
 body {
     display: grid;
     height: 100vh;
-}
 
-
-.configuracionEstablecimiento {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    justify-content: stretch;
-    width: 100%;
-    padding: 1em 2em;
-    gap: 2em;
-    height: 100%;
-
-    .tituloPrincipal {
-        text-align: center;
-        font-size: 2.2em;
-        width: 100%;
-
-    }
-
-    p {
-        font-size: 1.2em;
-        width: 100%;
-
-    }
-
-    .formularioEstablecimiento {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto auto auto;
-        gap: 1em;
-        width: 100%;
+    & main {
         height: 100%;
+        & .configuracion-establecimiento {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            justify-content: stretch;
+            width: 100%;
+            padding: 1em 2em;
+            height: 100%;
+
+            & .titulo-principal {
+                text-align: center;
+                font-size: clamp(1em, 2.8vw, 15em);
+                width: 100%;
+
+            }
+
+            & p {
+                font-size: clamp(1em, 1.5vw, 13em);
+                width: 100%;
+
+            }
+
+            & .formulario-establecimiento {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto auto auto;
+                gap: 1em;
+                width: 100%;
+                height: 100%;
+
+                & .informacion-input {
+                    display: flex;
+                    flex-direction: column;
+
+                    .nombre-input {
+                        color: var(--color-primary);
+                        font-weight: bold;
+                        font-size: clamp(1em, 1.5vw, 12em);
+                    }
+                }
 
 
-        .informacionInput:nth-child(1) {
-            grid-column: 1;
-            grid-row: 1;
-        }
+                & .informacion-input:nth-child(1) {
+                    grid-column: 1;
+                    grid-row: 1;
+                }
 
-        /* NIT */
-        .informacionInput:nth-child(2) {
-            grid-column: 1;
-            grid-row: 2;
-        }
+                /* NIT */
+                & .informacion-input:nth-child(2) {
+                    grid-column: 1;
+                    grid-row: 2;
+                }
 
-        /* Nombre */
-        .informacionInput:nth-child(3) {
-            grid-column: 1;
-            grid-row: 3;
-        }
+                /* Nombre */
+                & .informacion-input:nth-child(3) {
+                    grid-column: 1;
+                    grid-row: 3;
+                }
 
-        /* Dirección */
-        .informacionInput:nth-child(4) {
-            grid-column: 2;
-            grid-row: 1 / span 3;
-        }
+                /* Dirección */
+                & .informacion-input:nth-child(4) {
+                    grid-column: 2;
+                    grid-row: 1 / span 3;
+                }
 
-        /* Descripción (grande en la derecha) */
-        .informacionInput:nth-child(5) {
-            grid-column: 1;
-            grid-row: 4;
-        }
+                /* Descripción (grande en la derecha) */
+                & .informacion-input:nth-child(5) {
+                    grid-column: 1;
+                    grid-row: 4;
+                }
 
-        /* Teléfono */
-        .informacionInput:nth-child(6) {
-            grid-column: 2;
-            grid-row: 4;
+                /* Teléfono */
+                & .informacion-input:nth-child(6) {
+                    grid-column: 2;
+                    grid-row: 4;
+                }
+
+            }
+
+            /* general */
+            & .contenedor-boton {
+                display: flex;
+                justify-content: right;
+                align-items: end;
+
+                & .boton-continuar {
+                    background-color: var(--color-primary);
+                    color: var(--color-white);
+                    border: none;
+                    font-size: clamp(1em, 1.5vw, 12em);
+                    font-weight: bold;
+                    padding: 0.6em 1.3em;
+                    border-radius: 0.7em;
+                    max-height: 2.5em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
         }
 
     }
 }
 
-.informacionInput {
-    display: flex;
-    flex-direction: column;
-
-    .nombreInput {
-        color: #a68160;
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-
-    /*estilos para los diferentes inputs*/
-
-}
-
-input,
-select,
-textarea {
-    font-size: 1.2em;
+& input,
+& select,
+& textarea {
+    font-size: clamp(1em, 1.5vw, 12em);
     border: none;
     font-weight: 500;
     width: 100%;
@@ -121,94 +142,73 @@ textarea {
     background-color: var(--color-secondary);
 }
 
-input::placeholder,
-textarea::placeholder {
+& input::placeholder,
+& textarea::placeholder {
     padding-left: 0.5em;
 }
 
-textarea {
+& textarea {
     resize: none;
     overflow: hidden;
     /* Esto también ayuda a evitar el desplazamiento si se introduce más texto del tamaño visible */
 }
 
-.formulario {
-    grid-template-rows: 1fr;
-    /* Hace que ocupe todo el espacio disponible */
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    animation: aparecer 0.5s ease-out forwards;
-
-}
-
-.formulario.active {
-    display: grid;
-    grid-template-columns: 1fr;
-    /* Solo una columna */
-    grid-template-rows: auto;
-    /* Para que su contenido crezca */
-    justify-content: stretch;
-    width: 100%;
-
-}
-
-    /* general */
-.contenedorBoton {
-display: flex;
-justify-content: right;
-align-items: end;
-
-.botonContinuar {
-background-color: var(--color-primary);
-color: var(--color-white);
-border: none;
-font-size: 1.4em;
-font-weight: bold;
-padding: 0.6em 1.3em;
-border-radius: 0.7em;
-max-height: 2.5em;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-}
-
-
 @media (max-width: 1000px) {
-.configuracionEstablecimiento {
-height: 100%;
-gap: 2em;
-padding: 1em;
-.tituloPrincipal {
-  font-size: 2em;
+    body {
+        & main {
+            & .configuracion-establecimiento {
+                height: 100%;
+                gap: 2em;
+                padding: 1em;
+
+                & .titulo-principal {
+                    font-size: 2em;
+                }
+
+                & p {
+                    font-size: 1.2em;
+                }
+
+                & .formulario-establecimiento {
+                    display: flex;
+                    flex-direction: column;
+
+
+                    & .informacion-input:nth-child(4) {
+                        order: 99;
+                    }
+                }
+            }
+        }
+    }
 }
 
-p {
-  font-size: 1.2em;
-}
+@media (max-width:800px) {
+    body {
+        & main {
+            & .configuracion-establecimiento {
+                & .titulo-principal {
+                    font-size: clamp(1em, 6vw, 15em);
 
-.formularioEstablecimiento {
-  display: flex;
-  flex-direction: column;
+                }
 
-
-  .informacionInput:nth-child(4) {
-    order: 99;
-  }
-}
-}
+                & p {
+                    font-size: clamp(1em, 1.4vw, 13em);
+                }
+            }
+        }
+    }
 }
 
 /* animaciones */
 @keyframes aparecer {
-from {
-opacity: 0;
-transform: translateY(-20px);
-}
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
 
-to {
-opacity: 1;
-transform: translateY(0);
-}
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

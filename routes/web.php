@@ -110,6 +110,7 @@ Route::get('/form-valoracion', [ValoracionesController::class, 'showFormValoraci
 Route::post('/consultar-correo', [ContrasenasController::class, 'consultarCorreo'])->name('consultarCorreo');
 Route::post('/codigo-correo', [ContrasenasController::class, 'codigoVerificacion'])->name('codigoVerificacion');
 Route::post('/nueva-contrasena', [ContrasenasController::class, 'nuevaContrasena'])->name('nuevaContrasena');
+Route::post('/reenviar-codigo', [ContrasenasController::class, 'reenviarCodigo'])->name('reenviarCodigo');
 
 /* --------------------------------------------------------------------------------------- */
 

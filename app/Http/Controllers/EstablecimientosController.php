@@ -10,8 +10,53 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use App\Helpers\GlobalVariables;
+use App\Models\notificacion;
 
 class EstablecimientosController extends Controller{
+
+
+    private function notificacionUsuario()
+    {
+        if (Auth::guard('usuario')->check()) {
+            // Notificaciones de usuario
+            $notificaciones = notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+                return array_merge(
+                    $notificacion->toArray(),
+                    [
+                        'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                        'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                    ]
+                );
+            })->toArray();
+        } elseif (Auth::guard('negocio')->check()) {
+            // Notificaciones de negocio
+            $notificaciones = notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+                return array_merge(
+                    $notificacion->toArray(),
+                    [
+                        'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                        'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                    ]
+                );
+            })->toArray();
+        } else {
+            $notificaciones = [];
+        }
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+        $Staff_admin = Staff::where('id_negocio', $idNegocio)
+            ->where('id_rol', 1)
+            ->with(['usuario', 'rol'])
+            ->get();
+
+        foreach ($Staff_admin as $Staff) {
+            if ($Staff->usuario && $Staff->usuario->img_usuario) {
+                $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+            } else {
+                $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+            }
+        }
+        return compact('notificaciones', 'imgStaff');
+    }
 
 /*  INSERCION DE UN ESTABLECIMIENTO   */
 
@@ -138,7 +183,7 @@ class EstablecimientosController extends Controller{
             return view($configEstablecimiento,[
                 'establecimiento' => $establecimiento,
                 'idNegocio' => $idNegocio
-            ]);
+            ]+ $this->notificacionUsuario());
         }
     }
 }

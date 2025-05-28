@@ -3,21 +3,23 @@
     <div class="encabezado-bandeja">
         <p>BANDEJA DE ENTRADA</p>
     </div>
-    <div class="contenido-bandeja">  
-        @if(isset($notificaciones)) 
-            @foreach ($notificaciones as $notificacion )
-            <div class="elemento-bandeja" id="notificacion-{{ $notificacion['id_notificacion'] }}">
-                <div class="contenedor-fecha">
-                    <div class="numero-fecha">{{ $notificacion['fecha'] ?? 'No se encontró' }}</div>
+    <div class="contenido-bandeja">
+        @if (isset($notificaciones))
+            @foreach ($notificaciones as $notificacion)
+                <div class="elemento-bandeja" id="notificacion-{{ $notificacion['id_notificacion'] }}">
+                    <div class="contenedor-fecha">
+                        <div class="numero-fecha">{{ $notificacion['fecha'] ?? 'No se encontró' }}</div>
+                    </div>
+                    <div class="texto-solicitud">{{ $notificacion['titulo'] ?? 'No se encontró' }}</div>
+                    <div class="contenedor-icono">
+                        <button class="button-borrar-notificacion" data-id="{{ $notificacion['id_notificacion'] }}">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="texto-solicitud">{{ $notificacion['titulo'] ?? 'No se encontró' }}</div>
-                <div class="contenedor-icono">
-                    <button class="button-borrar-notificacion" data-id="{{ $notificacion['id_notificacion'] }}">X</button>
-                </div>
-            </div>
-            @endforeach 
+            @endforeach
         @else
-        <div class="texto-solicitud">Aún no cuentas con una notificacion</div>
+            <div class="texto-solicitud">Aún no cuentas con una notificacion</div>
         @endif
     </div>
 </aside>
@@ -131,6 +133,27 @@
                     margin-right: clamp(.4em, 1vw, 3em);
                     margin-left: clamp(.2em, .1vw, 3em);
                     position: relative;
+                    height: 5vh;
+                    width: 5vh;
+
+                    & button {
+                        background-color: var(--color-primary);
+                        border-radius: 100%;
+                        border: 1px solid var(--color-primary);
+                        padding: 0.1em;
+                        cursor: pointer;
+                        color: var(--color-primary);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height:100%;
+                        width: 100%;
+
+                        & i {
+                            font-size: clamp(1em, 1.5vw, 3em);
+                            color: var(--color-white);
+                        }
+                    }
                 }
 
                 /* Sobre cerrado */
@@ -219,13 +242,13 @@
 
     //Eliminar una notificación visualmente
     document.querySelectorAll('.button-borrar-notificacion').forEach(button => {
-    button.addEventListener('click', function() {
-        let notificationId = this.dataset.id; // Obtiene el ID de la notificación
-        let notificationElement = document.getElementById(`notificacion-${notificationId}`);
+        button.addEventListener('click', function() {
+            let notificationId = this.dataset.id; // Obtiene el ID de la notificación
+            let notificationElement = document.getElementById(`notificacion-${notificationId}`);
 
             fetch(`/delete-notificacion/${notificationId}`, {
                 method: 'DELETE',
-                headers: { 
+                headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                 }
             }).then(response => {

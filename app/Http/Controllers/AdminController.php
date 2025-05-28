@@ -327,7 +327,7 @@ class AdminController extends Controller
             }
             // Redirige al index después de la acción
             // Arriba esta la clase private donde estan todos los paramentros CargarDatos...
-            return view($indexAdminView, $this->cargarDatosIndex());
+            return view($indexAdminView, $this->cargarDatosIndex()+ $this->notificacionUsuario());
 
 
 

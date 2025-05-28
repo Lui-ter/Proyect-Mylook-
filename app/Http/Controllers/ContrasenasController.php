@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Helpers\GlobalVariables;
 use App\Models\Usuario;
 use App\Models\Establecimiento;
+use Illuminate\Support\Facades\Log;
 
 class ContrasenasController extends Controller{
 
@@ -112,6 +113,44 @@ class ContrasenasController extends Controller{
         return redirect()->route('login')->with('status', 'Contraseña actualizada correctamente.');
     }
 
+    public function reenviarCodigo()
+{
+    $datos = session('recuperacion');
+
+    if (!$datos || !isset($datos['correo'])) {
+        return response()->json([
+            'success' => false,
+            'message' => 'No hay una solicitud activa para reenviar el código.'
+        ], 400);
+    }
+
+    $correo = $datos['correo'];
+    $codigo = strtoupper(Str::random(8));
+
+    try {
+        Mail::to($correo)->send(new RecuperacionCodigoMail($codigo, 5));
+
+        // Actualiza la sesión con el nuevo código
+        session([
+            'recuperacion' => [
+                'correo' => $correo,
+                'codigo' => $codigo,
+                'expira_en' => now()->addMinutes(5)
+            ]
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Se ha reenviado el código al correo.'
+        ]);
+    } catch (\Exception $e) {
+        Log::error('Error al reenviar código: '.$e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al enviar el código. Intente más tarde.'
+        ], 500);
+    }
+}
     /* Funcion para mostrar las vistas necesarias para modificar la contraseña olvidada de un usuario o negocio */
     public function contrasenasOlvidadas($accion = null){
         $contraseñaUsersView = GlobalVariables::$contraseñaUsersView;

@@ -120,7 +120,6 @@
                                     <h3>{{ $producto['nombre_prod'] }}</h3>
                                     <p>{{ $producto['desc_prod'] }}
                                     </p>
-                                    <button>SOLICITAR</button>
                                 </div>
                             </div>
                         @endforeach

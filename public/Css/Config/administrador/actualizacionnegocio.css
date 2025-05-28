@@ -1,0 +1,278 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+body {
+    grid-template-rows: 11vh 89vh;
+    height: 100vh;
+
+    & main {
+        height: 89vh;
+
+        & .configuracion-negocio {
+            grid-template-rows: 8vh 81vh;
+            height: 89vh;
+
+            & .titulo-principal {
+                font-size: clamp(1em, 2.8vw, 15em);
+            }
+
+            & .contenedor {
+                display: grid;
+                grid-template-columns: 1.5fr 1fr;
+                height: 100%;
+                gap: 2vw;
+
+                & .izquierda {
+                    display: grid;
+                    grid-template-rows: auto;
+                    height: 100%;
+
+                    & .formulario-negocio {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        gap: .8em;
+                        grid-template-rows: 1fr 1fr 2fr;
+
+                        & .fila {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 2vw;
+                        }
+
+                        & textarea {
+                            height: 100%;
+                        }
+                    }
+                }
+
+                & .derecha {
+                    height: 100%;
+
+                    & .palabra {
+                        display: none;
+                        text-align: center;
+                        font-size: clamp(1.4em, 1.6vw, 5em);
+                        color: var(--color-primary);
+                        font-weight: bold;
+                    }
+
+                    & .contenedor-imagen {
+                        position: relative;
+                        width: 100%;
+                        height: 100%;
+                        overflow: hidden;
+                        border-radius: 1em;
+
+                        & .imagen-fondo {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            cursor: pointer;
+                            border-radius: 2em;
+                            overflow: hidden;
+                        }
+
+                        & .logo-negocio {
+                            position: absolute;
+                            left: 50%;
+                            top: 20%;
+                            height: 30vh;
+                            transform: translateX(-50%);
+                            width: 30vh;
+                            border-radius: 100%;
+                            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+                            cursor: pointer;
+                            z-index: 1000;
+
+                            & img {
+                                width: 35vh;
+                                height: 35vh;
+                                object-fit: cover;
+                                border-radius: 100%;
+
+                            }
+                        }
+
+
+
+                        & .nombre {
+                            position: absolute;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 100%;
+                            bottom: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            color: var(--color-white);
+                            background-color: var(--color-black);
+                            padding: 0.5em;
+                            font-size: clamp(1em, 1.8vw, 12em);
+                            text-align: center;
+                            font-weight: bold;
+                        }
+
+                        & .input-file {
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            opacity: 0;
+                            cursor: pointer;
+                        }
+
+                        & .input-descrip {
+                            resize: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    body {
+        grid-template-rows: 11vh 1fr;
+
+        & main {
+            height: 100%;
+
+            & .configuracion-negocio {
+                grid-template-rows: auto 1fr;
+                height: 100%;
+
+                & .contenedor {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    height: 100%;
+                    gap: 2vw;
+
+                    & .izquierda {
+                        display: grid;
+                        grid-template-rows: auto auto;
+                        height: 100%;
+                        gap: 4vw;
+
+                        & .formulario-negocio {
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            gap: .8em;
+                            grid-template-rows: .1fr .4fr 1fr;
+
+                            & .fila {
+                                grid-template-columns: 1fr;
+                            }
+
+                            & textarea {
+                                height: 100%;
+                                min-height: 40vh
+                            }
+
+                            & .informacionInput:nth-child(3) {
+                                grid-row: auto;
+                            }
+                        }
+                    }
+
+                    & .derecha {
+                        height: 100%;
+                        display: grid;
+                        justify-items: center;
+                        gap: 2vw;
+
+                        & .palabra {
+                            display: flex;
+
+                        }
+
+                        & .contenedor-imagen {
+                            position: relative;
+                            width: 100%;
+                            height: 73vh;
+                            overflow: hidden;
+                            border-radius: 1em;
+
+                            & .imagen-fondo {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                cursor: pointer;
+                                border-radius: 2em;
+                                overflow: hidden;
+                            }
+
+                            & .nombre {
+                                position: absolute;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 100%;
+                                bottom: 0;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                color: white;
+                                background-color: var(--color-black);
+                                padding: 0.5em;
+                                font-size: 1.5em;
+                                text-align: center;
+                                font-weight: bold;
+                            }
+
+                            & .input-file {
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                opacity: 0;
+                                cursor: pointer;
+                            }
+
+                            & .input-descrip {
+                                resize: none;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+@media (max-width:800px) {
+    body {
+        & main {
+            & .configuracion-negocio {
+                .titulo-principal {
+                    font-size: clamp(1em, 6vw, 15em);
+                }
+            }
+        }
+    }
+
+
+
+}
+
+@media (max-width: 350px) {
+    body {
+        & main {
+            & .configuracion-negocio {
+                & .contenedor {
+                    & .derecha {
+                        & .contenedor-imagen {
+                            & .logo-negocio {
+                                border: none;
+                            }
+
+                            & img {
+                                width: 11em;
+                                height: 11em;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

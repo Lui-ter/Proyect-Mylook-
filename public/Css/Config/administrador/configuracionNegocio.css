@@ -1,242 +1,383 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI";
 }
 
 /* Variables de css*/
 :root {
-    --color-primary: #a68160;
-    --color-secondary: #f2f2f2;
-    --color-white: white;
-    --color-black: black;
+  --color-primary: #a68160;
+  --color-secondary: #f2f2f2;
+  --color-white: white;
+  --color-black: black;
 }
 
-/* dividimos la pagina en dos partes dejando la seccion de la derecha mas grande */
 body {
-    display: grid;
-    height: 100vh;
-}
+  display: grid;
+  grid-template-rows: 1fr !important;
+  height: 100vh;
 
-
-  .informacionInput {
-    display: flex;
-    flex-direction: column;
-
-    .nombreInput {
-      color: var(--color-primary);
-      font-weight: bold;
-      font-size: 1.2em;
-    }
-  }
-
-  input,
-  select,
-  textarea {
-    font-size: 1.2em;
-    border: none;
-    font-weight: 500;
-    width: 100%;
-    padding: 0.5em 0;
-    border-radius: 0.7em;
-    resize: vertical;
-    overflow-y: auto;
-    background-color: var(--color-secondary);
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    padding-left: 0.5em;
-  }
-
-  textarea {
-    resize: none;
-    overflow: hidden;
-    /* Esto también ayuda a evitar el desplazamiento si se introduce más texto del tamaño visible */
-  }
-
-  .formulario {
-    display: none;
-    grid-template-rows: 1fr;
-    /* Hace que ocupe todo el espacio disponible */
-    justify-content: stretch;
-    align-items: stretch;
-    width: 100%;
-    animation: aparecer 0.5s ease-out forwards;
-
-  }
-
-  .formulario.active {
-    display: grid;
-    grid-template-columns: 1fr;
-    /* Solo una columna */
-    grid-template-rows: auto;
-    /* Para que su contenido crezca */
-    justify-content: stretch;
-    width: 100%;
-
-  }
-
-  .configuracionNegocio {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    justify-content: stretch;
-    width: 100%;
-    padding: 1em 2em;
-    gap: 1em;
+  & main {
     height: 100%;
 
-    .tituloPrincipal {
-      text-align: center;
-      font-size: 2.2em;
-      width: 100%;
-
-    }
-
-    .contenedorImagen {
-      position: relative;
-      width: 100%;
-      height: 17em;
-      border-radius: 2em;
-
-
-      .imagenFondo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        cursor: pointer;
-        border-radius: 2em 2em 0 0;
-
-
-      }
-
-      .logoNegocio {
-        position: absolute;
-        bottom: -1.4em;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 15em;
-        border-radius: 100%;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-        cursor: pointer;
-        border: 2px solid var(--color-primary);
-        z-index: 1000;
-        /* Se asegura de que esté por encima de todo */
-
-
-
-      }
-
-      .logoNegocio img {
-        width: 15em;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 100%;
-
-      }
-
-      /* Inputs invisibles para cambiar la imagen */
-      .inputFile {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
-
-
-      }
-
-      .inputDescrip {
-        resize: none;
-
-      }
-    }
-
-    .formularioNegocio {
-
+    & .configuracion-negocio {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: .8em;
+      grid-template-columns: 1fr;
+      grid-template-rows: 8vh 8vh 1fr !important;
+      justify-content: stretch;
+      width: 100%;
+      padding: 1em 1.5em;
+      gap: 1em;
+      height: 100vh;
+      align-items: stretch;
+      animation: aparecer 0.5s ease-out forwards;
 
-    }
-  }
-    /* general */
-    .contenedorBoton {
-      display: flex;
-      justify-content: right;
-      align-items: end;
 
-      .botonContinuar {
-        background-color: var(--color-primary);
-        color: var(--color-white);
-        border: none;
-        font-size: 1.4em;
-        font-weight: bold;
-        padding: 0.6em 1.3em;
-        border-radius: 0.7em;
-        max-height: 2.5em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      & .titulo-principal {
+        text-align: center;
+        font-size: clamp(1.5em, 3vw, 2em);
+        width: 100%;
+
       }
-    }
 
-    @media (max-width: 1000px) {
-        .configuracionNegocio {
-        height: 100%;
-        padding: 2em 1em;
-        gap: 2em;
-        border-radius: 2em 2em 0 0;
+      & .descripcion {
+        font-size: clamp(1em, 1.5vw, 13em);
 
-        .contenedorImagen {
-          height: 19em;
-        }
+      }
 
-        .logoNegocio {
-          height: 13em;
-          z-index: 2;
-        }
+      & .contenedor {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        height: 73vh;
+        gap: 2vw;
 
-        .logoNegocio img {
-          width: 13em;
-        }
-
-        .formularioNegocio {
+        & .izquierda {
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 2em;
+          grid-template-rows: auto;
+          height: 73vh;
 
-          .inputDescrip {
-            height: 7em;
-            /* Aumentar la altura en móviles */
+          & .formulario-negocio {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: .8em;
+            grid-template-rows: 1fr 1fr 2fr;
+
+            & .fila {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 2vw;
+            }
+
+            & textarea {
+              height: 100%;
+            }
           }
         }
 
-        .formularioNegocio .informacionInput:nth-child(1) {
-          grid-row: 1;
-        }
+        & .derecha {
+          height: 73vh;
 
-        .formularioNegocio .informacionInput:nth-child(2) {
-          grid-row: 2;
-        }
+          & .palabra {
+            display: none;
+            text-align: center;
+            font-size: clamp(1.4em, 1.6vw, 5em);
+            color: var(--color-primary);
+            font-weight: bold;
+          }
 
-        .formularioNegocio .informacionInput:nth-child(4) {
-          grid-row: 3;
-        }
+          & .contenedor-imagen {
+            position: relative;
+            width: 100%;
+            height: 73vh;
+            overflow: hidden;
+            border-radius: 1em;
 
-        /* ADMINISTRADOR LIDER */
-        .formularioNegocio .informacionInput:nth-child(3) {
-          grid-row: 4;
-        }
+            & .imagen-fondo {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              cursor: pointer;
+              border-radius: 2em;
+              overflow: hidden;
+            }
 
-        /* DESCRIPCIÓN al final */
+            & .logo-negocio {
+              position: absolute;
+              left: 50%;
+              top: 20%;
+              height: 30vh;
+              transform: translateX(-50%);
+              width: 30vh;
+              border-radius: 100%;
+              box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+              cursor: pointer;
+              z-index: 1000;
+
+              & img {
+                width: 35vh;
+                height: 35vh;
+                object-fit: cover;
+                border-radius: 100%;
+
+              }
+            }
+
+
+
+            & .nombre {
+              position: absolute;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%);
+              color: var(--color-white);
+              background-color: var(--color-black);
+              padding: 0.5em;
+              font-size: clamp(1em, 1.8vw, 12em);
+              text-align: center;
+              font-weight: bold;
+            }
+
+            & .input-file {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              opacity: 0;
+              cursor: pointer;
+            }
+
+            & .input-descrip {
+              resize: none;
+            }
+          }
+        }
+      }
+
+      & .contenedor-boton {
+        display: flex;
+        justify-content: right;
+        align-items: end;
+
+        & .boton-continuar {
+          background-color: var(--color-primary);
+          color: var(--color-white);
+          border: none;
+          font-size: clamp(1em, 1.5vw, 12em);
+          font-weight: bold;
+          padding: 0.6em 1.3em;
+          border-radius: 0.7em;
+          max-height: 2.5em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      & .boton-2 {
+        display: none;
       }
     }
+  }
+}
+
+
+& .informacion-input {
+  display: flex;
+  flex-direction: column;
+
+  & .nombre-input {
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: clamp(1em, 1.5vw, 12em);
+  }
+}
+
+& input,
+& select,
+& textarea {
+  font-size: clamp(1em, 1.5vw, 12em);
+  border: none;
+  font-weight: 500;
+  width: 100%;
+  padding: 0.5em 0;
+  border-radius: 0.7em;
+  resize: vertical;
+  overflow-y: auto;
+  background-color: var(--color-secondary);
+}
+
+& input::placeholder,
+& textarea::placeholder {
+  padding-left: 0.5em;
+}
+
+& textarea {
+  resize: none;
+  overflow: hidden;
+  /* Esto también ayuda a evitar el desplazamiento si se introduce más texto del tamaño visible */
+}
+
+@media (max-width: 1000px) {
+  body {
+    & main {
+      & .configuracion-negocio {
+        height: 100%;
+        padding: 1em;
+        gap: 2vh;
+        border-radius: 2em 2em 0 0;
+        grid-template-rows: auto auto 1fr !important;
+
+        & .contenedor {
+          display: grid;
+          grid-template-columns: 1fr;
+          height: 100%;
+          gap: 2vw;
+
+          & .izquierda {
+            display: grid;
+            grid-template-rows: auto auto;
+            height: 100%;
+            gap: 4vw;
+
+            & .formulario-Negocio {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: .8em;
+              grid-template-rows: .1fr .4fr 1fr;
+
+              & .fila {
+                grid-template-columns: 1fr;
+              }
+
+              & textarea {
+                height: 100%;
+                min-height: 40vh
+              }
+
+              & .informacion-input:nth-child(3) {
+                grid-row: auto;
+              }
+            }
+          }
+
+          & .derecha {
+            height: 100%;
+            display: grid;
+            justify-items: center;
+            gap: 2vw;
+
+            & .palabra {
+              display: flex;
+
+            }
+
+            & .contenedor-imagen {
+              position: relative;
+              width: 100%;
+              height: 73vh;
+              overflow: hidden;
+              border-radius: 1em;
+
+              & .imagen-fondo {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                cursor: pointer;
+                border-radius: 2em;
+                overflow: hidden;
+              }
+
+              & .nombre {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                color: var(--color-white);
+                background-color: var(--color-black);
+                padding: 0.5em;
+                font-size: 1.5em;
+                text-align: center;
+                font-weight: bold;
+              }
+
+              & .input-file {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+              }
+
+              & .input-descrip {
+                resize: none;
+
+              }
+            }
+          }
+        }
+
+        & .boton-1 {
+          display: none;
+        }
+
+        & .boton-2 {
+          display: flex;
+          justify-content: end;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width:800px) {
+  body {
+    & main {
+      & .configuracion-negocio {
+        & .titulo-principal {
+          font-size: clamp(1em, 6vw, 15em) !important;
+        }
+      }
+    }
+  }
+
+
+}
+
+@media (max-width: 350px) {
+  body {
+    & main {
+      & .configuracion-negocio {
+        & .contenedor {
+          & .derecha {
+            & .contenedorImagen {
+              & .logoNegocio {
+                border: none;
+              }
+
+              & img {
+                width: 11em;
+                height: 11em;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
 
 /* animaciones */
 @keyframes aparecer {

@@ -1,36 +1,55 @@
-let efectoVanta = VANTA.NET({
-    el: "#bienvenidaIzquierda",  //  Selecciona el elemento donde se aplicará el efecto
-    backgroundColor: 0xa68160, //  Color de fondo
-    mouseControls: true, //  Permite interacción con el mouse
-    touchControls: true, //  Habilita control táctil
-    gyroControls: false, //  Desactiva giroscopio
-    minHeight: window.innerHeight, //  Ajusta la altura mínima
-    minWidth: window.innerWidth, //  Ajusta el ancho mínimo
-    scale: 1.00,
-    scaleMobile: 1.00,
-    color: 0xfffff0, //  Color de la animación
-    points: 9.00, //  Cantidad de puntos en la animación
-    maxDistance: 12.00 // ↔Distancia máxima entre puntos
-  });
+const isMobile = window.innerWidth <= 768;
 
-  // Detectar cambios en la resolución sin perder las propiedades anteriores
-  window.addEventListener("resize", function () {
-    if (efectoVanta) efectoVanta.destroy(); // Elimina la instancia anterior para evitar errores
+const puntos = isMobile ? 7.00 : 9.00;
+const distancia = isMobile ? 9.00 : 12.00;
+const escala = isMobile ? 0.9 : 1.00;
+
+const elem = document.querySelector("#bienvenidaIzquierda");
+
+let efectoVanta = VANTA.NET({
+  el: elem,
+  backgroundColor: 0xa68160,
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: elem.clientHeight,
+  minWidth: elem.clientWidth,
+  scale: escala,
+  scaleMobile: escala,
+  color: 0xfffff0,
+  points: puntos,
+  maxDistance: distancia
+});
+
+let resizeTimeout;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    if (efectoVanta) efectoVanta.destroy();
+
+    const esMobile = window.innerWidth <= 768;
+    const puntos = esMobile ? 7.00 : 9.00;
+    const distancia = esMobile ? 9.00 : 12.00;
+    const escala = esMobile ? 0.9 : 1.00;
+
     efectoVanta = VANTA.NET({
-      el: "#bienvenidaIzquierda",
+      el: elem,
       backgroundColor: 0xa68160,
       mouseControls: true,
       touchControls: true,
       gyroControls: false,
-      minHeight: window.innerHeight,
-      minWidth: window.innerWidth,
-      scale: 1.00,
-      scaleMobile: 1.00,
+      minHeight: elem.clientHeight,
+      minWidth: elem.clientWidth,
+      scale: escala,
+      scaleMobile: escala,
       color: 0xfffff0,
-      points: 9.00,
-      maxDistance: 12.00
+      points: puntos,
+      maxDistance: distancia
     });
-  });
+  }, 250);
+});
+
+
 
   //  Lista de imágenes para el fondo dinámico
   const imagenes = [
@@ -47,7 +66,7 @@ let efectoVanta = VANTA.NET({
   });
 
   let index = 0;
-  const contenedor = document.querySelector(".bienvenidaDerecha");
+  const contenedor = document.querySelector(".bienvenida-derecha");
 
   function cambiarImagen() {
     contenedor.style.backgroundImage = `url(${imagenesPrecargadas[index].src})`; // Cambia la imagen de fondo

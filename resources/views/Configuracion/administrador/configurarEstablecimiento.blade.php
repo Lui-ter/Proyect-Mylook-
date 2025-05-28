@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Configurar mi establecimiento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/configuracionEstablecimiento.css') }}">
+    <link rel="stylesheet" href="{{ asset('Css/Config/administrador/actualizarEstablecimiento.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
 </head>
 
 <body>
+    @section('link-index', '/admin/index')
+    @section('link-configurar-perfil', route('admin', ['accion' => 'config']))
+    @section('link-configurar-establecimiento', route('establecimientos', ['accion' => 'config']))
+    @section('link-configurar-negocio', route('negocio', ['accion' => 'config']))
+    @section('link-historial', '/admin/historial')
+    @section('link-salir', '/negocio/logout')
+
+    @include('components.header-staff', ['notificaciones' => $notificaciones, 'imgStaff' => $imgStaff])
+
     <main>
         <!--FORMULARIO PARA REGISTRAR ESTABLECIMIENTOS -->
-        <form action="{{ route('updateEstablecimiento',['id' => $establecimiento->id_establc]) }}" method="POST" onsubmit="handleValidationEstablecimiento(event)" class="configuracionEstablecimiento formulario" id="form3">
+        <form action="{{ route('updateEstablecimiento', ['id' => $establecimiento->id_establc]) }}" method="POST"
+            onsubmit="handleValidationEstablecimiento(event)" class="configuracion-establecimiento formulario"
+            id="form3">
             @method('PUT')
             @csrf
-            <h2 class="tituloPrincipal">CONFIGURACIÓN ESTABLECIMIENTO</h2>
+            <h2 class="titulo-principal">CONFIGURACIÓN ESTABLECIMIENTO</h2>
             <p>
                 En este apartado podrás modificar los datos de la sede de forma fácil y rápida. Esto te permitirá
                 mantener la
@@ -23,44 +37,53 @@
             </p>
             {{-- Quitamos el value con session para evitar errores --}}
             <input type="hidden" name="idNegocio" value="{{ $idNegocio }}">
-            <section class="formularioEstablecimiento">
-                <div class="informacionInput">
-                    <p class="nombreInput">NIT NEGOCIO</p>
-                    <input type="number" class="inputId" id="idEstablc" name="idEstablc" value="{{ $establecimiento->id_establc }}" readonly>
+            <section class="formulario-establecimiento">
+                <div class="informacion-input">
+                    <p class="nombre-input">NIT NEGOCIO</p>
+                    <input type="number" class="input-id" id="idEstablc" name="idEstablc"
+                        value="{{ $establecimiento->id_establc }}" readonly>
                 </div>
 
-                <div class="informacionInput">
-                    <p class="nombreInput">NOMBRE</p>
-                    <input type="text" class="inputNombre" id="nombreEst" name="nombreEst" value="{{ $establecimiento->nombre_establc }}" placeholder="Ingrese el nombre del establecimiento">
+                <div class="informacion-input">
+                    <p class="nombre-input">NOMBRE</p>
+                    <input type="text" class="input-nombre" id="nombreEst" name="nombreEst"
+                        value="{{ $establecimiento->nombre_establc }}"
+                       >
                 </div>
 
-                <div class="informacionInput">
-                    <p class="nombreInput">DIRECCIÓN</p>
-                    <input type="text" class="inputDireccion" id="direccionEstablecimiento" name="direccionEstablecimiento" value="{{ $establecimiento->ubicacion }}" placeholder="Ingrese la dirección del establecimiento">
+                <div class="informacion-input">
+                    <p class="nombre-input">DIRECCIÓN</p>
+                    <input type="text" class="input-direccion" id="direccionEstablecimiento"
+                        name="direccionEstablecimiento" value="{{ $establecimiento->ubicacion }}"
+                        >
                 </div>
 
-                <div class="informacionInput">
-                    <p class="nombreInput">DESCRIPCIÓN</p>
-                    <textarea name="descripcionEstablecimiento" id="inputDescripcion" cols="30" rows="10" class="inputDescripcion" placeholder="Ingrese la descripción del establecimiento">{{ $establecimiento->desc_establc }}</textarea>
+                <div class="informacion-input">
+                    <p class="nombre-input">DESCRIPCIÓN</p>
+                    <textarea name="descripcionEstablecimiento" id="inputDescripcion" cols="30" rows="10" class="inputDescripcion"
+                       >{{ $establecimiento->desc_establc }}</textarea>
                 </div>
 
-                <div class="informacionInput">
-                    <p class="nombreInput">TELÉFONO</p>
-                    <input type="text" class="inputTel" id="telefonoEstablecimiento" name="telefonoEstablecimiento" value="{{ $establecimiento->telefono }}" placeholder="Ingrese el teléfono del establecimiento">
+                <div class="informacion-input">
+                    <p class="nombre-input">TELÉFONO</p>
+                    <input type="text" class="input-tel" id="telefonoEstablecimiento" name="telefonoEstablecimiento"
+                        value="{{ $establecimiento->telefono }}">
                 </div>
 
-                <div class="informacionInput">
-                    <p class="nombreInput">CORREO</p>
-                    <input type="text" class="inputEmail" id="correoEstablecimiento" name="correoEstablecimiento" value="{{ $establecimiento->correo }}" placeholder="Ingrese el correo del establecimiento">
+                <div class="informacion-input">
+                    <p class="nombre-input">CORREO</p>
+                    <input type="text" class="input-email" id="correoEstablecimiento" name="correoEstablecimiento"
+                        value="{{ $establecimiento->correo }}">
                 </div>
             </section>
 
-            <div class="contenedorBoton">
-                <button type="submit" class="botonContinuar">ACTUALIZAR</button>
+            <div class="contenedor-boton">
+                <button type="submit" class="boton-continuar">ACTUALIZAR</button>
             </div>
         </form>
     </main>
     <script src="/Js/Admin/configBienvenidaAdmin.js"></script>
-    <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
+    <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
 </body>
+
 </html>

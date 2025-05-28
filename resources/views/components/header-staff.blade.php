@@ -1,5 +1,6 @@
 <header>
     <div class="contenedor-logo">
+        <img src="{{ asset('logo.svg') }}" alt="Logo">
         <h2 class="my-look">MYLOOK</h2>
     </div>
 
@@ -44,6 +45,8 @@
 @include('components.bandeja', ['notificaciones' => $notificaciones])
 
 <style>
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
     /* Reset básico y fuentes */
     * {
         padding: 0;
@@ -73,15 +76,28 @@
         color: var(--color-primary);
         justify-content: space-between;
         align-items: center;
-        padding: 0.5em 1em;
+        padding: 0em 1em;
         gap: 2em;
         z-index: 22;
+        height: 11vh;
 
         .contenedor-logo {
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1vw;
 
             h2 {
-                font-size: clamp(2em, 5vw, 15vh);
+
+                font-size: clamp(1.4em, 3vw, 7vh);
+                font-weight: bold;
+
+            }
+
+            img {
+                width: clamp(1.9em, 3vw, 7vh);
+                height: clamp(1.9em, 3vw, 7vh);
+
             }
         }
 
@@ -128,8 +144,8 @@
                 cursor: pointer;
 
                 figure {
-                    width: clamp(2.5em, 6vw, 10vh);
-                    height: clamp(2.5em, 6vw, 10vh);
+                    width: clamp(.8em, 6vh, 7vh);
+                    height: clamp(.8em, 6vh, 7vh);
                     border-radius: 100%;
                     cursor: pointer;
                     transition: transform 0.2s ease-in-out;
@@ -205,7 +221,6 @@
     .animar-entrar {
         animation: slideDown 0.3s ease forwards;
         display: grid !important;
-        /* porque 'oculto' pone display:none */
     }
 
     .animar-salir {
@@ -239,8 +254,6 @@
 
 
 <script>
-
-
     const contenedorPerfil = document.getElementById('perfil');
     const menuPerfil = document.getElementById('menu-perfil');
 

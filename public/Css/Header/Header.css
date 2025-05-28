@@ -11,7 +11,6 @@ html {
     scroll-behavior: smooth;
 }
 
-
 /* Variables de css*/
 :root {
     --color-primary: #a68160;
@@ -27,48 +26,59 @@ header {
     color: var(--color-primary);
     justify-content: space-between;
     align-items: center;
-    padding: 0.5em 1em;
+    height: 11vh;
+    padding: 0em 1em;
     gap: 2em;
     z-index: 22;
 
-    .contenedor-logo {
+    & .contenedor-logo {
         cursor: pointer;
-        h2 {
-            font-size: clamp(2em, 5vw, 15vh);
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+
+        & h2 {
+            font-size: clamp(1.4em, 3vw, 7vh);
+            font-weight: bold;
+        }
+
+        & img {
+            width: clamp(1.9em, 3vw, 7vh);
+            height: clamp(1.9em, 3vw, 7vh);
         }
     }
 
-    .contenedor-opciones {
+    & .contenedor-opciones {
         display: flex;
         align-items: center;
         gap: 1vw;
         height: 100%;
         justify-content: end;
 
-        .contenedor-iconos {
+        & .contenedor-iconos {
             display: flex;
             align-items: center;
             gap: 1vw;
             height: 100%;
             justify-content: end;
 
-            .contenedor-icono {
+            & .contenedor-icono {
                 height: 100%;
                 border: none;
 
-                i {
+                & i {
                     color: var(--color-primary);
-                    font-size: clamp(.8em, 4.5vh, 7vh);
+                    font-size: clamp(0.8em, 4.5vh, 7vh);
                     cursor: pointer;
                     transition: color 0.3s ease-in-out, transform 0.2s ease;
                 }
 
-                a {
+                & a {
                     text-decoration: none;
 
-                    i {
+                    & i {
                         color: var(--color-primary);
-                        font-size: clamp(.8em, 4.5vh, 7vh);
+                        font-size: clamp(0.8em, 4.5vh, 7vh);
                         cursor: pointer;
                         transition: color 0.3s ease-in-out, transform 0.2s ease;
                     }
@@ -76,23 +86,23 @@ header {
             }
         }
 
-        .contenedor-busqueda {
+        & .contenedor-busqueda {
             position: relative;
 
-            .contenedor-icono {
+            & .contenedor-icono {
                 height: 100%;
                 border: none;
                 background: none;
 
-                i {
+                & i {
                     color: var(--color-primary);
-                    font-size: clamp(.8em, 4.5vh, 7vh);
+                    font-size: clamp(0.8em, 4.5vh, 7vh);
                     cursor: pointer;
                     transition: color 0.3s ease-in-out, transform 0.2s ease;
                 }
             }
 
-            .menu-busqueda {
+            & .menu-busqueda {
                 position: absolute;
                 top: 200%;
                 right: -80%;
@@ -105,47 +115,46 @@ header {
                 transform-origin: top;
                 transition: transform 0.3s ease, opacity 0.3s ease;
 
-                .caja-busqueda {
+                & .caja-busqueda {
                     display: flex;
                     align-items: center;
                     border: 1px solid var(--color-primary);
-                    border-radius: .3em;
+                    border-radius: 0.3em;
                     overflow: hidden;
                     margin-bottom: 0.7rem;
 
-                    input {
+                    & input {
                         flex: 1;
                         border: none;
                         padding: 0.5rem;
                         outline: none;
                         width: 100%;
-                        border-radius: .5em;
-                        font-size: clamp(.8em, 1.5vw, 15vh);
+                        border-radius: 0.5em;
+                        font-size: clamp(0.8em, 1.5vw, 15vh);
                         outline: none;
                     }
 
-                    .boton-jecutar {
+                    & .boton-jecutar {
                         background-color: var(--color-primary);
                         color: var(--color-white);
                         border: none;
                         border-left: 1px solid var(--color-primary);
                         padding: 0.5rem 1rem;
                         cursor: pointer;
-                        font-size: clamp(.8em, 1.5vw, 15vh);
+                        font-size: clamp(0.8em, 1.5vw, 15vh);
                         transition: background-color 0.3s ease;
                     }
 
-                    .boton-jecutar:hover {
+                    & .boton-jecutar:hover {
                         background-color: var(--color-secondary);
                         color: var(--color-primary);
                     }
-
                 }
 
-                .contenedor-categorias {
+                & .contenedor-categorias {
                     width: 100%;
 
-                    .ejecutar-categorias {
+                    & .ejecutar-categorias {
                         width: 100%;
 
                         padding: 0.5rem;
@@ -153,59 +162,56 @@ header {
                         background-color: var(--color-primary);
                         color: var(--color-white);
                         border: none;
-                        border-radius: .2em;
+                        border-radius: 0.2em;
                         margin-bottom: 0.5rem;
-                        font-size: clamp(.8em, 1.2vw, 15vh);
-
+                        font-size: clamp(0.8em, 1.2vw, 15vh);
                     }
 
-                    .contenedor-botones-categorias {
+                    & .contenedor-botones-categorias {
                         display: grid;
                         grid-template-columns: repeat(2, 1fr);
-                        gap: 5px;
+                        gap: .3vh;
                         transform-origin: top;
                         transition: transform 0.3s ease, opacity 0.3s ease;
 
-                        .boton-categoria {
+                        & .boton-categoria {
                             padding: 0.4rem;
                             border: none;
-                            border-radius: .2em;
+                            border-radius: 0.2em;
                             background-color: var(--color-secondary);
                             cursor: pointer;
-                            font-size: clamp(.8em, 1.2vw, 15vh);
-
+                            font-size: clamp(0.8em, 1.2vw, 15vh);
                         }
 
-                        .boton-categoria:hover {
+                        & .boton-categoria:hover {
                             background-color: var(--color-primary);
                             color: var(--color-white);
                         }
                     }
 
-                    .oculto {
+                    & .oculto {
                         display: none;
                     }
                 }
-
             }
 
-            .oculto {
+            & .oculto {
                 display: none;
             }
         }
 
-        .contenedor-perfil {
+        & .contenedor-perfil {
             position: relative;
             cursor: pointer;
 
-            figure {
-                width: clamp(2.5em, 6vw, 10vh);
-                height: clamp(2.5em, 6vw, 10vh);
+            & figure {
+                width: clamp(.8em, 6vh, 7vh);
+                height: clamp(.8em, 6vh, 7vh);
                 border-radius: 100%;
                 cursor: pointer;
                 transition: transform 0.2s ease-in-out;
 
-                img {
+                & img {
                     width: 100%;
                     height: 100%;
                     border-radius: 100%;
@@ -215,13 +221,13 @@ header {
                 }
             }
 
-            .menu-perfil {
+            & .menu-perfil {
                 position: absolute;
                 top: 110%;
                 right: 0;
                 background-color: var(--color-white);
                 border: 1px solid var(--color-primary);
-                border-radius: .5em;
+                border-radius: 0.5em;
                 text-align: center;
                 min-width: 15em;
 
@@ -229,25 +235,20 @@ header {
                 overflow: hidden;
                 background-clip: padding-box;
 
-                a {
+                & a {
                     padding: 1em;
                     cursor: pointer;
                     color: var(--color-primary);
                     text-decoration: none;
 
-                    p {
+                    & p {
                         font-weight: bold;
                         font-size: clamp(1em, 2vh, 5vh);
                         color: var(--color-primary);
-
                     }
-
-
-
                 }
 
-
-                a:hover {
+                & a:hover {
                     background-color: var(--color-primary);
 
                     & p {
@@ -255,30 +256,27 @@ header {
                     }
                 }
 
-
-                hr {
+                & hr {
                     border: none;
                     border-top: 1px solid var(--color-primary);
                 }
-
-
             }
 
-            .menu-perfil.oculto {
+            & .menu-perfil.oculto {
                 display: none;
             }
-
         }
     }
 }
+
 /* Animaciones */
-.animar-entrar {
+& .animar-entrar {
     animation: slideDown 0.3s ease forwards;
     display: grid !important;
     /* porque 'oculto' pone display:none */
 }
 
-.animar-salir {
+& .animar-salir {
     animation: slideUp 0.3s ease forwards;
 }
 

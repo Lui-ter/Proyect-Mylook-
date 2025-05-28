@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* VARIABLES A UTILIZAR*/
+:root {
+    --color-primary: #a68160;
+    --color-secondary: #f2f2f2;
+    --color-white: white;
+    --color-black: black;
+}
+
+body {
+    & main {
+        height: 100vh;
+        width: 100%;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+
+        & .carta {
+            height: 75vh;
+            width: 60vw;
+            display: grid;
+            background-color: var(--color-white);
+            border-radius: 2vh;
+            border: 2px solid var(--color-primary);
+            grid-template-rows: 10vh 1fr;
+            overflow: hidden;
+            gap: 2vh;
+
+            & .header {
+                display: flex;
+                justify-content: space-between;
+                gap: 2vh;
+                height: 10vh;
+                padding: 1vh;
+                width: 100%;
+                align-items: center;
+                background-color: var(--color-secondary);
+                border-bottom: 1px solid var(--color-primary);
+
+                & .logo {
+                    display: flex;
+                    align-items: center;
+                    gap: 1vh;
+                    height: 100%;
+
+                    & img {
+                        height: 100%;
+
+                    }
+
+                    & h3 {
+                        font-size: clamp(1em, 2.1vw, 12em);
+                        color: var(--color-primary);
+                        font-weight: bold;
+                    }
+                }
+
+                & a {
+                    & i {
+                        font-size: clamp(1em, 2.1vw, 12em);
+                        color: var(--color-primary);
+                        font-weight: bold;
+                        cursor: pointer;
+                        transition: color 0.3s ease;
+
+                    }
+                }
+            }
+
+            & .contenido-carta {
+                display: grid;
+                gap: 2vh;
+                padding: 2vh;
+                height: 100%;
+                grid-template-rows: auto auto auto auto .5fr;
+
+
+                & h2 {
+                    text-align: center;
+                    font-size: clamp(1em, 2.1vw, 12em);
+                }
+
+                & p {
+                    font-size: clamp(1em, 1.4vw, 12em);
+                }
+
+                & a {
+                    text-decoration: none;
+                    color: var(--color-primary);
+                    font-weight: bold;
+
+                    & h4 {
+                        font-size: clamp(1em, 1.4vw, 12em);
+                        color: var(--color-primary);
+
+                    }
+                }
+
+                & .informacion-input {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2vh;
+
+                    & p,
+                    & .texto-input {
+                        color: var(--color-primary);
+                        font-weight: bold;
+                        font-size: clamp(1em, 1.5vw, 12em);
+                    }
+
+                    & input {
+                        border: none;
+                        background-color: var(--color-secondary);
+                        font-size: clamp(1em, 1.5vw, 12em);
+                        height: 100%;
+                        max-height: 8vh;
+                        font-weight: 500;
+                        width: 100%;
+                        padding: 0.6rem 0;
+                        border-radius: 1.5vh;
+                        resize: vertical;
+                        overflow-y: auto;
+                    }
+
+                    & input::placeholder {
+                        padding-left: 10px;
+                    }
+                }
+
+                & .opciones-codigo {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 2vh;
+
+                    & #contador {
+                        font-size: clamp(1em, 1.4vw, 12em);
+                        color: var(--color-primary);
+                        font-weight: bold;
+                    }
+
+                    & #mensaje {
+                        font-size: clamp(1em, 1.4vw, 12em);
+                        color: var(--color-white);
+                        font-weight: bold;
+
+                        & .mostrar-mensaje {
+                            opacity: 1;
+                            transform: translate(-50%, -50%) scale(1);
+                        }
+
+                    }
+
+                    & button {
+                        background: transparent;
+                        border: none;
+                        color: var(--color-primary);
+                        font-weight: bold;
+                        font-size: clamp(1em, 1.4vw, 12em);
+
+                    }
+                }
+
+                & .boton {
+                    display: flex;
+                    height: 100%;
+                    align-items: end;
+                    border-radius: .8em;
+
+                    & button {
+                        background-color: var(--color-primary);
+                        border-radius: 2vh;
+                        max-height: 8vh;
+                        min-height: 8vh;
+                        color: var(--color-white);
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                        border: 1px solid var(--color-primary);
+                        font-weight: bold;
+                        height: 100%;
+                        width: 100%;
+                        font-size: clamp(1em, 1.5vw, 12em);
+
+                    }
+
+                    & button:hover {
+                        background-color: var(--color-white);
+                        color: var(--color-primary);
+                        border: 1px solid var(--color-primary);
+                    }
+
+
+                }
+            }
+        }
+    }
+}
+
+/* Estilos para mensajes de éxito y error */
+& #mensaje .mensaje-exito {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+}
+
+& .mensaje-error {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+}
+
+& .boton-activo {
+    cursor: pointer;
+}
+
+& .boton-inactivo {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+& .boton-expirado {
+    background-color: var(--color-black) !important;
+    cursor: not-allowed !important;
+}
+
+@media (max-width: 1000px) {
+    body {
+        & main {
+            & .carta {
+                width: 80vw;
+                & .header {
+                    & .logo {
+                        & h3 {
+                            font-size: clamp(1em, 5.2vw, 12em);
+                        }
+                    }
+
+                    & a {
+                        & i {
+                            font-size: clamp(1em, 5.2vw, 12em);
+                        }
+                    }
+                }
+
+                & .contenido-carta {
+                    & h2 {
+                        font-size: clamp(1em, 3.5vw, 12em);
+                    }
+
+                    & p {
+                        font-size: clamp(1em, 1.5vw, 12em);
+                    }
+
+                    & a {
+                        & h4 {
+                            font-size: clamp(1em, 1.5vw, 12em);
+                        }
+                    }
+
+                    & .opciones-codigo {
+                        & #contador {
+                            font-size: clamp(1em, 1.5vw, 12em);
+                        }
+
+                        & #mensaje {
+                            font-size: clamp(1em, 1.5vw, 12em);
+
+                        }
+
+                        & button {
+                            font-size: clamp(1em, 1.5vw, 12em);
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+@media (max-width: 600px) {
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2vh;
+        & main {
+            height: 100%;
+            & .carta {
+                height: 90vh;
+                width: 90vw;
+
+                & .contenido-carta {
+                    & h2 {
+                        font-size: clamp(1em, 4.5vw, 12em);
+                    }
+                }
+            }
+        }
+    }
+
+}

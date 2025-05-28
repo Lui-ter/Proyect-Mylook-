@@ -379,7 +379,7 @@
             .contenido-tarjeta {
               display: grid;
               grid-template-columns: 1fr;
-              grid-template-rows: 1fr 3fr 1fr;
+              grid-template-rows: .9fr 3fr ;
               height: 24.5vh;
               padding: .4em;
               justify-content: space-between;

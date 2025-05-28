@@ -17,7 +17,7 @@
         @section('link-historial', '/admin/historial')
         @section('link-salir', '/usuarios/logout')
 
-        @include('components.header',['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
+        @include('components.header', ['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
 
 
         <main>
@@ -145,27 +145,34 @@
 
                 <div class="contenedor-imagenes-destacado">
                     <!-- Contenedor que agrupa las tarjetas de los establecimientos destacados -->
-                    @foreach ($mejoresEstablecimientos as $index => $establecimiento)
-                        @if ($index < 3)
+                    @foreach ($mejoresEstablecimientos as $establecimiento)
+                        @if ($loop->index < 3)
                             @php
                                 $negocio = $establecimiento->negocio;
                                 $imgPerfil =
                                     $negocio && $negocio->img_perfil
                                         ? 'data:image/jpeg;base64,' . base64_encode($negocio->img_perfil)
                                         : 'https://via.placeholder.com/300x200?text=Sin+imagen';
-                            @endphp
 
-                            <article class="card-destacado">
-                                <img src="{{ $imgPerfil }}" alt="Top {{ $index + 1 }}"
+                                $clasePosicion = match ($loop->index) {
+                                    0 => 'primer-puesto',
+                                    1 => 'segundo-puesto',
+                                    2 => 'tercer-puesto',
+                                    default => '',
+                                };
+                            @endphp
+                            <article class="card-destacado {{ $clasePosicion }}">
+                                <img src="{{ $imgPerfil }}" alt="Top {{ $loop->index + 1 }}"
                                     class="destacado-imagen" />
                                 <div class="nombre-posicion">
                                     <h4>{{ $establecimiento->nombre_establc }}</h4>
-                                    <img src="https://img.icons8.com/wired/64/FFFFFF/{{ $index + 1 }}-circle.png"
-                                        alt="Puesto número {{ $index + 1 }}" />
+                                    <img src="https://img.icons8.com/wired/64/FFFFFF/{{ $loop->index + 1 }}-circle.png"
+                                        alt="Puesto número {{ $loop->index + 1 }}" />
                                 </div>
                             </article>
                         @endif
                     @endforeach
+
 
 
                 </div>

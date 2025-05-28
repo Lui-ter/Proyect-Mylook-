@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -15,18 +15,18 @@
 
 <body>
     <main>
-        <section class="sectionBienvenida">
+        <section class="seccion-bienvenida">
             <!-- Sección de bienvenida que contiene dos artículos -->
 
-            <article class="bienvenidaIzquierda" id="bienvenidaIzquierda">
+            <article class="bienvenida-izquierda" id="bienvenidaIzquierda">
                 <!-- Contenedor izquierdo con el logo, el mensaje de bienvenida y los botones -->
 
                 <div class="logo">
                     <!-- Icono de bombilla representando la marca -->
-                    <i class="fa-solid fa-lightbulb bombilla" style="color: #ffffff;"></i>
+                    <i class="fa-solid fa-lightbulb bombilla"></i>
                 </div>
 
-                <div class="textoBienvenida">
+                <div class="texto-bienvenida">
                     <!-- Mensaje de bienvenida y llamada a la acción -->
                     <h3>Bienvenido a</h3>
                     <h1>MYLOOK</h1>
@@ -39,60 +39,70 @@
                     </a>
                 </div>
 
-                <div class="redesSociales">
+                <div class="redes-sociales">
+
                     <!-- Sección de iconos de redes sociales -->
-                    <i class="fab fa-facebook-f iconFacebook"></i> <!-- Facebook -->
-                    <i class="fab fa-instagram"></i> <!-- Instagram -->
-                    <i class="fab fa-whatsapp"></i> <!-- WhatsApp -->
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/share/1DpJ6TZU7C/">
+                        <i class="fab fa-facebook-f iconFacebook"></i>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a
+                        href="https://www.instagram.com/mylook7225?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <!-- Correo electronico -->
+                    <a href="mailto:mylook7225@gmail.com">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
                 </div>
 
             </article>
 
-            <article class="bienvenidaDerecha">
+            <article class="bienvenida-derecha">
                 <!-- Contenedor derecho donde se mostrarán las imágenes de fondo dinámicas -->
             </article>
 
         </section>
 
         <section class="servicios">
-            <!-- Sección de servicios disponibles en MYLOOK -->
-
             <h2>¿Qué encuentras en MYLOOK?</h2>
             <p>Aquí encontrarás diferentes tipos de establecimientos
                 para brindarte una gran cantidad de servicios.
             </p>
 
-            <div class="contenedorSeccionServicios">
+            <div class="contenedor-seccion-servicios">
                 <!-- Contenedor de la sección de servicios -->
 
                 <h3 class="subtitulo">TIPOS DE ESTABLECIMIENTO</h3>
 
-                <div class="contenedorServiciosImgs">
+                <div class="contenedor-servicios-imgs">
                     <!-- Contenedor que agrupa las tarjetas de servicios -->
 
                     <!-- Tarjeta de servicio: Depilación -->
-                    <div class="servicioCard">
+                    <div class="carta-servicio">
                         <img src="https://img.freepik.com/foto-gratis/piernas-mujer-hermosa-piel-blanca-suave-aislado-blanco_231208-4863.jpg?t=st=1740667189~exp=1740670789~hmac=5f64d69589b911da2b40cfdb9cca7250ab67e70d3d567a25af54e19bc34d73a0&w=1060"
                             alt="Depilación">
                         <h4>Depilación</h4>
                     </div>
 
                     <!-- Tarjeta de servicio: Uñas -->
-                    <div class="servicioCard">
+                    <div class="carta-servicio">
                         <img src="https://img.freepik.com/foto-gratis/mujer-mostrando-sus-hermosas-unas_23-2148697087.jpg?t=st=1740667114~exp=1740670714~hmac=83ce4f83c8103ba5f33985642944590cb01186337833a99ab6a5857346e75b35&w=900"
                             alt="Uñas">
                         <h4>Uñas</h4>
                     </div>
 
                     <!-- Tarjeta de servicio: Barbería -->
-                    <div class="servicioCard">
+                    <div class="carta-servicio">
                         <img src="https://img.freepik.com/foto-gratis/cliente-haciendo-corte-pelo-salon-peluqueria_1303-20772.jpg?t=st=1740667066~exp=1740670666~hmac=2c90c4670a454c46b3441b49e01e9cd0c7a0c21d179f28ba500decd83644f388&w=1060"
                             alt="Barbería">
                         <h4>Barbería</h4>
                     </div>
 
                     <!-- Tarjeta de servicio: Maquillaje -->
-                    <div class="servicioCard">
+                    <div class="carta-servicio">
                         <img src="https://img.freepik.com/foto-gratis/mujer-maquillarse-profesional_23-2149084920.jpg?t=st=1740667238~exp=1740670838~hmac=863bd165daad128f4f234fff8919cd9e29c66bfb32b617aa6a86a25c86cddd22&w=1060"
                             alt="Maquillaje">
                         <h4>Maquillaje</h4>
@@ -106,15 +116,14 @@
 
 
 
-        <section class="establecimientosRecomendados">
+        <section class="establecimientos-recomendados">
             <!-- Sección de establecimientos recomendados de la semana -->
 
-            <h3 class="subtitulo">Establecimientos destacados de la semana</h3>
+            <h3 class="subtitulo">ESTABLECIMIENTOS DESTACADOS</h3>
 
-            <div class="contenedorImagenesDestacado">
+            <div class="contenedor-imagenes-destacado">
                 <!-- Contenedor que agrupa las tarjetas de los establecimientos destacados -->
 
-                <!-- Tarjeta del establecimiento "Vanidosas" -->
                 @foreach ($mejoresEstablecimientos as $establecimiento)
                     @if ($loop->index < 3)
                         @php
@@ -123,11 +132,18 @@
                                 $negocio && $negocio->img_perfil
                                     ? 'data:image/jpeg;base64,' . base64_encode($negocio->img_perfil)
                                     : 'https://via.placeholder.com/300x200?text=Sin+imagen';
+
+                            $clasePosicion = match ($loop->index) {
+                                0 => 'primer-puesto',
+                                1 => 'segundo-puesto',
+                                2 => 'tercer-puesto',
+                                default => '',
+                            };
                         @endphp
 
-                        <div class="cardDestacado">
-                            <img src="{{ $imgPerfil }}" alt="Top {{ $loop->index + 1 }}" class="destacadoImagen">
-                            <div class="nombrePosicion">
+                        <div class="carta-destacado {{ $clasePosicion }}">
+                            <img src="{{ $imgPerfil }}" alt="Top {{ $loop->index + 1 }}" class="imagen-destacada">
+                            <div class="nombre-posicion">
                                 <h4>{{ $establecimiento->nombre_establc }}</h4>
                                 <img src="https://img.icons8.com/wired/64/FFFFFF/{{ $loop->index + 1 }}-circle.png"
                                     alt="Puesto número {{ $loop->index + 1 }}" />
@@ -135,49 +151,15 @@
                         </div>
                     @endif
                 @endforeach
+
+
             </div>
         </section>
 
 
     </main>
-    <footer>
-        <!-- Sección de información sobre la empresa -->
-        <section class="sobreNosotros">
-            <h2>Sobre Nosotros</h2>
-            <div class="sobreNosotrosContenido">
-                <!-- Enlaces a diferentes secciones informativas -->
-                <a href="">¿Quienes somos?</a>
-                <a href="">Eventos</a>
-                <a href="">Contáctanos</a>
-            </div>
-
-            <!-- Íconos de redes sociales -->
-            <div class="redes">
-                <i class="fab fa-facebook-f iconFacebook icon"></i> <!-- Facebook -->
-                <i class="fab fa-instagram icon"></i> <!-- Instagram -->
-                <i class="fab fa-whatsapp icon"></i> <!-- WhatsApp -->
-            </div>
-        </section>
-
-        <!-- Sección del logo y nombre de la empresa -->
-        <section class="sta">
-            <div class="contenedorLogoFooter">
-                <i class="fa-solid fa-lightbulb logoFooter" style="color: #ffffff;"></i>
-            </div>
-            <h2>STA</h2>
-        </section>
-
-        <!-- Sección de atención al cliente -->
-        <section class="atencionCliente">
-            <h2>Atención al cliente</h2>
-            <div class="atencionClienteContenido">
-                <!-- Enlaces a soporte y accesibilidad -->
-                <a href="">Contacto</a>
-                <a href="">Centro de ayuda</a>
-                <a href="">Accesibilidad</a>
-            </div>
-        </section>
-    </footer>
+    {{-- importamos el componente del footer --}}
+    <x-footer />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>

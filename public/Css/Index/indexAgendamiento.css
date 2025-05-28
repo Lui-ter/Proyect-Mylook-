@@ -300,9 +300,7 @@ main {
     height: 54vh;
 }
 
-.fc td,
-.fc th {
-    padding: 0 0.5em;
+.fc td {
     text-align: center;
 }
 #mensajeOpcional{

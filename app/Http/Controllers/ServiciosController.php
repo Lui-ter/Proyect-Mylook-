@@ -6,11 +6,55 @@ use Illuminate\Http\Request;
 use App\Models\Servicio;
 use App\Models\Categoria;
 use App\Helpers\GlobalVariables;
+use App\Models\notificacion;
+use App\Models\Staff;
 use Illuminate\Support\Facades\Auth;
 
 class ServiciosController extends Controller
 {
 
+     private function notificacionUsuario()
+    {
+        if (Auth::guard('usuario')->check()) {
+            // Notificaciones de usuario
+            $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+                return array_merge(
+                    $notificacion->toArray(),
+                    [
+                        'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                        'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                    ]
+                );
+            })->toArray();
+        } elseif (Auth::guard('negocio')->check()) {
+            // Notificaciones de negocio
+            $notificaciones = notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+                return array_merge(
+                    $notificacion->toArray(),
+                    [
+                        'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                        'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                    ]
+                );
+            })->toArray();
+        } else {
+            $notificaciones = [];
+        }
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+        $Staff_admin = Staff::where('id_negocio', $idNegocio)
+            ->where('id_rol', 1)
+            ->with(['usuario', 'rol'])
+            ->get();
+
+        foreach ($Staff_admin as $Staff) {
+            if ($Staff->usuario && $Staff->usuario->img_usuario) {
+                $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+            } else {
+                $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+            }
+        }
+        return compact('notificaciones', 'imgStaff');
+    }
 /* INSERCIÓN DE SERVICIO */
 
     public function handleAddService(Request $request){
@@ -71,7 +115,7 @@ class ServiciosController extends Controller
             $idCategoria = Servicio::where('id_servicio', $id)->value('id_categoria');
             $categorias = Categoria::where('id_categoria', $idCategoria)->first();
             $modeValidator = '1';
-            return view($viewCrudServicios, compact('servicio', 'modeValidator', 'categorias'));
+            return view($viewCrudServicios, compact('servicio', 'modeValidator', 'categorias')+ $this->notificacionUsuario());
 
         } elseif ($accion === 'eliminar' && $request->has('deleteServicio')) {
             $id = $request->input('deleteServicio');
@@ -82,7 +126,7 @@ class ServiciosController extends Controller
             $idCategoria = $request->input('id');
             $categorias = Categoria::where('id_categoria', $idCategoria)->first();
             $modeValidator = '2';
-            return view($viewCrudServicios, compact( 'modeValidator', 'categorias'));
+            return view($viewCrudServicios, compact( 'modeValidator', 'categorias')+ $this->notificacionUsuario());
 
         } elseif ($accion === 'ver') {
             // Aqui se obtiene los datos del negocio logueado para tomar el nombre

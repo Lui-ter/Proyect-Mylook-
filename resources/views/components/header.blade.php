@@ -1,5 +1,6 @@
 <header>
     <div class="contenedor-logo">
+        <img src="{{ asset('logo.svg') }}" alt="Logo">
         <h2 class="my-look">MYLOOK</h2>
     </div>
 
@@ -11,13 +12,13 @@
         </div>
         <div class="contenedor-busqueda" id="busqueda">
             <button class="contenedor-icono lupa"><i class="fa-solid fa-magnifying-glass"></i></button>
-    
+
             <div class="menu-busqueda oculto">
               <div class="caja-busqueda">
                 <input type="text" placeholder="Buscar..." id="busqueda-input" />
                 <button class="boton-jecutar"><i class="fa-solid fa-magnifying-glass"></i></button>
               </div>
-    
+
               <div class="contenedor-categorias">
                 <button class="ejecutar-categorias">Categorias</button>
                 <div class="contenedor-botones-categorias oculto">
@@ -25,7 +26,7 @@
                   <button class="boton-categoria">uñas</button>
                   <button class="boton-categoria">depilacion</button>
                   <button class="boton-categoria">maquillaje</button>
-    
+
                 </div>
               </div>
             </div>
@@ -55,8 +56,8 @@
                 <a href="@yield('link-salir')">
                     <p>Salir</p>
                 </a>
-                
-                
+
+
             </div>
         </div>
     </div>
