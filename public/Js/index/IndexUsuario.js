@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let indiceActual = 1;
     let anchoElemento, margenElemento;
     let autoPlay, inactividadTimer;
-    
+
     // Inicializa el carrusel
     function inicializarCarrusel() {
         const primerElemento = elementosCarrusel[0];
@@ -32,31 +32,31 @@ document.addEventListener("DOMContentLoaded", function () {
     // Mueve el carrusel al elemento actual
     function actualizarCarrusel(conTransicion = true) {
         if (!carrusel || elementosCarrusel.length === 0) return;
-    
+
         // ⚡ Recalcula el tamaño de los elementos (IMPORTANTE para evitar errores en resize)
         anchoElemento = elementosCarrusel[0].offsetWidth;
         margenElemento = parseInt(window.getComputedStyle(elementosCarrusel[0]).marginRight) || 0;
-    
+
         carrusel.style.transition = conTransicion ? "transform 0.5s ease-in-out" : "none";
-    
+
         // Centra el elemento activo correctamente incluso en pantallas pequeñas
         const desplazamiento =
             -indiceActual * (anchoElemento + margenElemento) +
             (carrusel.parentElement.offsetWidth / 2 - anchoElemento / 2);
-    
+
         carrusel.style.transform = `translateX(${desplazamiento}px)`;
-    
+
         //Asegura que solo el elemento actual tenga la clase "activo"
         elementosCarrusel.forEach((elemento, indice) => {
             elemento.classList.toggle("activo", indice === indiceActual);
         });
-    
+
         // Restablece la transición si se desactivó temporalmente
         if (!conTransicion) {
             setTimeout(() => (carrusel.style.transition = "transform 0.5s ease-in-out"), 50);
         }
     }
-    
+
     // Navegar en el carrusel
     function irAlAnterior() {
         indiceActual = indiceActual > 0 ? indiceActual - 1 : elementosCarrusel.length - 1;
@@ -156,4 +156,36 @@ document.addEventListener("DOMContentLoaded", function () {
             menuDesplegable.style.display = "none";
         }
     });
+});
+
+// Logica para Filtrar categorias o nombres de los negocios
+document.addEventListener('DOMContentLoaded', () => {
+  const inputBusqueda = document.querySelector('#busqueda-input');
+  const btnBuscar = document.querySelector('.boton-jecutar');
+  const cartas = document.querySelectorAll('.carta-establecimiento');
+  if (!inputBusqueda || !btnBuscar) {
+    console.error('No se encontró input o botón para buscar');
+    return;
+  }
+  function filtrarCartas() {
+    const texto = inputBusqueda.value.toLowerCase().trim();
+    cartas.forEach(carta => {
+      const nombreElem = carta.querySelector('.nombre-descripcion h2');
+      const nombreNegocio = nombreElem ? nombreElem.textContent.toLowerCase() : '';
+      const categoriasElems = carta.querySelectorAll('.servicios ul li');
+      const categorias = Array.from(categoriasElems).map(li => li.textContent.toLowerCase());
+      const coincideNombre = nombreNegocio.includes(texto);
+      const coincideCategoria = categorias.some(cat => cat.includes(texto));
+      if (!texto || coincideNombre || coincideCategoria) {
+        carta.style.display = '';
+      } else {
+        carta.style.display = 'none';
+      }
+    });
+  }
+  inputBusqueda.addEventListener('input', filtrarCartas);
+  btnBuscar.addEventListener('click', e => {
+    e.preventDefault();
+    filtrarCartas();
+  });
 });

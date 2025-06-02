@@ -8,6 +8,8 @@ use App\Models\Establecimiento;
 use App\Helpers\GlobalVariables;
 use App\Models\notificacion;
 use App\Models\Staff;
+use App\Models\Servicio;
+use App\Models\ReservaServicio;
 use Illuminate\Support\Facades\Auth;
 
 class CategoriasController extends Controller
@@ -136,11 +138,27 @@ private function notificacionUsuario(){
             $categoria['imagen'] = 'data:image/png;base64,' . base64_encode($categoria['imagen']);
             $modeValidator = '1';
             return view($viewCategorias2, compact('categoria', 'modeValidator') +  $this->notificacionUsuario());
-
-        }  elseif ($accion === 'eliminar' && $request->has('deleteCategoria')) {
+        }elseif($accion === 'eliminar' && $request->has('deleteCategoria')){
+            // Se obtiene el id_categoria para una consulta
             $id_categoria = $request->input('deleteCategoria');
-            Categoria::where('id_categoria', $id_categoria)->delete();
-            return redirect()->back()->with('success', 'Se elimino la categoria satisfactoriamente');
+            $categoria = Categoria::find($id_categoria);
+            // Aqui se obtienen todos los servicios de la categoría
+            $servicios = Servicio::where('id_categoria', $id_categoria)->with('reservas.cita')->get();
+            // Se verifican si hay algún servicio con citas pendientes o aceptadas
+            foreach ($servicios as $servicio) {
+                foreach ($servicio->reservas as $reserva) {
+                    if (in_array(strtolower($reserva->cita->estado_cita), ['pendiente', 'aceptado'])) {
+                        return redirect()->back()->with('error', 'No se puede eliminar la categoría. Uno o más servicios están en citas activas');
+                    }
+                }
+            }
+            // Si no hay servicios con citas pendientes, se elimina la reserva, luego el servicio y luego la categoria
+            foreach ($servicios as $servicio) {
+                ReservaServicio::where('id_servicio', $servicio->id_servicio)->delete();
+                $servicio->delete();
+            }
+            $categoria->delete();
+            return redirect()->back()->with('success', 'Categoría eliminada correctamente.');
         }
     }
 }

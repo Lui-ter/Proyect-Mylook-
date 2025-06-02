@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 class Cita extends Model
 {
     protected $table = 'cita';
@@ -31,20 +30,15 @@ class Cita extends Model
         return $this->belongsTo(Staff::class, 'id_staff', 'id_staff');
     }
 
-    public function reservaServicio()
-    {
-    return $this->hasOne(reservaServicio::class, 'id_cita');
+    public function reservaServicio(){
+        return $this->hasOne(reservaServicio::class, 'id_cita');
     }
 
-    public function reservaProducto()
-    {
-    return $this->hasOne(ReservaProducto::class, 'id_cita');
+    public function reservaProducto(){
+        return $this->hasOne(ReservaProducto::class, 'id_cita');
     }
 
-    public function notificacion()
-    {
-    return $this->hasMany(Notificacion::class, 'id_cita', 'id_cita');
+    public function notificacion(){
+        return $this->hasMany(Notificacion::class, 'id_cita', 'id_cita');
     }
-
-
 }

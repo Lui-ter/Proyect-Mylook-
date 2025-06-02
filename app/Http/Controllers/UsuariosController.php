@@ -18,6 +18,7 @@ use App\Models\Servicio;
 use App\Models\Valoracion;
 use App\Models\Negocio;
 use App\Models\Staff;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB as FacadesDB;
@@ -104,7 +105,7 @@ class UsuariosController extends Controller
             ->inRandomOrder()
             ->take(6)
             ->get();
-        
+
         return compact(
             'establecimientosAleatorios',
             'mejoresEstablecimientos',
@@ -160,6 +161,23 @@ class UsuariosController extends Controller
         // Clase privada para datos necesarios para funcionar nuevamente la vista indexUsuario:
 
         if ($accion === 'index') {
+            $idusuario = Auth::guard('usuario')->user()->id_usuario;
+            // Aqui se actualizan las citas que tengan en su estado aceptadas a finalizadas siempre y cuando el tiempo actual sea mayor al de agendamiento
+            $now = Carbon::now('America/Bogota')->toDateTimeString();
+            DB::table('cita')
+                ->where('estado_cita', 'Aceptado')
+                ->where('id_usuario', $idusuario)
+                ->whereRaw("TIMESTAMPADD(MINUTE, duracion_cita, CONCAT(fecha_cita, ' ', hora_cita)) <= ?", [$now])
+                ->update(['estado_cita' => 'Finalizada']);
+            // Verifica si el usuario también tiene rol staff y actualiza las citas
+            $staff = Staff::where('id_usuario', $idusuario)->first();
+            if ($staff) {
+                DB::table('cita')
+                ->where('estado_cita', 'Aceptado')
+                ->where('id_staff', $staff->id_staff)
+                ->whereRaw("TIMESTAMPADD(MINUTE, duracion_cita, CONCAT(fecha_cita, ' ', hora_cita)) <= ?", [$now])
+                ->update(['estado_cita' => 'Finalizada']);
+            }
             return view($indexUsuarioView, ($this->indexUsuario() + $this->notificacionUsuario()));
         } elseif ($accion === 'verMas') {
             //Campos necesarios para cargar los datos necesarios del ver mas de un establecimiento
@@ -237,7 +255,7 @@ class UsuariosController extends Controller
             $id = session('usuario_id');
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
             return view($configUsersView, compact('usuario') + $this->notificacionUsuario());
-           
+
         } elseif ($accion === 'agendar') {
             // Variables que se necesita para luego crear una cita
             $idEstablecimiento = $request->input('id_establecimiento');

@@ -15,6 +15,8 @@ use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -274,6 +276,16 @@ class AdminController extends Controller
 
 
         if ($accion === 'index') {
+            // Aqui se actualizan las citas que tengan en su estado aceptadas a finalizadas siempre y cuando el tiempo actual sea mayor al de agendamiento
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->pluck('id_establc')->first();
+            $now = Carbon::now('America/Bogota')->toDateTimeString();
+            DB::table('cita')
+                ->where('estado_cita', 'Aceptado')
+                ->where('id_establc', $idEstablecimiento)
+                ->whereRaw("TIMESTAMPADD(MINUTE, duracion_cita, CONCAT(fecha_cita, ' ', hora_cita)) <= ?", [$now])
+                ->update(['estado_cita' => 'Finalizada']);
+
             // Arriba esta la clase private donde estan todos los paramentros CargarDatos...
             return view($indexAdminView, $this->cargarDatosIndex() + $this->notificacionUsuario());
 

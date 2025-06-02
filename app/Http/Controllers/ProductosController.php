@@ -10,6 +10,7 @@ use App\Models\Establecimiento;
 use Illuminate\Support\Facades\Auth;
 use App\Models\notificacion;
 use App\Models\Staff;
+use App\Models\ReservaProducto;
 
 use App\Models\Usuario;
 
@@ -18,7 +19,7 @@ use App\Models\Usuario;
 class ProductosController extends Controller
 {
 
-    
+
     private function notificacionUsuario(){
         if (Auth::guard('usuario')->check()) {
         // Notificaciones de usuario
@@ -63,22 +64,22 @@ class ProductosController extends Controller
     /* LOGICA DE PRODUCTOS */
 
         public function handleAddProduct(Request $request){
-            
+
             $nombre = $request->input('nombre');
             $idEstablecimiento = $request->input('idEstablecimiento');
             $marca = $request->input('marca');
-            
+
             // Varible que recibe la imagen
             $file = $request->file('imagen');
 
             $imagen = file_get_contents($file->getRealPath()); // Convierte en binario la imagen
-            $desc = $request->input('descripcion'); 
+            $desc = $request->input('descripcion');
             $cantidad = $request->input('cantidad');
             $valor = $request->input('valor');
 
             // Se valida si las variables se estan recibiendo para la insercción
             if (!empty($nombre) && !empty($idEstablecimiento) && !empty($marca) && !empty($imagen) && !empty($desc) && !empty($cantidad) && !empty($valor)) {
-                
+
                 $product = Producto::create([
                     'id_establc' => $idEstablecimiento,
                     'nombre_prod' => $nombre,
@@ -88,21 +89,21 @@ class ProductosController extends Controller
                     'valor_prod' => $valor,
                     'img_prod' => $imagen
                 ]);
-        
+
                 echo "Se insertó el producto correctamente";
                 return redirect()->route('admin', ['accion' => 'index']);
-        
+
             }else{
                 echo "Faltan campos por diligenciar";
             }
-        
-        
+
+
         }
-    
+
     /* ACTUALIZACION DE PRODUCTO */
 
         public function handleUpdateProduct(Request $request, $id){
-                
+
                 $producto = Producto::where('id_prod', $id)->firstOrFail();
 
                 $producto->nombre_prod = $request->input('nombre');
@@ -123,20 +124,20 @@ class ProductosController extends Controller
         }
 
     /* ELIMINACION DE PRODUCTO */
-    
+
         public function handleDeleteProduct(Request $request){
-            
+
             $id = $request->input('deleteButton');
-            
+
             $product = Producto::where('id_producto', $id)->first();
 
             if ($product) {
                 $product->delete();
-                
+
             }
-            
+
             return redirect('#');
-            
+
         }
 
     /* VISTAS CRUD PRODUCTOS */
@@ -159,13 +160,21 @@ class ProductosController extends Controller
         } elseif ($accion === 'eliminar' && $request->has('deleteProducto')) {
             // Se recibe el id del producto
             $id = $request->input('deleteProducto');
-            
-            Producto::where('id_prod', $id)->delete();
-            return redirect()->back()->with('success', 'Operación completada exitosamente.');
-
+            $producto = Producto::find($id);
+            // Buscar si hay alguna cita asociada con este producto
+            $reservas = ReservaProducto::where('id_prod', $id)->with('cita')->get();
+            foreach ($reservas as $reserva) {
+                if (in_array(strtolower($reserva->cita->estado_cita), ['pendiente', 'aceptado'])) {
+                    return redirect()->back()->with('error', 'No se puede eliminar el producto porque está en una cita activa');
+                }
+            }
+            // Si todas las citas en su estado estan como Finalizadas, eliminar la relación y el producto
+            ReservaProducto::where('id_prod', $id)->delete();
+            $producto->delete();
+            return redirect()->back()->with('success', 'Producto eliminado correctamente');
         } elseif ($accion === 'nuevo') {
             $modeValidator = 2;
-            
+
              //Se obtiene el id_negocio de la sessión
              $idNegocio = Auth::guard('negocio')->user()->id_negocio;
              //para luego con el modelo obtenemos id_establecimiento para productos
@@ -177,21 +186,21 @@ class ProductosController extends Controller
             $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->value('id_establc');
             $productos = Producto::where('id_establc', $idEstablecimiento)->get()->toArray();
 
-            
+
             foreach ($productos as &$producto) {
                 if (isset($producto['img_prod'])) {
                     $producto['img_prod'] = 'data:image/png;base64,' . base64_encode($producto['img_prod']);
                 }
             }
-    
+
             return view($viewProductos, compact('productos'));
 
         } else {
-            
+
             return redirect()->route('productos', ['accion' => 'ver']);
         }
     }
-    
+
 
 
 }

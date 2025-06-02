@@ -6,13 +6,53 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Negocio;
 use App\Models\Staff;
+use App\Models\Establecimiento;
 use Illuminate\Contracts\Session\Session;
 use App\Helpers\GlobalVariables;
 use App\Models\notificacion;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class NegociosController extends Controller
 {
+     private function index()
+    {
+        $establecimientosAleatorios = Establecimiento::with('negocio')
+            ->inRandomOrder()
+            ->take(5)
+            ->get()
+            ->toArray();
+        $mejoresEstablecimientos = Establecimiento::with('negocio')
+            ->select(
+                'establecimiento.id_establc',
+                'establecimiento.id_negocio',
+                'establecimiento.nombre_establc',
+                'establecimiento.desc_establc',
+                DB::raw('AVG(valoracion.calificacion) as promedio_calificacion')
+            )
+            ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
+            ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
+            ->groupBy(
+                'establecimiento.id_establc',
+                'establecimiento.id_negocio',
+                'establecimiento.nombre_establc',
+                'establecimiento.desc_establc'
+            )
+            ->orderByDesc(DB::raw('promedio_calificacion'))
+            ->take(3)
+            ->get();
+
+        $establecimientosRecomendados = Establecimiento::with('negocio')
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
+
+        return compact(
+            'establecimientosAleatorios',
+            'mejoresEstablecimientos',
+            'establecimientosRecomendados',
+        );
+    }
      private function notificacionUsuario()
     {
         if (Auth::guard('usuario')->check()) {
@@ -172,7 +212,7 @@ class NegociosController extends Controller
             Auth::guard('usuario')->logout();
             $request->session()->invalidate();
             $indexView = GlobalVariables::$indexView;
-            return view($indexView);
+            return view($indexView, $this->index());
         }else{
             return redirect()->route('admin');
         }

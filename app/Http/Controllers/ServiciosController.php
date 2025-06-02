@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use App\Helpers\GlobalVariables;
 use App\Models\notificacion;
 use App\Models\Staff;
+use App\Models\ReservaServicio;
 use Illuminate\Support\Facades\Auth;
 
 class ServiciosController extends Controller
@@ -117,11 +118,21 @@ class ServiciosController extends Controller
             $modeValidator = '1';
             return view($viewCrudServicios, compact('servicio', 'modeValidator', 'categorias')+ $this->notificacionUsuario());
 
-        } elseif ($accion === 'eliminar' && $request->has('deleteServicio')) {
+        } elseif ($accion === 'eliminar' && $request->has('deleteServicio')){
+            // Se recibe el id del servicio
             $id = $request->input('deleteServicio');
-            Servicio::where('id_servicio', $id)->delete();
-            return redirect()->back()->with('success', 'Operación completada exitosamente.');
-
+            $servicio = Servicio::find($id);
+            // Buscar reservas del servicio con sus citas en estado pendiente o aceptado
+            $reservas = ReservaServicio::where('id_servicio', $id)->with('cita')->get();
+            foreach ($reservas as $reserva) {
+                if (in_array(strtolower($reserva->cita->estado_cita), ['pendiente', 'aceptado'])) {
+                    return redirect()->back()->with('error', 'No se puede eliminar el servicio porque está asociado a una cita activa');
+                }
+            }
+            // Si todas las citas son finalizadas, eliminar relaciones y luego el servicio
+            ReservaServicio::where('id_servicio', $id)->delete();
+            $servicio->delete();
+            return redirect()->back()->with('success', 'Servicio eliminado correctamente');
         } elseif ($accion === 'nuevo') {
             $idCategoria = $request->input('id');
             $categorias = Categoria::where('id_categoria', $idCategoria)->first();

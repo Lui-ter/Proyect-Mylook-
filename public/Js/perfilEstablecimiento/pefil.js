@@ -52,3 +52,32 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
+
+  // Logica para Filtrar categorias o nombres de los negocios
+document.addEventListener('DOMContentLoaded', () => {
+  const inputBusqueda = document.querySelector('#busqueda-input');
+  const btnBuscar = document.querySelector('.boton-jecutar');
+
+  const cartasCategorias = document.querySelectorAll('.tarjeta-servicio');
+
+  if (!inputBusqueda || !btnBuscar) {
+    console.error('No se encontró input o botón para buscar');
+    return;
+  }
+
+  function filtrarCategorias() {
+    const texto = inputBusqueda.value.toLowerCase().trim();
+
+    cartasCategorias.forEach(carta => {
+      const nombreElem = carta.querySelector('.nombre-servicio');
+      const nombre = nombreElem ? nombreElem.textContent.toLowerCase() : '';
+      carta.style.display = (!texto || nombre.includes(texto)) ? '' : 'none';
+    });
+  }
+
+  inputBusqueda.addEventListener('input', filtrarCategorias);
+  btnBuscar.addEventListener('click', e => {
+    e.preventDefault();
+    filtrarCategorias();
+  });
+});

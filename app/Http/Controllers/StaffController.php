@@ -16,8 +16,41 @@ use Carbon\Carbon;
 
 class StaffController extends Controller
 {
-    //Clase privada para las notificaciones
-private function notificacionUsuario(){
+    // Clase privada para la logica de calendario en administrador y usuario staff
+    private function CalendarioStaff(){
+        if(Auth::guard('negocio')->check()){
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            $Staff_admin = Staff::where('id_negocio', $idNegocio)
+                ->where('id_rol', 1)
+                ->with(['usuario', 'rol'])
+                ->get();
+            foreach ($Staff_admin as $Staff){
+                if ($Staff->usuario && $Staff->usuario->img_usuario){
+                    $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+                }else{
+                    $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+                }
+            }
+            return compact('imgStaff');
+        }elseif(Auth::guard('usuario')->check()){
+            $idStaff = Auth::guard('usuario')->user()->id_usuario;
+            $staff_user = Staff::where('id_usuario', $idStaff)
+                ->where('id_rol', '!=', 1)
+                ->with(['usuario', 'rol'])
+                ->get();
+            foreach ($staff_user as $Staff){
+                if ($Staff->usuario && $Staff->usuario->img_usuario){
+                    $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+                }else{
+                    $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+                }
+            }
+            return compact('imgStaff');
+        }
+
+    }
+    //  Clase privada para las notificaciones
+    private function notificacionUsuario(){
         if (Auth::guard('usuario')->check()) {
         // Notificaciones de usuario
         $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
@@ -43,20 +76,10 @@ private function notificacionUsuario(){
         } else {
             $notificaciones = [];
         }
-        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
-        $Staff_admin = Staff::where('id_negocio', $idNegocio)
-        ->where('id_rol', 1)
-        ->with(['usuario', 'rol'])
-        ->get();
-
-    foreach ($Staff_admin as $Staff) {
-        if ($Staff->usuario && $Staff->usuario->img_usuario) {
-            $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
-        } else {
-            $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
-        }
-    }
-        return compact('notificaciones','imgStaff');
+        return array_merge(
+            ['notificaciones' => $notificaciones],
+            $this->CalendarioStaff()
+        );
     }
 
     public function getStaff()
@@ -121,7 +144,6 @@ private function notificacionUsuario(){
         if ($request->has('editStaff')) {
             $staff = Staff::findOrFail($id);
             $usuario = $staff->usuario;
-
             $usuario->nombre = $request->input('nombreCompletoStaff');
             $usuario->apellido = $request->input('apellidoStaff');
             $usuario->correo = $request->input('correoStaff');
@@ -265,15 +287,28 @@ private function notificacionUsuario(){
             }
             return view($viewstaff, compact('infoStaff'));
 
-        } elseif ($accion === 'eliminar' && $request->has('deleteStaff')) {
-            // Se recibe el id del staff
+        }if($accion === 'eliminar' && $request->has('deleteStaff')){
             $id = $request->input('deleteStaff');
-
-            Staff::where('id_usuario', $id)->delete();
-            Usuario::where('id_usuario', $id)->delete();
-            return redirect()->back()->with('success', 'Operación completada exitosamente.');
-            // Rutas provicional, para el fronted
-        } else {
+            $staff = Staff::where('id_usuario', $id)->first();
+            if($staff){
+                // Verificar si tiene citas pendientes o aceptadas
+                $citasActivas = Cita::where('id_staff', $staff->id_staff)
+                    ->whereIn('estado_cita', ['pendiente', 'Aceptado'])
+                    ->exists();
+                if($citasActivas){
+                    return redirect()->back()->with('error', 'No se puede eliminar el staff porque tiene citas activas');
+                }
+                // Quitar el staff de las citas en donde estado esta finalizada
+                Cita::where('id_staff', $staff->id_staff)
+                ->where('estado_cita', 'Finalizada')
+                ->update(['id_staff' => null]);
+                // Eliminar staff
+                Staff::where('id_usuario', $id)->delete();
+                return redirect()->back()->with('success', 'El staff fue eliminado correctamente');
+            }else{
+                return redirect()->back()->with('error', 'No se encontró el staff');
+            }
+        }else{
             return redirect()->route('staff', ['accion' => 'index']);
         }
     }

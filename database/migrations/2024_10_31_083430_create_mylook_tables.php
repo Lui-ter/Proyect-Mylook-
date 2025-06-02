@@ -117,7 +117,7 @@ return new class extends Migration {
             $table->increments('id_cita');
             $table->bigInteger('id_usuario');
             $table->bigInteger('id_establc');
-            $table->unsignedInteger('id_staff');
+            $table->unsignedInteger('id_staff')->nullable();
             $table->date('fecha_cita');
             $table->time('hora_cita');
             $table->float('duracion_cita');

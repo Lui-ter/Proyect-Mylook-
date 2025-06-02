@@ -9,12 +9,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
     <link rel="stylesheet" href="{{ asset('Css/Index/indexAdmin.css') }}">
-    
+
     <title>Mi Negocio</title>
 </head>
 
 
 <body>
+    @if(session('success'))
+        <script>alert('{{ e(session('success')) }}');</script>
+    @endif
+    @if(session('error'))
+        <script>alert('{{ e(session('error')) }}');</script>
+    @endif
 
     @section('link-index', '/admin/index')
     @section('link-configurar-perfil', route('admin', ['accion' => 'config']))
@@ -129,7 +135,6 @@
 
                 {{-- seccion de staff --}}
                 <section class="staff seccion-opcion" id="staff">
-
                     {{-- carta de staff --}}
                     @foreach ($infoStaff as $item)
                         <article class="carta" id="carta-staff">
@@ -277,8 +282,6 @@
         </section>
 
     </main>
-
-
 
     {{-- script para la importacion de fullcalendar --}}
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
