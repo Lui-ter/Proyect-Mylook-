@@ -114,8 +114,6 @@ class LoginController extends Controller
                     $request->session()->regenerateToken();
                     $idUsuario = Auth::guard('usuario')->user()->id_usuario;
                     $idStaff = staff::where('id_usuario', $idUsuario)->pluck('id_staff')->first();
-                    //Valido si es un staff sino, queda como nulo
-                    $idStaff = $idStaff ?? 'nulo';
                     // valido si se recibe un staff su tipo staff sino es usuario
                     $tipoUsuario = $idStaff ? 'staff' : 'usuario';
                     session([

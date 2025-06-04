@@ -20,35 +20,29 @@ class StaffController extends Controller
     private function CalendarioStaff(){
         if(Auth::guard('negocio')->check()){
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
-            $Staff_admin = Staff::where('id_negocio', $idNegocio)
+            $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+            $staffAdmin = Staff::where('id_negocio', $idNegocio)
                 ->where('id_rol', 1)
                 ->with(['usuario', 'rol'])
-                ->get();
-            foreach ($Staff_admin as $Staff){
-                if ($Staff->usuario && $Staff->usuario->img_usuario){
-                    $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
-                }else{
-                    $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
-                }
+                ->first();
+            if($staffAdmin && $staffAdmin->usuario && $staffAdmin->usuario->img_usuario){
+                $imgStaff = 'data:image/png;base64,' . base64_encode($staffAdmin->usuario->img_usuario);
             }
             return compact('imgStaff');
-        }elseif(Auth::guard('usuario')->check()){
+        }elseif (Auth::guard('usuario')->check()){
             $idStaff = Auth::guard('usuario')->user()->id_usuario;
-            $staff_user = Staff::where('id_usuario', $idStaff)
+            $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+            $staffUser = Staff::where('id_usuario', $idStaff)
                 ->where('id_rol', '!=', 1)
                 ->with(['usuario', 'rol'])
-                ->get();
-            foreach ($staff_user as $Staff){
-                if ($Staff->usuario && $Staff->usuario->img_usuario){
-                    $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
-                }else{
-                    $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
-                }
+                ->first();
+            if($staffUser && $staffUser->usuario && $staffUser->usuario->img_usuario){
+                $imgStaff = 'data:image/png;base64,' . base64_encode($staffUser->usuario->img_usuario);
             }
             return compact('imgStaff');
         }
-
     }
+
     //  Clase privada para las notificaciones
     private function notificacionUsuario(){
         if (Auth::guard('usuario')->check()) {
