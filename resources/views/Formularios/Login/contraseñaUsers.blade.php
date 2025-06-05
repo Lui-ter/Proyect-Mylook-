@@ -33,7 +33,7 @@
                     <input type="text" name="correo" id="correoUsuario" class="inputForm"
                         placeholder="Inserte correo" value="{{ old('correo') }}">
                     @error('correo')
-                        <div>{{ $message }}</div>
+                        <div class="validacion-error">{{ $message }}</div>
                     @enderror
                 </div>
                 <a href="{{ route('login') }}">
@@ -44,6 +44,21 @@
                 </div>
             </div>
         </form>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const errores = document.querySelectorAll(".validacion-error");
+
+                errores.forEach((error) => {
+                    setTimeout(() => {
+                        error.style.opacity = "0";
+                    }, 3000); 
+
+                    setTimeout(() => {
+                        error.remove(); 
+                    }, 3500); 
+                });
+            });
+        </script>
     </main>
 </body>
 

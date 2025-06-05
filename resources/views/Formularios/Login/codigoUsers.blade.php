@@ -36,7 +36,7 @@
                     <input type="text" name="codigo" id="documentoUsuario" class="inputForm"
                         placeholder="Ingrese el código de verificación" />
                     @error('codigo')
-                        <div class="error">{{ $message }}</div>
+                        <div class="validacion-error">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -58,7 +58,21 @@
     </main>
 
     <script src="{{ asset('Js/Formularios/contrasena.js') }}"></script>
+     <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const errores = document.querySelectorAll(".validacion-error");
 
+                errores.forEach((error) => {
+                    setTimeout(() => {
+                        error.style.opacity = "0";
+                    }, 3000); 
+
+                    setTimeout(() => {
+                        error.remove(); 
+                    }, 3500); 
+                });
+            });
+        </script>
 </body>
 
 </html>

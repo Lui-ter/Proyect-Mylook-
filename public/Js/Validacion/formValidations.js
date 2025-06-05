@@ -530,7 +530,7 @@ function handleValidationUser(event) {
         !nombreUsuario ||
         !apellidoUsuario ||
         !telefonoUsuario ||
-        !correoUsuario 
+        !correoUsuario
     ) {
         showError("¡Todos los campos son obligatorios!");
         return;
@@ -727,14 +727,14 @@ function handleValidationAdmin(event) {
         showError("¡El nombre y el apellido solo pueden contener letras!");
         return;
     }
+    if (!regexCorreo.test(correoAdmin)) {
+        showError("¡El correo electrónico no tiene un formato válido!");
+        return;
+    }
     if (!regexNumerico.test(telefonoAdmin)) {
         showError(
             "¡El teléfono debe contener solo números y tener al menos 10 dígitos!"
         );
-        return;
-    }
-    if (!regexCorreo.test(correoAdmin)) {
-        showError("¡El correo electrónico no tiene un formato válido!");
         return;
     }
     if (imagenAdmin && !tiposImgPermitidos.test(imagenAdmin.type)) {
@@ -849,7 +849,7 @@ function handleValidationNegocio(event) {
             alertDiv.style.opacity = "0";
         }, 3000);
         setTimeout(() => {
-            lertDiv.remove();
+            alertDiv.remove();
         }, 3500);
     }
 
@@ -857,12 +857,11 @@ function handleValidationNegocio(event) {
         showError("¡Todos los campos son obligatorios!");
         return;
     }
-
-    if (!tiposImgPermitidos.test(imagenPerfil.type)) {
+    if (imagenPerfil && !tiposImgPermitidos.test(imagenPerfil.type)) {
         showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
-    if (!tiposImgPermitidos.test(imagenPortada.type)) {
+    if (imagenPortada && !tiposImgPermitidos.test(imagenPortada.type)) {
         showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
     }
@@ -908,7 +907,7 @@ function handleValidationUpdateNegocio(event) {
     }
 
     if (!descripcionNegocio) {
-        showError("¡Todos los campos son obligatorios!");
+        showError("¡La descripcion es obligatoria!");
         return;
     }
 

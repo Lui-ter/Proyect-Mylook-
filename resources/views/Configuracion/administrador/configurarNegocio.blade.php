@@ -26,7 +26,7 @@
     <main>
         <!--FORMULARIO PARA CREAR O ACTUALIZAR EL NEGOCIO -->
         <form action="{{ route('updateNegocioTwo', ['id' => $negocio->id_negocio]) }}" method="POST"
-            class="configuracion-negocio formulario" id="form2" onsubmit="handleValidationUpdateNegocio(event)"
+            class="configuracion-negocio formulario" id="form2" onsubmit="handleValidationNegocio(event)"
             enctype="multipart/form-data">
             @csrf
             @method('PUT')

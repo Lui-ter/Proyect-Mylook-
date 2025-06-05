@@ -36,26 +36,11 @@ class UsuariosController extends Controller
             ->get()
             ->toArray();
         $mejoresEstablecimientos = Establecimiento::with('negocio')
-            ->select(
-                'establecimiento.id_establc',
-                'establecimiento.id_negocio',
-                'establecimiento.nombre_establc',
-                'establecimiento.desc_establc',
-                DB::raw('AVG(valoracion.calificacion) as promedio_calificacion')
-            )
-            ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
-            ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
-            ->groupBy(
-                'establecimiento.id_establc',
-                'establecimiento.id_negocio',
-                'establecimiento.nombre_establc',
-                'establecimiento.desc_establc'
-            )
-            ->orderByDesc(DB::raw('promedio_calificacion'))
+            ->orderByDesc('valoracion_final')
             ->take(3)
             ->get();
 
-        $establecimientosRecomendados = Establecimiento::with('negocio')
+        $establecimientosRecomendados = Establecimiento::with(['negocio', 'categorias'])
             ->inRandomOrder()
             ->take(6)
             ->get();
@@ -74,7 +59,7 @@ class UsuariosController extends Controller
         );
     }
 
-        private function index()
+    private function index()
     {
         $establecimientosAleatorios = Establecimiento::with('negocio')
             ->inRandomOrder()
@@ -117,7 +102,7 @@ class UsuariosController extends Controller
     {
         if (Auth::guard('usuario')->check()) {
             // Notificaciones de usuario
-            $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
+            $notificaciones = Notificacion::with('cita')->whereIn('estado', ['Aceptado', 'Cancelado'])->get()->map(function ($notificacion) {
                 return array_merge(
                     $notificacion->toArray(),
                     [
@@ -140,14 +125,14 @@ class UsuariosController extends Controller
         } else {
             $notificaciones = [];
         }
-         $idusuario = Auth::guard('usuario')->user()->id_usuario;
+        $idusuario = Auth::guard('usuario')->user()->id_usuario;
         $imgusuario = Usuario::where('id_usuario', $idusuario)->value('img_usuario');
         if ($imgusuario) {
             $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
         } else {
             $imgusuario = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
         }
-        return compact('notificaciones','imgusuario');
+        return compact('notificaciones', 'imgusuario');
     }
     //------------------------------------------------------------------------------------------------------------------------------
     public function crudUsuarios(Request $request, $accion = null)
@@ -173,10 +158,10 @@ class UsuariosController extends Controller
             $staff = Staff::where('id_usuario', $idusuario)->first();
             if ($staff) {
                 DB::table('cita')
-                ->where('estado_cita', 'Aceptado')
-                ->where('id_staff', $staff->id_staff)
-                ->whereRaw("TIMESTAMPADD(MINUTE, duracion_cita, CONCAT(fecha_cita, ' ', hora_cita)) <= ?", [$now])
-                ->update(['estado_cita' => 'Finalizada']);
+                    ->where('estado_cita', 'Aceptado')
+                    ->where('id_staff', $staff->id_staff)
+                    ->whereRaw("TIMESTAMPADD(MINUTE, duracion_cita, CONCAT(fecha_cita, ' ', hora_cita)) <= ?", [$now])
+                    ->update(['estado_cita' => 'Finalizada']);
             }
             return view($indexUsuarioView, ($this->indexUsuario() + $this->notificacionUsuario()));
         } elseif ($accion === 'verMas') {
@@ -255,7 +240,6 @@ class UsuariosController extends Controller
             $id = session('usuario_id');
             $usuario = Usuario::where('id_usuario', $id)->firstOrFail();
             return view($configUsersView, compact('usuario') + $this->notificacionUsuario());
-
         } elseif ($accion === 'agendar') {
             // Variables que se necesita para luego crear una cita
             $idEstablecimiento = $request->input('id_establecimiento');

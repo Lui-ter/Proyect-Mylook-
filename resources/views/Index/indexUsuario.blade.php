@@ -120,7 +120,37 @@
                                         @else
                                             <p>Sin categorías registradas.</p>
                                         @endif
-                                        <div class="puntuacion">★★★★★</div>
+                                        @php
+                                            $promedio = min(round($establecimiento->valoracion_final ?? 0, 1), 5);
+
+                                            $estrellasLlenas = floor($promedio);
+                                            $mediaEstrella = $promedio - $estrellasLlenas >= 0.5 ? 1 : 0;
+                                            $estrellasVacias = 5 - $estrellasLlenas - $mediaEstrella;
+                                        @endphp
+
+                                        <div class="estrellas">
+                                            <p>Puntuación</p>
+                                            <div class="estrellas-preview">
+                                                {{-- Estrellas llenas --}}
+                                                @for ($i = 0; $i < $estrellasLlenas; $i++)
+                                                    <i class="fa-solid fa-star estrella-preview"
+                                                        style="color: #a68160;"></i>
+                                                @endfor
+
+                                                {{-- Media estrella --}}
+                                                @if ($mediaEstrella)
+                                                    <i class="fa-regular fa-star-half-stroke estrella-preview"
+                                                        style="color: #a68160;"></i>
+                                                @endif
+
+                                                {{-- Estrellas vacías --}}
+                                                @for ($i = 0; $i < $estrellasVacias; $i++)
+                                                    <i class="fa-regular fa-star estrella-preview"
+                                                        style="color: #a68160;"></i>
+                                                @endfor
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
