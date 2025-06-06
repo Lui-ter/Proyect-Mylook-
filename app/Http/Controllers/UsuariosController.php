@@ -66,26 +66,12 @@ class UsuariosController extends Controller
             ->take(5)
             ->get()
             ->toArray();
+        // Obtiene los mejores establecimientos ordenados por valoracion_final
         $mejoresEstablecimientos = Establecimiento::with('negocio')
-            ->select(
-                'establecimiento.id_establc',
-                'establecimiento.id_negocio',
-                'establecimiento.nombre_establc',
-                'establecimiento.desc_establc',
-                DB::raw('AVG(valoracion.calificacion) as promedio_calificacion')
-            )
-            ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
-            ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
-            ->groupBy(
-                'establecimiento.id_establc',
-                'establecimiento.id_negocio',
-                'establecimiento.nombre_establc',
-                'establecimiento.desc_establc'
-            )
-            ->orderByDesc(DB::raw('promedio_calificacion'))
+            ->orderByDesc('valoracion_final')
             ->take(3)
             ->get();
-
+        // Obtiene 6 establecimientos recomendados de forma aleatoria
         $establecimientosRecomendados = Establecimiento::with('negocio')
             ->inRandomOrder()
             ->take(6)
