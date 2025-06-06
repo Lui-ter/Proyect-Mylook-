@@ -24,22 +24,7 @@ class LoginController extends Controller
     {
         $indexView = GlobalVariables::$indexView;
         $mejoresEstablecimientos = Establecimiento::with('negocio')
-            ->select(
-                'establecimiento.id_establc',
-                'establecimiento.id_negocio',
-                'establecimiento.nombre_establc',
-                'establecimiento.desc_establc',
-                DB::raw('AVG(valoracion.calificacion) as promedio_calificacion')
-            )
-            ->join('cita', 'establecimiento.id_establc', '=', 'cita.id_establc')
-            ->join('valoracion', 'cita.id_cita', '=', 'valoracion.id_cita')
-            ->groupBy(
-                'establecimiento.id_establc',
-                'establecimiento.id_negocio',
-                'establecimiento.nombre_establc',
-                'establecimiento.desc_establc'
-            )
-            ->orderByDesc(DB::raw('promedio_calificacion'))
+            ->orderByDesc('valoracion_final')
             ->take(3)
             ->get();
         return view($indexView, compact('mejoresEstablecimientos'));
