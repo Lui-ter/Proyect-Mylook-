@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -51,11 +51,11 @@
                 errores.forEach((error) => {
                     setTimeout(() => {
                         error.style.opacity = "0";
-                    }, 3000); 
+                    }, 3000);
 
                     setTimeout(() => {
-                        error.remove(); 
-                    }, 3500); 
+                        error.remove();
+                    }, 3500);
                 });
             });
         </script>

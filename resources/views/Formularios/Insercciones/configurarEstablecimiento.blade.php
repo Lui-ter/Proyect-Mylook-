@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Configurar mi establecimiento</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/configuracionEstablecimiento.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
 </head>
@@ -46,7 +47,7 @@
                 <div class="informacion-input">
                     <p class="nombre-input">DIRECCIÓN</p>
                     <input type="text" class="input-direccion" id="direccionEstablecimiento"
-                        name="direccionEstablecimiento" 
+                        name="direccionEstablecimiento"
                         value="{{ old('direccionEstablecimiento') }}">
                     @error('direccionEstablecimiento')
                         <div class="alert alert-danger">{{ $message }}</div>

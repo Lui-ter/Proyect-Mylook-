@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>configurar mi negocio</title>
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/configuracionNegocio.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
 </head>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/configuracionEstablecimiento.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/actualizarEstablecimiento.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
+
 </head>
 
 <body>

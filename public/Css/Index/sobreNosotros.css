@@ -1,0 +1,389 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI";
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Variables de css*/
+:root {
+    --color-primary: #a68160;
+    --color-secondary: #f2f2f2;
+    --color-white: white;
+    --color-black: black;
+}
+
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    & main {
+        display: grid;
+        gap: 9vh;
+
+        & .fondo {
+            position: relative;
+            background-image: url(https://img.freepik.com/foto-gratis/concepto-masaje-mujer_23-2147816942.jpg?uid=R152091785&ga=GA1.1.1960000955.1691620351&semt=ais_hybrid&w=740);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            z-index: 1;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3vh;
+
+            & img {
+                height: 55vh;
+                width: 100%;
+            }
+
+            & h2 {
+                color: var(--color-white);
+                font-size: clamp(1em, 2.5vw, 12em);
+               &  a {
+                    color: var(--color-white);
+                    text-decoration: none;
+                }
+            }
+        }
+
+        & .fondo::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Aquí controlas lo oscuro */
+            z-index: 2;
+        }
+
+        & .fondo > * {
+            position: relative;
+            z-index: 3;
+        }
+
+        & .contenido {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            padding: 5vh;
+
+            & .izquierda {
+                display: grid;
+                gap: 1vh;
+                padding: 1vh 2vh;
+
+               &  h1 {
+                    font-size: clamp(1em, 2.5vw, 12em);
+                    color: var(--color-primary);
+                }
+
+               &  p {
+                    font-size: clamp(1em, 1.5vw, 12em);
+                    color: var(--color-black);
+                    font-weight: 500;
+                }
+            }
+
+            & .derecha {
+                display: grid;
+                gap: 1vh;
+                border-left: 2px solid var(--color-primary);
+                padding: 2vh;
+
+               &  p {
+                    font-size: clamp(1em, 1.3vw, 12em);
+                }
+
+                & .destacado {
+                    color: var(--color-primary);
+                    font-size: clamp(1em, 1.4vw, 12em);
+                    font-weight: 600;
+                }
+            }
+        }
+
+        & .cartas {
+            margin-top: 10vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2vh;
+            padding: 0.3vh 5vh;
+
+            & .carta {
+                display: grid;
+                grid-template-rows: 52vh 1fr;
+                grid-template-columns: 1fr;
+                gap: 1vh;
+                border: 2px solid var(--color-primary);
+                min-height: 70vh;
+                position: relative;
+                border-radius: 3vh;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                will-change: transform;
+
+               &  figure {
+                    width: 100%;
+
+                    & figcaption {
+                        position: absolute;
+                        top: -25px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background-color: #fff;
+                        padding: 5px 2em;
+                        width: 80%;
+                        border: 2px solid var(--color-primary);
+                        border-radius: 8px;
+                        font-weight: bold;
+                        z-index: 111;
+                        text-align: center;
+                        color: var(--color-primary);
+                        font-size: clamp(1em, 1.3vw, 12em);
+                    }
+
+                   &  img {
+                        object-fit: cover;
+                        width: 100%;
+                        border-radius: 2.8vh 2.8vh 0 0;
+                        height: 100%;
+                    }
+                }
+
+                & h3 {
+                    color: var(--color-primary);
+                }
+
+               &  p {
+                    display: flex;
+                    height: 100%;
+                    align-items: center;
+                    color: var(--color-black);
+                    padding: 0.2vh 1vh;
+                    font-weight: 500;
+                    font-size: clamp(1em, 1.3vw, 12em);
+                }
+            }
+           &  .carta:hover {
+                transform: scale(1.02);
+                z-index: 5;
+            }
+        }
+
+        & .seccion-motivos {
+            padding-bottom: 7vh;
+           &  h2 {
+                text-align: center;
+                color: var(--color-primary);
+                font-size: clamp(1em, 2.5vw, 12em);
+                padding: 2vh 0;
+            }
+
+            & .motivos {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 5vh;
+                padding: 2vh 5vh;
+
+               &  .motivo {
+                    display: flex;
+                    border: 2px solid var(--color-primary);
+                    border-radius: 7vh 3vh 3vh 7vh;
+                    gap: 2vh;
+                    min-height: 10vh;
+                    align-items: center;
+                    & figure {
+                        min-height: 12vh;
+                        aspect-ratio: 1 / 1;
+                        background-color: var(--color-primary);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        padding: 0.2vh;
+
+                        & i {
+                            color: var(--color-white);
+                            font-size: clamp(1em, 2.9vw, 12em);
+                        }
+                    }
+                    & p {
+                        font-size: clamp(1em, 1.3vw, 12em);
+                        color: var(--color-black);
+                        font-weight: 500;
+                        padding-right: 2vh;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 920px) {
+    body {
+        & main {
+            & .fondo {
+               &  h2 {
+                    font-size: clamp(1em, 6vw, 12em);
+                }
+            }
+
+            & .cartas {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+
+                & .carta:nth-child(1) {
+                    grid-column: 1 / -1;
+                    margin-bottom: 3vh;
+                }
+
+               &  .carta:nth-child(2) {
+                    grid-column: 1;
+                }
+
+               &  .carta:nth-child(3) {
+                    grid-column: 2;
+                }
+            }
+
+            & .seccion-motivos {
+                padding-bottom: 7vh;
+                & h2 {
+                    text-align: center;
+                    color: var(--color-primary);
+                    font-size: clamp(1em, 5vw, 12em);
+                    padding: 2vh 0;
+                }
+
+                & .motivos {
+                    grid-template-columns: 1fr;
+                   &  .motivo {
+                        & figure {
+                            & i {
+                                font-size: clamp(1em, 4.5vw, 12em);
+                            }
+                        }
+                       &  p {
+                            font-size: clamp(1em, 1.3vw, 12em);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        & main {
+            & .fondo {
+                & img {
+                    height: 55vh;
+                    width: 100%;
+                }
+
+               &  h2 {
+                    color: var(--color-white);
+                    font-size: clamp(1em, 6vw, 12em);
+                }
+            }
+
+           &  .contenido {
+                grid-template-columns: 1fr;
+                padding: 0.3vh 2vh;
+
+                & .izquierda {
+                   &  h1 {
+                        font-size: clamp(1em, 4vw, 12em);
+                    }
+
+                   &  p {
+                        font-size: clamp(1em, 1.5vw, 12em);
+                    }
+                }
+
+                & .derecha {
+                    border-left: 0px solid var(--color-primary);
+
+                    & p {
+                        font-size: clamp(1em, 1.3vw, 12em);
+                    }
+
+                    & .destacado {
+                        font-size: clamp(1em, 3vh, 12em);
+                    }
+                }
+            }
+
+           &  .cartas {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr 1fr;
+                gap: 6vh;
+                margin-top: 5vh;
+                padding: 0.3vh 2vh;
+
+                & .carta:nth-child(1) {
+                    grid-column: 1;
+                    grid-row: 1;
+                    margin-bottom: 0vh;
+                }
+
+               &  .carta:nth-child(2) {
+                    grid-column: 1;
+                    grid-row: 2;
+                }
+
+                & .carta:nth-child(3) {
+                    grid-column: 1;
+                    grid-row: 3;
+                }
+            }
+
+            & .seccion-motivos {
+                & .motivos {
+                    padding: 0.3vh 2vh;
+
+                    & .motivo {
+                        display: grid;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        border-radius: 3vh;
+                        padding: 2vh;
+
+                        & figure {
+                            height: 7vh;
+                            min-height: 7vh;
+                            max-height: 7vh;
+                            width: 7vh;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto;
+
+                            & i {
+                                font-size: clamp(1em, 5vw, 12em);
+                                line-height: 1;
+                            }
+                        }
+
+                       &  p {
+                            font-size: clamp(1em, 1.2vw, 12em);
+                            padding-right: 0vh;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

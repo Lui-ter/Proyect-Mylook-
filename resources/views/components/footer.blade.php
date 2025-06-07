@@ -3,20 +3,7 @@
     <section class="sobre-nosotros">
         <h2>Sobre Nosotros</h2>
         <div class="sobre-nosotros-contenido">
-            <!-- Enlaces a diferentes secciones informativas -->
-            <a href="">¿Quienes somos?</a>
-            <a href="">Eventos</a>
-            <a href="">Contáctanos</a>
-        </div>
-
-        <!-- Íconos de redes sociales -->
-        <div class="redes">
-            <i class="fab fa-facebook-f icon-facebook icon"></i>
-            <!-- Facebook -->
-            <i class="fab fa-instagram icon"></i>
-            <!-- Instagram -->
-            <i class="fab fa-whatsapp icon"></i>
-            <!-- WhatsApp -->
+            <a href="{{ url('/sobre-Nosotros') }}">¿Quienes somos?</a>
         </div>
     </section>
 
@@ -30,12 +17,22 @@
 
     <!-- Sección de atención al cliente -->
     <section class="atencion-cliente">
-        <h2>Atención al cliente</h2>
-        <div class="atencion-cliente-contenido">
-            <!-- Enlaces a soporte y accesibilidad -->
-            <a href="">Contacto</a>
-            <a href="">Centro de ayuda</a>
-            <a href="">Accesibilidad</a>
+        <h2>Contactanos</h2>
+        <!-- Íconos de redes sociales -->
+        <div class="redes">
+            <a href="https://www.facebook.com/share/1DpJ6TZU7C/">
+                <i class="fab fa-facebook-f iconFacebook"></i>
+            </a>
+
+            <!-- Instagram -->
+            <a
+                href="https://www.instagram.com/mylook7225?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <!-- Correo electronico -->
+            <a href="mailto:mylook7225@gmail.com">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
         </div>
     </section>
 </footer>

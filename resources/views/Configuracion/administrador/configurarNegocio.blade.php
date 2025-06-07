@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/configuracionNegocio.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/actualizacionNegocio.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>

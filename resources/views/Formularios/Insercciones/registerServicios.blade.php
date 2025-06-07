@@ -33,11 +33,11 @@
             <p class="descripcion-pagina">
                 {{ $modeValidator == 1
                     ? "En este apartado podrás editar los servicios que ofreces en tu negocio.
-                                                              Esto te permitirá mantener actualizado el catálogo de servicios
-                                                              y ofrecer información clara y precisa a tus clientes."
+                                                                              Esto te permitirá mantener actualizado el catálogo de servicios
+                                                                              y ofrecer información clara y precisa a tus clientes."
                     : "En este apartado podrás agregar servicios al catálogo. Esto te
-                                                              permitirá organizar y ofrecer los servicios de manera clara y
-                                                              accesible para los clientes al momento de agendar citas." }}
+                                                                              permitirá organizar y ofrecer los servicios de manera clara y
+                                                                              accesible para los clientes al momento de agendar citas." }}
             </p>
         </section>
 
@@ -77,8 +77,8 @@
             <section class="columna-dos columna">
                 <div class="informacion-input">
                     <p class="nombre-input">DESCRIPCION</p>
-                    <textarea id="descripcionServicio" name="descripcionServicio" rows="5" maxlength="180">{{ $servicio['desc_servicio'] ?? '' }}
-                  </textarea>
+                    <textarea id="descripcionServicio" name="descripcionServicio" rows="5" maxlength="180">{{ trim($servicio['desc_servicio'] ?? '') }}</textarea>
+
 
                 </div>
                 <!--Contenedor de carta de preview-->

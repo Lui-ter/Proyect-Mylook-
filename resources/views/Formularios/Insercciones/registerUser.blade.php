@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,8 @@
     <title>configurar mi perfil</title>
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/configuracionPerfil.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
+
 </head>
 
 <body>
@@ -65,14 +67,14 @@
                         <div class="error">{{ $message }}</div>
                     @enderror
                 </div>
-                
+
                 <figure>
                     <input type="file" name="imagenPerfil" id="fileInput" accept="image/*" />
                     <img id="previsualizacionImagen"
-                    src="https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true"
+                    src="https://cdn-icons-png.flaticon.com/512/7046/7046041.png"
                     alt="Imagen de perfil" />
                 </figure>
-                
+
                 <div class="informacionInput">
                     @error('imagenPerfil')
                     <center>
