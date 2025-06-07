@@ -65,7 +65,7 @@
                                 <td data-label="DURACIÓN">{{ $historial['duracion_cita'] }}</td>
                                 <td data-label="ESTADO" class="estadoRealizada">{{ $historial['estado_cita'] }}</td>
                                 <td data-label="VALORAR" class="VALORACION">
-                                    @if ($historial['estado_cita'] == 'Finalizada')
+                                    @if ($historial['estado_cita'] == 'Finalizada' && count($historial['valoracion']) == 0)
                                         <form action="{{ route('formValoracion') }}" method="GET">
                                             <input type="hidden" name="id_cita" value="{{ $historial['id_cita'] }}">
                                             <button type="submit">Valorame</button>

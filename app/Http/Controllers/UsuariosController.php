@@ -357,7 +357,7 @@ class UsuariosController extends Controller
             }
         } elseif ($accion === 'historialCitas') {
             $idusuario = Auth::guard('usuario')->user()->id_usuario;
-            $HistorialCitas = Cita::with('staff.usuario', 'usuario', 'establecimiento')
+            $HistorialCitas = Cita::with('staff.usuario', 'usuario', 'establecimiento', 'valoracion')
                 ->where('id_usuario', $idusuario)
                 ->get()
                 ->toArray();

@@ -41,4 +41,8 @@ class Cita extends Model
     public function notificacion(){
         return $this->hasMany(Notificacion::class, 'id_cita', 'id_cita');
     }
+
+    public function valoracion(){
+        return $this->hasMany(valoracion::class, 'id_cita', 'id_cita');
+    }
 }
