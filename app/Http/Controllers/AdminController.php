@@ -106,19 +106,40 @@ class AdminController extends Controller
     //Clase privada para las notificaciones
     private function notificacionUsuario(){
         if (Auth::guard('usuario')->check()) {
-        // Notificaciones de usuario
-        $notificaciones = Notificacion::with('cita')->where('estado', 'Aceptado')->get()->map(function ($notificacion) {
-            return array_merge(
-                $notificacion->toArray(),
-                [
-                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                ]
-            );
-        })->toArray();
+            // Notificaciones de usuario
+            $id_usuario = Auth::guard('usuario')->user()->id_usuario;
+            $notificaciones = Notificacion::with('cita')
+            ->whereHas('cita', function ($query) use ($id_usuario) {
+                $query->where('id_usuario', $id_usuario);
+            })
+            ->whereIn('estado', ['Aceptado', 'Cancelado'])
+            ->get()
+            ->map(function ($notificacion) {
+                return array_merge(
+                    $notificacion->toArray(),
+                    [
+                        'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                        'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                    ]
+                );
+            })
+            ->toArray();
         }elseif (Auth::guard('negocio')->check()) {
         // Notificaciones de negocio
-        $notificaciones = Notificacion::with('cita')->where('estado', 'Pendiente')->get()->map(function ($notificacion) {
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+        //con el establecimiento consulto
+        $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
+        $notificaciones = Notificacion::with('cita')
+            ->whereIn('id_cita', function ($query) use ($establecimiento) {
+            $query->select('id_cita')
+            ->from('cita')
+            ->whereIn('id_establc', $establecimiento);
+        })
+        ->where('estado', 'Pendiente')
+        ->get()
+        ->map(function ($notificacion) {
+
+
             return array_merge(
                 $notificacion->toArray(),
                 [
