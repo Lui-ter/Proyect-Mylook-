@@ -15,7 +15,7 @@
     <main>
         <!--FORMULARIO PARA CREAR O ACTUALIZAR EL NEGOCIO -->
         <form action="{{ route('updateNegocio') }}" method="POST" class="configuracion-negocio formulario"
-            id="form2" onsubmit="handleValidationUpdateNegocio(event)" enctype="multipart/form-data">
+            id="form2" onsubmit="handleValidationUpdateNegocioOne(event)" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <!-- titulo formulario -->
@@ -68,6 +68,9 @@
                         <!-- Input de imagen de fondo -->
                         <input type="file" name="img_portada" id="inputImagenFondo" class="input-file"
                             accept="image/*">
+                            @if (isset($validationErrors) && $validationErrors->has('img_portada'))
+                                <div class="error">{{ $validationErrors->first('img_portada') }}</div>
+                            @endif
                         <img id="imagenFondo" class="imagen-fondo"
                             src="https://img.freepik.com/foto-gratis/sillas-vintage-peluqueria_155003-10150.jpg"
                             alt="Imagen de fondo">
@@ -75,6 +78,9 @@
                         <!-- Input para el logo (imagen superpuesta) -->
                         <div class="logo-negocio">
                             <input type="file" name="img_logo" id="inputLogo" class="input-file" accept="image/*">
+                            @if (isset($validationErrors) && $validationErrors->has('img_logo'))
+                                <div class="error">{{ $validationErrors->first('img_logo') }}</div>
+                            @endif
                             <img id="logo"
                                 src="https://d1yjjnpx0p53s8.cloudfront.net/logotipo-imperio-barberia-vector1.png"
                                 alt="Logo del negocio">

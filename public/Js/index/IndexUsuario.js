@@ -158,34 +158,65 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Logica para Filtrar categorias o nombres de los negocios
-document.addEventListener('DOMContentLoaded', () => {
-  const inputBusqueda = document.querySelector('#busqueda-input');
-  const btnBuscar = document.querySelector('.boton-jecutar');
-  const cartas = document.querySelectorAll('.carta-establecimiento');
-  if (!inputBusqueda || !btnBuscar) {
-    console.error('No se encontró input o botón para buscar');
-    return;
-  }
-  function filtrarCartas() {
-    const texto = inputBusqueda.value.toLowerCase().trim();
-    cartas.forEach(carta => {
-      const nombreElem = carta.querySelector('.nombre-descripcion h2');
-      const nombreNegocio = nombreElem ? nombreElem.textContent.toLowerCase() : '';
-      const categoriasElems = carta.querySelectorAll('.servicios ul li');
-      const categorias = Array.from(categoriasElems).map(li => li.textContent.toLowerCase());
-      const coincideNombre = nombreNegocio.includes(texto);
-      const coincideCategoria = categorias.some(cat => cat.includes(texto));
-      if (!texto || coincideNombre || coincideCategoria) {
-        carta.style.display = '';
-      } else {
-        carta.style.display = 'none';
-      }
+    // Logica para Filtrar un establecimiento en el index usuario a travez del nombre de la categoria o del negocios
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputBusqueda = document.querySelector('#busqueda-input');
+        const btnBuscar = document.querySelector('.boton-jecutar');
+        const seccionRecomendados = document.querySelector('#resultados');
+        const cartas = seccionRecomendados ? seccionRecomendados.querySelectorAll('.carta-establecimiento') : [];
+        if (!inputBusqueda || !btnBuscar || !seccionRecomendados) {
+            console.error('No se encontró input, botón o sección resultados');
+            return;
+        }
+        let debounceTimeout; // Con esto se retrasa la funcion
+    function filtrarCartas(){
+        const texto = inputBusqueda.value.toLowerCase().trim();
+        let hayVisible = false;
+        cartas.forEach(carta => {
+            const nombreElem = carta.querySelector('.nombre-descripcion h2');
+            const nombreNegocio = nombreElem ? nombreElem.textContent.toLowerCase() : '';
+            const categoriasElems = carta.querySelectorAll('.servicios ul li');
+            const categorias = Array.from(categoriasElems).map(li => li.textContent.toLowerCase());
+            const coincideNombre = nombreNegocio.includes(texto);
+            const coincideCategoria = categorias.some(cat => cat.includes(texto));
+            if(!texto || coincideNombre || coincideCategoria){
+                carta.style.display = '';
+                hayVisible = true;
+            }else{
+                carta.style.display = 'none';
+            }
+        });
+        const mensajeNoResultados = document.querySelector('#mensaje-no-resultados');
+        if(!hayVisible){
+            mensajeNoResultados.style.display = 'block';
+            inputBusqueda.focus();
+        }else{
+            mensajeNoResultados.style.display = 'none';
+        }
+        return hayVisible;
+    }
+    function scrollARecomendados(){
+        if(inputBusqueda.value.trim() !== ''){
+            const hayResultados = filtrarCartas();
+            seccionRecomendados.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+    inputBusqueda.addEventListener('input', () => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(() => {
+            if(inputBusqueda.value.trim() === ''){
+                // Si el input se vacía, vuelve arriba y muestra todo
+                filtrarCartas();
+                document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+            }else{
+                scrollARecomendados();
+            }
+        }, 500); // Espera 500ms tras dejar de escribir
     });
-  }
-  inputBusqueda.addEventListener('input', filtrarCartas);
-  btnBuscar.addEventListener('click', e => {
-    e.preventDefault();
-    filtrarCartas();
-  });
+    btnBuscar.addEventListener('click', e => {
+        e.preventDefault();
+        filtrarCartas();
+        scrollARecomendados();
+    });
 });
+

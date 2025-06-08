@@ -821,7 +821,7 @@ function handleValidationUpdateAdmin(event) {
     event.target.submit();
 }
 
-/* VALIDACIONES FORMULARIO NEGOCIO */
+/* VALIDACIONES FORMULARIO NEGOCIO Al EDITARLO DESDE EL PERFIL DEL ADMINISTRADOR */
 function handleValidationNegocio(event) {
     event.preventDefault();
 
@@ -853,10 +853,6 @@ function handleValidationNegocio(event) {
         }, 3500);
     }
 
-    if (!imagenPerfil || !imagenPortada || !descripcionNegocio) {
-        showError("¡Todos los campos son obligatorios!");
-        return;
-    }
     if (imagenPerfil && !tiposImgPermitidos.test(imagenPerfil.type)) {
         showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
         return;
@@ -874,8 +870,8 @@ function handleValidationNegocio(event) {
     event.target.submit();
 }
 
-/* VALIDACIONES FORMULARIO ACTUALIZACION NEGOCIO */
-function handleValidationUpdateNegocio(event) {
+/* VALIDACIONES FORMULARIO ACTUALIZACION NEGOCIO POR PRIMERA VEZ AL COMPLETAR EL REGISTRO */
+function handleValidationUpdateNegocioOne(event) {
     event.preventDefault();
 
     const imagenPerfil = document.getElementById("inputLogo")?.files[0];
@@ -908,6 +904,13 @@ function handleValidationUpdateNegocio(event) {
 
     if (!descripcionNegocio) {
         showError("¡La descripcion es obligatoria!");
+        return;
+    }
+    if (!imagenPerfil) {
+        showError("¡La imagen de perfil es obligatoria!");
+        return;
+    }if (!imagenPortada) {
+        showError("¡La imagen de portada es obligatoria!");
         return;
     }
 

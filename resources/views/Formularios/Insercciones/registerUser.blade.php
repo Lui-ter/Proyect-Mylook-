@@ -71,7 +71,8 @@
                 <figure>
                     <input type="file" name="imagenPerfil" id="fileInput" accept="image/*" />
                     <img id="previsualizacionImagen"
-                    src="https://cdn-icons-png.flaticon.com/512/7046/7046041.png"
+                    src="https://cdn-user-icons.flaticon.com/146157/146157749/1749352501611.svg?token=exp=1749353412~hmac=084ebaafcb75a5566cbfba6de4b5fd2f"
+
                     alt="Imagen de perfil" />
                 </figure>
 

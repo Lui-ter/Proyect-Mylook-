@@ -113,7 +113,7 @@
                 <div class="contenedorCard">
                     <div class="card">
                         <figure class="cardImg">
-                            <img id="imagenPrevisualizacion" src="{{ $imgBase64 ?? asset('/descarga (3).png') }}"
+                            <img id="imagenPrevisualizacion" src="{{ $imgBase64 ?? 'https://cdn-user-icons.flaticon.com/146157/146157749/1749355227699.svg?token=exp=1749356138~hmac=99e703ccc7e3ab66c1dbfc8aa26cf896' }}"
                                 alt="Imagen del staff" />
                         </figure>
                         <div class="cardText">

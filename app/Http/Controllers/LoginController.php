@@ -115,6 +115,9 @@ class LoginController extends Controller
                     ]);
                     */
                     //dd(session()->all());
+                    if (!$userData->apellido || !$userData->correo || !$userData->telefono) {
+                        return redirect()->route('usuarios', ['accion' => 'register']);
+                    }
                     if (Auth::guard('usuario')->check()) {
                         return redirect()->to('/usuarios/index');
                     } else {

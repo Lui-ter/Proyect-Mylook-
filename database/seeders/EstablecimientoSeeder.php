@@ -20,8 +20,7 @@ class EstablecimientoSeeder extends Seeder
                 'desc_establc' => 'Establecimiento principal de Imperium Barber Shop, ubicado en el centro de la ciudad, cuenta con un ambiente sofisticado, moderno y un espacio cómodo para que cada cliente disfrute de una experiencia unica',
                 'ubicacion' => 'Cra 55 # 64-20',
                 'correo' => 'imperium@gmail.com',
-                'telefono' => '3125547856',
-                'valoracion_final' => '7'
+                'telefono' => '3125547856'
             ]
         ]);
 
@@ -33,8 +32,7 @@ class EstablecimientoSeeder extends Seeder
                 'desc_establc' => 'El establecimiento de Aura Spa ubicada en el sur, diseñada para brindar una experiencia de relajacion total, ofrecemos espacios privados, tratamientos exclusivos y un ambiente sereno con aromas naturales',
                 'ubicacion' => 'Cll 22 # 54-44',
                 'correo' => 'auraspa@hotmail.com',
-                'telefono' => '3222158877',
-                'valoracion_final' => '5'
+                'telefono' => '3222158877'
             ]
         ]);
 
@@ -46,8 +44,7 @@ class EstablecimientoSeeder extends Seeder
                 'desc_establc' => 'El establecimiento de Nailuxe, equipada con estaciones modernas para manicure y pedicure, diseñadas para ofrecer una experiencia personalizada en diseño de uñas y cuidados esteticos, en un ambiente comodo y profesional',
                 'ubicacion' => 'Av 24 # 54-11',
                 'correo' => 'nailuxe@outlock.com',
-                'telefono' => '3305448844',
-                'valoracion_final' => '9'
+                'telefono' => '3305448844'
             ]
         ]);
     }

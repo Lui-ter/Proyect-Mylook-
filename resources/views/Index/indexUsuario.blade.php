@@ -87,8 +87,11 @@
             </section>
 
             {{-- seccion dedicada a los establecimientos recomendados --}}
-            <section class="establecimientos-recomendados">
+            <section class="establecimientos-recomendados" id="resultados">
                 <h2 class="titulo-seccion">ESTABLECIMIENTOS RECOMENDADOS</h2>
+                <h2 id="mensaje-no-resultados" style="display:none; text-align:center; color: #a68160; font-weight: bold;">
+                    No se encontraron establecimientos que coincidan con tu búsqueda
+                </h2>
                 <div class="contenedor-establecimientos">
 
                     @foreach ($establecimientosRecomendados as $establecimiento)

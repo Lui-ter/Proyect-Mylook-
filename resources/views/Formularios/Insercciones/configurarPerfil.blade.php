@@ -67,7 +67,7 @@
 
                     <figure>
                         <input type="file" name="imagenPerfil" id="fileInput" accept="image/*" />
-                        <img id="previsualizacionImagen" src="https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true" alt="Imagen de perfil" />
+                        <img id="previsualizacionImagen" src="https://cdn-user-icons.flaticon.com/146157/146157749/1749352501611.svg?token=exp=1749353412~hmac=084ebaafcb75a5566cbfba6de4b5fd2f" alt="Imagen de perfil" />
                     </figure>
 
                     <div class="informacionInput">

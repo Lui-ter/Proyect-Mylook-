@@ -147,12 +147,13 @@ class NegociosController extends Controller
             'img_logo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
         ]);
         // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
+        $descripcion = $request->descripcionNegocio ?? $negocioData->desc_negocio;
         $img_portada = $negocioData->img_portada;
-        $img_logo = $negocioData->img_perfil;
         if($request->hasFile('img_portada')){
             $imgPortada = $request->file('img_portada');
             $img_portada = file_get_contents($imgPortada->getRealPath());
         };
+        $img_logo = $negocioData->img_perfil;
         if($request->hasFile('img_logo')){
             $imgLogo = $request->file('img_logo');
             $img_logo = file_get_contents($imgLogo->getRealPath());
@@ -160,7 +161,7 @@ class NegociosController extends Controller
         // Aqui se actualiza el registro de negocio encontrado a travez de su id
         $negocioData->update([
             'nombre_negocio' => $request->nombreNegocio,
-            'desc_negocio' => $request->descripcionNegocio,
+            'desc_negocio' => $descripcion,
             'img_portada' => $img_portada,
             'img_perfil' => $img_logo
         ]);

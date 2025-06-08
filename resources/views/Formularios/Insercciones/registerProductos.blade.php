@@ -43,7 +43,7 @@
                 <div class="visualizacion">
                     <!-- CONTENEDOR DE LA IMAGEN -->
                     <div class="imagen-carta">
-                        <img class="imagen-vista" id="imagenVisualizacion" src="{{ $producto->img_prod ?? '' }}">
+                        <img class="imagen-vista" id="imagenVisualizacion" src="{{ $producto->img_prod ?? 'https://cdn-user-icons.flaticon.com/146157/146157749/1749356558988.svg?token=exp=1749357469~hmac=63cff39f5cc1551184f7df5f4156795f' }}">
                     </div>
 
                     <!-- CONTENEDOR DETALLES -->
