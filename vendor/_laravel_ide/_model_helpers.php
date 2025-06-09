@@ -600,6 +600,8 @@ namespace App\Models {
      * @property-read \App\Models\ReservaProducto $reservaProducto
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\notificacion> $notificacion
      * @property-read int|null $notificacion_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Valoracion> $valoracion
+     * @property-read int|null $valoracion_count
      * @method static \Illuminate\Database\Eloquent\Builder<Cita>|Cita whereIdCita($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Cita>|Cita whereIdUsuario($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Cita>|Cita whereIdEstablc($value)

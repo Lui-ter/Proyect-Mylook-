@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
     <!-- Idioma español -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/es.global.min.js"></script>
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('Css/Index/indexAgendamiento.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
@@ -23,7 +23,7 @@
     @section('link-historial', '/admin/historial')
     @section('link-salir', '/usuarios/logout')
 
-    @include('components.header',['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
+    @include('components.header', ['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
     <main>
         <form action="{{ url('/usuarios/agendamiento') }}" method="post" id="citaForm"
             onsubmit="handleValidationCita(event)" class="agendamiento">
@@ -36,7 +36,6 @@
             <input type="hidden" name="hora" id="hora">
             <input type="hidden" name="idStaff" id="idStaff"
                 value="{{ count($staffs) > 0 ? $staffs[0]['id_staff'] : '' }}">
-
 
             <article class="titulo-agenda">
                 <h1 class="titulo1">AGENDAR CITA</h1>
@@ -97,7 +96,7 @@
                                     <figure>
                                         <img id="producto-img" src="" />
                                         <p class="nombre" id="producto-nombre"></p>
-                                            <figcaption id="mensajeOpcional">Opcional</figcaption>
+                                        <figcaption id="mensajeOpcional">Opcional</figcaption>
 
                                     </figure>
                                 </div>
@@ -251,7 +250,8 @@
                 document.getElementById('hora').value = horaSeleccionada;
 
                 // Mostrar la fecha seleccionada al usuario
-                selectedDateEl.textContent = "Fecha seleccionada: " + fechaSeleccionada.toLocaleDateString() + " Hora: " + horaSeleccionada;
+                selectedDateEl.textContent = "Fecha seleccionada: " + fechaSeleccionada
+                    .toLocaleDateString() + " Hora: " + horaSeleccionada;
             }
         });
 

@@ -909,7 +909,8 @@ function handleValidationUpdateNegocioOne(event) {
     if (!imagenPerfil) {
         showError("¡La imagen de perfil es obligatoria!");
         return;
-    }if (!imagenPortada) {
+    }
+    if (!imagenPortada) {
         showError("¡La imagen de portada es obligatoria!");
         return;
     }
@@ -1085,8 +1086,14 @@ function handleValidationCita(event) {
     const fecha = document.getElementById("fecha")?.value;
     const hora = document.getElementById("hora")?.value;
     const staff = document.getElementById("idStaff")?.value;
-    const categoria = document.getElementById("categoria")?.value;
-    const servicio = document.getElementById("servicio")?.value;
+
+    const categoriaSelect = document.getElementById("categoria");
+    const servicioSelect = document.getElementById("servicio");
+
+    const categoriaValida =
+        categoriaSelect && categoriaSelect.selectedIndex > 0;
+    const servicioValido = servicioSelect && servicioSelect.selectedIndex > 0;
+
     const cantidad = document.getElementById("cantidadProducto")?.value;
 
     const productoSelect = document.getElementById("producto");
@@ -1114,7 +1121,7 @@ function handleValidationCita(event) {
         }, 3500);
     }
 
-    if (!fecha || !hora || !staff || !categoria || !servicio) {
+    if (!fecha || !hora || !staff || !categoriaValida || !servicioValido) {
         showError(
             "¡Debe seleccionar fecha, hora, staff, categoría y servicio!"
         );

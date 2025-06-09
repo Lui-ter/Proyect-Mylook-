@@ -82,7 +82,7 @@
                     </tbody>
                 </table>
             </div>
-            <script src="/Js/citas/visualizacionCitas.js"></script>
+            <script src="{{ asset('Js/Admin/configBienvenidaAdmin.js') }}"></script>
     </main>
 </body>
 

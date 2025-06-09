@@ -3,7 +3,7 @@
     <section class="sobre-nosotros">
         <h2>Sobre Nosotros</h2>
         <div class="sobre-nosotros-contenido">
-            <a href="{{ url('/sobre-Nosotros') }}">¿Quienes somos?</a>
+            <a href="{{ url('public/sobre-Nosotros') }}">¿Quienes somos?</a>
         </div>
     </section>
 

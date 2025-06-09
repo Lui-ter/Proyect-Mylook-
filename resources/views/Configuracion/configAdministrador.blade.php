@@ -246,7 +246,7 @@
 
     </section>
 
-    <script src="/Js/Admin/configAdmin.js"></script>
+    <script src="{{ asset ('Js/Admin/configBienvenidaAdmin.js') }}"></script>
 
 </body>
 </html>

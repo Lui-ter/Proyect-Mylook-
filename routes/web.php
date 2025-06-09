@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\GlobalVariables;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\viewsController;
 use App\Http\Controllers\CategoriasController;
@@ -20,7 +21,8 @@ use App\Http\Controllers\ValoracionesController;
 /* PAGINA PRINCIPAL DE MYLOOK */
 Route::get('/', [LoginController::class, 'showLandingPage'])->name('landing')->defaults('accion', 'indexBienvenida');
 Route::get('/sobre-Nosotros', function () {
-    return view('index.sobreNosotros');
+    $sobreNosotros = GlobalVariables::$sobreNosotros;
+    return view($sobreNosotros);
 });
 /* LOGIN GENERAL */
 Route::get('/login', [LoginController::class, 'showLoginPrincipal'])->name('login');

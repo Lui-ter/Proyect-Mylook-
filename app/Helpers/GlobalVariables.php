@@ -6,6 +6,10 @@ class GlobalVariables
 {
     /* ------------------------------------------------------------------------------ */
 
+    public static $sobreNosotros = 'index.sobreNosotros';
+
+    /* ------------------------------------------------------------------------------ */
+
     public static $registerAdminView = 'Formularios.Insercciones.configurarPerfil';
 
     public static $indexAdminView = 'Index.indexAdmin';

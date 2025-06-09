@@ -66,5 +66,5 @@
 @include('components.bandeja')
 @once
 <link rel="stylesheet" href="{{ asset('Css/Header/Header.css') }}">
-<script src="/Js/Header/Header.js"></script>
+<script src="{{  asset ('Js/Header/Header.js') }}"></script>
 @endonce

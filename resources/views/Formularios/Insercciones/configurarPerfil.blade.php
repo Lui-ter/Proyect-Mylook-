@@ -84,7 +84,7 @@
             </div>
         </form>
     </main>
-    <script src="/Js/Admin/configBienvenidaAdmin.js"></script>
+    <script src="{{ asset('Js/Admin/configBienvenidaAdmin.js') }}"></script>
     <script src="{{asset('Js/Validacion/formValidations.js')}}"></script>
     </body>
 </html>

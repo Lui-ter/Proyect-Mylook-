@@ -14,8 +14,8 @@
 
         @section('link-index', '/usuarios/index')
         @section('link-configurar-perfil')
-        @section('link-historial', '/admin/historial')
-        @section('link-salir', '/usuarios/logout')
+        @section('link-historial', '/usuarios/historial')
+        @section('link-salir', 'public/usuarios/logout')
 
         @include('components.header', ['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
 
@@ -215,7 +215,8 @@
         {{-- importamos el componente del footer --}}
         <x-footer />
 
-        <script src="/Js/index/indexUsuario.js"></script>
+        <script src="{{ asset ('Js/index/IndexUsuario.js') }}"></script>
+
     </body>
 
     </html>
