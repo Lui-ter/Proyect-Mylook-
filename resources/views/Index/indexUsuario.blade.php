@@ -215,7 +215,7 @@
         {{-- importamos el componente del footer --}}
         <x-footer />
 
-        <script src="/Js/index/indexUsuario.js"></script>
+    <script src="{{ asset('Js/index/IndexUsuario.js') }}"></script>
     </body>
 
     </html>

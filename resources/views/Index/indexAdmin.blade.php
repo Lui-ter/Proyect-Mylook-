@@ -446,7 +446,8 @@
     </script>
 
 
-    <script src="/Js/Admin/indexAdmin.js"></script>
+    <script src="{{ asset('Js/Admin/indexAdmin.js') }}"></script>
+
 </body>
 
 </html>

@@ -251,8 +251,6 @@
         }
     }
 </style>
-
-
 <script>
     const contenedorPerfil = document.getElementById('perfil');
     const menuPerfil = document.getElementById('menu-perfil');

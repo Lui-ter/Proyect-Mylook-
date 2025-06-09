@@ -78,7 +78,8 @@
                 </table>
             </div>
     </main>
-    <script src="/Js/citas/visualizacionCitas.js"></script>
+    <script src="{{ asset('Js/citas/visualizacionCitas.js') }}"></script>
+
 </body>
 
 </html>

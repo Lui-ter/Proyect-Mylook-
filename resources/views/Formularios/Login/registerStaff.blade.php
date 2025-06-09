@@ -153,8 +153,8 @@
             </section>
         </form>
     </main>
-    <script src="/Js/Staff/registerStaff.js"></script>
     <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
+    <script src="{{ asset('Js/Staff/registerStaff.js') }}"></script>
 
 
 </body>

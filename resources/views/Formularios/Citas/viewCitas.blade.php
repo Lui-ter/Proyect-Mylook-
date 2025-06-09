@@ -60,8 +60,10 @@
                             <tr>
                                 <td data-label="ID CITA">{{ $historial['id_cita'] }}</td>
                                 <td data-label="ID USUARIO">{{ $historial['usuario']['nombre'] }}</td>
-                                <td data-label="ID ESTABLECIMIENTO">{{ $historial['establecimiento']['nombre_establc'] }}</td>
-                                <td data-label="FECHA">{{ \Carbon\Carbon::parse($historial['fecha_cita'])->format('Y-m-d') }}</td>
+                                <td data-label="ID ESTABLECIMIENTO">
+                                    {{ $historial['establecimiento']['nombre_establc'] }}</td>
+                                <td data-label="FECHA">
+                                    {{ \Carbon\Carbon::parse($historial['fecha_cita'])->format('Y-m-d') }}</td>
                                 <td data-label="HORA">{{ $historial['hora_cita'] }}</td>
                                 <td data-label="DURACIÓN">{{ $historial['duracion_cita'] }}</td>
                                 <td data-label="ESTADO" class="estadoRealizada">{{ $historial['estado_cita'] }}</td>
@@ -82,7 +84,8 @@
                     </tbody>
                 </table>
             </div>
-            <script src="/Js/citas/visualizacionCitas.js"></script>
+            <script src="{{ asset('Js/citas/visualizacionCitas.js') }}"></script>
+
     </main>
 </body>
 

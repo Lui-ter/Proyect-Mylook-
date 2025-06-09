@@ -90,8 +90,8 @@
 
     </main>
 
-    <script src="/Js/Usuarios/configUsuario.js"></script>
     <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
+    <script src="{{ asset('Js/Usuarios/configUsuario.js') }}"></script>
 
 </body>
 </html>

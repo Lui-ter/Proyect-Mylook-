@@ -158,7 +158,7 @@
 
         </section>
     </main>
-    <script src="/Js/perfilEstablecimiento/pefil.js"></script>
+    <script src="{{ asset('Js/perfilEstablecimiento/pefil.js') }}"></script>
 
 </body>
 
