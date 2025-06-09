@@ -440,6 +440,19 @@ button.fantasma:hover {
 }
 
 /* ============================================================
+   ESTILOS RESPONSIVE PARA PANTALLAS CHICAS (MAX-WIDTH: 1050PX)
+============================================================ */
+
+@media (max-width:1050px){
+
+    .panel-superposicion{
+        font-size: 0.8em;
+    }
+
+
+}
+
+/* ============================================================
    ESTILOS RESPONSIVE PARA MÓVILES (MAX-WIDTH: 768PX)
 ============================================================ */
 @media (max-width: 768px) {
@@ -447,10 +460,10 @@ button.fantasma:hover {
     /* Contenedor principal - pantalla completa */
     .contenedor {
         width: 80vw;
-        height: 97vh;
         border-radius: 10px;
         box-shadow: 1px 1px 8px 1px var(--color-primary);
         min-height: auto;
+        padding: 10px;
         background-color: #fff;
     }
 
@@ -468,7 +481,6 @@ button.fantasma:hover {
         transform: none;
         opacity: 1;
         display: none;
-        padding: 20px;
     }
 
     .contenedor-inicio-sesion,
@@ -491,12 +503,17 @@ button.fantasma:hover {
         gap: 20px;
     }
 
+    .registerForm{
+        height: 100%;
+    }
+
+    .registerform
+
     /* Títulos */
     .inputH2 {
         color: var(--color-primary);
         font-size: 1.5rem;
         text-align: center;
-        margin-bottom: 1.5rem;
         font-weight: bold;
     }
 
@@ -505,12 +522,11 @@ button.fantasma:hover {
         display: flex;
         gap: 10px;
         width: 100%;
-        margin-bottom: 1.5rem;
     }
 
     .boton-tipo-usuario {
         flex: 1;
-        padding: 12px;
+        padding: 10px;
         font-size: 0.9rem;
         font-weight: bold;
         border: 2px solid var(--color-primary);
@@ -541,7 +557,7 @@ button.fantasma:hover {
 
     /* Botón de submit */
     form>button[type="submit"] {
-        padding: 15px;
+        padding: 10px;
         font-size: 1rem;
         font-weight: bold;
         margin-top: 10px;
