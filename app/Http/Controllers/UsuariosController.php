@@ -49,7 +49,7 @@ class UsuariosController extends Controller
         if ($imgusuario) {
             $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
         } else {
-            $imgusuario = 'https://cdn-user-icons.flaticon.com/146157/146157749/1749352501611.svg?token=exp=1749353412~hmac=084ebaafcb75a5566cbfba6de4b5fd2f';
+            $imgusuario = 'https://i.postimg.cc/C1wVVT7L/usuario-de-perfil-1.png';
         }
         return compact(
             'establecimientosAleatorios',
@@ -139,7 +139,7 @@ class UsuariosController extends Controller
         if ($imgusuario) {
             $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
         } else {
-            $imgusuario = 'https://cdn-user-icons.flaticon.com/146157/146157749/1749352501611.svg?token=exp=1749353412~hmac=084ebaafcb75a5566cbfba6de4b5fd2f';
+            $imgusuario = 'https://i.postimg.cc/C1wVVT7L/usuario-de-perfil-1.png';
         }
         return compact('notificaciones', 'imgusuario');
     }
@@ -236,7 +236,7 @@ class UsuariosController extends Controller
             if ($imgusuario) {
                 $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
             } else {
-                $imgusuario = 'https://cdn-user-icons.flaticon.com/146157/146157749/1749352501611.svg?token=exp=1749353412~hmac=084ebaafcb75a5566cbfba6de4b5fd2f';
+                $imgusuario = 'https://i.postimg.cc/C1wVVT7L/usuario-de-perfil-1.png';
             }
 
 
@@ -308,7 +308,7 @@ class UsuariosController extends Controller
             if ($imgusuario) {
                 $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
             } else {
-                $imgusuario = 'https://cdn-user-icons.flaticon.com/146157/146157749/1749352501611.svg?token=exp=1749353412~hmac=084ebaafcb75a5566cbfba6de4b5fd2f';
+                $imgusuario = 'https://i.postimg.cc/C1wVVT7L/usuario-de-perfil-1.png';
             }
 
 
@@ -389,7 +389,7 @@ class UsuariosController extends Controller
             if ($imgusuario) {
                 $imgusuario = 'data:image/png;base64,' . base64_encode($imgusuario);
             } else {
-                $imgusuario = 'https://cdn-user-icons.flaticon.com/146157/146157749/1749352501611.svg?token=exp=1749353412~hmac=084ebaafcb75a5566cbfba6de4b5fd2f';
+                $imgusuario = 'https://i.postimg.cc/C1wVVT7L/usuario-de-perfil-1.png';
             }
             return view($viewHistorial, compact('HistorialCitas', 'imgusuario') + $this->notificacionUsuario());
         } elseif ($accion === 'logout') {

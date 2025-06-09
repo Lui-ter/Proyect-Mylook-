@@ -33,7 +33,7 @@
             <div class="informacion">
                 <div class="contenedor-foto">
                     <div class="foto-perfil">
-                        <img class="imagen" id="imagenVisualizacion" src="{{ $usuario->img_usuario ? 'data:image/jpeg;base64,' . base64_encode($usuario->img_usuario) : 'https://cdn-user-icons.flaticon.com/146157/146157749/1749355227699.svg?token=exp=1749356138~hmac=99e703ccc7e3ab66c1dbfc8aa26cf896' }}" alt="Imagen de perfil">
+                        <img class="imagen" id="imagenVisualizacion" src="{{ $usuario->img_usuario ? 'data:image/jpeg;base64,' . base64_encode($usuario->img_usuario) : 'https://i.postimg.cc/Fsr1VwQv/usuario-de-perfil.png' }}" alt="Imagen de perfil">
                     </div>
 
                     <div class="campo-foto">

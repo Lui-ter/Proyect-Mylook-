@@ -135,7 +135,7 @@
             @foreach ($valoraciones as $valoracion)
                 <div class="tarjeta-testimonio">
                     <div class="imagen-perfil">
-                        <img src="{{ $valoracion->cita->usuario->imagen_base64 ?? 'https://cdn-user-icons.flaticon.com/146157/146157749/1749352501611.svg?token=exp=1749353412~hmac=084ebaafcb75a5566cbfba6de4b5fd2f' }}"
+                        <img src="{{ $valoracion->cita->usuario->imagen_base64 ?? 'https://i.postimg.cc/2SjcmjRt/usuario-de-perfil-2.png' }}"
                             alt="Imagen de {{ $valoracion->cita->usuario->nombre }}">
                     </div>
                     <div class="contenido-testimonio">

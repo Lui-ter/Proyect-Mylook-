@@ -67,7 +67,7 @@
 
                     <figure>
                         <input type="file" name="imagenPerfil" id="fileInput" accept="image/*" />
-                        <img id="previsualizacionImagen" src="https://cdn-user-icons.flaticon.com/146157/146157749/1749352501611.svg?token=exp=1749353412~hmac=084ebaafcb75a5566cbfba6de4b5fd2f" alt="Imagen de perfil" />
+                        <img id="previsualizacionImagen" src="https://i.postimg.cc/C1wVVT7L/usuario-de-perfil-1.png" alt="Imagen de perfil" />
                     </figure>
 
                     <div class="informacionInput">

@@ -81,7 +81,7 @@
                 <p class="texto2" id="vistaDescripcion"></p>
                 <figure>
                   <img id="imagenCategoria"
-                    src="{{ isset($categoria['imagen']) && !empty($categoria['imagen']) ? $categoria['imagen'] : 'https://cdn-user-icons.flaticon.com/146157/146157749/1749357102199.svg?token=exp=1749358013~hmac=a24255c77ae9bc0e1479352735ff9e05' }}"
+                    src="{{ isset($categoria['imagen']) && !empty($categoria['imagen']) ? $categoria['imagen'] : 'https://i.postimg.cc/CLVQ2RpV/003-agregar.png' }}"
                     alt="Imagen de la categoría"
                     style="max-width: 100%;" />
 
