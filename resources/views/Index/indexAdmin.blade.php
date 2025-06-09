@@ -26,8 +26,8 @@
     @section('link-configurar-perfil', route('admin', ['accion' => 'config']))
     @section('link-configurar-establecimiento', route('establecimientos', ['accion' => 'config']))
     @section('link-configurar-negocio', route('negocio', ['accion' => 'config']))
-    @section('link-historial', 'public/admin/historial')
-    @section('link-salir', 'public/negocio/logout')
+    @section('link-historial', '/admin/historial')
+    @section('link-salir', '/negocio/logout')
 
     @include('components.header-staff',['notificaciones' => $notificaciones, 'imgStaff' => $imgStaff])
 
@@ -446,7 +446,7 @@
     </script>
 
 
-    <script src="{{ asset('Js/Admin/configBienvenidaAdmin.js') }}"></script>
+    <script src="/Js/Admin/indexAdmin.js"></script>
 </body>
 
 </html>

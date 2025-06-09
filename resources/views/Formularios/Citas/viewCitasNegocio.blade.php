@@ -78,7 +78,7 @@
                 </table>
             </div>
     </main>
-    <script src="{{ asset('Js/Admin/configBienvenidaAdmin.js') }}"></script>
+    <script src="/Js/citas/visualizacionCitas.js"></script>
 </body>
 
 </html>
