@@ -31,7 +31,7 @@ class Cita extends Model
     }
 
     public function reservaServicio(){
-        return $this->hasOne(reservaServicio::class, 'id_cita');
+        return $this->hasOne(ReservaServicio::class, 'id_cita');
     }
 
     public function reservaProducto(){
@@ -42,7 +42,7 @@ class Cita extends Model
         return $this->hasMany(Notificacion::class, 'id_cita', 'id_cita');
     }
 
-    public function valoracion(){
-        return $this->hasMany(valoracion::class, 'id_cita', 'id_cita');
+    public function Valoracion(){
+        return $this->hasMany(Valoracion::class, 'id_cita', 'id_cita');
     }
 }
