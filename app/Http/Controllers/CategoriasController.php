@@ -58,8 +58,6 @@ private function notificacionUsuario(){
 /* LOGICA DE CATEGORIA */
 
     public function handleAddCategory(Request $request){
-
-
         // Aqui se validan los datos que provienen del formulario de categoria
         $request->validate([
             'idEstablecimiento' => 'required|numeric|exists:establecimiento,id_establc',
@@ -72,6 +70,16 @@ private function notificacionUsuario(){
             $img = $request->file('imgCategoria');
             $imgCategoria = file_get_contents($img->getRealPath());
         };
+        // Evita que se dupliquen la misma categoria por un post antiguo
+        $existeCategoria = Categoria::where([
+            ['id_establc', '=' , $request->idEstablecimiento],
+            ['nom_categoria', '=' , $request->nombreCategoria],
+            ['desc_categoria', '='  , $request->descripcionCateogira]
+        ])->first();
+
+        if($existeCategoria) {
+            return redirect()->route('admin',['accion' =>'index']);
+        }
 
         Categoria::create([
             'id_establc' => $request->idEstablecimiento,

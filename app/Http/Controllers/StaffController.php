@@ -101,6 +101,7 @@ class StaffController extends Controller
         $file = $request->file('imagenStaff');
         $imagen = $file ? file_get_contents($file->getRealPath()) : null;
         // Crear el Usuario asociado al Staff
+
         $usuario = Usuario::create([
             'id_usuario' => $documentoStaff,
             'nombre' => $nombreCompletoStaff,
@@ -110,7 +111,6 @@ class StaffController extends Controller
             'correo' => $correoStaff,
             'img_usuario' => $imagen
         ]);
-
         // Crear la relacion Staff-Usuario
         Staff::create([
             'id_usuario' => $documentoStaff,

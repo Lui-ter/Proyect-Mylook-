@@ -69,6 +69,18 @@ class ServiciosController extends Controller
             'duracionServicio' => 'required|numeric',
         ]);
 
+        $existeServicio = Servicio::where([
+            ['id_categoria', '=' , $request->idCategoria],
+            ['nombre_servicio', '=' , $request->nombreServicio],
+            ['desc_servicio', '='  , $request->descripcionServicio],
+            ['duracion_serv', '=', $request->duracionServicio],
+            ['precio_servicio', '=', $request->precioServicio]
+        ])->first();
+
+        if($existeServicio) {
+            return redirect()->route('admin',['accion' =>'index']);
+        }
+
         Servicio::create([
             'id_categoria' => $request->idCategoria,
             'nombre_servicio' => $request->nombreServicio,

@@ -226,10 +226,8 @@ class AdminController extends Controller
             'id_usuario' => $request->idAdmin
         ]);
 
-        return view($configNegocio, [
-            'negocio' => $negocio,
-            'admin' => $negocio->usuario,
-        ]);
+        return redirect()->route('negocio' ,['accion' => 'register']);
+
     }
 
 // Aqui se hara la actualizacion del usuario con el rol de administrador
@@ -359,9 +357,7 @@ class AdminController extends Controller
                 }
             }
             // Redirige al index después de la acción
-            // Arriba esta la clase private donde estan todos los paramentros CargarDatos...
-            return view($indexAdminView, $this->cargarDatosIndex()+ $this->notificacionUsuario());
-
+            return redirect()->route('admin', ['accion' => 'index']);
 
 
 

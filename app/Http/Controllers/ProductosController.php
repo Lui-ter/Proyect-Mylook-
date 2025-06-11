@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\notificacion;
 use App\Models\Staff;
 use App\Models\ReservaProducto;
-
 use App\Models\Usuario;
 
 
@@ -76,6 +75,18 @@ class ProductosController extends Controller
             $desc = $request->input('descripcion');
             $cantidad = $request->input('cantidad');
             $valor = $request->input('valor');
+
+            $existeProducto = Producto::where([
+                ['nombre_prod', '=', $nombre],
+                ['id_establc','=', $idEstablecimiento],
+                ['nom_marca', '=', $marca],
+                ['desc_prod', '=', $desc],
+                ['stock','=', $cantidad],
+                ['valor_prod','=', $valor]
+            ])->first();
+            if($existeProducto){
+                return redirect()->route('admin',['accion' =>'index']);
+            }
 
             // Se valida si las variables se estan recibiendo para la insercción
             if (!empty($nombre) && !empty($idEstablecimiento) && !empty($marca) && !empty($imagen) && !empty($desc) && !empty($cantidad) && !empty($valor)) {

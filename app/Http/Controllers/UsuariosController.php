@@ -328,6 +328,19 @@ class UsuariosController extends Controller
             $idProducto = $request->input('idProducto');
             $cantidadProducto = $request->input('cantidadProducto');
 
+            //Evita que al recargar la pagina y si existe el metodo post anterior de una creación de cita, consulta si ya hay una repetida
+            $existeCita = Cita::where([
+                ['id_usuario', '=', $idUsuario],
+                ['id_establc', '=', $idEstablecimiento],
+                ['id_staff', '=', $idStaff],
+                ['fecha_cita', '=', $fecha],
+                ['hora_cita', '=', $hora]
+            ])->first();
+
+            if ($existeCita) {
+                return redirect()->route('admin' ,['accion' => 'index']);
+            }
+
             if (
                 isset($idEstablecimiento) && isset($idUsuario) && isset($estado)
                 && isset($fecha) && isset($hora) && isset($idStaff) && isset($idCategoria)
@@ -375,8 +388,8 @@ class UsuariosController extends Controller
                         $producto->save();
                     }
                 }
-
-                return view($indexUsuarioView, ($this->indexUsuario() + $this->notificacionUsuario()));
+                //redirect evita que se guarde el post de la solicitud, evita duplicación de citas
+                return redirect()->route('usuarios', ['accion' => 'index']);
             }
         } elseif ($accion === 'historialCitas') {
             $idusuario = Auth::guard('usuario')->user()->id_usuario;

@@ -78,7 +78,8 @@ class LoginController extends Controller
                 'id_negocio' => $negocioData->id_negocio,
                 'usuario_tipo' => 'negocio'
             ]);
-            return view($registerAdminView);
+
+            return redirect()->route('admin' ,['accion' => 'register']);
         }
     }
 

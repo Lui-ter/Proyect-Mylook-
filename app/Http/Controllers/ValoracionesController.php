@@ -97,6 +97,16 @@ public function showFormValoracion(Request $request)
         $calificacion = $request->input('calificacion');
         $comentario = $request->input('comentario');
 
+        $existeValoracion = Valoracion::where([
+            ['id_cita','=', $idCita],
+            ['calificacion', '=', $calificacion],
+            ['comentario', '=', $comentario]
+        ])->first();
+
+        if($existeValoracion) {
+            return redirect()->route('usuarios',['accion' =>'index']);
+        }
+
         // Crear la valoración
         Valoracion::create([
             'id_cita' => $idCita,

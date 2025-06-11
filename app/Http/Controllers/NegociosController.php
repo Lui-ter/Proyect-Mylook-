@@ -181,6 +181,7 @@ class NegociosController extends Controller
 
     public function crudNegocios(Request $request, $accion = null){
         $configNegocio = GlobalVariables::$configNegocioView;
+        $configNegocioNew = GlobalVariables::$registerNegocio;
         if($accion === 'config'){
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
             $negocio = Negocio::where('id_negocio', $idNegocio)->first();
@@ -195,6 +196,12 @@ class NegociosController extends Controller
                 'img_portada' => $img_portada,
                 'staffAdmin' => $staffAdmin->usuario
             ]+ $this->notificacionUsuario());
+        }elseif($accion == 'register'){
+            $negocio = Negocio::find(Auth::guard('negocio')->user()->id_negocio);
+            return view($configNegocioNew, [
+            'negocio' => $negocio,
+            'admin' => $negocio->usuario,
+        ]);
         }elseif($accion === 'logout'){
             Auth::guard('usuario')->logout();
             $request->session()->invalidate();

@@ -39,7 +39,7 @@ class GlobalVariables
 
     public static $agendamientoView = 'perfilEstablecimiento.perfilEstablecimiento';
 
-    public static $agendamientoEstablecimiento = 'Agendamiento.indexAgendamiento';
+    public static $agendamientoEstablecimiento = 'Agendamiento.IndexAgendamiento';
 
     public static $configUsersView = 'Configuracion.configUsers';
 

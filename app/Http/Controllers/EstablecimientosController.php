@@ -62,8 +62,8 @@ class EstablecimientosController extends Controller{
 
     public function handleAddEstablecimiento(Request $request){
 
-        Log::info('Entrando a handleAddEstablecimiento');
-        Log::info('Datos recibidos:', $request->all());
+      //  Log::info('Entrando a handleAddEstablecimiento');
+      //  Log::info('Datos recibidos:', $request->all());
 
         // Validación automática con redirección si falla
         $validated = $request->validate([
@@ -97,7 +97,7 @@ class EstablecimientosController extends Controller{
             'correoEstablecimiento.unique' => 'Este correo ya se encuentra registrado en otro establecimiento'
         ]);
 
-        Log::info("Validación exitosa, creando el establecimiento.");
+        // Log::info("Validación exitosa, creando el establecimiento.");
 
         $idNegocio = Auth::guard('negocio')->user()->id_negocio;
         $negocio = Negocio::find($idNegocio);
@@ -172,7 +172,7 @@ class EstablecimientosController extends Controller{
     public function crudEstablecimientos(Request $request, $accion = null){
 
         if($accion === 'register'){
-            Log::info('Cargando vista de registro desde el controlador');
+            //Log::info('Cargando vista de registro desde el controlador');
             $registerEstablecimiento = GlobalVariables::$registerEstablecimiento;
             return view($registerEstablecimiento);
         }
