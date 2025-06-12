@@ -51,7 +51,7 @@ class GlobalVariables
 
     /* ------------------------------------------------------------------------------ */
 
-    public static $registerEstablecimiento = 'Formularios.Insercciones.ConfigurarEstablecimiento';
+    public static $registerEstablecimiento = 'Formularios.Insercciones.configurarEstablecimiento';
 
     public static $configEstablecimiento = 'Configuracion.administrador.configurarEstablecimiento';
 
@@ -71,7 +71,7 @@ class GlobalVariables
 
     public static $configBienvenidaMiNegocio = 'Configuracion.configBienvenidaMiNegocio';
 
-    public static $registerNegocio = 'Formularios.Insercciones.ConfigurarNegocio';
+    public static $registerNegocio = 'Formularios.Insercciones.configurarNegocio';
 
     public static $configNegocioView = 'Configuracion.administrador.configurarNegocio';
 
