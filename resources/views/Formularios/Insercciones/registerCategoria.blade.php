@@ -25,8 +25,8 @@
   <!--sección todo-->
   <main>
     <article class="titulo">
-      <h1 class="titulo1">{{ $modeValidator == 1? '' : 'EDICIÓN Y CREACIÓN DE CATEGORÍAS' }}</h1>
-      <p class="texto">{{ $modeValidator == 1 ? '' : 'En este apartado podrás editar y crear las categorías disponibles en tu establecimiento' }}</p>
+      <h1 class="titulo1">EDICIÓN Y CREACIÓN DE CATEGORÍAS</h1>
+      <p class="texto">En este apartado podrás editar y crear las categorías disponibles en tu establecimiento'</p>
     </article>
 
     <!--contenedor del formulario-->

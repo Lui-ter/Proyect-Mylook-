@@ -148,7 +148,7 @@ class EstablecimientosController extends Controller{
             'telefono' => $request-> telefonoEstablecimiento,
         ]);
 
-        return redirect()->route('establecimientos', ['accion' => 'config']);
+        return redirect()->route('admin', ['accion' => 'index']);
     }
 
 /* ELIMINACION DE ESTABLECIMIENTO */
