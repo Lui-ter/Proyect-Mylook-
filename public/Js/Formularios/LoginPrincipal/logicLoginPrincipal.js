@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener("DOMContentLoaded", function() {
                  (session('mostrarNegocio'))
                     document.getElementById('botonNegocio')?.click();
-            });            
+            });
 function manejarModoSegunTamanio() {
-    if (window.innerWidth <= 850) {
+    if (window.innerWidth <= 768) {
         modoMobile();
     } else {
         modoDesktop();
@@ -46,7 +46,7 @@ function manejarModoSegunTamanio() {
 function asignarListenersToggle() {
     botonRegistro.addEventListener('click', () => {
         modoRegistroActivo = true;
-        if (window.innerWidth <= 850) {
+        if (window.innerWidth <= 768) {
             mostrarRegistroMobile();
         } else {
             contenedor.classList.add("panel-derecho-activo");
@@ -55,7 +55,7 @@ function asignarListenersToggle() {
 
     botonInicioSesion.addEventListener('click', () => {
         modoRegistroActivo = false;
-        if (window.innerWidth <= 850) {
+        if (window.innerWidth <= 768) {
             mostrarLoginMobile();
         } else {
             contenedor.classList.remove("panel-derecho-activo");
@@ -69,7 +69,7 @@ function asignarListenersToggle() {
         enlaceNoTieneCuenta.addEventListener('click', e => {
             e.preventDefault();
             modoRegistroActivo = true;
-            if (window.innerWidth <= 850) {
+            if (window.innerWidth <= 768) {
                 mostrarRegistroMobile();
             } else {
                 contenedor.classList.add("panel-derecho-activo");
@@ -81,7 +81,7 @@ function asignarListenersToggle() {
         enlaceTieneCuenta.addEventListener('click', e => {
             e.preventDefault();
             modoRegistroActivo = false;
-            if (window.innerWidth <= 850) {
+            if (window.innerWidth <= 768) {
                 mostrarLoginMobile();
             } else {
                 contenedor.classList.remove("panel-derecho-activo");
@@ -114,7 +114,7 @@ function modoMobile() {
 
 function modoDesktop() {
     const superposicion = document.querySelector('.contenedor-superposicion');
-    if (superposicion) superposicion.style.display = 'grid';
+    if (superposicion) superposicion.style.display = 'block';
 
     // Aquí agregamos o removemos la clase según modoRegistroActivo para desktop
     if (modoRegistroActivo) {
@@ -133,19 +133,8 @@ function mostrarLoginMobile() {
         return;
     }
 
-    // Ocultamos el otro
-    if (registro) {
-        registro.classList.remove('contenedor-activo');
-        setTimeout(() => {
-            registro.style.display = 'none';
-        }, 400); // después de la transición
-    }
-
-    // Mostramos el login con animación
-    login.style.display = 'grid';
-    setTimeout(() => {
-        login.classList.add('contenedor-activo');
-    }, 10);
+    login.classList.add('activo');
+    if (registro) registro.classList.remove('activo');
 }
 
 function mostrarRegistroMobile() {
@@ -157,21 +146,9 @@ function mostrarRegistroMobile() {
         return;
     }
 
-    // Ocultamos el otro
-    if (login) {
-        login.classList.remove('contenedor-activo');
-        setTimeout(() => {
-            login.style.display = 'none';
-        }, 400);
-    }
-
-    // Mostramos el registro con animación
-    registro.style.display = 'grid';
-    setTimeout(() => {
-        registro.classList.add('contenedor-activo');
-    }, 10);
+    registro.classList.add('activo');
+    if (login) login.classList.remove('activo');
 }
-
 
 
 function manejarTipoUsuario() {
@@ -189,14 +166,14 @@ function manejarTipoUsuario() {
 
             if (tipo === '1') {
                 form.querySelector('.campos-estudiante')?.classList.add('activo');
-                form.querySelector('.campos-estudiante')?.style.setProperty('display', 'grid');
+                form.querySelector('.campos-estudiante')?.style.setProperty('display', 'block');
                 form.querySelector('.campos-generales')?.classList.remove('activo');
                 form.querySelector('.campos-generales')?.style.setProperty('display', 'none');
             } else {
                 form.querySelector('.campos-estudiante')?.classList.remove('activo');
                 form.querySelector('.campos-estudiante')?.style.setProperty('display', 'none');
                 form.querySelector('.campos-generales')?.classList.add('activo');
-                form.querySelector('.campos-generales')?.style.setProperty('display', 'grid');
+                form.querySelector('.campos-generales')?.style.setProperty('display', 'block');
             }
 
             elementosTipoUsuario.forEach(input => input.value = tipo);
@@ -227,7 +204,7 @@ function configurarTogglePassword() {
             }
             .input-with-toggle {
                 position: relative;
-                display: inline-grid;
+                display: inline-block;
                 width: 100%;
             }
             .input-with-toggle input {
