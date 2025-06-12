@@ -30,29 +30,47 @@
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
                             <p class="inputP">NIT EMPRESARIAL</p>
-                            <input id="1" type="text" name="nitNegocio" />
+                            <input id="1" type="text" name="nitNegocio" value="{{ old('nitNegocio') }}"/>
+                            @error('nitNegocio')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="input-container">
                             <p class="inputP">NOMBRE DE NEGOCIO</p>
-                            <input id="2" type="text" name="nombreNegocio" />
+                            <input id="2" type="text" name="nombreNegocio" value="{{ old('nombreNegocio') }}"/>
+                            @error('nombreNegocio')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="input-container">
                             <p class="inputP">CONTRASEÑA DE NEGOCIO</p>
-                            <input id="3" type="password" name="contrasenaNegocio" />
+                            <input id="3" type="password" name="contrasenaNegocio" value="{{ old('contrasenaNegocio') }}"/>
+                            @error('contrasenaNegocio')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="campos-formulario campos-generales" style="display: none;">
                         <div class="input-container">
                             <p class="inputP">DOCUMENTO</p>
-                            <input id="4" type="text" name="docUsuario" id="documentoUsuario" />
+                            <input id="4" type="text" name="docUsuario" id="documentoUsuario" value="{{ old('docUsuario') }}"/>
+                            @error('docUsuario')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="input-container">
                             <p class="inputP">NOMBRE</p>
-                            <input id="5" type="text" name="nombreCompletoUsuario" id="nombreUsuario" />
+                            <input id="5" type="text" name="nombreCompletoUsuario" id="nombreUsuario" value="{{ old('nombreCompletoUsuario') }}"/>
+                            @error('nombreCompletoUsuario')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="input-container">
                             <p class="inputP">CONTRASEÑA</p>
-                            <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario" />
+                            <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario" value="{{ old('contrasenaUsuario') }}"/>
+                            @error('contrasenaUsuario')
+                                <div class="validacion-error">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="enlaces-formulario2">
@@ -156,6 +174,26 @@
                 @endif
             });
         </script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Mostrar automáticamente el formulario de REGISTRO
+            @if ($errors->has('nitNegocio') || $errors->has('nombreNegocio') || $errors->has('contrasenaNegocio') || $errors->has('docUsuario') || $errors->has('nombreCompletoUsuario') || $errors->has('contrasenaUsuario'))
+            // Mostrar formulario de registro
+            document.getElementById('botonRegistro')?.click();
+                // Si los errores son del negocio, activar el botón correspondiente
+                @if ($errors->has('nitNegocio') || $errors->has('nombreNegocio') || $errors->has('contrasenaNegocio'))
+                    setTimeout(() => {
+                        document.querySelector('.boton-tipo-usuario[data-tipo="1"]')?.click();
+                    }, 300);
+                @else
+                    setTimeout(() => {
+                        document.querySelector('.boton-tipo-usuario[data-tipo="2"]')?.click();
+                    }, 300);
+                @endif
+            @endif
+        });
+    </script>
+
     </div>
 </body>
 </html>

@@ -37,6 +37,30 @@ class LoginController extends Controller
     {
         $tipo_usuario = $request->input('tipo_usuario');
         if ($tipo_usuario == 2) {
+            // Aqui se validan los datos que provienen del formulario de perfil usuario
+            $request->validate([
+            'docUsuario' => 'required|numeric|unique:usuario,id_usuario',
+            'nombreCompletoUsuario' => 'required|string|max:30',
+            'contrasenaUsuario' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9]{8,30}$/'
+            ]
+        ], [
+            'docUsuario.required' => 'El documento del usuario es obligatorio',
+            'docUsuario.numeric' => 'El documento debe ser un número',
+            'docUsuario.unique' => 'Este documento ya está registrado',
+
+            'nombreCompletoUsuario.required' => 'El nombre es obligatorio',
+            'nombreCompletoUsuario.string' => 'El nombre debe ser texto',
+            'nombreCompletoUsuario.max' => 'El nombre no debe exceder los 30 caracteres',
+
+            'contrasenaUsuario.required' => 'La contraseña es obligatoria',
+            'contrasenaUsuario.string' => 'La contraseña debe ser texto',
+            'contrasenaUsuario.min' => 'La contraseña debe tener al menos 8 caracteres',
+            'contrasenaUsuario.regex' => 'La contraseña debe tener al menos una mayúscula, una minúscula, un número y no debe contener símbolos.'
+        ]);
             // Aqui recibe los datos del form para la creacion del usuario
             $doc_usuario = $request->input('docUsuario');
             $nombre = $request->input('nombreCompletoUsuario');
@@ -60,6 +84,30 @@ class LoginController extends Controller
         } else if ($tipo_usuario == 1) {
             // Variable global de la vista del formulario del userAdmin
             $registerAdminView = GlobalVariables::$registerAdminView;
+            // Validación de los datos que provienen del formulario del negocio
+            $request->validate([
+            'nitNegocio' => 'required|numeric|unique:negocio,id_negocio',
+            'nombreNegocio' => 'required|string|max:30',
+            'contrasenaNegocio' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9]{8,30}$/'
+                ]
+            ], [
+                'nitNegocio.required' => 'El nit del negocio es obligatorio',
+                'nitNegocio.numeric' => 'El nit debe ser un número',
+                'nitNegocio.unique' => 'Este nit ya se encuentra registrado',
+
+                'nombreNegocio.required' => 'El nombre del negocio es obligatorio',
+                'nombreNegocio.string' => 'El nombre debe ser texto',
+                'nombreNegocio.max' => 'El nombre no debe exceder los 30 caracteres',
+
+                'contrasenaNegocio.required' => 'La contraseña es obligatoria',
+                'contrasenaNegocio.string' => 'La contraseña debe ser texto',
+                'contrasenaNegocio.min' => 'La contraseña debe tener al menos 8 caracteres',
+                'contrasenaNegocio.regex' => 'La contraseña debe tener al menos una mayúscula, una minúscula, un número y no debe contener símbolos.'
+            ]);
             // Aqui recibe los datos del form para la creacion del negocio
             $nit_negocio = $request->input('nitNegocio');
             $nombre = $request->input('nombreNegocio');
@@ -207,7 +255,7 @@ class LoginController extends Controller
                         dd("Error: el usuario no esta autenticado despues del login");
                     }
                 } else {
-                    dd("Error con la contreaseña");
+                    dd("Error con la contraseña");
                 }
             }
         }
