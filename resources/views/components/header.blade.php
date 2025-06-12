@@ -16,7 +16,7 @@
             <div class="menu-busqueda oculto">
               <div class="caja-busqueda">
                 <input type="text" placeholder="Buscar..." id="busqueda-input" />
-                <button class="boton-jecutar"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="boton-jecutar"></button>
               </div>
             </div>
           </div>

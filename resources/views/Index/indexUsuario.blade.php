@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="{{ asset('Css/Index/indexUsuario.css') }}">
         <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
+        <!-- AOS CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
         <title>Usuario bienvenida</title>
     </head>
 
@@ -41,7 +43,6 @@
 
                             <article class="elemento-carrusel {{ $index === 0 ? 'activo' : '' }}"
                                 style="background-image: url('{{ $imgPortada }}');">
-                                <span class="etiquet-categoria">ESTABLECIMIENTO</span>
                                 <div class="contenido-elemento">
                                     <div class="informacion-establecimiento">
                                         <h2 class="titulo-establecimiento">
@@ -89,13 +90,15 @@
             {{-- seccion dedicada a los establecimientos recomendados --}}
             <section class="establecimientos-recomendados" id="resultados">
                 <h2 class="titulo-seccion">ESTABLECIMIENTOS RECOMENDADOS</h2>
-                <h2 id="mensaje-no-resultados" style="display:none; text-align:center; color: #a68160; font-weight: bold;">
+                <h2 id="mensaje-no-resultados"
+                    style="display:none; text-align:center; color: #a68160; font-weight: bold;">
                     No se encontraron establecimientos que coincidan con tu búsqueda
                 </h2>
                 <div class="contenedor-establecimientos">
 
                     @foreach ($establecimientosRecomendados as $establecimiento)
-                        <article class="carta-establecimiento">
+                        <article class="carta-establecimiento" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}"
+                            data-aos-duration="500">
                             {{-- Imagen de perfil del negocio --}}
                             @php
                                 $imgPerfil =
@@ -194,7 +197,8 @@
                                     default => '',
                                 };
                             @endphp
-                            <article class="card-destacado {{ $clasePosicion }}">
+                            <article class="card-destacado {{ $clasePosicion }}" data-aos="fade-right"
+                                data-aos-delay="200">
                                 <img src="{{ $imgPerfil }}" alt="Top {{ $loop->index + 1 }}"
                                     class="destacado-imagen" />
                                 <div class="nombre-posicion">
@@ -215,7 +219,11 @@
         {{-- importamos el componente del footer --}}
         <x-footer />
 
-    <script src="{{ asset('Js/index/IndexUsuario.js') }}"></script>
+        <script src="{{ asset('Js/index/IndexUsuario.js') }}"></script><!-- AOS JS -->
+        <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
     </body>
 
     </html>

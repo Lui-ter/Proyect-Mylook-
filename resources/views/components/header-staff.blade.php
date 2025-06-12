@@ -85,7 +85,7 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 1vw;
+            gap: 2vw;
 
             h2 {
 
@@ -104,14 +104,14 @@
         .contenedor-opciones {
             display: flex;
             align-items: center;
-            gap: 1vw;
+            gap: 2vh;
             height: 100%;
             justify-content: end;
 
             .contenedor-iconos {
                 display: flex;
                 align-items: center;
-                gap: 1vw;
+                gap: 2vh;
                 height: 100%;
                 justify-content: end;
 
@@ -248,6 +248,108 @@
         100% {
             opacity: 0;
             transform: scaleY(0);
+        }
+    }
+
+    @media (max-width: 680px) {
+        header {
+
+            & .contenedor-opciones {
+                & .contenedor-iconos {
+                    & .contenedor-icono {
+                        & i {
+                            font-size: clamp(0.8em, 3.5vh, 7vh);
+                        }
+
+                        & a {
+                            text-decoration: none;
+
+                            & i {
+                                color: var(--color-primary);
+                                font-size: clamp(0.8em, 3.5vh, 7vh);
+                                cursor: pointer;
+                                transition: color 0.3s ease-in-out, transform 0.2s ease;
+                            }
+                        }
+                    }
+                }
+
+                & .contenedor-busqueda {
+                    & .contenedor-icono {
+                        & i {
+                            font-size: clamp(0.8em, 3.5vh, 7vh);
+
+                        }
+                    }
+                }
+
+                & .contenedor-perfil {
+                    position: relative;
+                    cursor: pointer;
+
+                    & figure {
+                        width: clamp(.8em, 5vh, 7vh);
+                        height: clamp(.8em, 5vh, 7vh);
+                        border-radius: 100%;
+                        cursor: pointer;
+                        transition: transform 0.2s ease-in-out;
+
+                        & img {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 100%;
+                            object-fit: cover;
+                            object-position: center;
+                            transition: transform 0.2s ease-in-out;
+                        }
+                    }
+
+                    & .menu-perfil {
+                        position: absolute;
+                        top: 110%;
+                        right: 0;
+                        background-color: var(--color-white);
+                        border: 1px solid var(--color-primary);
+                        border-radius: 0.5em;
+                        text-align: center;
+                        min-width: 15em;
+
+                        z-index: 100;
+                        overflow: hidden;
+                        background-clip: padding-box;
+
+                        & a {
+                            padding: 1em;
+                            cursor: pointer;
+                            color: var(--color-primary);
+                            text-decoration: none;
+
+                            & p {
+                                font-weight: bold;
+                                font-size: clamp(1em, 2vh, 5vh);
+                                color: var(--color-primary);
+                            }
+                        }
+
+                        & a:hover {
+                            background-color: var(--color-primary);
+
+                            & p {
+                                color: var(--color-white);
+                            }
+                        }
+
+                        & hr {
+                            border: none;
+                            border-top: 1px solid var(--color-primary);
+                        }
+                    }
+
+                    & .menu-perfil.oculto {
+                        display: none;
+                    }
+                }
+            }
         }
     }
 </style>

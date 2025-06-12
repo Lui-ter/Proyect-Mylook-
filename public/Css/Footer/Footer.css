@@ -16,16 +16,9 @@ footer {
     color: var(--color-secondary);
     text-align: center;
 
-    & a {
-        color: var(--color-secondary);
-        text-decoration: none;
-        font-weight: 500;
-        font-size: clamp(1em, 1.6vw, 12em);
-    }
 
-    & h2 {
-        font-size: clamp(1em, 2.7vw, 12em);
-    }
+
+
 
     /*contenedor 1 footer */
     & .sobre-nosotros {
@@ -35,8 +28,20 @@ footer {
         align-items: center;
         justify-content: center;
 
+        & h2 {
+            font-size: clamp(1em, 2.7vw, 12em);
+            height: 100%;
+        }
+
         & .sobre-nosotros-contenido {
             display: grid;
+
+            & a {
+                color: var(--color-secondary);
+                text-decoration: none;
+                font-weight: 500;
+                font-size: clamp(1em, 1.6vw, 12em);
+            }
         }
 
 
@@ -49,8 +54,16 @@ footer {
         align-items: center;
         gap: 2em;
 
-        & .logo-footer {
-            font-size: clamp(1em, 3vw, 12em);
+        .contenedor-logo-footer {
+            & i {
+                color: var(--color-secondary);
+                font-size: clamp(1em, 2.7vw, 12em);
+
+            }
+        }
+
+        & h2 {
+            font-size: clamp(1em, 2.7vw, 12em);
         }
 
     }
@@ -62,6 +75,10 @@ footer {
         padding: 2em;
         justify-content: center;
 
+        & h2 {
+            font-size: clamp(1em, 2.7vw, 12em);
+        }
+
         & .redes {
             display: flex;
             gap: 2vw;
@@ -69,9 +86,17 @@ footer {
             justify-content: center;
 
             a {
+                color: var(--color-secondary);
+                text-decoration: none;
+                font-weight: 500;
+
                 & i {
                     font-size: clamp(1em, 2.5vw, 12em);
                 }
+            }
+
+            .correo {
+                display: none;
             }
 
         }
@@ -83,14 +108,13 @@ footer {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto auto;
-        font-size: 1em;
         grid-template-areas:
             "centro centro"
             "izquierda derecha";
         text-align: center;
         gap: 1em;
         color: white;
-        padding: 1em 0;
+        padding: 1em;
 
         & .sobre-nosotros {
             grid-area: izquierda;
@@ -115,7 +139,52 @@ footer {
 
 @media (max-width: 750px) {
 
+
     footer {
-        font-size: 0.6em;
+        & .sobre-nosotros {
+            & h2 {
+                font-size: clamp(1em, 3.2vh, 12em);
+            }
+
+            & .sobre-nosotros-contenido {
+                & a {
+                    font-size: clamp(1em, 2.8vh, 12em);
+                }
+            }
+        }
+
+        & .sta {
+            .contenedor-logo-footer {
+                & i {
+                    font-size: clamp(1em, 4.5vh, 12em);
+                }
+            }
+
+            & h2 {
+                font-size: clamp(1em, 3.4vh, 12em);
+            }
+
+        }
+
+        & .atencion-cliente {
+            & h2 {
+                font-size: clamp(1em, 3.2vh, 12em);
+            }
+
+            & .redes {
+                a {
+                    & i {
+                        font-size: clamp(1em, 4vh, 12em);
+                    }
+                }
+            .correo {
+                display: flex;
+            }
+            .correo-pc{
+                display: none;
+            }
+
+            }
+        }
     }
 }

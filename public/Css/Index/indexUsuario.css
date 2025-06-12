@@ -35,12 +35,12 @@ main {
 .contenedor-carrusel {
     max-width: 100vw;
     position: relative;
-    height: 600px;
+    height: 100vh;
     overflow: hidden;
 
     /* contenedor de las imagenes del carrusel */
     & .carrusel {
-        padding: 3em 0;
+        padding: 9vh 0 4vh 0;
         display: flex;
         position: absolute;
         justify-content: center;
@@ -50,12 +50,12 @@ main {
         /* carta de cada elemento del carrusel */
         & .elemento-carrusel {
             position: relative;
-            width: 55vw;
-            height: 25em;
+            width: 75vw;
+            height: 70vh;
             background-size: cover;
             background-position: center;
             color: var(--color-white);
-            border-radius: 0.7em;
+            border-radius: 2vh;
             overflow: hidden;
             transition: all 0.5s ease;
             transform: scale(0.85);
@@ -129,7 +129,7 @@ main {
                         width: 9em;
                         height: 3em;
                         border: none;
-                        border-radius: 3.5em;
+                        border-radius: 3vh;
                         font-size: 1.2em;
                         font-weight: bold;
                         color: var(--color-primary);
@@ -166,12 +166,12 @@ main {
                 position: relative;
                 z-index: 2;
                 display: grid;
-                grid-template-columns: 4fr 1fr;
+                grid-template-columns: 6fr 1fr;
                 gap: 1em;
                 align-items: center;
                 justify-content: space-between;
                 text-align: center;
-                padding: 20px;
+                padding: 3vh;
 
                 & .imagen-perfil {
                     border-radius: 100%;
@@ -183,12 +183,12 @@ main {
                     overflow: hidden;
                     object-fit: cover;
                     background-color: var(--color-white);
-                    height: 8em;
-                    width: 8em;
+                    height: 20vh;
+                    width: 20vh;
 
                     & img {
-                        height: 10em;
-                        width: 10em;
+                        height: 20vh;
+                        width: 20vh;
                         object-fit: contain;
                     }
                 }
@@ -197,20 +197,22 @@ main {
                     width: 100%;
                     display: grid;
                     text-align: left;
+                    gap: 2vh;
 
                     & .titulo-establecimiento {
-                        font-size: 1.5rem;
+                        font-size: clamp(1em, 1.6vw, 13em);
                         margin-bottom: 10px;
                         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
                     }
 
                     & .descripcion-establecimiento {
-                        font-size: 0.8rem;
+                        font-size: clamp(1em, 1.3vw, 13em);
                         margin-bottom: 15px;
                         line-height: 1.4;
                         display: -webkit-box;
                         -webkit-box-orient: vertical;
                         overflow: hidden;
+                        -webkit-line-clamp: 7;
                     }
 
                     & .boton-agendar {
@@ -218,20 +220,21 @@ main {
                         align-items: center;
                         background: var(--color-white);
                         width: 9em;
-                        height: 45px;
                         border: none;
-                        border-radius: 50px;
-                        font-size: 20px;
+                        border-radius: 5vh;
+                        font-size: clamp(1em, 1.5vw, 13em);
                         font-weight: bold;
                         color: var(--color-primary);
                         cursor: pointer;
                         box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
                         outline: none;
                         transition: 0.3s;
+                        height: 6vh;
+
 
                         & .icono {
-                            width: 50px;
-                            height: 50px;
+                            width: 8vh;
+                            height: 8vh;
                             background: var(--color-primary);
                             border-radius: 50%;
                             display: flex;
@@ -249,8 +252,8 @@ main {
             }
 
             & .imagen-perfil {
-                height: 8em;
-                width: 8em;
+                height: 10vh;
+                width: 10vh;
             }
 
             & .etiquet-categoria {
@@ -276,7 +279,6 @@ main {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 1;
@@ -335,11 +337,11 @@ main {
     }
 
     & .boton-anterior {
-        left: 20px;
+        left: 15px;
     }
 
     & .boton-siguiente {
-        right: 20px;
+        right: 15px;
     }
 
     /*fin botones de el carrusel */
@@ -354,7 +356,7 @@ main {
 
     & .titulo-seccion {
         text-align: center;
-        font-size: 1.7em;
+        font-size: clamp(1em, 2.5vw, 15em);
     }
 
     & .contenedor-establecimientos {
@@ -364,20 +366,20 @@ main {
         justify-content: center;
 
         & .carta-establecimiento {
-            width: 20em;
-            border: 2px solid var(--color-primary);
-            border-radius: 0.8em;
+            width: 27vw;
+            height: 70vh;
+            border: 3px solid var(--color-primary);
+            border-radius: 2vh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             color: var(--color-black);
             position: relative;
             justify-content: space-between;
-            height: 100%;
 
             & img {
                 width: 100%;
-                height: 14em;
+                height: 40vh;
                 object-fit: cover;
                 margin-bottom: -0.5em;
             }
@@ -386,9 +388,10 @@ main {
                 display: flex;
                 flex-direction: column;
                 flex-grow: 1;
-                padding: 0.5em 0.5em 0 0.5em;
-                border-top: 2px solid var(--color-primary);
+                padding: 1vh;
+                border-top: 3px solid var(--color-primary);
                 background-color: var(--color-white);
+                gap: 1vh;
 
                 /* Hace que la información crezca ocupando el espacio disponible */
                 & .informacion {
@@ -401,12 +404,12 @@ main {
                     & .nombre-descripcion {
                         height: 100%;
                         font-weight: bold;
-                        font-size: 0.9em;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1vh;
                         position: relative;
                         overflow: hidden;
-                        /* Oculta el contenido extra */
-                        max-width: 8em;
-                        max-height: 10em;
+                        padding-right: 1vh;
 
                         & h2 {
                             max-width: 100%;
@@ -415,18 +418,19 @@ main {
                             white-space: normal;
                             position: relative;
                             font-weight: bold;
-                            -webkit-line-clamp: 2;
+                            -webkit-line-clamp: 1;
                             display: -webkit-box;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             transition: opacity 0.3s ease-in-out;
+                            font-size: clamp(1em, 1.5vw, 13em);
 
                         }
 
                         & p {
                             position: relative;
                             font-weight: normal;
-                            font-size: 1em;
+                            font-size: clamp(1em, 1.4vw, 13em);
                             display: -webkit-box;
                             -webkit-line-clamp: 4;
                             -webkit-box-orient: vertical;
@@ -441,13 +445,13 @@ main {
                         flex-direction: column;
                         justify-content: space-between;
                         padding-left: 1em;
-                        border-left: 2px solid #a67c52;
-                        font-size: 1em;
+                        border-left: 3px solid #a67c52;
+                        font-size: clamp(1em, 1.5vw, 13em);
 
                         & ul {
                             position: relative;
                             font-weight: normal;
-                            font-size: 0.9em;
+                            font-size: clamp(1em, 1.4vw, 13em);
                             display: -webkit-box;
                             -webkit-line-clamp: 4;
                             -webkit-box-orient: vertical;
@@ -466,7 +470,7 @@ main {
                         & .puntuacion {
                             margin-top: auto;
                             /* Empuja la puntuación al fondo */
-                            font-size: 1.7em;
+                            font-size: clamp(1em, 1.4vw, 13em);
                             color: var(--color-primary);
                         }
                     }
@@ -483,8 +487,8 @@ main {
                     color: var(--color-white);
                     padding: 0.2em 1em;
                     border: none;
-                    border-radius: 5px;
-                    font-size: 1em;
+                    border-radius: 2vh;
+                    font-size: clamp(1em, 1.4vw, 13em);
                     font-weight: bold;
                     cursor: pointer;
                 }
@@ -508,7 +512,8 @@ main {
 
     & .titulo-seccion {
         text-align: center;
-        font-size: 1.7em;
+        font-size: clamp(1em, 2.4vw, 15em);
+
     }
 
     & .contenedor-imagenes-destacado {
@@ -523,9 +528,9 @@ main {
     }
 
     & .card-destacado {
-        width: 100%;
+        width: 26vw;
         height: 40vh;
-        border-radius: .7em;
+        border-radius: 2vh;
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         position: relative;
@@ -568,7 +573,7 @@ main {
     }
 
     /* Visualmente simular el podio */
-    .primer-puesto {
+    & .primer-puesto {
         grid-column: 2;
         margin-top: -2.5em;
         grid-row: 1;
@@ -576,14 +581,14 @@ main {
         z-index: 3;
     }
 
-    .segundo-puesto {
+    & .segundo-puesto {
         grid-column: 1;
         z-index: 2;
         grid-row: 1;
 
     }
 
-    .tercer-puesto {
+    & .tercer-puesto {
         grid-column: 3;
         /* a la derecha */
         z-index: 1;
@@ -599,6 +604,7 @@ main {
     }
 }
 
+/* Ajustes para tablets grandes y portatiles */
 
 /* Ajustes para tablets grandes y portatiles */
 @media (max-width: 1224px) {
@@ -615,13 +621,14 @@ main {
     .establecimientos-recomendados {
         & .contenedor-establecimientos {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3em;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5em;
             align-items: center;
             justify-content: center;
 
             & .carta-establecimiento {
-                max-width: 19em;
+                max-width: 29vw;
+                width: 29vw;
             }
 
             & .servicios {
@@ -640,7 +647,7 @@ main {
 
         & .boton-agendar {
             padding: 0.2em 1em;
-            border-radius: 5px;
+            border-radius: 2vh;
             font-size: 1em;
 
         }
@@ -650,9 +657,6 @@ main {
         gap: 2em;
         padding: 2em 3em;
 
-        & .titulo-seccion {
-            font-size: 1.7em;
-        }
 
         & .contenedor-imagenes-destacado {
             width: 85vw;
@@ -663,6 +667,21 @@ main {
     }
 
 }
+
+@media (max-width: 1080px) {
+    .establecimientos-recomendados {
+        & .contenedor-establecimientos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            & .carta-establecimiento {
+                max-width: 40vw;
+                width: 40vw;
+            }
+        }
+    }
+}
+
 
 /* Ajustes para móviles medianos y tablets pequeñas */
 @media (max-width: 750px) {
@@ -705,14 +724,16 @@ main {
         }
     }
 
-    .establecimientos-recomendados {
+    & .establecimientos-recomendados {
         & .contenedor-establecimientos {
             display: flex;
             flex-direction: column;
             gap: 3em;
 
             & .carta-establecimiento {
-                max-width: 18em;
+                max-width: 100%;
+                width: 100%;
+                min-height: 65vh;
 
                 & .contenedor-informacion {
                     display: flex;
@@ -726,15 +747,17 @@ main {
                         gap: 0.7em;
 
                         & .nombre-descripcion {
+                            width: 100%;
+                            max-width: 100%;
                             font-size: 0.9em;
 
                             & h2 {
-                                -webkit-line-clamp: 2;
+                                -webkit-line-clamp: 1;
                             }
 
                             & p {
                                 font-size: 1em;
-                                -webkit-line-clamp: 3;
+                                -webkit-line-clamp: 5;
                             }
                         }
 
@@ -780,13 +803,9 @@ main {
         }
     }
 
-    .establecimientos-destacados {
+    & .establecimientos-destacados {
         gap: 2em;
-        padding: 2em 3em;
-
-        & .titulo-seccion {
-            font-size: 1.7em;
-        }
+        padding: 2em;
 
         & .contenedor-imagenes-destacado {
             width: 100%;
@@ -799,10 +818,11 @@ main {
 
         & .card-destacado {
             /* Ocupan todo el ancho disponible */
-            max-width: 18em;
-
+            max-width: 100%;
+            width: 100%;
             /* Mantiene tamaño */
         }
+
         & .card-destacado:hover {
             /* Efecto al pasar el mouse */
             transform: scale(1.05) translateY(-5px);
@@ -819,12 +839,14 @@ main {
         gap: 1em;
     }
 
-    .contenedor-carrusel {
+    & .contenedor-carrusel {
+        height: 85vh;
+
         & .carrusel {
             padding: 2.5em 0em 0em 0em;
 
             & .elemento-carrusel {
-                width: 100%;
+                width: 70vw;
 
                 & .contenido-elemento {
                     padding: 1em;
@@ -838,6 +860,12 @@ main {
                             width: 7em;
                         }
                     }
+
+                    & .informacion-establecimiento {
+                        .boton-agendar {
+                            width: 100%;
+                        }
+                    }
                 }
 
                 & .imagen-perfil {
@@ -848,7 +876,7 @@ main {
         }
     }
 
-    .establecimientos-recomendados {
+    & .establecimientos-recomendados {
         padding: 1em;
 
         & .titulo-seccion {
@@ -859,39 +887,44 @@ main {
             gap: 2em;
 
             & .carta-establecimiento {
-                max-width: 16em;
+                max-width: 100%;
+                height: 58vh;
+                min-height: 58vh;
+
+                & img {
+                    height: 32vh;
+                }
 
                 & .contenedor-informacion {
                     & .informacion {
                         & .nombre-descripcion {
-                            font-size: 0.9em;
 
                             & h2 {
-                                font-size: 1.2em;
+                                font-size: clamp(1em, 5.3vw, 13em);
                             }
 
                             & p {
-                                font-size: 0.9em;
-                                -webkit-line-clamp: 3;
+                                font-size: clamp(1em, 4.5vw, 13em);
+                                -webkit-line-clamp: 4;
                             }
                         }
 
                         & .servicios {
+                            padding-left: .3em;
+
                             & h3 {
-                                font-size: 1.2em;
+                                font-size: clamp(1em, 4.5vw, 13em);
                             }
 
                             & ul {
                                 -webkit-line-clamp: 3;
 
                                 & li {
-                                    font-size: 0.9em;
+                                    font-size: clamp(1em, 4.5vw, 13em);
                                 }
                             }
 
                             & .puntuacion {
-                                margin-top: auto;
-                                font-size: 1.3em;
                                 color: var(--color-primary);
                             }
                         }
@@ -908,8 +941,8 @@ main {
                         color: white;
                         padding: 0.2em 1em;
                         border: none;
-                        border-radius: 5px;
-                        font-size: 1em;
+                        border-radius: 2vh;
+                        font-size: clamp(1em, 1.5vw, 13em);
                         font-weight: bold;
                         cursor: pointer;
                     }
@@ -922,18 +955,15 @@ main {
         }
     }
 
-    .establecimientos-destacados {
+    & .establecimientos-destacados {
+        padding: 1em;
+
         & .titulo-seccion {
             font-size: 1.4em;
         }
 
-        & .contenedor-imagenes-destacado {
-            padding-top: 0em;
-        }
-
         & .card-destacado {
-            max-width: 16em;
-            height: 250px;
+            max-width: 100%;
         }
     }
 }

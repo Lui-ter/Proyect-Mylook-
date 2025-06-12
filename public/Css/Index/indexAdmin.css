@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+ 
 * {
     margin: 0;
     padding: 0;
@@ -159,7 +161,7 @@ body {
 
                                     & .informacion-modal {
                                         display: grid;
-                                        gap: 0.5em;
+                                        gap: 2vh;
 
                                         & .fila-modal {
                                             display: flex;
@@ -239,6 +241,7 @@ body {
                     gap: 1em;
                     height: 70vh;
                     overflow-x: hidden;
+                    
 
                     /* clase para las cartas de agrgar o ver todos */
                     & .agregar,
@@ -700,6 +703,13 @@ th {
 
                     & .agenda {
                         height: 100%;
+
+                        & .modal-personalizado {
+                            & .contenido-modal-personalizado {
+                                gap: 2vh;
+                                width: 90%;
+                            }
+                        }
                     }
 
                     & .seccion-opcion {
@@ -868,9 +878,7 @@ th {
         font-size: 1.1em !important;
     }
 
-    .contenido-modal-personalizado {
-        width: 80%;
-    }
+
 }
 
 @media (max-width: 450px) {

@@ -664,6 +664,13 @@ body {
 /* Moviles */
 @media (max-width: 768px) {
     body {
+
+        .seccion{
+            .contenedor-cartas{
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+        }
         .lista-servicios {
             grid-template-columns: 1fr;
         }

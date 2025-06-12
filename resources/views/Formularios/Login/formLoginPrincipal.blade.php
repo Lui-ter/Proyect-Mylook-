@@ -29,22 +29,24 @@
                     </div>
                     <div class="campos-formulario campos-estudiante">
                         <div class="input-container">
-                            <p class="inputP">NIT EMPRESARIAL</p>
-                            <input id="1" type="text" name="nitNegocio" value="{{ old('nitNegocio') }}"/>
+                            <p class="inputP">NIT</p>
+                            <input id="1" type="text" name="nitNegocio" value="{{ old('nitNegocio') }}" />
                             @error('nitNegocio')
                                 <div class="validacion-error">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="input-container">
-                            <p class="inputP">NOMBRE DE NEGOCIO</p>
-                            <input id="2" type="text" name="nombreNegocio" value="{{ old('nombreNegocio') }}"/>
+                            <p class="inputP">NOMBRE</p>
+                            <input id="2" type="text" name="nombreNegocio"
+                                value="{{ old('nombreNegocio') }}" />
                             @error('nombreNegocio')
                                 <div class="validacion-error">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="input-container">
-                            <p class="inputP">CONTRASEÑA DE NEGOCIO</p>
-                            <input id="3" type="password" name="contrasenaNegocio" value="{{ old('contrasenaNegocio') }}"/>
+                            <p class="inputP">CONTRASEÑA</p>
+                            <input id="3" type="password" name="contrasenaNegocio"
+                                value="{{ old('contrasenaNegocio') }}" />
                             @error('contrasenaNegocio')
                                 <div class="validacion-error">{{ $message }}</div>
                             @enderror
@@ -53,21 +55,24 @@
                     <div class="campos-formulario campos-generales" style="display: none;">
                         <div class="input-container">
                             <p class="inputP">DOCUMENTO</p>
-                            <input id="4" type="text" name="docUsuario" id="documentoUsuario" value="{{ old('docUsuario') }}"/>
+                            <input id="4" type="text" name="docUsuario" id="documentoUsuario"
+                                value="{{ old('docUsuario') }}" />
                             @error('docUsuario')
                                 <div class="validacion-error">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="input-container">
                             <p class="inputP">NOMBRE</p>
-                            <input id="5" type="text" name="nombreCompletoUsuario" id="nombreUsuario" value="{{ old('nombreCompletoUsuario') }}"/>
+                            <input id="5" type="text" name="nombreCompletoUsuario" id="nombreUsuario"
+                                value="{{ old('nombreCompletoUsuario') }}" />
                             @error('nombreCompletoUsuario')
                                 <div class="validacion-error">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="input-container">
                             <p class="inputP">CONTRASEÑA</p>
-                            <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario" value="{{ old('contrasenaUsuario') }}"/>
+                            <input id="7" type="password" name="contrasenaUsuario" id="passwordUsuario"
+                                value="{{ old('contrasenaUsuario') }}" />
                             @error('contrasenaUsuario')
                                 <div class="validacion-error">{{ $message }}</div>
                             @enderror
@@ -89,7 +94,8 @@
                     <h2 class="inputH2">INICIAR SESIÓN</h2>
                     <div class="botones-tipo-usuario">
                         <button type="button" class="boton-tipo-usuario activo" data-tipo="1">USUARIO</button>
-                        <button type="button" class="boton-tipo-usuario" data-tipo="2"  id="botonNegocio">NEGOCIO</button>
+                        <button type="button" class="boton-tipo-usuario" data-tipo="2"
+                            id="botonNegocio">NEGOCIO</button>
                         <input type="hidden" name="tipo_usuario" class="tipo_usuario">
                     </div>
                     <div class="campos-formulario campos-estudiante">
@@ -119,7 +125,7 @@
                     <div class="campos-formulario campos-generales"
                         style="{{ $mostrarNegocio ? '' : 'display: none;' }}">
                         <div class="input-container">
-                            <p class="inputP">NIT EMPRESARIAL</p>
+                            <p class="inputP">NIT</p>
                             <input type="text" name="nitNegocio" id="10"
                                 value="{{ old('nitNegocio') }}" />
                             @error('nitNegocio')
@@ -135,7 +141,8 @@
                         </div>
                     </div>
                     <div class="enlaces-formulario">
-                        <a href="{{  route('contrasenas', ['accion' => 'olvidarContrasena']) }}" class="olvidaste-contraseña">¿OLVIDASTE TU CONTRASEÑA?</a>
+                        <a href="{{ route('contrasenas', ['accion' => 'olvidarContrasena']) }}"
+                            class="olvidaste-contraseña">¿OLVIDASTE TU CONTRASEÑA?</a>
                         <a href="#" class="no-tiene-cuenta">¿NO TIENE CUENTA?</a>
                     </div>
                     <button type="submit" name="accionIniciarSesion" value="iniciar_sesion">INICIAR</button>
@@ -154,8 +161,9 @@
                             <h3>Bienvenido a</h3>
                             <h1>MYLOOK</h1>
                             <div class="promotion">
-                                <p>"Resplandece con estilo.<br>
-                                    haz tu cita hoy mismo y dejate envolver por la belleza ¡ No esperes Mas !"</p>
+                                <p>Resplandece con estilo.<br>
+                                    Agenda tu cita hoy y déjate envolver por la belleza. ¡No esperes más!</p>
+
                             </div>
                             <button type="submit" class="fantasma" id="botonRegistro">Únete Hoy</button>
                         </div>
@@ -175,25 +183,31 @@
             });
         </script>
         <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Mostrar automáticamente el formulario de REGISTRO
-            @if ($errors->has('nitNegocio') || $errors->has('nombreNegocio') || $errors->has('contrasenaNegocio') || $errors->has('docUsuario') || $errors->has('nombreCompletoUsuario') || $errors->has('contrasenaUsuario'))
-            // Mostrar formulario de registro
-            document.getElementById('botonRegistro')?.click();
-                // Si los errores son del negocio, activar el botón correspondiente
-                @if ($errors->has('nitNegocio') || $errors->has('nombreNegocio') || $errors->has('contrasenaNegocio'))
-                    setTimeout(() => {
-                        document.querySelector('.boton-tipo-usuario[data-tipo="1"]')?.click();
-                    }, 300);
-                @else
-                    setTimeout(() => {
-                        document.querySelector('.boton-tipo-usuario[data-tipo="2"]')?.click();
-                    }, 300);
+            document.addEventListener("DOMContentLoaded", function() {
+                // Mostrar automáticamente el formulario de REGISTRO
+                @if (
+                    $errors->has('nitNegocio') ||
+                        $errors->has('nombreNegocio') ||
+                        $errors->has('contrasenaNegocio') ||
+                        $errors->has('docUsuario') ||
+                        $errors->has('nombreCompletoUsuario') ||
+                        $errors->has('contrasenaUsuario'))
+                    // Mostrar formulario de registro
+                    document.getElementById('botonRegistro')?.click();
+                    // Si los errores son del negocio, activar el botón correspondiente
+                    @if ($errors->has('nitNegocio') || $errors->has('nombreNegocio') || $errors->has('contrasenaNegocio'))
+                        setTimeout(() => {
+                            document.querySelector('.boton-tipo-usuario[data-tipo="1"]')?.click();
+                        }, 300);
+                    @else
+                        setTimeout(() => {
+                            document.querySelector('.boton-tipo-usuario[data-tipo="2"]')?.click();
+                        }, 300);
+                    @endif
                 @endif
-            @endif
-        });
-    </script>
-
+            });
+        </script>
     </div>
 </body>
+
 </html>
