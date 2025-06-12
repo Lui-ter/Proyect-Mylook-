@@ -8,7 +8,7 @@ const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/; // Contraseñas s
 const regexNit = /^[0-9-]{10,}$/; // Solo números y guion (-), mínimo 10 dígitos
 const tiposImgPermitidos = /image\/(jpeg|png|jpg)/i; // Tipos de imagen permitidos (JPEG, PNG, JPG)
 const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Correo electrónico
-const regexDocumentoUsuario = /^[0-9]{8,}$/; // Solo números, mínimo 10 dígitos
+const regexDocumentoUsuario = /^[0-9]{7,}$/; // Solo números, mínimo 10 dígitos
 
 /* FORMULARIO DE INSERCIÓN DE CATEGORIA */
 function handleValidationCategory(event) {
@@ -301,7 +301,7 @@ function handleValidationRegister(event) {
 
         if (!regexDocumentoUsuario.test(documentoUsuario)) {
             showError(
-                "¡El documento del usuario debe contener al menos 8 números!"
+                "¡El documento del usuario debe contener al menos 7 números!"
             );
             return;
         }
