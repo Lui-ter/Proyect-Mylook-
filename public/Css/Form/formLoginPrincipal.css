@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', system-ui, sans-serif;
+    font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI";
 }
 
 html,
@@ -21,8 +24,6 @@ body {
     --color-secondary: #ffffff;
     --color-tertiary: #000000;
 
-    /* TIPOGRAFÍA */
-    --font-main: 'Montserrat', sans-serif;
 }
 
 /* ============================================================
@@ -33,7 +34,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: var(--font-main);
 }
 
 /* ============================================================
@@ -41,7 +41,7 @@ body {
 ============================================================ */
 .contenedor {
     background-color: var(--color-secondary);
-    border-radius: 10px;
+    border-radius: 3vh;
     box-shadow: 1px 1px 8px 1px var(--color-primary);
     position: relative;
     overflow: hidden;
@@ -108,6 +108,19 @@ body {
     }
 }
 
+@keyframes aparecerSuave {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        /* o X si es lateral */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ============================================================
    FORMULARIO
 ============================================================ */
@@ -138,13 +151,16 @@ form {
 .input-container input {
     background-color: #f2f2f2;
     border: none;
-    border-radius: 2px;
-    padding: 1em;
+    max-height: 21vh;
     font-weight: 500;
-    margin: 8px 0;
     width: 100%;
-    font-size: 1em;
+    padding: 0.6rem 0;
+    border-radius: 0.7rem;
+    resize: vertical;
+    overflow-y: auto;
     color: var(--color-primary);
+        font-size: clamp(.8em, 1.5vw, 5em);
+
 }
 
 .input-container input:focus {
@@ -153,24 +169,26 @@ form {
 
 .campos-formulario {
     width: 100%;
+    display: grid;
+    gap: 3vh;
 }
 
 /* ============================================================
    BOTONES
 ============================================================ */
 button {
-    border-radius: .4em;
+    border-radius: 2vh;
     border: 1px solid var(--color-secondary);
     background-color: var(--color-primary);
     color: var(--color-secondary);
-    padding: 10px 45px;
+    padding: 1vh;
     text-transform: uppercase;
     width: 100%;
     font-size: clamp(.8em, 1.5vw, 5em);
     font-weight: bold;
     transition:
         transform 80ms ease-in,
-        background-color 0.3s ease,
+        background-color 0.2s ease,
         color 0.3s ease;
 }
 
@@ -195,7 +213,7 @@ button.fantasma:hover {
     background-color: var(--color-secondary);
     color: var(--color-primary);
     transform: scale(1.05);
-    transition: 2s;
+    transition: .6s;
 }
 
 /* Botones de selección de tipo de usuario */
@@ -205,8 +223,7 @@ button.fantasma:hover {
     font-weight: bolder;
     justify-content: space-between;
     width: 100%;
-    border-radius: 3px;
-    margin-bottom: 20px;
+    border-radius: 1.5vh;
     font-weight: bold;
     font-size: clamp(.8em, 1.5vw, 5em);
 
@@ -214,14 +231,13 @@ button.fantasma:hover {
 
 .boton-tipo-usuario {
     flex: 1;
-    padding: .2em 10px;
     border: 2px solid var(--color-primary);
     background-color: #fff;
     color: var(--color-primary);
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 0.5em;
-    font-size: 1em;
+    border-radius: 2vh;
+    font-size: clamp(.8em, 1.3vw, 5em);
     font-weight: bolder;
 }
 
@@ -230,6 +246,16 @@ button.fantasma:hover {
     color: var(--color-secondary);
 }
 
+button{
+    border: 2px solid var(--color-primary);
+
+}
+
+button:hover{
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
+    border: 2px solid var(--color-primary);
+}
 /* ============================================================
    PANEL DE SUPERPOSICIÓN
 ============================================================ */
@@ -370,35 +396,39 @@ button.fantasma:hover {
 }
 
 .olvidaste-contraseña {
-    font-size: 0.8em;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-primary);
     transition: transform 0.2s;
+    font-size: clamp(.8em, 1vw, 5em);
+
 }
 
 .no-tiene-cuenta {
-    font-size: 0.8em;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-primary);
     transition: transform 0.2s;
     text-align: center;
+    font-size: clamp(.8em, 1vw, 5em);
+
 }
 
 .tiene-cuenta {
-    font-size: 0.8em;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-primary);
     transition: transform 0.2s;
     text-align: center;
+    font-size: clamp(.8em, 1vw, 5em);
+
 }
 
 .olvidaste-contraseña:hover,
 .no-tiene-cuenta:hover,
 .tiene-cuenta:hover {
     transform: scale(1.05);
+    
 }
 
 /* ============================================================
@@ -415,10 +445,10 @@ button.fantasma:hover {
     background-color: transparent;
     color: var(--color-primary);
     border: 2px solid var(--color-primary);
-    border-radius: 6px;
+    border-radius: 2vh;
     font-weight: bold;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .tieneCuenta:hover {
@@ -443,24 +473,50 @@ button.fantasma:hover {
    ESTILOS RESPONSIVE PARA PANTALLAS CHICAS (MAX-WIDTH: 1050PX)
 ============================================================ */
 
-@media (max-width:1050px){
+@media (max-width:1150px) {
 
-    .panel-superposicion{
+    .contenedor {
+        width: 90vw;
+        height: 90vh;
+    }
+
+    form{
+        padding: 2vh;
+    }
+
+    .panel-superposicion {
         font-size: 0.8em;
     }
 
+    .inputH2 {
+        font-size: clamp(1em, 2.6vw, 12em);
+    }
+
+    .inputP {
+        font-size: clamp(1em, 2.6vw, 12em);
+    }
+    input{
+        font-size: clamp(.8em, 2vw, 5em);
+    }
+    .input-container{
+        display: grid;
+        gap: 1vh;
+    }
+
+    .boton-tipo-usuario {
+        font-size: clamp(.8em, 2.5vh, 5em);
+    }
 
 }
 
 /* ============================================================
    ESTILOS RESPONSIVE PARA MÓVILES (MAX-WIDTH: 768PX)
 ============================================================ */
-@media (max-width: 768px) {
+@media (max-width: 850px) {
 
     /* Contenedor principal - pantalla completa */
     .contenedor {
-        width: 80vw;
-        border-radius: 10px;
+        width: 90vw;
         box-shadow: 1px 1px 8px 1px var(--color-primary);
         min-height: auto;
         padding: 10px;
@@ -476,11 +532,13 @@ button.fantasma:hover {
     .contenedor-formulario {
         position: relative;
         width: 100%;
-        height: auto;
+        height: 100%;
         left: 0;
         transform: none;
         opacity: 1;
         display: none;
+        opacity: 0;
+        animation: aparecerSuave 0.5s ease forwards;
     }
 
     .contenedor-inicio-sesion,
@@ -490,7 +548,8 @@ button.fantasma:hover {
 
     .contenedor-inicio-sesion.activo,
     .contenedor-registro.activo {
-        display: block;
+        display: flex;
+        height: 100%;
     }
 
     /* Estilos para los formularios */
@@ -500,22 +559,24 @@ button.fantasma:hover {
         height: auto;
         display: flex;
         flex-direction: column;
+        height: 100%;
         gap: 20px;
+
+
+        /* Títulos */
+        .inputH2 {
+            color: var(--color-primary);
+            font-size: clamp(1em, 5vh, 12em);
+            text-align: center;
+            font-weight: bold;
+        }
     }
 
-    .registerForm{
+    .registerForm {
         height: 100%;
     }
 
     .registerform
-
-    /* Títulos */
-    .inputH2 {
-        color: var(--color-primary);
-        font-size: 1.5rem;
-        text-align: center;
-        font-weight: bold;
-    }
 
     /* Botones de tipo de usuario */
     .botones-tipo-usuario {
@@ -526,13 +587,12 @@ button.fantasma:hover {
 
     .boton-tipo-usuario {
         flex: 1;
-        padding: 10px;
-        font-size: 0.9rem;
+        padding: 1vh .5vh;
+        font-size: clamp(.8em, 3vh, 5em);
         font-weight: bold;
         border: 2px solid var(--color-primary);
         background: #fff;
         color: var(--color-primary);
-        border-radius: 6px;
     }
 
     .boton-tipo-usuario.activo {
@@ -542,7 +602,7 @@ button.fantasma:hover {
 
     .inputP {
         color: var(--color-primary);
-        font-size: 0.9rem;
+        font-size: clamp(1em, 3.4vh, 12em);
         font-weight: bold;
         margin-bottom: 0.5rem;
     }
@@ -551,27 +611,24 @@ button.fantasma:hover {
         width: 100%;
         padding: 12px;
         border: 1px solid #ddd;
-        border-radius: 6px;
-        font-size: 1rem;
     }
 
     /* Botón de submit */
     form>button[type="submit"] {
         padding: 10px;
-        font-size: 1rem;
+        font-size: clamp(.8em, 3vh, 12em);
         font-weight: bold;
         margin-top: 10px;
         background: var(--color-primary);
         color: #fff;
         border: none;
-        border-radius: 6px;
         cursor: pointer;
     }
 
     /* Enlaces del formulario */
     .enlaces-formulario {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         margin-top: 1rem;
     }
@@ -587,9 +644,10 @@ button.fantasma:hover {
 
 
     .olvidaste-contraseña,
-    .no-tiene-cuenta .tiene-cuenta {
+    .no-tiene-cuenta,
+    .tiene-cuenta {
         color: var(--color-primary);
-        font-size: 0.8rem;
+        font-size: clamp(.8em, 3vw, 5em);
         text-decoration: none;
     }
 
@@ -598,6 +656,8 @@ button.fantasma:hover {
         width: 100%;
         text-align: center;
         padding: 12px;
+        font-size: clamp(.8em, 3vw, 5em);
+
         margin-top: 10px;
     }
 
@@ -612,8 +672,4 @@ button.fantasma:hover {
     }
 
 
-    .contenedor-registro:not(.activo) .tiene-cuenta,
-    .contenedor-inicio-sesion:not(.activo) .no-tiene-cuenta {
-        display: none !important;
-    }
 }

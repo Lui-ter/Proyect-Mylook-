@@ -254,7 +254,7 @@ class UsuariosController extends Controller
             $idEstablecimiento = $request->input('id_establecimiento');
             $idUsuario = Auth::guard('usuario')->user()->id_usuario;
             $productos = Producto::where('id_establc', $idEstablecimiento)
-                ->select('id_prod', 'nombre_prod', 'stock', 'img_prod')
+                ->select('id_prod', 'nombre_prod', 'stock', 'img_prod','valor_prod')
                 ->get()
                 ->map(function ($producto) {
                     if (!empty($producto->img_prod)) {

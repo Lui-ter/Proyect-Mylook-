@@ -1,3 +1,7 @@
+@once
+    <link rel="stylesheet" href="{{ asset('Css/Header/Header.css') }}">
+@endonce
+
 <header>
     <div class="contenedor-logo">
         <img src="{{ asset('logo.svg') }}" alt="Logo">
@@ -14,30 +18,30 @@
             <button class="contenedor-icono lupa"><i class="fa-solid fa-magnifying-glass"></i></button>
 
             <div class="menu-busqueda oculto">
-              <div class="caja-busqueda">
-                <input type="text" placeholder="Buscar..." id="busqueda-input" />
-                <button class="boton-jecutar"></button>
-              </div>
+                <div class="caja-busqueda">
+                    <input type="text" placeholder="Buscar..." id="busqueda-input" />
+                    <button class="boton-jecutar"></button>
+                </div>
             </div>
-          </div>
+        </div>
         <div class="contenedor-perfil" id="perfil">
             <figure>
-                    <img src="{{ $imgusuario }}" alt="">
+                <img src="{{ $imgusuario }}" alt="">
             </figure>
 
             <div class="menu-perfil oculto" id="menu-perfil">
-                <a href="{{ route('usuarios',['accion' => 'config'])}}">
+                <a href="{{ route('usuarios', ['accion' => 'config']) }}">
                     <p>Configurar perfil</p>
                 </a>
                 <hr>
                 <!-- Pendiente el yield -->
-                <a href="{{ route('usuarios', ['accion' => 'historialCitas'])}}">
+                <a href="{{ route('usuarios', ['accion' => 'historialCitas']) }}">
                     <p>Historial de citas</p>
                 </a>
                 <hr>
                 <!-- Pendiente el yield -->
-                @if(!is_null(session('id_staff')))
-                    <a href="{{ route('staff', ['accion' => 'index'])}}">
+                @if (!is_null(session('id_staff')))
+                    <a href="{{ route('staff', ['accion' => 'index']) }}">
                         <p>Calendario</p>
                     </a>
                 @endif
@@ -54,6 +58,6 @@
 </header>
 @include('components.bandeja')
 @once
-<link rel="stylesheet" href="{{ asset('Css/Header/Header.css') }}">
-<script src="{{asset('Js/Header/Header.js')}}"></script>
+    <script src="{{ asset('Js/Header/Header.js') }}"></script>
+
 @endonce

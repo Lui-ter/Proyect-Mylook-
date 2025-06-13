@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
     <!-- Idioma español -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/es.global.min.js"></script>
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('Css/Index/indexAgendamiento.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
@@ -23,7 +23,7 @@
     @section('link-historial', '/admin/historial')
     @section('link-salir', '/usuarios/logout')
 
-    @include('components.header',['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
+    @include('components.header', ['imgusuario' => $imgusuario, 'notificaciones' => $notificaciones])
     <main>
         <form action="{{ url('/usuarios/agendamiento') }}" method="post" id="citaForm"
             onsubmit="handleValidationCita(event)" class="agendamiento">
@@ -63,10 +63,11 @@
                         <div class="campos">
                             <p class="titulos">PRODUCTOS</p>
                             <select name="idProducto" id="producto">
-                                <option selected disabled hidden>Selecciona un producto</option>
+                                <option value="" {{ old('idProducto') == '' ? 'selected' : '' }}>Ninguno</option>
                                 @foreach ($productos as $producto)
                                     <option value="{{ $producto['id_prod'] }}" data-stock="{{ $producto['stock'] }}"
-                                        data-img="{{ $producto['img_prod'] }}">
+                                        data-img="{{ $producto['img_prod'] }}"
+                                        data-precio="{{ $producto['valor_prod'] }}">
                                         {{ $producto['nombre_prod'] }}
                                     </option>
                                 @endforeach
@@ -97,16 +98,17 @@
                                     <figure>
                                         <img id="producto-img" src="" />
                                         <p class="nombre" id="producto-nombre"></p>
-                                            <figcaption id="mensajeOpcional">Opcional</figcaption>
+                                        <figcaption id="mensajeOpcional">Opcional</figcaption>
 
                                     </figure>
+                                    <p class="precio oculto" id="producto-precio"></p>
                                 </div>
                                 <input type="hidden" id="idProductoSeleccionado" name="idProducto">
                             </div>
                             <div class="botones-producto">
-                                <button class="btn" type="button" id="btn-menos">−</button>
+                                <button class="btn" type="button" id="btn-menos"><i class="fa-solid fa-minus"></i></button>
                                 <span id="contador">0</span>
-                                <button class="btn" type="button" id="btn-mas">+</button>
+                                <button class="btn" type="button" id="btn-mas"><i class="fa-solid fa-plus"></i></button>
                                 <input type="hidden" name="cantidadProducto" id="cantidadProducto">
                             </div>
                         </div>
@@ -124,8 +126,8 @@
                             </div>
 
                             <div class="botones-staff">
-                                <button type="button" class="btn btn-prev-staff">&lt;</button>
-                                <button type="button" class="btn btn-next-staff">&gt;</button>
+                                <button type="button" class="btn btn-prev-staff"><i class="fa-solid fa-angle-left"></i></button>
+                                <button type="button" class="btn btn-next-staff"><i class="fa-solid fa-angle-right"></i></button>
                             </div>
 
                         </div>
@@ -251,7 +253,8 @@
                 document.getElementById('hora').value = horaSeleccionada;
 
                 // Mostrar la fecha seleccionada al usuario
-                selectedDateEl.textContent = "Fecha seleccionada: " + fechaSeleccionada.toLocaleDateString() + " Hora: " + horaSeleccionada;
+                selectedDateEl.textContent = "Fecha seleccionada: " + fechaSeleccionada
+                    .toLocaleDateString() + " Hora: " + horaSeleccionada;
             }
         });
 

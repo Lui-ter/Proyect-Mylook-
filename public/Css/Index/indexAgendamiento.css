@@ -144,6 +144,20 @@ main {
                                     color: var(--color-black);
                                     font-size: clamp(1em, 1.3vw, 3em);
                                 }
+
+                                & .precio{
+                                    font-weight: bold;
+                                    padding: 0.3vh 0;
+                                    color: var(--color-black);
+                                    font-size: clamp(1em, 1.3vw, 3em);
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    text-align: center;
+                                    background-color: rgba(0, 0, 0, 0.548);
+                                    color: var(--color-white);
+                                }
                             }
                         }
 
@@ -305,12 +319,15 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--color-black); /* opcional para visibilidad */
+    background-color: var(--color-primary); /* opcional para visibilidad */
     color: var(--color-white);
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     font-weight: bold;
 
+}
+.oculto {
+    display: none;
 }
 
 /* Cambiar el color del "scrollbar" del calendario */

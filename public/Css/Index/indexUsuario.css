@@ -50,7 +50,7 @@ main {
         /* carta de cada elemento del carrusel */
         & .elemento-carrusel {
             position: relative;
-            width: 75vw;
+            width: 62vw;
             height: 70vh;
             background-size: cover;
             background-position: center;
@@ -126,7 +126,7 @@ main {
                         display: flex;
                         align-items: center;
                         background: var(--color-white);
-                        width: 9em;
+                        padding: 0 2em 0 0;
                         height: 3em;
                         border: none;
                         border-radius: 3vh;
@@ -219,7 +219,7 @@ main {
                         display: flex;
                         align-items: center;
                         background: var(--color-white);
-                        width: 9em;
+
                         border: none;
                         border-radius: 5vh;
                         font-size: clamp(1em, 1.5vw, 13em);
@@ -367,7 +367,7 @@ main {
 
         & .carta-establecimiento {
             width: 27vw;
-            height: 70vh;
+            height: 72vh;
             border: 3px solid var(--color-primary);
             border-radius: 2vh;
             overflow: hidden;
@@ -473,6 +473,12 @@ main {
                             font-size: clamp(1em, 1.4vw, 13em);
                             color: var(--color-primary);
                         }
+
+                        .estrellas {
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            gap: 1vh;
+                        }
                     }
                 }
 
@@ -487,10 +493,14 @@ main {
                     color: var(--color-white);
                     padding: 0.2em 1em;
                     border: none;
-                    border-radius: 2vh;
+                    border-radius: 1.5vh;
                     font-size: clamp(1em, 1.4vw, 13em);
                     font-weight: bold;
                     cursor: pointer;
+
+                    span {
+                        padding: 0 2vh;
+                    }
                 }
 
                 & .boton-agendar:hover {
@@ -615,6 +625,31 @@ main {
     .contenedor-carrusel {
         & .carrusel {
             padding: 3em 0;
+
+            & .elemento-carrusel {
+
+                & .contenido-elemento {
+
+                    & .informacion-establecimiento {
+                        & .titulo-establecimiento {
+                            font-size: clamp(1em, 3vw, 13em);
+                        }
+
+                        & .boton-agendar {
+                            gap: 2.5vh;
+
+                            span {
+                                font-size: 1.3em;
+                            }
+                        }
+                    }
+                }
+
+                & .imagen-perfil {
+                    height: 10vh;
+                    width: 10vh;
+                }
+            }
         }
     }
 
@@ -627,8 +662,8 @@ main {
             justify-content: center;
 
             & .carta-establecimiento {
-                max-width: 29vw;
-                width: 29vw;
+                max-width: 100%;
+                width: 100%;
             }
 
             & .servicios {
@@ -655,11 +690,15 @@ main {
 
     & .establecimientos-destacados {
         gap: 2em;
-        padding: 2em 3em;
+        padding: 1em;
 
+        .card-destacado {
+            width: 100%;
+
+        }
 
         & .contenedor-imagenes-destacado {
-            width: 85vw;
+            width: 100%;
             grid-template-columns: 1fr 1fr 1fr;
 
         }
@@ -670,26 +709,39 @@ main {
 
 @media (max-width: 1080px) {
     .establecimientos-recomendados {
+        & .titulo-seccion {
+            font-size: 1.6em;
+        }
+        padding: 1em;
+
         & .contenedor-establecimientos {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
 
             & .carta-establecimiento {
                 max-width: 40vw;
-                width: 40vw;
+                height: 100%;
+                width: 100%;
+                max-width: 100%;
             }
+        }
+    }
+    .establecimientos-destacados {
+        & .titulo-seccion {
+            font-size: 1.6em;
         }
     }
 }
 
 
 /* Ajustes para móviles medianos y tablets pequeñas */
-@media (max-width: 750px) {
+@media (max-width: 660px) {
     main {
         gap: 0em;
     }
 
     .contenedor-carrusel {
+        height: 90vh;
         & .carrusel {
             padding: 3em 0;
 
@@ -725,15 +777,19 @@ main {
     }
 
     & .establecimientos-recomendados {
+        & .titulo-seccion {
+            font-size: 1.4em;
+        }
+
         & .contenedor-establecimientos {
             display: flex;
             flex-direction: column;
             gap: 3em;
 
             & .carta-establecimiento {
-                max-width: 100%;
+                min-height: 72vh;
+                max-width: 23em;
                 width: 100%;
-                min-height: 65vh;
 
                 & .contenedor-informacion {
                     display: flex;
@@ -753,27 +809,48 @@ main {
 
                             & h2 {
                                 -webkit-line-clamp: 1;
+                                font-size: clamp(0.8em, 4vw, 13em);
+
                             }
 
                             & p {
-                                font-size: 1em;
-                                -webkit-line-clamp: 5;
+                                font-size: clamp(0.8em, 3vw, 13em);
+                                -webkit-line-clamp: 4;
                             }
                         }
 
                         & .servicios {
+                            h4 {
+                                font-size: clamp(0.8em, 3vw, 13em);
+
+                            }
+
                             & ul {
                                 -webkit-line-clamp: 3;
+                                font-size: clamp(0.8em, 3vw, 13em);
 
-                                & li {
-                                    font-size: 1em;
+                            }
+
+                            .estrellas {
+                                p {
+                                    font-size: clamp(0.8em, 3vw, 13em);
+
+                                }
+
+                                .estrellas-preview {
+                                    i {
+                                        font-size: clamp(0.8em, 3vw, 13em) !important;
+
+                                    }
                                 }
                             }
 
-                            & .puntuacion {
-                                font-size: 1.4em;
-                            }
+
                         }
+                    }
+
+                    & .boton-agendar {
+                        font-size: clamp(1em, 3.7vw, 13em);
                     }
                 }
             }
@@ -806,6 +883,10 @@ main {
     & .establecimientos-destacados {
         gap: 2em;
         padding: 2em;
+
+        & .titulo-seccion {
+            font-size: 1.4em;
+        }
 
         & .contenedor-imagenes-destacado {
             width: 100%;
@@ -865,7 +946,13 @@ main {
                         .boton-agendar {
                             width: 100%;
                         }
+
+                        & .descripcion-establecimiento {
+                            -webkit-line-clamp: 5;
+                        }
                     }
+
+
                 }
 
                 & .imagen-perfil {
@@ -879,9 +966,7 @@ main {
     & .establecimientos-recomendados {
         padding: 1em;
 
-        & .titulo-seccion {
-            font-size: 1.4em;
-        }
+
 
         & .contenedor-establecimientos {
             gap: 2em;
@@ -942,9 +1027,9 @@ main {
                         padding: 0.2em 1em;
                         border: none;
                         border-radius: 2vh;
-                        font-size: clamp(1em, 1.5vw, 13em);
                         font-weight: bold;
                         cursor: pointer;
+
                     }
 
                     & .boton-agendar:hover {
@@ -964,6 +1049,47 @@ main {
 
         & .card-destacado {
             max-width: 100%;
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    & .contenedor-carrusel {
+        height: 100vh;
+
+        & .carrusel {
+            & .elemento-carrusel {
+                height: 70vh;
+
+                & .contenido-elemento {
+                    padding: 1em;
+
+                    & .imagen-perfil {
+                        height: 7em;
+                        width: 7em;
+
+                        & img {
+                            height: 7em;
+                            width: 7em;
+                        }
+                    }
+
+                    & .informacion-establecimiento {
+                        .boton-agendar {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    & .establecimientos-recomendados {
+        & .contenedor-establecimientos {
+            & .carta-establecimiento {
+                height: 70vh;
+                min-height: 70vh;
+            }
         }
     }
 }

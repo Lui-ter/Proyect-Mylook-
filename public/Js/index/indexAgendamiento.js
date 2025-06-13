@@ -12,18 +12,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const productoNombre = document.getElementById("producto-nombre");
     const mensajeOpcional = document.getElementById("mensajeOpcional");
 
+
+    const productoPrecio = document.getElementById("producto-precio");
     const inputIdProducto = document.getElementById("idProductoSeleccionado");
     const inputCantidadProducto = document.getElementById("cantidadProducto");
-
     // Valores por defecto al cargar
     productoImg.src = "https://via.placeholder.com/150";
     productoNombre.textContent = "producto";
     mensajeOpcional.style.display = "block"; // Mostrar mensaje inicialmente
 
+
     productoSelect.addEventListener("change", function () {
         let selectedOption = this.options[this.selectedIndex];
         idProductoSeleccionado = selectedOption.value;
+
+        if (idProductoSeleccionado === "") {
+            productoImg.src = "https://via.placeholder.com/150";
+            productoNombre.textContent = "producto";
+            productoPrecio.textContent = "";
+            productoPrecio.classList.add("oculto"); // ⛔️ Ocultamos el precio
+
+            inputIdProducto.value = "";
+            inputCantidadProducto.value = 0;
+            cantidad = 0;
+            contador.textContent = cantidad;
+            mensajeOpcional.style.display = "block";
+            return;
+        }
+
         let stock = parseInt(selectedOption.getAttribute("data-stock"));
+        let precio = selectedOption.getAttribute("data-precio") || "0";
         stockMaximo = stock;
 
         inputIdProducto.value = idProductoSeleccionado;
@@ -32,14 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         productoNombre.textContent = selectedOption.textContent;
         productoImg.src = selectedOption.getAttribute("data-img") || "https://via.placeholder.com/150";
+        productoPrecio.textContent = `$${parseFloat(precio).toLocaleString('es-CO')}`;
+        productoPrecio.classList.remove("oculto"); // ✅ Mostramos el precio
         contador.textContent = cantidad;
 
-        // Mostrar u ocultar el mensaje "Opcional"
-        if (idProductoSeleccionado) {
-            mensajeOpcional.style.display = "none";
-        } else {
-            mensajeOpcional.style.display = "block";
-        }
+        mensajeOpcional.style.display = "none";
     });
 
     btnMas.addEventListener("click", () => {

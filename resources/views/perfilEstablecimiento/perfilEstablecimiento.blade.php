@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 
 </head>
@@ -24,7 +25,7 @@
 
     <main>
 
-        <div class="portada" style="background-image: url({{ $negocio['img_portada'] }});">
+        <div class="portada" data-aos="fade-up" style="background-image: url({{ $negocio['img_portada'] }});">
             <div class="izquierda">
                 <figure>
                     <img src="{{ $negocio['img_perfil'] }}" alt="Portada">
@@ -66,7 +67,7 @@
                     <button id="btn-prev-servicios" class="carrusel-btn"><i class="fa-solid fa-caret-left"></i></button>
                     <div class="lista" id="lista-servicios">
                         @foreach ($categorias as $categoria)
-                            <div class="tarjeta tarjeta-servicio">
+                            <div class="tarjeta tarjeta-servicio"  data-aos="fade-in" data-aos-delay="100">
                                 <img src="{{ $categoria['imagen'] }}" alt="Servicio 1" class="img-servicio">
                                 <div class="contenido-tarjeta">
                                     <h3 class="nombre-servicio">{{ $categoria['nom_categoria'] }}</h3>
@@ -85,9 +86,9 @@
                 <div class="carrusel-container">
                     <button id="btn-prev-staff" class="carrusel-btn"> <i class="fa-solid fa-caret-left"></i>
                     </button>
-                    <div class="lista" id="lista-staff">
+                    <div class="lista" id="lista-staff" data-aos="fade-right" data-aos-delay="100">
                         @foreach ($staffs as $staff)
-                            <div class="tarjeta carta-staff">
+                            <div class="tarjeta carta-staff" >
                                 <figure class="carta-imagen" id="foto-staff">
                                     <img src="{{ $staff->usuario['img_usuario'] }}" alt="">
                                     <p class="rol">{{ $staff->rol['nombre_rol'] }}</p>
@@ -108,7 +109,7 @@
                     <button id="btn-prev-productos" class="carrusel-btn"><i class="fa-solid fa-caret-left"></i></button>
                     <div class="lista" id="lista-productos">
                         @foreach ($productos as $producto)
-                            <div class="tarjeta producto">
+                            <div class="tarjeta producto" data-aos="fade-in" data-aos-delay="100">
                                 <figure class="carta-imagen">
                                     <img src="{{ $producto['img_prod'] }}" alt="">
                                     <p class="stock"><i class="fa-solid fa-boxes-stacked"></i>
@@ -133,7 +134,7 @@
         <section class="comentarios">
             <h2 class="titulo">COMENTARIOS</h2>
             @foreach ($valoraciones as $valoracion)
-                <div class="tarjeta-testimonio">
+                <div class="tarjeta-testimonio" data-aos="fade-right">
                     <div class="imagen-perfil">
                         <img src="{{ $valoracion->cita->usuario->imagen_base64 ?? 'https://i.postimg.cc/2SjcmjRt/usuario-de-perfil-2.png' }}"
                             alt="Imagen de {{ $valoracion->cita->usuario->nombre }}">
@@ -159,6 +160,13 @@
         </section>
     </main>
     <script src="{{ asset('Js/perfilEstablecimiento/pefil.js') }}"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000, // duración de la animación
+            once: true, // solo se anima una vez
+        });
+    </script>
 
 </body>
 

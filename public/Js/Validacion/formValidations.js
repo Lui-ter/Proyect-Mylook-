@@ -909,7 +909,7 @@ function handleValidationUpdateNegocioOne(event) {
     if (!imagenPerfil) {
         showError("¡La imagen de perfil es obligatoria!");
         return;
-    }if (!imagenPortada) {
+    } if (!imagenPortada) {
         showError("¡La imagen de portada es obligatoria!");
         return;
     }
@@ -1099,7 +1099,9 @@ function handleValidationCita(event) {
     const productoSeleccionado =
         productoSelect.options[productoSelect.selectedIndex];
     const productoValido =
-        productoSeleccionado && !productoSeleccionado.disabled;
+        productoSeleccionado && productoSeleccionado.value !== "";
+
+
 
     const form = document.getElementById("citaForm");
     const existingAlert = document.getElementById("alertContainer");
