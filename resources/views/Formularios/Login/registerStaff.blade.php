@@ -46,23 +46,35 @@
 
                 <div class="infoInput">
                     <p class="nombreInput">DOCUMENTO</p>
-                    <input type="text" id="Id" name="documentoStaff" value="{{ $usuario->id_usuario ?? '' }}" />
+                    <input type="text" id="Id" name="documentoStaff" value="{{ old('documentoStaff', $usuario->id_usuario ?? '') }}" />
+                    @error('documentoStaff')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">NOMBRE</p>
-                    <input type="text" id="nombre" name="nombreCompletoStaff" value="{{ $usuario->nombre ?? '' }}" />
+                    <input type="text" id="nombre" name="nombreCompletoStaff" value="{{ old('nombreCompletoStaff', $usuario->nombre ?? '') }}" />
+                    @error('nombreCompletoStaff')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">APELLIDO</p>
-                    <input type="text" id="apellido" name="apellidoStaff" value="{{ $usuario->apellido ?? '' }}" />
+                    <input type="text" id="apellido" name="apellidoStaff" value="{{ old('apellidoStaff', $usuario->apellido ?? '') }}" />
+                    @error('apellidoStaff')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="infoInput">
                     <p class="nombreInput">CONTRASEÑA</p>
-                    <div class="passwordContainer">
-                        <input type="password" id="contrasena" name="contrasena" />
+                    <div class="passwordContainer"> 
+                        <input type="password" id="contrasena" name="contrasena" value="{{old('contrasena')}}" />
+                        @error('contrasena')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
                         <span id="togglePassword">
                             <i class="fa-solid fa-eye"></i>
                         </span>
@@ -71,14 +83,18 @@
 
                 <div class="infoInput">
                     <p class="nombreInput">CORREO</p>
-                    <input type="email" id="correo" name="correoStaff" value="{{ $usuario->correo ?? '' }}" />
+                    <input type="email" id="correo" name="correoStaff" value="{{ old('correoStaff', $usuario->correo ?? '') }}" />
+                    @error('correoStaff')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                 </div>
-
-
 
                 <div class="infoInput">
                     <p class="nombreInput">TELEFONO</p>
-                    <input type="number" id="telefono" name="telefonoStaff" value="{{ $usuario->telefono ?? '' }}" />
+                    <input type="number" id="telefono" name="telefonoStaff" value="{{ old('telefonoStaff', $usuario->telefono ?? '') }}" />
+                    @error('telefonoStaff')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                 </div>
 
 
@@ -92,12 +108,15 @@
                             <option value="0">Tipo:</option>
                             @foreach ($roles as $rol)
                                 @if (strtolower($rol->nombre_rol) !== 'admin')
-                                    <option value="{{ $rol->id_rol }}" {{ isset($staff) && $staff->id_rol == $rol->id_rol ? 'selected' : '' }}>
+                                    <option value="{{ $rol->id_rol }}" {{ old('tipoRol', isset($staff) ? $staff->id_rol : '') == $rol->id_rol ? 'selected' : '' }}>
                                         {{ $rol->nombre_rol }}
                                     </option>
                                 @endif
                             @endforeach
                         </select>
+                        @error('tipoRol')
+                            <div class="error">{{ $message}}</div>
+                        @enderror
                     </div>
 
 
@@ -107,6 +126,9 @@
                         <input type="file" id="imagenServicio" name="imagenStaff"
                             src="{{ $imgBase64 ?? '/descarga (3).png' }}" accept="image/jpeg, image/png"
                             class="fileUploadInput" />
+                            @error('imagenStaff')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
                     </div>
                 </div>
 
@@ -153,9 +175,9 @@
             </section>
         </form>
     </main>
+
     <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
     <script src="{{ asset('Js/Staff/registerStaff.js') }}"></script>
-
 
 </body>
 

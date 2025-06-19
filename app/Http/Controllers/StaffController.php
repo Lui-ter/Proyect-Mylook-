@@ -90,38 +90,78 @@ class StaffController extends Controller
         $idNegocio = Auth::guard('negocio')->user()->id_negocio;
         $idEstablecimiento = Establecimiento::where('id_negocio', $idNegocio)->value('id_establc');
 
-        // Obtener los datos del request
-        $documentoStaff = $request->input('documentoStaff');
-        $nombreCompletoStaff = $request->input('nombreCompletoStaff');
-        $apellidoStaff = $request->input('apellidoStaff');
-        $correoStaff = $request->input('correoStaff');
-        $contrasenaStaff = password_hash($request->input('contrasena'), PASSWORD_BCRYPT);
-        $telefonoStaff = $request->input('telefonoStaff');
-        $rolStaff = $request->input('tipoRol');
-        $file = $request->file('imagenStaff');
-        $imagen = $file ? file_get_contents($file->getRealPath()) : null;
-        // Crear el Usuario asociado al Staff
+        // Aqui se validan los datos que provienen del formulario de perfil usuario
+        $request->validate([
+            'documentoStaff' => 'required|numeric|unique:usuario,id_usuario',
+            'nombreCompletoStaff' => 'required|string|max:30',
+            'apellidoStaff' => 'required|string|max:30',
+            'contrasena' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9]{8,30}$/'
+            ],
+            'correoStaff' => 'required|email|unique:usuario,correo',
+            'telefonoStaff' => 'required|string|max:30|unique:usuario,telefono',
+            'imagenStaff' => 'required|image|mimes:jpg,jpeg,png,gif,webp|max:5120',
+            'tipoRol' => 'required|exists:rol,id_rol',
+        ], [
+            'documentoStaff.required' => 'El documento del usuario es obligatorio',
+            'documentoStaff.numeric' => 'El documento debe ser un número',
+            'documentoStaff.unique' => 'Este documento ya está registrado',
+
+            'nombreCompletoStaff.required' => 'El nombre es obligatorio',
+            'nombreCompletoStaff.string' => 'El nombre debe ser texto',
+            'nombreCompletoStaff.max' => 'El nombre no debe exceder los 30 caracteres',
+
+            'apellidoStaff.required' => 'El apellido es obligatorio',
+            'apellidoStaff.string' => 'El apellido debe ser texto',
+            'apellidoStaff.max' => 'El apellido no debe exceder los 30 caracteres',
+
+            'correoStaff.required' => 'El correo es obligatorio',
+            'correoStaff.email' => 'El formato del correo no es válido',
+            'correoStaff.unique' => 'Este correo ya está registrado',
+
+            'telefonoStaff.required' => 'El teléfono es obligatorio',
+            'telefonoStaff.unique' => 'Este teléfono ya está registrado',
+            'telefonoStaff.max' => 'El teléfono no debe exceder los 30 caracteres',
+
+            'imagenStaff.required' => 'La imagen es obligatoria',
+            'imagenStaff.image' => 'El archivo debe ser una imagen',
+            'imagenStaff.mimes' => 'La imagen debe ser de tipo: jpg, jpeg, png, gif o webp',
+            'imagenStaff.max' => 'La imagen no debe pesar más de 5 MB',
+
+            'contrasena.required' => 'La contraseña es obligatoria',
+            'contrasena.string' => 'La contraseña debe ser texto',
+            'contrasena.min' => 'La contraseña debe tener al menos 8 caracteres',
+            'contrasena.regex' => 'La contraseña debe tener al menos una mayúscula, una minúscula, un número y no debe contener símbolos.',
+
+            'tipoRol.required' => 'El tipo de rol es obligatorio, seleccione uno',
+            'tipoRol.exists' => 'Debe seleccionar un tipo de rol existente'
+        ]);
+        $img = $request->file('imagenStaff');
+        $imagen = file_get_contents($img->getRealPath());
 
         $usuario = Usuario::create([
-            'id_usuario' => $documentoStaff,
-            'nombre' => $nombreCompletoStaff,
-            'apellido' => $apellidoStaff,
-            'contrasena' => $contrasenaStaff,
-            'telefono' => $telefonoStaff,
-            'correo' => $correoStaff,
+            'id_usuario' => $request->documentoStaff,
+            'nombre' => $request->nombreCompletoStaff,
+            'apellido' => $request->apellidoStaff,
+            'contrasena' => Hash::make($request->contrasena),
+            'telefono' => $request->telefonoStaff,
+            'correo' => $request->correoStaff,
             'img_usuario' => $imagen
         ]);
+        
         // Crear la relacion Staff-Usuario
         Staff::create([
-            'id_usuario' => $documentoStaff,
+            'id_usuario' => $request->documentoStaff,
             'id_establc' => $idEstablecimiento,
             'id_negocio' => $idNegocio,
-            'id_rol' => $rolStaff,
+            'id_rol' => $request->tipoRol,
             'estado' => 'disponible',
 
         ]);
         return redirect()->route('admin');
-
     }
 
     /* ACTUALIZACIÓN DE STAFF */
@@ -161,7 +201,6 @@ class StaffController extends Controller
     {
 
         $id = $request->input('deleteButton');
-
         $staff = Usuario::where('id_usuario', $id)->first();
 
         if ($staff) {
