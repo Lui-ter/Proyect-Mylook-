@@ -1,0 +1,362 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
+}
+
+/* VARIABLES A UTILIZAR*/
+:root {
+    --color-primary: #a68160;
+    --color-secondary: #f2f2f2;
+    --color-white: white;
+    --color-black: black;
+}
+
+main {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .configuracion-perfil {
+        height: 90vh;
+        width: 90vw;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 7fr;
+
+        & .encabezado {
+            height: 12vh;
+            width: 100%;
+
+            & .titulo-principal {
+                height: 50%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 2em;
+            }
+
+            & .introduccion {
+                height: 50%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                text-align: justify;
+            }
+        }
+
+        & .informacion {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: 1fr;
+            gap: 2em;
+
+            & .datos-personales{
+                height: 100%;
+                width: 100%;
+                padding: 2em 0 0 0;
+                display: grid;
+                gap: 2em;
+                grid-template-columns: 1fr;
+                grid-template-rows: 7fr 3fr 1fr;
+
+                & .contenedor-columnas {
+                    height: 100%;
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: 1fr 1fr 1fr;
+                    gap: 2em 3em;
+                }
+
+                & .contenedor-campos, .campos {
+                    height: 100%;
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 1fr 2fr;
+                }
+
+                & .campo-condicion {
+                    height: 100%;
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 1fr 3fr;
+
+                    & #condicionUser {
+                        height: 90%;
+                        width: 100%;
+                        min-height: 90%;
+                        max-height: 90%;
+                        resize: none;
+                        padding: .7em;
+                        border: none;
+                        border-radius: .6em;
+                    } 
+
+                    & #condicionUser:focus {
+                        border: 1.5px solid var(--color-primary);
+                    }
+                }
+
+                & .titulo-input {
+                    height: 100%;
+                    width: 100%;
+                    font-size: 1em;
+                    font-weight: bold;
+                    color: var(--color-primary);
+                }
+
+                & .input-registro {
+                    height: 80%;
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    padding: .7em;
+                    border-radius: .6em;
+                    background-color: var(--color-secondary);
+                }
+
+                & .input-registro:focus {
+                    border: 1.5px solid var(--color-primary) !important;
+                    box-shadow: none !important;
+                }
+
+                & .contenedor-boton {
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    justify-content: right;
+                    
+                    & .boton {
+                        height: 5vh;
+                        width: 20%;
+                        border-radius: .6em;
+                        font-weight: bold;
+                        cursor: pointer;
+                        background-color: var(--color-primary);
+                        color: var(--color-white);
+                        border: 1.5px solid var(--color-primary );
+                    }
+                }
+            }
+
+            & .contenedor-foto {
+                border-left: 1.5px solid var(--color-primary);
+                height: 78vh;
+                width: 100%;
+                padding: 2em 0 5.4em 2em;
+                display: grid;
+                gap: 2em;
+                grid-template-columns: 1fr;
+                grid-template-rows: 5fr 1fr 1fr;
+
+                & .foto-perfil {
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    border-radius: .5em;
+                    border: 1.5px solid var(--color-primary);
+                    background-color: var(--color-secondary);
+
+                    & .imagen {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                        border-radius: .5em;
+                    }
+                }
+
+                & .campo-foto {
+                    height: 6vh;
+                    width: 100%;
+
+                    & .foto {
+                        height: 100%;
+                        width: 100%;
+                        border-radius: .5em;
+                        display: flex;
+                        align-items: center;
+                        gap: 1em;
+                        cursor: pointer;
+                        color: var(--color-primary);
+                        background-color: var(--color-secondary);
+                    }
+
+                    & .icono {
+                        height: 100%;
+                        width: 13%;
+                        border-radius: 50%;
+                        font-size: 180%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: var(--color-secondary);
+                    }
+
+                    & .imagen-input {
+                        height: 100%;
+                        width: 90%;
+                        display: flex;
+                        align-items: center;
+                        font-weight: bold;
+                        font-size: 1em;
+                    }
+        
+                    & .input-foto {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    main {
+        height: auto;
+        width: auto;
+
+        & .configuracion-perfil {
+            height: auto;
+            width: 100% ;
+            padding: 1em;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 10fr;
+            justify-content: center;
+
+            & .encabezado {
+                height: 13vh;
+                width: 100%;
+                display: grid;
+                gap: 1em;
+
+                & .titulo-principal {
+                    height: 50%;
+                    width:100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 1em;
+                }
+
+                & .introduccion {
+                    height: 50%;
+                    width: 100%;
+                    font-size: .9em;
+                    display: flex;
+                    align-items: center;
+                    text-align: justify;
+                }
+
+            }
+
+            & .informacion {
+                height: 100%;
+                width: 100%;
+                display: grid;
+                justify-content: center;
+                gap: 1em;
+                grid-template-columns: 1fr;
+                grid-template-rows: 3fr 4fr;
+
+                & .contenedor-foto {
+                    grid-row: 1;
+                    height: 54vh;
+                    width: 100%;
+                    display: grid;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1em;
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 4fr 1fr;
+                    padding: 1em 5em;
+                    border-bottom: 1.5px solid var(--color-primary);
+                    border-left: none;
+
+                    & .foto-perfil {
+                        height: 100%;
+                        width: 100%;
+                    }
+
+                    & .campo-foto {
+                        width: 100%;
+        
+                        & .foto {
+                            height: 100%;
+                            width: 100%;
+                            padding: .5em;
+                        }
+        
+                        & .imagen-input {
+                            height: 100%;
+                            width: 90%;
+                            font-size: 1em;
+                        }
+        
+                    }
+                }
+
+                & .datos-personales {
+                    height: 73vh;
+                    width: 100%;
+                    display: grid;
+                    grid-auto-columns: 1fr;
+                    grid-auto-rows: 5fr 4fr 5fr 4fr;
+                    gap: 1.5em;
+                    padding: 0;
+
+                    & .contenedor-columnas {
+                        height: 100%;
+                        width: 100%;
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        grid-template-rows: 1fr;
+                        gap: 1.5em;
+                    }
+
+                    & .campo-condicion {
+                        height: 100%;
+                        width: 100%;
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        grid-template-rows: 1fr 2fr;
+
+                        & #condicionUser {
+                            width: 100%;
+                            height: 100%;
+                            min-height: 100%;
+                            max-height: 100%;
+                            resize: none;
+                            padding: .7em;
+                            border: none;
+                            border-radius: .6em;
+                        } 
+
+                    }
+
+                    & .contenedor-botones {
+                        width: 100%;
+                        align-items: end;
+
+                        & .botones {
+                            height: 5vh;
+                            width: 30%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

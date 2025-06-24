@@ -24,118 +24,6 @@
     padding: 1em 3.5em;
     justify-content: center;
 
-    & .contenedor-carta {
-        display: grid;
-        justify-content: center;
-
-        & .visualizacion {
-            border: 1.6px solid var(--color-primary);
-            height: 85vh;
-            width: 36vw;
-            border-radius: 1em;
-            display: grid;
-            justify-content: center;
-            align-items: center;
-            grid-template-rows: 2fr 1.5fr;
-            grid-template-columns: 1fr;
-            gap: 1.5em;
-            padding: 1.5em;
-
-            & .imagen-carta {
-                height: 43vh;
-                width: 33vw;
-                border: 1.6px solid var(--color-primary);
-                background-color: var(--color-secondary);
-                border-radius: 1em;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                overflow: hidden;
-
-                & .imagen-vista {
-                    height: 100%;
-                    width: 33vw;
-                    object-fit: cover;
-                    border-radius: 1em;
-                    display: none;
-                }
-            }
-
-            & .detalles-carta {
-                height: 32vh;
-                width: 33vw;
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr 4fr 3fr;
-                gap: 1em;
-
-                & .nombre-vista {
-                    height: 100%;
-                    width: 33vw;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: var(--color-primary);
-                    font-weight: 800;
-                }
-
-                & .descripcion-vista {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 5;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: normal;
-                    line-height: 1.4em;
-                    max-height: calc(1.4em * 5);
-                    word-break: break-word;
-                    overflow-wrap: break-word;
-                }
-
-                & .componentes {
-                    height: 100%;
-                    width: 33vw;
-                    display: grid;
-                    grid-template-columns: 1fr 2fr;
-                    grid-template-rows: 1fr;
-                    gap: 1em;
-
-                    & .componentes-titulos {
-                        height: 100%;
-                        width: 100%;
-                        display: grid;
-                        grid-template-rows: 1fr 1fr 1fr;
-                        gap: .5em;
-
-                        & .titulo-detalles {
-                            height: 100%;
-                            width: 100%;
-                            font-weight: bold;
-                            color: var(--color-primary);
-                        }
-
-                        & .elementos {
-                            height: 100%;
-                            width: 100%;
-                            min-width: 100%;
-                            max-width: 6ch;
-                            text-align: end;
-                            resize: none;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                        }
-                    }
-                }
-
-            }
-        }
-
-        & .botones1 {
-            display: none;
-        }
-    }
-
     & .contenedor-informacion {
         height: 85vh;
         width: 55vw;
@@ -295,6 +183,119 @@
             }
         }
     }
+
+    & .contenedor-carta {
+        display: grid;
+        justify-content: center;
+
+        & .visualizacion {
+            border: 1.6px solid var(--color-primary);
+            height: 85vh;
+            width: 36vw;
+            border-radius: 1em;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            grid-template-rows: 2fr 1.5fr;
+            grid-template-columns: 1fr;
+            gap: 1.5em;
+            padding: 1.5em;
+
+            & .imagen-carta {
+                height: 43vh;
+                width: 33vw;
+                border: 1.6px solid var(--color-primary);
+                background-color: var(--color-secondary);
+                border-radius: 1em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+
+                & .imagen-vista {
+                    height: 100%;
+                    width: 33vw;
+                    object-fit: cover;
+                    border-radius: 1em;
+                    display: none;
+                }
+            }
+
+            & .detalles-carta {
+                height: 32vh;
+                width: 33vw;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 4fr 3fr;
+                gap: 1em;
+
+                & .nombre-vista {
+                    height: 100%;
+                    width: 33vw;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--color-primary);
+                    font-weight: 800;
+                }
+
+                & .descripcion-vista {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 5;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: normal;
+                    line-height: 1.4em;
+                    max-height: calc(1.4em * 5);
+                    word-break: break-word;
+                    overflow-wrap: break-word;
+                }
+
+                & .componentes {
+                    height: 100%;
+                    width: 33vw;
+                    display: grid;
+                    grid-template-columns: 1fr 2fr;
+                    grid-template-rows: 1fr;
+                    gap: 1em;
+
+                    & .componentes-titulos {
+                        height: 100%;
+                        width: 100%;
+                        display: grid;
+                        grid-template-rows: 1fr 1fr 1fr;
+                        gap: .5em;
+
+                        & .titulo-detalles {
+                            height: 100%;
+                            width: 100%;
+                            font-weight: bold;
+                            color: var(--color-primary);
+                        }
+
+                        & .elementos {
+                            height: 100%;
+                            width: 100%;
+                            min-width: 100%;
+                            max-width: 6ch;
+                            text-align: end;
+                            resize: none;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        & .botones1 {
+            display: none;
+        }
+    }
+
 }
 
 @media (max-width: 1000px) {

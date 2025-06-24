@@ -5,100 +5,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>configurar mi perfil</title>
     <link rel="stylesheet" href="{{ asset('Css/Config/administrador/configuracionPerfil.css') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Configurar mi perfil</title>
 
 </head>
 
 <body>
     <main>
         <!--FORMULARIO PARA REGISTRAR USUARIOS COMO ADMINISTRADORES -->
-        <form action="{{ route('userUpdate') }}" method="POST" class="configuracionPerfil formulario active"
+        <form action="{{ route('userUpdate') }}" method="POST" class="configuracion-perfil formulario active"
             id="form1" enctype="multipart/form-data" onsubmit="handleValidationUser(event)">
             @method('PUT')
             @csrf
-            <!-- titulo formulario  -->
-            <h2 class="tituloPrincipal">CONFIGURACION PERFIL</h2>
-            <!-- descripcion Formulario -->
-            <p>
-                En este apartado podrás ingresar tu información personal de forma
-                fácil y rápida. Esto te permitirá mantener tus datos actualizados
-                en todo momento
-            </p>
-            <!-- contenedor de inputs -->
-            <section class="formularioPerfil">
-                <div class="informacionInput">
-                    <p class="nombreInput">DOCUMENTO</p>
-                    <input type="number" class="inputDocumento" id="idUser" name="idUser"
-                        placeholder="Ingrese su documento" value="{{ $usuario->id_usuario }}" readonly>
-                </div>
 
-                <div class="informacionInput">
-                    <p class="nombreInput">NOMBRE</p>
-                    <input type="text" class="inputNombre" id="nombreUser" name="nombreUser"
-                        placeholder="Ingrese su nombre" value="{{ $usuario->nombre }}" readonly>
-                </div>
+            <div class="encabezado">
+                <h2 class="titulo-principal">CONFIGURACIÓN PERFIL</h2>
+                <p class="introduccion">En este apartado podrás ingresar tu información personal de forma fácil y rápida. Esto te permitirá mantener tus datos actualizados en todo momento</p>
+            </div>
 
-                <div class="informacionInput">
-                    <p class="nombreInput">APELLIDO</p>
-                    <input type="text" class="inputApellido" id="apellidoUser" name="apellidoUser"
-                        placeholder="Ingrese su apellido" value="{{ old('apellidoUser') }}">
-                    @error('apellidoUser')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+            <div class="informacion">
+                <div class="datos-personales">
+                    <div class="contenedor-columnas">
+                         <div class="campos">
+                            <p class="titulo-input">DOCUMENTO</p>
+                            <input type="number" class="input-registro" id="idUser" name="idUser" value="{{ $usuario->id_usuario }}" readonly>
+                        </div>
 
-                <div class="informacionInput">
-                    <p class="nombreInput">CORREO</p>
-                    <input type="text" class="inputCorreo" id="correoUser" name="correoUser"
-                        placeholder="Ingrese su correo" value="{{ old('correoUser') }}">
-                    @error('correoUser')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+                        <div class="campos">
+                            <p class="titulo-input">TELÉFONO</p>
+                            <input type="number" class="input-registro" id="telefonoUser" name="telefonoUser" value="{{ old('telefonoUser') }}">
+                            @error('telefonoUser')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                <div class="informacionInput">
-                    <p class="nombreInput">TELEFONO</p>
-                    <input type="number" class="inputTelefono" id="telefonoUser" name="telefonoUser"
-                        placeholder="Ingrese su teléfono" value="{{ old('telefonoUser') }}">
-                    @error('telefonoUser')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+                        <div class="campos">
+                            <p class="titulo-input">NOMBRE</p>
+                            <input type="text" class="input-registro" id="nombreUser" name="nombreUser" value="{{ $usuario->nombre }}" readonly>
+                        </div>
 
-                <figure>
-                    <input type="file" name="imagenPerfil" id="fileInput" accept="image/*" />
-                    <img id="previsualizacionImagen"
-                    src="https://i.postimg.cc/C1wVVT7L/usuario-de-perfil-1.png"
+                        <div class="campos">
+                            <p class="titulo-input">APELLIDO</p>
+                            <input type="text" class="input-registro" id="apellidoUser" name="apellidoUser" value="{{ old('apellidoUser') }}">
+                            @error('apellidoUser')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
 
-                    alt="Imagen de perfil" />
-                </figure>
+                    <div class="contenedor-campos">
+                        <p class="titulo-input">CORREO</p>
+                        <input type="text" class="input-registro" id="correoUser" name="correoUser" value="{{ old('correoUser') }}">
+                        @error('correoUser')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="informacionInput">
-                    @error('imagenPerfil')
-                    <center>
-                        <div class="error">{{ $message }}</div>
-                    </center>
-                    @enderror
-                    <div class="informacionInput">
-                        <p class="nombreInput">CONDICION</p>
-                        <input type="text" class="inputCondicion" id="condicionUser" name="condicionUser"
-                            placeholder="Ingrese su condicion" value="{{ old('condicionUser') }}">
+                    <div class="contenedor-campos campo-condicion">
+                        <p class="titulo-input">CONDICIÓN</p>
+                        <textarea type="text" class="input-registro" id="condicionUser" name="condicionUser">{{ old('condicionUser') }}</textarea>
                         @error('condicionUser')
                             <div class="error">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-            </section>
 
-            <div class="contenedorBoton">
-                <button type="submit" class="botonContinuar">ACTUALIZAR</button>
+                    <div class="contenedor-boton">
+                        <button type="submit" class="boton" id="botonGuardar">GUARDAR</button>
+                    </div>
+                </div>
+
+                <div class="contenedor-foto">
+                    <div class="foto-perfil">
+                        <img class="imagen" id="previsualizacionImagen" src="https://i.postimg.cc/C1wVVT7L/usuario-de-perfil-1.png" alt="Imagen de perfil" />
+                    </div>
+
+                    <div class="campo-foto">
+                        <label for="fileInput" class="foto">
+                            <i class="bi bi-camera icono"></i>
+                            <span class="texto-input imagen-input">SELECCIONA LA IMAGEN</span>
+                        </label>
+                        <input type="file" name="imagenPerfil" id="fileInput" class="input-foto" accept="image/*" onchange="updateProfileImage(event)" src="{{ $usuario->img_usuario ? $usuario->img_usuario : '' }}">
+                    </div>
+    
+                    <div class="informacionInput">
+                        @error('imagenPerfil')
+                        <center>
+                            <div class="error">{{ $message }}</div>
+                        </center>
+                        @enderror
+                    </div>
+                </div>
             </div>
         </form>
     </main>
 </body>
+
 <script src="{{ asset('Js/Validacion/formValidations.js') }}"></script>
 <script>
     document.getElementById('fileInput').addEventListener('change', function(event) {

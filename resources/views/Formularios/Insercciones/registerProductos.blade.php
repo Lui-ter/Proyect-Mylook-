@@ -37,44 +37,6 @@
                 <input type="hidden" name="editProduct" value="true">
             @endif
 
-            <!-- CONTENEDOR PREVISUALIZACIÓN -->
-            <div class="contenedor-carta">
-
-                <div class="visualizacion">
-                    <!-- CONTENEDOR DE LA IMAGEN -->
-                    <div class="imagen-carta">
-                        <img class="imagen-vista" id="imagenVisualizacion" src="{{ $producto->img_prod ?? 'https://i.postimg.cc/RVghsGMH/agregar-producto.png' }}">
-                    </div>
-
-                    <!-- CONTENEDOR DETALLES -->
-                    <div class="detalles-carta">
-                        <h2 id="previewNombre" class="nombre-vista">{{ $producto->nombre_prod ?? 'NOMBRE' }}</h2>
-                        <p id="previewDescripcion" class="descripcion-vista">{{ $producto->desc_prod ?? 'Descripción...' }}
-                        </p>
-
-                        <div class="componentes">
-                            <div class="componentes-titulos">
-                                <p class="titulo-detalles">MARCA</p>
-                                <p class="titulo-detalles">CANTIDAD</p>
-                                <p class="titulo-detalles">VALOR</p>
-                            </div>
-
-                            <div class="componentes-titulos">
-                                <p class="elementos">{{ $producto->nom_marca ?? '' }}</p>
-                                <p class="elementos">{{ $producto->stock ?? '' }}</p>
-                                <p class="elementos">{{ $producto->valor_prod ?? '' }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contenedor-botones botones1">
-                    <button type="button" class="botones" id="botonCancelar"
-                        onclick="window.history.back();">CANCELAR</button>
-                    <button type="submit" class="botones" id="botonGuardar">GUARDAR</button>
-                </div>
-            </div>
-
             <!-- CONTENEDOR DE INSERCIÓN DE INFORMACIÓN -->
             <div class="contenedor-informacion">
 
@@ -141,6 +103,45 @@
 
 
             </div>
+
+            <!-- CONTENEDOR PREVISUALIZACIÓN -->
+            <div class="contenedor-carta">
+
+                <div class="visualizacion">
+                    <!-- CONTENEDOR DE LA IMAGEN -->
+                    <div class="imagen-carta">
+                        <img class="imagen-vista" id="imagenVisualizacion" src="{{ $producto->img_prod ?? '' }}">
+                    </div>
+
+                    <!-- CONTENEDOR DETALLES -->
+                    <div class="detalles-carta">
+                        <h2 id="previewNombre" class="nombre-vista">{{ $producto->nombre_prod ?? 'NOMBRE' }}</h2>
+                        <p id="previewDescripcion" class="descripcion-vista">{{ $producto->desc_prod ?? 'Descripción...' }}
+                        </p>
+
+                        <div class="componentes">
+                            <div class="componentes-titulos">
+                                <p class="titulo-detalles">MARCA</p>
+                                <p class="titulo-detalles">CANTIDAD</p>
+                                <p class="titulo-detalles">VALOR</p>
+                            </div>
+
+                            <div class="componentes-titulos">
+                                <p class="elementos">{{ $producto->nom_marca ?? '' }}</p>
+                                <p class="elementos">{{ $producto->stock ?? '' }}</p>
+                                <p class="elementos">{{ $producto->valor_prod ?? '' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contenedor-botones botones1">
+                    <button type="button" class="botones" id="botonCancelar"
+                        onclick="window.history.back();">CANCELAR</button>
+                    <button type="submit" class="botones" id="botonGuardar">GUARDAR</button>
+                </div>
+            </div>
+
         </form>
     </main>
     <script src="{{ asset('Js/Insercciones/inserccionProductos.js') }}"></script>

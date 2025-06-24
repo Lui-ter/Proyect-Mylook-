@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('Css/Config/configUsuarios.css') }}">
+    <link rel="stylesheet" href="{{ asset('Css/Config/configPerfil.css') }}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('logo.svg') }}">
     <link rel="stylesheet" href="{{ asset('Css/validaciones.css') }}">
     <title>Configuracion de usuarios</title>
@@ -23,29 +23,17 @@
 
     <main>
         <form action="{{ route('updateUsers', ['id' => $usuario->id_usuario]) }}" method="POST"
-            onsubmit="handleValidationConfigUser(event)" class="configuracion-usuario" enctype="multipart/form-data">
+            onsubmit="handleValidationConfigUser(event)" class="configuracion-perfil" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            <h1 class="titulo">CONFIGURACIÓN DE USUARIO</h1>
-            <p class="introduccion">En este apartado podrás consultar y modificar tu información personal. Asegúrate de revisar y actualizar tus datos con regularidad para garantizar que todo esté correcto.</p>
+
+            <div class="encabezado">
+                <h1 class="titulo">CONFIGURACIÓN DE USUARIO</h1>
+                <p class="introduccion">En este apartado podrás consultar y modificar tu información personal. Asegúrate de revisar y actualizar tus datos con regularidad para garantizar que todo esté correcto.</p>
+            </div>
 
             <div class="informacion">
-                <div class="contenedor-foto">
-                    <div class="foto-perfil">
-                        <img class="imagen" id="imagenVisualizacion" src="{{ $usuario->img_usuario ? 'data:image/jpeg;base64,' . base64_encode($usuario->img_usuario) : 'https://i.postimg.cc/Fsr1VwQv/usuario-de-perfil.png' }}" alt="Imagen de perfil">
-                    </div>
-
-                    <div class="campo-foto">
-                        <label for="fileInput" class="foto">
-                            <i class="bi bi-camera icono"></i>
-                            <span class="texto-input imagen-input">SELECCIONA LA IMAGEN</span>
-                        </label>
-                        <input type="file" name="imagenPerfil" id="fileInput" class="input-foto" accept="image/*" onchange="updateProfileImage(event)">
-                    </div>
-                </div>
-
-
                 <div class="datos-personales">
                     <div class="contenedor-columnas">
                         <div class="campos">
@@ -74,9 +62,9 @@
                         <input type="text" name="correoUsuario" id="correoUsuario" class="input-usuario" value="{{ $usuario->correo }}">
                     </div>
 
-                    <div class="contenedor-campos">
+                    <div class="contenedor-campos campo-condicion">
                         <p class="titulo-input">CONDICIÓN</p>
-                        <input type="text" name="condicionUsuario" id="condicionUsuario" class="input-usuario" value="{{ $usuario->condicion }}">
+                        <textarea type="text" name="condicionUsuario" id="condicionUsuario" class="input-usuario">{{ $usuario->condicion }}</textarea>
                     </div>
 
                     <div class="contenedor-botones">
@@ -84,6 +72,20 @@
                         <button type="submit" class="botones" id="botonGuardar">GUARDAR</button>
                     </div>
 
+                </div>
+
+                <div class="contenedor-foto">
+                    <div class="foto-perfil">
+                        <img class="imagen" id="imagenVisualizacion" src="{{ $usuario->img_usuario ? 'data:image/jpeg;base64,' . base64_encode($usuario->img_usuario) : '' }}" alt="Imagen de perfil">
+                    </div>
+
+                    <div class="campo-foto">
+                        <label for="fileInput" class="foto">
+                            <i class="bi bi-camera icono"></i>
+                            <span class="texto-input imagen-input">SELECCIONA LA IMAGEN</span>
+                        </label>
+                        <input type="file" name="imagenPerfil" id="fileInput" class="input-foto" accept="image/*" onchange="updateProfileImage(event)" src="{{ $usuario->img_usuario ? $usuario->img_usuario : '' }}">
+                    </div>
                 </div>
             </div>
         </form>

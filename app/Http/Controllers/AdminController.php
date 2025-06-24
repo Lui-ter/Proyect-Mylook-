@@ -379,7 +379,7 @@ class AdminController extends Controller
             $fotoAdmin = base64_encode($staffAdmin->usuario->img_usuario);
 
         // Aqui a travez de la relacion que existe en el modelo obtengo los datos del usuario y se pasan a la vista junto con su imagen decodificada
-            return view($configAdminView, [
+            return view($configAdminView, $this->notificacionUsuario() +$this->cargarDatosIndex(),[
                 'usuarioAdmin' => $staffAdmin->usuario,
                 'fotoAdmin' => $fotoAdmin
             ]);
