@@ -143,8 +143,8 @@ class NegociosController extends Controller
             'id_usuario' => 'required|numeric',
             'nombreNegocio' => 'nullable|string',
             'descripcionNegocio' => 'required|string',
-            'img_portada' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
-            'img_logo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+            'img_portada' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:3072',
+            'img_logo' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:3072'
         ]);
         // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla en la tabla si no dejara el campo como null
         $descripcion = $request->descripcionNegocio ?? $negocioData->desc_negocio;

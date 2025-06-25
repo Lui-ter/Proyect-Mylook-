@@ -14,16 +14,10 @@ const regexDocumentoUsuario = /^[0-9]{7,}$/; // Solo números, mínimo 10 dígit
 function handleValidationCategory(event) {
     event.preventDefault();
 
-    const nombreCategoria = document
-        .getElementById("nombreCategoria")
-        ?.value.trim();
-    const descripcionCategoria = document
-        .getElementById("descripcion")
-        ?.value.trim();
+    const nombreCategoria = document.getElementById("nombreCategoria")?.value.trim();
+    const descripcionCategoria = document.getElementById("descripcion")?.value.trim();
     const imagenCategoria = document.getElementById("imagen")?.files[0];
-    const editProduct = document.querySelector(
-        'input[name="editProduct"]'
-    )?.value;
+    const editProduct = document.querySelector('input[name="editProduct"]')?.value;
 
     const alertContainer = document.getElementById("alertContainer");
     if (alertContainer) {
@@ -46,32 +40,32 @@ function handleValidationCategory(event) {
         }, 3500);
     }
 
-    if (
-        !nombreCategoria ||
-        !descripcionCategoria ||
-        (!imagenCategoria && !editProduct)
-    ) {
+    if (!nombreCategoria || !descripcionCategoria || (!imagenCategoria && !editProduct)) {
         showError("¡Faltan campos por llenar!");
         return;
     }
 
     if (!regexNombre.test(nombreCategoria)) {
-        showError(
-            "¡El nombre de la categoría solo puede contener letras y espacios!"
-        );
+        showError("¡El nombre de la categoría solo puede contener letras y espacios!");
         return;
     }
 
     if (!regexDescripcion.test(descripcionCategoria)) {
-        showError(
-            "¡La descripción solo puede contener letras, números y signos básicos!"
-        );
+        showError("¡La descripción solo puede contener letras, números y signos básicos!");
         return;
     }
 
-    if (imagenCategoria && !tiposImgPermitidos.test(imagenCategoria.type)) {
-        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
-        return;
+    if (imagenCategoria) {
+        if (!tiposImgPermitidos.test(imagenCategoria.type)) {
+            showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
+            return;
+        }
+
+        const tamanoMB = imagenCategoria.size / (1024 * 1024);
+        if (tamanoMB > 3) {
+            showError("¡La imagen no puede pesar más de 2 MB!");
+            return;
+        }
     }
 
     event.target.submit();
@@ -756,12 +750,8 @@ function handleValidationUpdateAdmin(event) {
 
     const documentoAdmin = document.getElementById("idAdmin")?.value.trim();
     const nombreAdmin = document.getElementById("nombreAdmin")?.value.trim();
-    const apellidoAdmin = document
-        .getElementById("apellidoAdmin")
-        ?.value.trim();
-    const telefonoAdmin = document
-        .getElementById("telefonoAdmin")
-        ?.value.trim();
+    const apellidoAdmin = document.getElementById("apellidoAdmin")?.value.trim();
+    const telefonoAdmin = document.getElementById("telefonoAdmin")?.value.trim();
     const correoAdmin = document.getElementById("correoAdmin")?.value.trim();
     const imagenAdmin = document.getElementById("fileInput")?.files[0];
 
@@ -814,9 +804,16 @@ function handleValidationUpdateAdmin(event) {
         showError("¡El correo electrónico no tiene un formato válido!");
         return;
     }
-    if (imagenAdmin && !tiposImgPermitidos.test(imagenAdmin.type)) {
-        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
-        return;
+     if (imagenAdmin) {
+        if (!tiposImgPermitidos.test(imagenAdmin.type)) {
+            showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
+            return;
+        }
+        const tamanoMB = imagenAdmin.size / (1024 * 1024);
+        if (tamanoMB > 3) {
+            showError("¡La imagen no puede pesar más de 3 MB!");
+            return;
+        }
     }
     event.target.submit();
 }
@@ -914,14 +911,28 @@ function handleValidationUpdateNegocioOne(event) {
         return;
     }
 
-    if (imagenPerfil && !tiposImgPermitidos.test(imagenPerfil.type)) {
-        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
-        return;
+    if (imagenPerfil) {
+        if (!tiposImgPermitidos.test(imagenPerfil.type)) {
+            showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG) para la imagen de perfil!");
+            return;
+        }
+        const tamanoMB = imagenPerfil.size / (1024 * 1024);
+        if (tamanoMB > 3) {
+            showError("¡La imagen de perfil no puede pesar más de 3 MB!");
+            return;
+        }
     }
 
-    if (imagenPortada && !tiposImgPermitidos.test(imagenPortada.type)) {
-        showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG)!");
-        return;
+    if (imagenPortada) {
+        if (!tiposImgPermitidos.test(imagenPortada.type)) {
+            showError("¡Solo se permiten archivos de imagen (JPEG, PNG, JPG) para la imagen de portada!");
+            return;
+        }
+        const tamanoMB = imagenPortada.size / (1024 * 1024);
+        if (tamanoMB > 3) {
+            showError("¡La imagen de portada no puede pesar más de 3 MB!");
+            return;
+        }
     }
 
     if (!regexDescripcion.test(descripcionNegocio)) {

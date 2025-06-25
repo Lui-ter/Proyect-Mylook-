@@ -265,7 +265,7 @@ class AdminController extends Controller
             'apellidoAdmin' => 'required|string|max:30',
             'correoAdmin' => 'nullable|email|unique:usuario,correo,' . $id . ',id_usuario',
             'telefonoAdmin' => 'nullable|string|max:15|regex:/^\d+$/',
-            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+            'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:3072'
         ]);
 
         // Aqui se verifica si el usuario cargo una imagen y si lo hizo la convierte en binario para almacenarla y actualizarla en la tabla si no pues se deja la que tiene registrada

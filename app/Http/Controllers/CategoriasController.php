@@ -63,7 +63,7 @@ private function notificacionUsuario(){
             'idEstablecimiento' => 'required|numeric|exists:establecimiento,id_establc',
             'nombreCategoria' => 'required|string',
             'descripcionCategoria' => 'required|string',
-            'imgCategoria' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+            'imgCategoria' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:3072'
         ]);
 
         if($request->hasFile('imgCategoria')){
@@ -98,7 +98,7 @@ private function notificacionUsuario(){
         $request->validate([
             'nombreCategoria' => 'required|string',
             'descripcionCategoria' => 'required|string',
-            'imgCategoria' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'
+            'imgCategoria' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:3072'
         ]);
 
         $categoria = Categoria::where('id_categoria', $id)->firstOrFail();
