@@ -72,7 +72,7 @@
                                 <div class="error">{{ $validationErrors->first('img_portada') }}</div>
                             @endif
                         <img id="imagenFondo" class="imagen-fondo"
-                            src="https://img.freepik.com/fotos-premium/diseno-fondo-abstracto-hd-color-verde-oliva_851755-74064.jpg"
+                            src="{{ asset('seleccionarPortada.svg') }}"
                             alt="Imagen de fondo">
 
                         <!-- Input para el logo (imagen superpuesta) -->
@@ -82,7 +82,7 @@
                                 <div class="error">{{ $validationErrors->first('img_logo') }}</div>
                             @endif
                             <img id="logo"
-                                src="https://cdn-icons-png.flaticon.com/512/85/85488.png"
+                            src="{{ asset('seleccionarImagen.svg') }}"
                                 alt="Logo del negocio">
                         </div>
                         <p class="nombre">{{ $negocio->nombre_negocio ?: 'Nombre' }}</p>
