@@ -141,8 +141,8 @@
 
             $aosAnimacion = match ($loop->index) {
                 0 => 'zoom-in-up',
-                1 => 'fade-up-left',
-                2 => 'fade-up-right',
+                1 => 'zoom-in-up',
+                2 => 'zoom-in-up',
             };
 
             $aosDelay = 100 * ($loop->index + 1);
