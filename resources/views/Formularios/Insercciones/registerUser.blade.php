@@ -79,7 +79,7 @@
 
                 <div class="contenedor-foto">
                     <div class="foto-perfil">
-                        <img class="imagen" id="previsualizacionImagen" src="https://i.postimg.cc/C1wVVT7L/usuario-de-perfil-1.png" alt="Imagen de perfil" />
+                        <img class="imagen" id="previsualizacionImagen" src="https://i.postimg.cc/50FHH151/usuario-de-perfil.png" alt="Imagen de perfil" />
                     </div>
 
                     <div class="campo-foto">
@@ -89,7 +89,7 @@
                         </label>
                         <input type="file" name="imagenPerfil" id="fileInput" class="input-foto" accept="image/*" onchange="updateProfileImage(event)" src="{{ $usuario->img_usuario ? $usuario->img_usuario : '' }}">
                     </div>
-    
+
                     <div class="informacionInput">
                         @error('imagenPerfil')
                         <center>
