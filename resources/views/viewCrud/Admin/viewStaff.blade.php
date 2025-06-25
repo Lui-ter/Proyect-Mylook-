@@ -26,7 +26,7 @@
             </div>
             <div class="searchBar">
                 <i class="fas fa-search"></i>
-                <input type="text" id="inputSearch" class="inputSearch" placeholder="Buscar categorias">
+                <input type="text" id="inputSearch" class="inputSearch" placeholder="Buscar Miembros">
             </div>
         </nav>
 

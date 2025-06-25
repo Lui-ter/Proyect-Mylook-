@@ -118,9 +118,12 @@
                                     <div class="servicios">
                                         @if ($establecimiento->categorias->isNotEmpty())
                                             <h4>Categorías:</h4>
-                                            <ul>
-                                                @foreach ($establecimiento->categorias as $categoria)
-                                                    <li>{{ $categoria->nom_categoria }}</li>
+                                            <ul style="list-style: none; padding-left: 0;">
+                                                @foreach ($establecimiento->categorias->take(2) as $categoria)
+                                                    <li
+                                                        style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        {{ $categoria->nom_categoria }}
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         @else

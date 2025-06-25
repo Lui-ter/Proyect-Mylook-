@@ -23,140 +23,146 @@ class AdminController extends Controller
     // una clase privada  donde estan todos los parametros para que la vista cargue correctamente
     private function cargarDatosIndex()
     {
-    $idNegocio = Auth::guard('negocio')->user()->id_negocio;
-    $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
-    $categorias = Categoria::where('id_establc', $establecimiento)->get()->toArray();
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+        $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
+        $categorias = Categoria::where('id_establc', $establecimiento)
+            ->latest('id_categoria')
+            ->take(3)
+            ->get();
 
-    $productsPreview = Producto::whereIn('id_establc', $establecimiento)
-        ->latest()
-        ->take(3)
-        ->get();
 
-    foreach ($categorias as &$categoria) {
-        if (isset($categoria['imagen'])) {
-            $categoria['imagen'] = 'data:image/png;base64,' . base64_encode($categoria['imagen']);
+        $productsPreview = Producto::whereIn('id_establc', $establecimiento)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        foreach ($categorias as &$categoria) {
+            if (isset($categoria['imagen'])) {
+                $categoria['imagen'] = 'data:image/png;base64,' . base64_encode($categoria['imagen']);
+            }
         }
-    }
 
-    foreach ($productsPreview as &$productPreview) {
-        if (isset($productPreview['img_prod'])) {
-            $productPreview['img_prod'] = 'data:image/png;base64,' . base64_encode($productPreview['img_prod']);
+        foreach ($productsPreview as &$productPreview) {
+            if (isset($productPreview['img_prod'])) {
+                $productPreview['img_prod'] = 'data:image/png;base64,' . base64_encode($productPreview['img_prod']);
+            }
         }
-    }
 
-    $infoStaff = Staff::whereIn('id_establc', $establecimiento)
-        ->where('id_rol', '!=', 1)
-        ->with(['usuario', 'rol'])
-        ->orderBy('id_staff', 'desc')
-        ->get()
-        ->take(3)
-        ->toArray();
+        $infoStaff = Staff::whereIn('id_establc', $establecimiento)
+            ->where('id_rol', '!=', 1)
+            ->with(['usuario', 'rol'])
+            ->orderBy('id_staff', 'desc')
+            ->get()
+            ->take(3)
+            ->toArray();
 
-    foreach ($infoStaff as &$staff) {
-        if (isset($staff['usuario']['img_usuario'])) {
-            $staff['usuario']['img_usuario'] = 'data:image/png;base64,' . base64_encode($staff['usuario']['img_usuario']);
+        foreach ($infoStaff as &$staff) {
+            if (isset($staff['usuario']['img_usuario'])) {
+                $staff['usuario']['img_usuario'] = 'data:image/png;base64,' . base64_encode($staff['usuario']['img_usuario']);
+            }
         }
-    }
 
-    $idNegocio = Auth::guard('negocio')->user()->id_negocio;
-    $Staff_admin = Staff::where('id_negocio', $idNegocio)
-        ->where('id_rol', 1)
-        ->with(['usuario', 'rol'])
-        ->get();
+        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+        $Staff_admin = Staff::where('id_negocio', $idNegocio)
+            ->where('id_rol', 1)
+            ->with(['usuario', 'rol'])
+            ->get();
 
-    foreach ($Staff_admin as $Staff) {
-        if ($Staff->usuario && $Staff->usuario->img_usuario) {
-            $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
-        } else {
-            $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+        foreach ($Staff_admin as $Staff) {
+            if ($Staff->usuario && $Staff->usuario->img_usuario) {
+                $imgStaff = 'data:image/png;base64,' . base64_encode($Staff->usuario->img_usuario);
+            } else {
+                $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
+            }
         }
-    }
 
 
-    $lascitas = Cita::with('staff.usuario', 'usuario', 'reservaServicio.servicio', 'establecimiento', 'reservaProducto.producto')
-        ->whereIn('id_establc', $establecimiento)
-        ->whereIn('estado_cita',['aceptado','pendiente'])
-        ->get();
+        $lascitas = Cita::with('staff.usuario', 'usuario', 'reservaServicio.servicio', 'establecimiento', 'reservaProducto.producto')
+            ->whereIn('id_establc', $establecimiento)
+            ->whereIn('estado_cita', ['aceptado', 'pendiente'])
+            ->get();
 
-    $arreglo = [];
+        $arreglo = [];
 
-    foreach ($lascitas as $cita) {
+        foreach ($lascitas as $cita) {
 
-        $fechaInicio = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita));
-        $fechaFin = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita) + ($cita->duracion_cita * 60));
+            $fechaInicio = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita));
+            $fechaFin = date('Y-m-d\TH:i:s', strtotime($cita->fecha_cita . ' ' . $cita->hora_cita) + ($cita->duracion_cita * 60));
 
-        $arreglo[] = [
-            'title' => $cita->reservaServicio->servicio->nombre_servicio,
-            'start' => $fechaInicio,
-            'end' => $fechaFin,
-            'color' => '#28a745',
-            'empleado' => $cita->staff->usuario->nombre,
-            'usuario' => $cita->usuario->nombre,
-            'establecimiento' => $cita->establecimiento->nombre_establc,
-            'producto' => $cita->reservaProducto->producto?->nombre_prod ?? 'Sin producto',
-            'cantidad' => $cita->reservaProducto->cantidad ?? 'Sin cantidad',
-            'estado' => $cita->estado_cita,
-            'id_cita' => $cita->id_cita,
-        ];
+            $arreglo[] = [
+                'title' => $cita->reservaServicio->servicio->nombre_servicio,
+                'start' => $fechaInicio,
+                'end' => $fechaFin,
+                'color' => '#28a745',
+                'empleado' => $cita->staff->usuario->nombre,
+                'usuario' => $cita->usuario->nombre,
+                'establecimiento' => $cita->establecimiento->nombre_establc,
+                'producto' => $cita->reservaProducto->producto?->nombre_prod ?? 'Sin producto',
+                'cantidad' => $cita->reservaProducto->cantidad ?? 'Sin cantidad',
+                'estado' => $cita->estado_cita,
+                'id_cita' => $cita->id_cita,
+            ];
 
-    }
-    return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo', 'imgStaff');
+        }
+        return compact('categorias', 'productsPreview', 'infoStaff', 'arreglo', 'imgStaff');
 
     }
     //Clase privada para las notificaciones
-    private function notificacionUsuario(){
+    private function notificacionUsuario()
+    {
         if (Auth::guard('usuario')->check()) {
             // Notificaciones de usuario
             $id_usuario = Auth::guard('usuario')->user()->id_usuario;
             $notificaciones = Notificacion::with('cita')
-            ->whereHas('cita', function ($query) use ($id_usuario) {
-                $query->where('id_usuario', $id_usuario);
-            })
-            ->whereIn('estado', ['Aceptado', 'Cancelado'])
-            ->get()
-            ->map(function ($notificacion) {
-                return array_merge(
-                    $notificacion->toArray(),
-                    [
-                        'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                        'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                    ]
-                );
-            })
-            ->toArray();
-        }elseif (Auth::guard('negocio')->check()) {
-        // Notificaciones de negocio
-        $idNegocio = Auth::guard('negocio')->user()->id_negocio;
-        //con el establecimiento consulto
-        $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
-        $notificaciones = Notificacion::with('cita')
-            ->whereIn('id_cita', function ($query) use ($establecimiento) {
-            $query->select('id_cita')
-            ->from('cita')
-            ->whereIn('id_establc', $establecimiento);
-        })
-        ->where('estado', 'Pendiente')
-        ->get()
-        ->map(function ($notificacion) {
+                ->whereHas('cita', function ($query) use ($id_usuario) {
+                    $query->where('id_usuario', $id_usuario);
+                })
+                ->whereIn('estado', ['Aceptado', 'Cancelado'])
+                ->get()
+                ->map(function ($notificacion) {
+                    return array_merge(
+                        $notificacion->toArray(),
+                        [
+                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                        ]
+                    );
+                })
+                ->toArray();
+        } elseif (Auth::guard('negocio')->check()) {
+            // Notificaciones de negocio
+            $idNegocio = Auth::guard('negocio')->user()->id_negocio;
+            //con el establecimiento consulto
+            $establecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc');
+            $notificaciones = Notificacion::with('cita')
+                ->whereIn('id_cita', function ($query) use ($establecimiento) {
+                    $query->select('id_cita')
+                        ->from('cita')
+                        ->whereIn('id_establc', $establecimiento);
+                })
+                ->where('estado', 'Pendiente')
+                ->get()
+                ->map(function ($notificacion) {
 
 
-            return array_merge(
-                $notificacion->toArray(),
-                [
-                    'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
-                    'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
-                ]
-            );
-        })->toArray();
+                    return array_merge(
+                        $notificacion->toArray(),
+                        [
+                            'fecha' => $notificacion->cita ? $notificacion->cita->fecha_cita : null,
+                            'estado' => $notificacion->cita ? $notificacion->cita->estado : null,
+                        ]
+                    );
+                })->toArray();
         } else {
             $notificaciones = [];
         }
         return compact('notificaciones');
     }
 
-/*  INSERCION DE UN USUARIO ADMIN   */
+    /*  INSERCION DE UN USUARIO ADMIN   */
 
-    public function handleAddUserAdmin(Request $request){
+    public function handleAddUserAdmin(Request $request)
+    {
         $registerAdminView = GlobalVariables::$registerAdminView;
         $configNegocio = GlobalVariables::$registerNegocio;
 
@@ -170,28 +176,28 @@ class AdminController extends Controller
             'contrasenaAdmin' => 'required|string',
             'imagenPerfil' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:5120'
         ], [
-    	    'idAdmin.required' => 'El documento del administrador es obligatorio',
-    	    'idAdmin.numeric' => 'El documento debe ser un número',
-    	    'idAdmin.unique' => 'Este documento ya se encuentra registrado',
+            'idAdmin.required' => 'El documento del administrador es obligatorio',
+            'idAdmin.numeric' => 'El documento debe ser un número',
+            'idAdmin.unique' => 'Este documento ya se encuentra registrado',
 
-    	    'nombreAdmin.required' => 'El nombre es obligatorio',
-    	    'nombreAdmin.max' => 'El nombre no puede superar los 30 caracteres',
+            'nombreAdmin.required' => 'El nombre es obligatorio',
+            'nombreAdmin.max' => 'El nombre no puede superar los 30 caracteres',
 
             'apellidoAdmin.required' => 'El apellido es obligatorio',
-    	    'apellidoAdmin.max' => 'El apellido no puede superar los 30 caracteres',
+            'apellidoAdmin.max' => 'El apellido no puede superar los 30 caracteres',
 
-        	'correoAdmin.required' => 'El correo es obligatorio',
-    	    'correoAdmin.email' => 'El correo electrónico no tiene un formato válido',
-        	'correoAdmin.unique' => 'Este correo ya se encuentra registrado',
+            'correoAdmin.required' => 'El correo es obligatorio',
+            'correoAdmin.email' => 'El correo electrónico no tiene un formato válido',
+            'correoAdmin.unique' => 'Este correo ya se encuentra registrado',
 
-        	'telefonoAdmin.required' => 'El telefono es obligatorio',
-    	    'telefonoAdmin.unique' => 'Este telefono ya se encuentra registrado',
+            'telefonoAdmin.required' => 'El telefono es obligatorio',
+            'telefonoAdmin.unique' => 'Este telefono ya se encuentra registrado',
 
-    	    'contrasenaAdmin.required' => 'La contraseña es obligatoria',
+            'contrasenaAdmin.required' => 'La contraseña es obligatoria',
 
-        	'imagenPerfil.image' => 'El archivo debe ser una imagen',
-        	'imagenPerfil.mimes' => 'Solo se permiten imágenes JPG, JPEG, PNG, GIF o WEBP',
-    	    'imagenPerfil.max' => 'La imagen no debe superar los 5MB'
+            'imagenPerfil.image' => 'El archivo debe ser una imagen',
+            'imagenPerfil.mimes' => 'Solo se permiten imágenes JPG, JPEG, PNG, GIF o WEBP',
+            'imagenPerfil.max' => 'La imagen no debe superar los 5MB'
         ]);
 
         // Si hay errores, recarga nuevamente la vista con los errores y datos ingresados
@@ -207,7 +213,8 @@ class AdminController extends Controller
         if ($request->hasFile('imagenPerfil')) {
             $img = $request->file('imagenPerfil');
             $img_usuario = file_get_contents($img->getRealPath());
-        };
+        }
+        ;
 
         // Aqui se crea un nuevo usuario en la tabla falta especificar que es con el rol de administrador
         Usuario::create([
@@ -226,13 +233,14 @@ class AdminController extends Controller
             'id_usuario' => $request->idAdmin
         ]);
 
-        return redirect()->route('negocio' ,['accion' => 'register']);
+        return redirect()->route('negocio', ['accion' => 'register']);
 
     }
 
-// Aqui se hara la actualizacion del usuario con el rol de administrador
+    // Aqui se hara la actualizacion del usuario con el rol de administrador
 
-    public function handleUpdateUserAdmin(Request $request, $id){
+    public function handleUpdateUserAdmin(Request $request, $id)
+    {
         // Obtengo el id del negocio logueado para hacer una validacion
         $idNegocio = Auth::guard('negocio')->user()->id_negocio;
 
@@ -264,7 +272,8 @@ class AdminController extends Controller
         $img_usuario = $usuario->img_usuario;
         if ($request->hasFile('imagenPerfil')) {
             $img_usuario = file_get_contents($request->file('imagenPerfil')->getRealPath());
-        };
+        }
+        ;
 
         // Aqui se hace la actualizacion
         $usuario->update([
@@ -297,7 +306,7 @@ class AdminController extends Controller
         if ($accion === 'index') {
             // Aqui se actualizan las citas que tengan en su estado aceptadas a finalizadas siempre y cuando el tiempo actual sea mayor al de agendamiento
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
-            $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->pluck('id_establc')->first();
+            $idEstablecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc')->first();
             $now = Carbon::now('America/Bogota')->toDateTimeString();
             DB::table('cita')
                 ->where('estado_cita', 'Aceptado')
@@ -366,32 +375,31 @@ class AdminController extends Controller
         } elseif ($accion === 'login') {
             return view($loginAdminView);
         } elseif ($accion === 'config') {
-        // Aqui se obtiene el id del negocio para hacer una consulta y obtener los datos del usuario registrado como administrador a travez de la tabla staff
+            // Aqui se obtiene el id del negocio para hacer una consulta y obtener los datos del usuario registrado como administrador a travez de la tabla staff
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
             $staffAdmin = Staff::where('id_negocio', $idNegocio)
                 ->where('id_rol', 1)
                 ->first();
-        // Aqui valida que efectivamente el usuario a travez de la id capturada tenga el rol de administrador
+            // Aqui valida que efectivamente el usuario a travez de la id capturada tenga el rol de administrador
             if (!$staffAdmin || !$staffAdmin->usuario) {
                 abort(403, 'Acceso denegado, solo el administrador puede acceder');
             }
-        // Aqui se obtiene la imagen almacenada en usuario a travez de la relacion en el modelo
+            // Aqui se obtiene la imagen almacenada en usuario a travez de la relacion en el modelo
             $fotoAdmin = base64_encode($staffAdmin->usuario->img_usuario);
 
-        // Aqui a travez de la relacion que existe en el modelo obtengo los datos del usuario y se pasan a la vista junto con su imagen decodificada
-            return view($configAdminView, $this->notificacionUsuario() +$this->cargarDatosIndex(),[
+            // Aqui a travez de la relacion que existe en el modelo obtengo los datos del usuario y se pasan a la vista junto con su imagen decodificada
+            return view($configAdminView, $this->notificacionUsuario() + $this->cargarDatosIndex(), [
                 'usuarioAdmin' => $staffAdmin->usuario,
                 'fotoAdmin' => $fotoAdmin
             ]);
-        }
-        elseif($accion === 'historial'){
+        } elseif ($accion === 'historial') {
             $idNegocio = Auth::guard('negocio')->user()->id_negocio;
-            $idEstablecimiento = Establecimiento::where('id_negocio',$idNegocio)->pluck('id_establc')->first();
-            $HistorialCitas = Cita::with('staff.usuario','usuario','establecimiento')
-            ->where('id_establc',$idEstablecimiento)
-            ->where('estado_cita','Finalizada')
-            ->get()
-            ->toArray();
+            $idEstablecimiento = Establecimiento::where('id_negocio', $idNegocio)->pluck('id_establc')->first();
+            $HistorialCitas = Cita::with('staff.usuario', 'usuario', 'establecimiento')
+                ->where('id_establc', $idEstablecimiento)
+                ->where('estado_cita', 'Finalizada')
+                ->get()
+                ->toArray();
             //Imagen del staff en el header
             $Staff_admin = Staff::where('id_negocio', $idNegocio)
                 ->where('id_rol', 1)
@@ -405,9 +413,8 @@ class AdminController extends Controller
                     $imgStaff = 'https://elcomercio.pe/resizer/v2/6EET3CTJKFGULGWGFUAVL6LDI4.png?auth=84cb6e3da22c2e6bdaa6eafd1c1d02b9e834412493839dc1e075615b99b9780b&width=1200&height=1200&quality=90&smart=true';
                 }
             }
-            return view($viewHistorialNegocio, compact('HistorialCitas','imgStaff') + $this->notificacionUsuario());
-        }
-         else {
+            return view($viewHistorialNegocio, compact('HistorialCitas', 'imgStaff') + $this->notificacionUsuario());
+        } else {
             return redirect()->route('admin', ['accion' => 'index']);
         }
     }

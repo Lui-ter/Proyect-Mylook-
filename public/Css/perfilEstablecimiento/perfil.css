@@ -148,7 +148,7 @@ main {
               }
             }
 
-           .boton-agendar:hover {
+            .boton-agendar:hover {
               color: var(--color-white);
               background-color: var(--color-primary);
               border: 2px solid var(--color-primary);
@@ -472,6 +472,7 @@ main {
           width: 100%;
           max-height: 8em;
           min-height: 8em;
+          min-width: 8em;
           object-fit: cover;
         }
       }

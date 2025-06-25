@@ -1,4 +1,4 @@
-</html>
+<html>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,11 +12,15 @@
 </head>
 
 <body>
-    @if(session('success'))
-        <script>alert('{{ e(session('success')) }}');</script>
+    @if (session('success'))
+        <script>
+            alert('{{ e(session('success')) }}');
+        </script>
     @endif
-    @if(session('error'))
-        <script>alert('{{ e(session('error')) }}');</script>
+    @if (session('error'))
+        <script>
+            alert('{{ e(session('error')) }}');
+        </script>
     @endif
     <section class="seccion">
         <!-- Volver a index administrador -->
