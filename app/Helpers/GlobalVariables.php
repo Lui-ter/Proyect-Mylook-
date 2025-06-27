@@ -29,11 +29,11 @@ class GlobalVariables
 
     public static $indexUsuarioView = 'Index.indexUsuario';
 
-    public static $contraseñaUsersView = 'Formularios.Login.contraseñaUsers';
+    public static $contrasenaUsersView = 'Formularios.Login.contrasenaUsers';
 
     public static $codigoUsersView = 'Formularios.Login.codigoUsers';
 
-    public static $nuevaContraseñaUsersView = 'Formularios.Login.nuevaContraseñaUsers';
+    public static $nuevaContrasenaUsersView = 'Formularios.Login.nuevaContrasenaUsers';
 
     public static $registerUserView = 'Formularios.Insercciones.registerUser';
 

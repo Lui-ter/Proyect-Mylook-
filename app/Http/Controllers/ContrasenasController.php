@@ -169,15 +169,15 @@ class ContrasenasController extends Controller
     /* Funcion para mostrar las vistas necesarias para modificar la contraseña olvidada de un usuario o negocio */
     public function contrasenasOlvidadas($accion = null)
     {
-        $contraseñaUsersView = GlobalVariables::$contraseñaUsersView;
+        $contrasenaUsersView = GlobalVariables::$contrasenaUsersView;
         $codigoUsersView = GlobalVariables::$codigoUsersView;
-        $nuevaContraseñaUsersView = GlobalVariables::$nuevaContraseñaUsersView;
+        $nuevaContrasenaUsersView = GlobalVariables::$nuevaContrasenaUsersView;
         if ($accion === 'olvidarContrasena') {
-            return view($contraseñaUsersView);
+            return view($contrasenaUsersView);
         } elseif ($accion === 'codeVerificacion') {
             return view($codigoUsersView);
         } elseif ($accion === 'nuevaContrasena') {
-            return view($nuevaContraseñaUsersView);
+            return view($nuevaContrasenaUsersView);
         }
     }
 }
